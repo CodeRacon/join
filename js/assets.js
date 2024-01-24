@@ -1,3 +1,4 @@
+// contains all contact-colors
 const hexColors = [
   '#0038FF',
   '#00BEE8',
