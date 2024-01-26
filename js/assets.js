@@ -1,4 +1,6 @@
-// contains all contact-colors
+/**
+ * Array of hex color values used for contacts and task-categories
+ */
 const hexColors = [
   '#0038FF',
   '#00BEE8',
