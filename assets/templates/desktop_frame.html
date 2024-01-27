@@ -2,14 +2,40 @@
   <div class="top-bar">
     <p>Kanban Project Management Tool</p>
     <div class="corner-icons">
-      <div class="help">
-        <img src="assets/img/icons/general/gray/q_mark.svg" alt="help-menue" />
-      </div>
+      <a href="help.html">
+        <div class="help"></div>
+      </a>
       <div class="user-profile">
-        <p class="initials">MB</p>
+        <!-- add onclick-function 'toggleQuickMenue()'!  -->
+        <p id="user-initials">MB</p>
       </div>
     </div>
   </div>
 </header>
-
-<aside></aside>
+<aside>
+  <div class="logo" id="logo">
+    <img src="assets/img/logo/logo-white.svg" alt="join logo" />
+  </div>
+  <nav>
+    <div class="nav-summary" id="nav-summary">
+      <div class="summary-icon"></div>
+      <p>Summary</p>
+    </div>
+    <div class="nav-add-task" id="nav-add-task">
+      <div class="add-task-icon"></div>
+      <p>Add Task</p>
+    </div>
+    <div class="nav-board" id="nav-board">
+      <div class="board-icon"></div>
+      <p>Board</p>
+    </div>
+    <div class="nav-contacts" id="nav-contacts">
+      <div class="contacts-icon"></div>
+      <p>Contacts</p>
+    </div>
+  </nav>
+  <div class="pp-ln">
+    <a href="privacy_policy.html">Privacy Policy</a>
+    <a href="legal_notice.html">Legal Notice</a>
+  </div>
+</aside>
