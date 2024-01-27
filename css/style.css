@@ -77,13 +77,13 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
-/* body::-webkit-scrollbar {
+body::-webkit-scrollbar {
   width: 0em;
 }
 
 body::-webkit-scrollbar-thumb {
   background-color: transparent;
-} */
+}
 
 /* ################ */
 /* -----HEADER----- */
@@ -140,7 +140,6 @@ header {
   border: solid 3px var(--primary);
   border-radius: 50%;
   cursor: pointer;
-  transition: all 0.1s ease-in-out;
 }
 
 .user-profile:hover {
@@ -160,7 +159,6 @@ header {
   cursor: pointer;
   background-image: url(assets/img/icons/general/gray/q_mark.svg);
   background-size: contain;
-  transition: all 0.1s ease-in-out;
 }
 
 .help:hover {
@@ -324,8 +322,8 @@ table.how-to-join tr {
   padding: 1rem 0;
 }
 
-table.how-to-join td:first-child {
-  vertical-align: text-top;
+table.how-to-join td {
+  vertical-align: top;
 }
 
 .step-nmbr {
@@ -342,7 +340,7 @@ h3 {
   font-size: 1.25rem;
   font-weight: 700;
   margin: 0;
-  padding: 0;
+  padding: 0.25rem 0 0;
 }
 
 /* ############## */
