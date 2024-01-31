@@ -1,67 +1,7 @@
-:root {
-  /* bg = background */
-  --site-bg: #f6f7f8;
-
-  --primary: #2a3647;
-  --secondary: #091931;
-  --accent: #29abe2;
-  /* hvr = hover */
-  --nav-link-hvr: #2a3d59;
-  --nav-link-act: #091931;
-
-  --checkbox-hvr: #edf2fa;
-
-  /* btn = button */
-  /* shdw = shadow */
-  /* td = top-down */
-  --btn-shdw-td: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
-
-  /* ttb = top to bottom */
-  --btn-shdw-ttb: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  --header-shdw-ttb: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
-
-  /* qm = questio-mark */
-  --qm-grey: #a8a8a8;
-
-  --icon-grey: #cdcdcd;
-  --no-task-bg: #a8a8a8;
-  --form-active-border: 1px solid #29abe2;
-  --form-fail-border: 1px solid #ff8190;
-
-  /* txt-col = text color */
-  --form-fail-txt-col: #ff8190;
-
-  /* ma = mailaddress */
-  --contact-ma: #007cee;
-
-  /* set as 'background' - property!!! */
-  --contact-hvr: linear-gradient(180deg, #f9f9f9 0%, #f0f0f0 100%);
-
-  --profile-hvr: rgba(12, 46, 98, 0.1);
-
-  --urgent: #ff3d00;
-  --medium: #ffa800;
-  --low: #7ae229;
-
-  /* small-br = button border-radius */
-  /* for buttons and contacts */
-  --small-br: 0.625rem;
-
-  /* med-br = med border-radius */
-  /* for all tasks in the board (reduced) */
-  --med-br: 1.5rem;
-
-  /* big-br = big border-radius */
-  /* for all slide-in pop-ups like _add contact+_ | _add task+_ and _task-detail-view_ */
-  --big-br: 1.875rem;
-
-  /* refers to menu that shows up when profile in upper-right corner is clicked */
-  --small-menu-br: 1.25rem 0rem 1.25rem 1.25rem;
-}
-
 a {
   text-decoration: none !important;
   cursor: pointer;
+  color: inherit;
 }
 
 body {
@@ -157,12 +97,12 @@ header {
   width: 2rem;
   aspect-ratio: 1 / 1;
   cursor: pointer;
-  background-image: url(assets/img/icons/general/gray/q_mark.svg);
+  background-image: url(/assets/img/icons/general/gray/q_mark.svg);
   background-size: contain;
 }
 
 .help:hover {
-  background-image: url(assets/img/icons/general/gray/q_mark_hover.svg);
+  background-image: url(/assets/img/icons/general/gray/q_mark_hover.svg);
 }
 
 /* ############### */
@@ -227,41 +167,41 @@ nav > div:active {
   align-items: center;
   width: 1.875rem;
   height: 1.875rem;
-  background-image: url(assets/img/icons/general/gray/summary-gray.svg);
+  background-image: url(/assets/img/icons/general/gray/summary-gray.svg);
 }
 
 .nav-summary:hover .summary-icon {
-  background-image: url(assets/img/icons/general/white/summary-white.svg);
+  background-image: url(/assets/img/icons/general/white/summary-white.svg);
 }
 
 .add-task-icon {
   width: 1.875rem;
   height: 1.875rem;
-  background-image: url(assets/img/icons/general/gray/add_task-gray.svg);
+  background-image: url(/assets/img/icons/general/gray/add_task-gray.svg);
 }
 
 .nav-add-task:hover .add-task-icon {
-  background-image: url(assets/img/icons/general/white/add_task-white.svg);
+  background-image: url(/assets/img/icons/general/white/add_task-white.svg);
 }
 
 .board-icon {
   width: 1.875rem;
   height: 1.875rem;
-  background-image: url(assets/img/icons/general/gray/board-gray.svg);
+  background-image: url(/assets/img/icons/general/gray/board-gray.svg);
 }
 
 .nav-board:hover .board-icon {
-  background-image: url(assets/img/icons/general/white/board-white.svg);
+  background-image: url(/assets/img/icons/general/white/board-white.svg);
 }
 
 .contacts-icon {
   width: 1.875rem;
   height: 1.875rem;
-  background-image: url(assets/img/icons/general/gray/contacts-gray.svg);
+  background-image: url(/assets/img/icons/general/gray/contacts-gray.svg);
 }
 
 .nav-contacts:hover .contacts-icon {
-  background-image: url(assets/img/icons/general/white/contacts-white.svg);
+  background-image: url(/assets/img/icons/general/white/contacts-white.svg);
 }
 
 .pp-ln {
@@ -291,6 +231,22 @@ section {
   padding: 6.85rem 6rem 4rem 6rem;
 }
 
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.back-arrow {
+  width: 2rem;
+  height: 2rem;
+  background-image: url(/assets/img/icons/general/other/back_arrow.svg);
+}
+
+.back-arrow:hover {
+  background-image: url(/assets/img/icons/general/other/back_arrow-hover.svg);
+}
+
 h1 {
   font-size: 3.8125rem;
   font-weight: 700;
@@ -303,12 +259,23 @@ h2 {
   margin: 1.5rem 0 1rem;
 }
 
+h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+  padding: 0.25rem 0 0;
+}
+
+h4 {
+  margin: 1rem 0 0;
+}
+
 section.help-section p {
   margin: 0;
 }
 
-span.accentuated {
-  color: var(--accent);
+.accentuated {
+  color: var(--accent) !important;
 }
 
 table.how-to-join {
@@ -326,6 +293,10 @@ table.how-to-join td {
   vertical-align: top;
 }
 
+table.how-to-join td:first-child {
+  padding-top: 0.25rem;
+}
+
 .step-nmbr {
   font-size: 1.6875rem;
   font-weight: 700;
@@ -336,17 +307,80 @@ table.how-to-join td {
   margin-bottom: 1rem;
 }
 
-h3 {
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin: 0;
-  padding: 0.25rem 0 0;
-}
-
-/* ############## */
+/* ############### */
 /* -----LEGAL----- */
-/* ############## */
+/* ############### */
 
 ul {
   padding-left: 1.5rem;
+}
+
+/* ################# */
+/* -----PRIVACY----- */
+/* ################# */
+
+.privacy-section h2 {
+  scroll-margin-top: 7rem;
+}
+
+ul.privacy-list li::marker {
+  color: var(--accent);
+}
+
+/* ################ */
+/* -----START----- */
+/* ################ */
+
+.start-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  padding: 4.25rem 5rem;
+  overflow: hidden;
+}
+
+/* .start-logo {
+  width: 17.125rem;
+  height: 20.8795rem;
+} */
+
+.start-logo {
+  width: 17.125rem;
+  height: 20.8795rem;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: fadeIn 1.5s forwards, moveAndResize 2.65s forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes moveAndResize {
+  0% {
+    width: 17.125rem;
+    height: 20.8795rem;
+  }
+  66% {
+    width: 17.125rem;
+    height: 20.8795rem;
+    top: 50%;
+    left: 50%;
+  }
+  100% {
+    height: 7.625rem;
+    width: 6.25rem;
+    top: calc((7.625rem / 2) + 4.25rem);
+    left: calc((6.25rem / 2) + 5rem);
+  }
 }
