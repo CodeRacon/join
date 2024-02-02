@@ -27,10 +27,55 @@
     <div
       id="frame"
       class="header-template"
-      w3-include-html="templates/desktop_frame.html"></div>
+      w3-include-html="templates/desktop_frame.html"
+    ></div>
 
     <section class="board-section">
       <!-- individual content -->
+      <h1>Add Task</h1>
+
+      <!-- Main-Cotainer für alle Felder -->
+      <div>
+        <!-- container li -->
+        <div>
+          <span>Title*</span>
+          <input type="text" placeholder="Enter a title" required />
+          <!-- -->
+          <span>Description</span>
+          <textarea
+            name="description-text"
+            id="description"
+            cols="30"
+            rows="10"
+          ></textarea>
+          <!-- -->
+          <label for="assign-select">Assigned to</label>
+          <select name="assigned" id="assigned-select">
+            <option value="option-text">Select contacts to assign</option>
+            <option value="a">A</option>
+            <option value="b">B</option>
+            <option value="c">C</option>
+          </select>
+        </div>
+        <!-- Trennlinie zw. li & re -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="2"
+          height="426"
+          viewBox="0 0 2 426"
+          fill="none"
+        >
+          <path
+            d="M1.24805 1L1.24854 425"
+            stroke="#D1D1D1"
+            stroke-linecap="round"
+          />
+        </svg>
+        <!-- container re -->
+        <div>
+          <span>Due Date*</span>
+        </div>
+      </div>
     </section>
   </body>
 </html>
