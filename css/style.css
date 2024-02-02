@@ -122,6 +122,10 @@ section {
   padding: 6.85rem 6rem 4rem 6rem;
 }
 
+.accentuated {
+  color: var(--accent) !important;
+}
+
 /* ################ */
 /* -----HEADER----- */
 /* ################ */
