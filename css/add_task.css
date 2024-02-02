@@ -97,7 +97,7 @@ span {
   display: flex;
   width: 27.5rem;
   flex-direction: column;
-  justify-content: center;
+
   align-items: flex-start;
   gap: 1rem;
 }
@@ -115,7 +115,7 @@ span {
 }
 
 .svg-separator {
-  padding: 0 3.02rem;
+  padding: 0 3.2rem 0 3rem;
 }
 
 .asterisk {
@@ -134,4 +134,10 @@ span {
 
 .description-height {
   height: var(--description-height);
+}
+
+.borders {
+  border-radius: 0.625rem;
+  border: 1px solid var(--Style, #d1d1d1);
+  background: #fff;
 }
