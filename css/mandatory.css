@@ -1,0 +1,174 @@
+/* ################# */
+/* -----GENERAL----- */
+/* ################# */
+
+:root {
+  /* bg = background */
+  --site-bg: #f6f7f8;
+
+  --primary: #2a3647;
+  --secondary: #091931;
+  --accent: #29abe2;
+  /* hvr = hover */
+  --nav-link-hvr: #2a3d59;
+  --nav-link-act: #091931;
+
+  --checkbox-hvr: #edf2fa;
+
+  /* btn = button */
+  /* shdw = shadow */
+  /* td = top-down */
+  --btn-shdw-td: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+
+  /* ttb = top to bottom */
+  --btn-shdw-ttb: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  --header-shdw-ttb: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
+
+  /* qm = questio-mark */
+  --qm-grey: #a8a8a8;
+
+  --icon-grey: #cdcdcd;
+  --no-task-bg: #a8a8a8;
+  --form-active-border: 1px solid #29abe2;
+  --form-fail-border: 1px solid #ff8190;
+
+  /* txt-col = text color */
+  --form-fail-txt-col: #ff8190;
+
+  /* TST */
+
+  /* ma = mailaddress */
+  --contact-ma: #007cee;
+
+  /* set as 'background' - property!!! */
+  --contact-hvr: linear-gradient(180deg, #f9f9f9 0%, #f0f0f0 100%);
+
+  --profile-hvr: rgba(12, 46, 98, 0.1);
+
+  --urgent: #ff3d00;
+  --medium: #ffa800;
+  --low: #7ae229;
+
+  /* small-br = button border-radius */
+  /* for buttons and contacts */
+  --small-br: 0.625rem;
+
+  /* med-br = med border-radius */
+  /* for all tasks in the board (reduced) */
+  --med-br: 1.5rem;
+
+  /* big-br = big border-radius */
+  /* for all slide-in pop-ups like _add contact+_ | _add task+_ and _task-detail-view_ */
+  --big-br: 1.875rem;
+
+  /* refers to menu that shows up when profile in upper-right corner is clicked */
+  --small-menu-br: 1.25rem 0rem 1.25rem 1.25rem;
+}
+
+/* ############## */
+/* -----HELP----- */
+/* ############## */
+
+section {
+  width: calc(100% - 14.5rem);
+  min-height: calc(100vh - 6rem);
+  margin: 6rem 0 auto 14.5rem;
+  padding: 6.85rem 6rem 4rem 6rem;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.back-arrow {
+  width: 2rem;
+  height: 2rem;
+  background-image: url(/assets/img/icons/general/other/back_arrow.svg);
+  cursor: pointer;
+}
+
+.back-arrow:hover {
+  background-image: url(/assets/img/icons/general/other/back_arrow-hover.svg);
+}
+
+h1 {
+  font-size: 3.8125rem;
+  font-weight: 700;
+  margin: 0 0 2rem;
+}
+
+h2 {
+  font-size: 1.6875rem;
+  font-weight: 700;
+  margin: 1.5rem 0 1rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+  padding: 0.25rem 0 0;
+}
+
+h4 {
+  margin: 1rem 0 0;
+}
+
+section.help-section p {
+  margin: 0;
+}
+
+.accentuated {
+  color: var(--accent) !important;
+}
+
+table.how-to-join {
+  border-spacing: 0px 12px;
+  width: 100%;
+  height: fit-content;
+  margin-top: 1rem;
+}
+
+table.how-to-join tr {
+  padding: 1rem 0;
+}
+
+table.how-to-join td {
+  vertical-align: top;
+}
+
+table.how-to-join td:first-child {
+  padding-top: 0.25rem;
+}
+
+.step-nmbr {
+  font-size: 1.6875rem;
+  font-weight: 700;
+  padding-right: 2.2rem;
+}
+
+.step-content {
+  margin-bottom: 1rem;
+}
+
+/* ############### */
+/* -----LEGAL----- */
+/* ############### */
+
+ul {
+  padding-left: 1.5rem;
+}
+
+/* ################# */
+/* -----PRIVACY----- */
+/* ################# */
+
+.privacy-section h2 {
+  scroll-margin-top: 7rem;
+}
+
+ul.privacy-list li::marker {
+  color: var(--accent);
+}

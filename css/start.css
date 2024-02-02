@@ -1,0 +1,182 @@
+/* ################# */
+/* -----GENERAL----- */
+/* ################# */
+
+:root {
+  /* bg = background */
+  --site-bg: #f6f7f8;
+
+  --primary: #2a3647;
+  --secondary: #091931;
+  --accent: #29abe2;
+  /* hvr = hover */
+  --nav-link-hvr: #2a3d59;
+  --nav-link-act: #091931;
+
+  --checkbox-hvr: #edf2fa;
+
+  /* btn = button */
+  /* shdw = shadow */
+  /* td = top-down */
+  --btn-shdw-td: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+
+  /* ttb = top to bottom */
+  --btn-shdw-ttb: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  --header-shdw-ttb: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
+
+  /* qm = questio-mark */
+  --qm-grey: #a8a8a8;
+
+  --icon-grey: #cdcdcd;
+  --no-task-bg: #a8a8a8;
+  --form-active-border: 1px solid #29abe2;
+  --form-fail-border: 1px solid #ff8190;
+
+  /* txt-col = text color */
+  --form-fail-txt-col: #ff8190;
+
+  /* TST */
+
+  /* ma = mailaddress */
+  --contact-ma: #007cee;
+
+  /* set as 'background' - property!!! */
+  --contact-hvr: linear-gradient(180deg, #f9f9f9 0%, #f0f0f0 100%);
+
+  --profile-hvr: rgba(12, 46, 98, 0.1);
+
+  --urgent: #ff3d00;
+  --medium: #ffa800;
+  --low: #7ae229;
+
+  /* small-br = button border-radius */
+  /* for buttons and contacts */
+  --small-br: 0.625rem;
+
+  /* med-br = med border-radius */
+  /* for all tasks in the board (reduced) */
+  --med-br: 1.5rem;
+
+  /* big-br = big border-radius */
+  /* for all slide-in pop-ups like _add contact+_ | _add task+_ and _task-detail-view_ */
+  --big-br: 1.875rem;
+
+  /* refers to menu that shows up when profile in upper-right corner is clicked */
+  --small-menu-br: 1.25rem 0rem 1.25rem 1.25rem;
+}
+
+/* ############### */
+/* -----START----- */
+/* ############### */
+
+.start-page {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  padding: 4.25rem 5rem;
+  margin: 0 auto;
+  /* z-index: 0; */
+}
+
+.start-logo {
+  width: 17.125rem;
+  height: 20.8795rem;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: fadeInLogo 1.5s forwards, moveAndShrinkLogo 2.65s forwards;
+}
+
+@keyframes fadeInLogo {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes moveAndShrinkLogo {
+  0% {
+    width: 17.125rem;
+    height: 20.8795rem;
+  }
+  66% {
+    width: 17.125rem;
+    height: 20.8795rem;
+    top: 50%;
+    left: 50%;
+  }
+  100% {
+    height: 7.625rem;
+    width: 6.25rem;
+    top: calc((7.625rem / 2) + 4.25rem);
+    left: calc((6.25rem / 2) + 5rem);
+  }
+}
+
+/* ################ */
+/* -----LOG-IN----- */
+/* ################ */
+
+form.log-in {
+  display: flex;
+  flex-direction: column;
+  height: 24.625rem;
+  width: 40.75rem;
+  padding: 3rem 7.1875rem;
+  align-items: center;
+  border-radius: var(--big-br);
+  background: #fff;
+  box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
+}
+
+.log-in h1 {
+  margin: 0 0 1rem !important;
+}
+
+.custom-underline {
+  width: 150px;
+  margin: 0 0 2rem;
+  padding: 0;
+  border-radius: 1.5px;
+  border: var(--accent) 1.5px solid;
+}
+
+.log-in-inputs {
+  display: flex;
+  height: 9.5rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.log-in-inputs input {
+  display: flex;
+  align-items: center;
+  width: 26.375rem;
+  padding: 0.875rem 1.3125rem 0.625rem 1.3125rem;
+  border-radius: var(--small-br);
+  border: 1px solid #d1d1d1;
+  background: #fff;
+  line-height: 150%;
+}
+
+.log-in-inputs input::placeholder {
+  color: #d1d1d1;
+  font-size: 1.25rem;
+  font-weight: 300;
+  font-family: 'Inter', sans-serif;
+}
+
+.log-in-checkbox {
+  display: flex;
+  width: 100%;
+  padding-left: 2.44rem;
+  margin-top: 0.5rem;
+}
