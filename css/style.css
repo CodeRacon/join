@@ -92,6 +92,36 @@ body::-webkit-scrollbar-thumb {
   background-color: transparent;
 }
 
+h1 {
+  font-size: 3.8125rem;
+  font-weight: 700;
+  margin: 0 0 2rem;
+}
+
+h2 {
+  font-size: 1.6875rem;
+  font-weight: 700;
+  margin: 1.5rem 0 1rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+  padding: 0.25rem 0 0;
+}
+
+h4 {
+  margin: 1rem 0 0;
+}
+
+section {
+  width: calc(100% - 14.5rem);
+  min-height: calc(100vh - 6rem);
+  margin: 6rem 0 auto 14.5rem;
+  padding: 6.85rem 6rem 4rem 6rem;
+}
+
 /* ################ */
 /* -----HEADER----- */
 /* ################ */
