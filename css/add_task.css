@@ -35,6 +35,11 @@
   /* txt-col = text color */
   --form-fail-txt-col: #ff8190;
 
+  /* fields- width & height */
+  --f-width: 27.5rem;
+  --f-height: 3rem;
+  --description-height: 7.5rem;
+
   /* TST */
 
   /* ma = mailaddress */
@@ -71,7 +76,6 @@
 
 h1 {
   color: #000;
-  /* Version 2/t1 */
   font-family: Inter;
   font-size: 3.8125rem;
   font-style: normal;
@@ -79,9 +83,8 @@ h1 {
   line-height: 120%; /* 4.575rem */
 }
 
-h2 {
+span {
   color: var(--Version-2-main-color, #2a3647);
-  /* Version 2/t6 */
   font-family: Inter;
   font-size: 1.25rem;
   font-style: normal;
@@ -105,4 +108,30 @@ h2 {
   justify-content: center;
   align-items: center;
   gap: 1rem;
+}
+
+.main-cotainer {
+  display: flex;
+}
+
+.svg-separator {
+  padding: 0 3.02rem;
+}
+
+.asterisk {
+  color: var(--form-fail-txt-col);
+}
+
+.prio-box {
+  display: flex;
+  align-items: center;
+}
+
+.field-width-height {
+  width: var(--f-width);
+  height: var(--f-height);
+}
+
+.description-height {
+  height: var(--description-height);
 }
