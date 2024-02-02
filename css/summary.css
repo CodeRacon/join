@@ -1,0 +1,231 @@
+/* ################# */
+/* -----GENERAL----- */
+/* ################# */
+
+:root {
+  /* bg = background */
+  --site-bg: #f6f7f8;
+
+  --primary: #2a3647;
+  --secondary: #091931;
+  --accent: #29abe2;
+  /* hvr = hover */
+  --nav-link-hvr: #2a3d59;
+  --nav-link-act: #091931;
+
+  --checkbox-hvr: #edf2fa;
+
+  /* btn = button */
+  /* shdw = shadow */
+  /* td = top-down */
+  --btn-shdw-td: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+
+  /* ttb = top to bottom */
+  --btn-shdw-ttb: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  --header-shdw-ttb: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
+
+  /* qm = questio-mark */
+  --qm-grey: #a8a8a8;
+
+  --icon-grey: #cdcdcd;
+  --no-task-bg: #a8a8a8;
+  --form-active-border: 1px solid #29abe2;
+  --form-fail-border: 1px solid #ff8190;
+
+  /* txt-col = text color */
+  --form-fail-txt-col: #ff8190;
+
+  /* TST */
+
+  /* ma = mailaddress */
+  --contact-ma: #007cee;
+
+  /* set as 'background' - property!!! */
+  --contact-hvr: linear-gradient(180deg, #f9f9f9 0%, #f0f0f0 100%);
+
+  --profile-hvr: rgba(12, 46, 98, 0.1);
+
+  --urgent: #ff3d00;
+  --medium: #ffa800;
+  --low: #7ae229;
+
+  /* small-br = button border-radius */
+  /* for buttons and contacts */
+  --small-br: 0.625rem;
+
+  /* med-br = med border-radius */
+  /* for all tasks in the board (reduced) */
+  --med-br: 1.5rem;
+
+  /* big-br = big border-radius */
+  /* for all slide-in pop-ups like _add contact+_ | _add task+_ and _task-detail-view_ */
+  --big-br: 1.875rem;
+
+  /* refers to menu that shows up when profile in upper-right corner is clicked */
+  --small-menu-br: 1.25rem 0rem 1.25rem 1.25rem;
+}
+
+.summary-section--heading {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  gap: 1.875rem;
+}
+
+.summary-section--heading h1,
+h2 {
+  margin: 0;
+}
+
+.summary-section--heading .vert-spacer {
+  width: 0;
+  height: 59px;
+  margin: auto 0;
+  border-radius: 1.5px;
+  border: var(--accent) 1.5px solid;
+}
+
+.summary-section--heading p {
+  color: var(--primary);
+  font-size: 1.6875rem;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+.summary-container {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  gap: 5rem;
+  margin-top: 5rem;
+  /* border: green 1.5px solid; */
+}
+
+.summary-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 36rem;
+  gap: 0.75rem;
+  /* border: rgb(128, 26, 0) 1.5px solid; */
+}
+
+.full-box,
+.half-box,
+.onethird-box {
+  cursor: pointer;
+}
+
+.top-part {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 35rem;
+  height: 11.5rem;
+  /* border: rgb(181, 32, 154) 1.5px solid; */
+}
+
+.top-part .half-box {
+  display: flex;
+  width: 16.5rem;
+  height: 10.5rem;
+  padding: 2.375rem 1.1875rem;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  box-shadow: var(--btn-shdw-td);
+  border-radius: var(--big-br);
+  transition: all 0.125s ease-in-out;
+}
+
+.top-part .half-box:hover {
+  width: 17.65625rem;
+  height: 11.5rem;
+  background-color: var(--primary);
+  box-shadow: var(--btn-shdw-ttb);
+}
+
+.middle-part {
+  display: flex;
+  align-items: center;
+  width: 36rem;
+  height: 11.5rem;
+  /* border: rgb(181, 32, 154) 1.5px solid; */
+}
+
+.middle-part .full-box {
+  width: 35rem;
+  height: 10.5rem;
+  padding: 1.75rem 3rem;
+  background-color: #fff;
+  box-shadow: var(--btn-shdw-td);
+  border-radius: var(--big-br);
+  transition: all 0.125s ease-in-out;
+}
+
+.middle-part .full-box:hover {
+  width: 36rem;
+  height: 11.5rem;
+  background-color: var(--primary);
+  box-shadow: var(--btn-shdw-ttb);
+}
+
+.bottom-part {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 35rem;
+  height: 11.5rem;
+  /* border: rgb(181, 32, 154) 1.5px solid; */
+}
+
+.bottom-part .onethird-box {
+  display: flex;
+  width: 10.5rem;
+  height: 10.5rem;
+  padding: 1.5625rem 0rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  box-shadow: var(--btn-shdw-td);
+  border-radius: var(--big-br);
+  transition: all 0.125s ease-in-out;
+}
+
+.onethird-box:nth-of-type(2) {
+  position: absolute;
+  left: calc(50% - (10.5rem) / 2);
+}
+
+.bottom-part .onethird-box:hover {
+  width: 11.5rem;
+  height: 11.5rem;
+  background-color: var(--primary);
+  box-shadow: var(--btn-shdw-ttb);
+}
+
+.summary-box .personal-greeting {
+  width: auto;
+}
+
+.personal-greeting {
+  justify-content: flex-end;
+  color: var(--primary);
+  font-size: 2.9375rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%;
+  margin: 0;
+}
+
+.personal-greeting span#sum-username {
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 120%;
+}
