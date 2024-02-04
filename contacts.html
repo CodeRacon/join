@@ -24,14 +24,14 @@
 |_______||_______||_|  |__|  |___|  |__| |__||_______|  |___|  |_______|
 -->
 
-  <body onload="includeHTML()">
+  <body onload="includeHTML(); renderContactList()">
     <div
       id="frame"
       class="header-template"
       w3-include-html="templates/desktop_frame.html"></div>
 
-    <section class="contacts-section">
-      <!-- individual content -->
+    <section class="contacts-section" onload="">
+      <div class="contact-list" id="contact-list"></div>
     </section>
   </body>
 </html>
