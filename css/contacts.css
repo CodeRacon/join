@@ -1,0 +1,194 @@
+/* ################# */
+/* -----GENERAL----- */
+/* ################# */
+
+:root {
+  /* bg = background */
+  --site-bg: #f6f7f8;
+
+  --primary: #2a3647;
+  --secondary: #091931;
+  --accent: #29abe2;
+  /* hvr = hover */
+  --nav-link-hvr: #2a3d59;
+  --nav-link-act: #091931;
+
+  --checkbox-hvr: #edf2fa;
+
+  /* btn = button */
+  /* shdw = shadow */
+  /* td = top-down */
+  --btn-shdw-td: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+
+  /* ttb = top to bottom */
+  --btn-shdw-ttb: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  --header-shdw-ttb: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
+
+  /* qm = questio-mark */
+  --qm-grey: #a8a8a8;
+
+  --icon-grey: #cdcdcd;
+  --no-task-bg: #a8a8a8;
+  --form-active-border: 1px solid #29abe2;
+  --form-fail-border: 1px solid #ff8190;
+
+  /* txt-col = text color */
+  --form-fail-txt-col: #ff8190;
+
+  /* TST */
+
+  /* ma = mailaddress */
+  --contact-ma: #007cee;
+
+  /* set as 'background' - property!!! */
+  --contact-hvr: linear-gradient(180deg, #f9f9f9 0%, #f0f0f0 100%);
+
+  --profile-hvr: rgba(12, 46, 98, 0.1);
+
+  --urgent: #ff3d00;
+  --medium: #ffa800;
+  --low: #7ae229;
+
+  /* small-br = button border-radius */
+  /* for buttons and contacts */
+  --small-br: 0.625rem;
+
+  /* med-br = med border-radius */
+  /* for all tasks in the board (reduced) */
+  --med-br: 1.5rem;
+
+  /* big-br = big border-radius */
+  /* for all slide-in pop-ups like _add contact+_ | _add task+_ and _task-detail-view_ */
+  --big-br: 1.875rem;
+
+  /* refers to menu that shows up when profile in upper-right corner is clicked */
+  --small-menu-br: 1.25rem 0rem 1.25rem 1.25rem;
+}
+
+section {
+  width: calc(100% - 14.5rem);
+  min-height: calc(100vh - 6rem);
+  margin: 6rem 0 auto 14.5rem;
+  padding: 0 6rem 4rem 0rem !important;
+}
+
+.contact-list {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  width: 28.5rem;
+  height: calc(100vh - 6rem);
+  padding: 2rem 3.25rem;
+  background: #fff;
+  box-shadow: 4px 0px 6px 0px rgba(0, 0, 0, 0.08);
+  overflow-y: scroll;
+  gap: 0.5rem;
+  z-index: 222;
+}
+
+.contact-list p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Für WebKit-basierte Browser */
+.contact-list::-webkit-scrollbar-track {
+  background-color: #fff; /* Ändere die Farbe hier */
+}
+.contact-list::-webkit-scrollbar-thumb {
+  background-color: var(--qm-grey); /* Ändere die Farbe hier */
+}
+.contact-list::-webkit-scrollbar-track {
+  border: 1px solid #fff; /* Ändere die Farbe hier */
+}
+/* Für Firefox */
+.contact-list scrollbar-track {
+  background-color: #fff; /* Ändere die Farbe hier */
+}
+
+.contact-list-item {
+  display: flex;
+  width: 100%;
+  padding: 0.9375rem 1.5rem;
+  align-items: center;
+  gap: 2.1875rem;
+  cursor: pointer;
+  border-radius: var(--small-br);
+}
+
+.contact-list-item:hover {
+  background: var(--contact-hvr);
+  border-radius: var(--small-br);
+}
+
+.contact-list-item:hover {
+  background: var(--contact-hvr);
+}
+
+.contact-list-item:hover .list-item-icon {
+  outline: 2px #fff solid;
+}
+
+.contact-list-item p:first-of-type {
+  color: #000;
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 120%;
+  padding-bottom: 0.305rem;
+}
+
+.list-item-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.625rem;
+  height: 2.625rem;
+  border-radius: 50%;
+  color: var(--white, #fff);
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 120%;
+  background-color: #687fc4;
+}
+
+.divider {
+  display: flex;
+  width: 100%;
+  padding: 1.0625rem 2.25rem 1.5625rem 2.25rem;
+  align-items: center;
+  color: #000;
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 120%;
+  border-bottom: solid 1px #d1d1d1;
+}
+
+.selected {
+  background: var(--primary) !important;
+}
+
+.contact-list-item.selected p:first-of-type {
+  color: #fff;
+}
+
+.add-contact {
+  display: flex;
+  width: 22rem;
+  padding: 0.75rem;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  border-radius: var(--small-br);
+  background: var(--primary);
+  color: var(--white, #fff);
+  font-size: 1.3125rem;
+  font-weight: 700;
+  line-height: 120%;
+  cursor: pointer;
+}
+
+.add-contact:hover {
+  background-color: var(--accent);
+  box-shadow: var(--btn-shdw-ttb);
+}
