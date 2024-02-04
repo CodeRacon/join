@@ -203,6 +203,11 @@ function renderContactList() {
   }
 }
 
+/**
+ * Renders the add contact button in the contacts list UI.
+ *
+ * @returns {string} The HTML markup for the add contact button.
+ */
 function renderAddContactBtn() {
   return /*html*/ `
     <div class="add-contact">
