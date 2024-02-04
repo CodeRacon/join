@@ -76,14 +76,16 @@ section {
   position: fixed;
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 28.5rem;
   height: calc(100vh - 6rem);
   padding: 2rem 3.25rem;
   background: #fff;
   box-shadow: 4px 0px 6px 0px rgba(0, 0, 0, 0.08);
   overflow-y: scroll;
+  overflow-x: hidden;
   gap: 0.5rem;
-  z-index: 222;
+  z-index: 111;
 }
 
 .contact-list p {
@@ -172,10 +174,22 @@ section {
   color: #fff;
 }
 
+.spacer {
+  position: fixed;
+  top: 6rem;
+  display: flex;
+  width: 22rem;
+  height: 6rem;
+  background-color: #fff;
+}
+
 .add-contact {
+  position: sticky;
+  top: 0rem;
   display: flex;
   width: 22rem;
   padding: 0.75rem;
+  margin-bottom: 0.5rem;
   justify-content: center;
   align-items: center;
   gap: 1rem;
@@ -186,6 +200,7 @@ section {
   font-weight: 700;
   line-height: 120%;
   cursor: pointer;
+  z-index: 222;
 }
 
 .add-contact:hover {

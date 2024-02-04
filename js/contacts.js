@@ -210,10 +210,12 @@ function renderContactList() {
  */
 function renderAddContactBtn() {
   return /*html*/ `
+    
     <div class="add-contact">
-          <span>Add Contact</span>
-          <img src="/assets/img/icons/contacts/add_contact-white.svg" alt="" />
-        </div>
+      <span>Add Contact</span>
+      <img src="/assets/img/icons/contacts/add_contact-white.svg" />
+    </div>
+    <div class="spacer"></div>
   `;
 }
 
