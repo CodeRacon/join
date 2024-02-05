@@ -264,12 +264,120 @@ function renderListItem(listEntry, i) {
   `;
 }
 
+/**
+ * Opens the contact info box for the contact at the given index.
+ * Toggles the 'selected' class on the contact list item.
+ * If selected, closes the info box.
+ * If not selected, opens the info box and renders the contact details.
+ */
 function openContact(i) {
   const contactItem = document.getElementById(`contact-list-item-${i}`);
+
+  if (contactItem.classList.contains('selected')) {
+    closeContactInfoBox(i);
+  } else {
+    swipeInContactInfoBox(i);
+    renderContactInfoBox(i);
+  }
+}
+
+/**
+ * Renders the contact info box with details for the contact at the given index.
+ * Gets the contact data from the formatted contact list.
+ * Renders the contact's initials and info box HTML.
+ * @param {number} i - The index of the contact in the formatted contact list.
+ */
+function renderContactInfoBox(i) {
+  const contactInfoBox = document.getElementById('contact-info-box');
+  const listEntry = formattedContactList[i];
+  const initials = listEntry.name
+    .split(' ')
+    .map((word) => word.charAt(0))
+    .join('');
+
+  if (listEntry.type !== 'divider') {
+    contactInfoBox.innerHTML = contactInfoBoxHTML(listEntry, initials);
+  }
+}
+
+/**
+ * Generates the HTML for the contact info box popup
+ * based on the provided contact list entry and initials.
+ *
+ * @param {Object} listEntry - The contact list entry object
+ * @param {string} initials - The contact's initials
+ * @returns {string} The HTML string for the info box
+ */
+function contactInfoBoxHTML(listEntry, initials) {
+  return /*html*/ `
+    <div class="user-label">
+            <div class="user-icon" style="background-color: ${listEntry.color}" >
+              ${initials}
+            </div>
+            <div class="user-name">
+              <span>${listEntry.name}</span>
+              <div class="edit-user-info">
+                <div class="edit">
+                  <img
+                    src="/assets/img/icons/contacts/edit_contact.svg"
+                    alt="" />
+                </div>
+                <div class="delete">
+                  <img src="/assets/img/icons/contacts/delete_contact.svg"/>
+                     
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sub-heading">Contact Information</div>
+          <div class="mail-info">
+            <p class="bold">Email</p>
+            <a class="accentuated" href="mailto:${listEntry.email} ">
+              ${listEntry.email}
+            </a>
+          </div>
+          <div class="phone-info">
+            <p class="bold">Phone</p>
+            <p>${listEntry.phone}</p>
+          </div>
+  `;
+}
+
+/**
+ * Shows the contact info popup by adding the 'swipe-in' class and removing
+ * the 'd-none' class after a 125ms delay. It also adds the 'selected' class
+ * to the clicked contact list item, and removes 'selected' from all other
+ * list items after a 125ms delay.
+ *
+ * @param {number} i - The index of the clicked contact list item
+ */
+function swipeInContactInfoBox(i) {
+  const contactInfoBox = document.getElementById('contact-info-box');
+  const contactItem = document.getElementById(`contact-list-item-${i}`);
   const allContactItems = document.querySelectorAll('.contact-list-item');
+
+  contactInfoBox.classList.remove('swipe-in', 'd-none');
+  setTimeout(() => {
+    contactInfoBox.classList.add('swipe-in');
+  }, 125);
 
   setTimeout(() => {
     allContactItems.forEach((item) => item.classList.remove('selected'));
     contactItem.classList.toggle('selected');
-  }, 325);
+  }, 125);
+}
+
+/**
+ * Closes the contact info popup by removing the 'swipe-in' class and adding
+ * the 'd-none' class. It also removes the 'selected' class from the
+ * clicked contact list item.
+ *
+ * @param {number} i - The index of the clicked contact list item
+ */
+function closeContactInfoBox(i) {
+  const contactInfoBox = document.getElementById('contact-info-box');
+  const contactItem = document.getElementById(`contact-list-item-${i}`);
+
+  contactInfoBox.classList.add('d-none');
+  contactItem.classList.toggle('selected');
 }
