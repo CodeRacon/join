@@ -65,14 +65,175 @@
   --small-menu-br: 1.25rem 0rem 1.25rem 1.25rem;
 }
 
-section {
+section.contacts-section {
+  display: grid;
+  grid-template-columns: 28.5rem auto;
+  grid-template-rows: 1fr;
+  gap: 3.44rem;
   width: calc(100% - 14.5rem);
   min-height: calc(100vh - 6rem);
   margin: 6rem 0 auto 14.5rem;
-  padding: 0 6rem 4rem 0rem !important;
+  padding: 0 2rem 4rem 0rem !important;
 }
 
+section.contacts-section p {
+  margin: 0;
+}
+
+/* ################################################## */
+
+.contact-details {
+  grid-column: 2 / 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 6.8695rem;
+  overflow: hidden;
+}
+
+.contacts-section--heading {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  gap: 1.875rem;
+  margin-bottom: 2rem;
+}
+
+.contacts-section--heading h1,
+h2 {
+  margin: 0;
+}
+
+.contacts-section--heading .vert-spacer {
+  width: 0;
+  height: 59px;
+  margin: auto 0;
+  border-radius: 1.5px;
+  border: var(--accent) 1.5px solid;
+}
+
+.contacts-section--heading p {
+  color: var(--primary);
+  font-size: 1.6875rem;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+.contact-info-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.3125rem;
+  transform: translateX(+150%);
+}
+
+.swipe-in {
+  animation: swipeIn 0.125s ease-in forwards;
+}
+
+@keyframes swipeIn {
+  from {
+    transform: translateX(+150%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.user-label {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.5rem, 3.662vw + -1.312rem, 3.375rem);
+  width: 100%;
+}
+
+.user-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 7.5rem;
+  aspect-ratio: 1/1;
+  background-color: #fd6509;
+  border-radius: 50%;
+  outline: 2px #fff solid;
+  color: #fff;
+  text-align: center;
+  font-size: 2.9375rem;
+  font-weight: 500;
+  line-height: 120%;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.125);
+}
+
+.user-name {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 0.5rem;
+}
+
+.user-name span {
+  color: #000;
+  font-size: 2.9375rem;
+  font-weight: 500;
+  line-height: 120%;
+}
+
+.edit-user-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.edit,
+.delete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+}
+
+.edit img:hover {
+  content: url(/assets/img/icons/contacts/edit-hover.svg);
+}
+
+.delete img:hover {
+  content: url(/assets/img/icons/contacts/delete-hover.svg);
+}
+
+.sub-heading {
+  display: flex;
+  width: 12.9375rem;
+  height: 4.625rem;
+  flex-direction: column;
+  justify-content: center;
+  color: #000;
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+.mail-info,
+.phone-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.9375rem;
+}
+
+.bold {
+  color: #000;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 120%;
+}
+
+/* ################################################## */
+
 .contact-list {
+  grid-column: 1 / 2;
   position: fixed;
   display: flex;
   flex-direction: column;
@@ -151,7 +312,6 @@ section {
   font-size: 0.75rem;
   font-weight: 400;
   line-height: 120%;
-  background-color: #687fc4;
 }
 
 .divider {
