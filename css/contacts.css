@@ -124,7 +124,8 @@ h2 {
   flex-direction: column;
   align-items: flex-start;
   gap: 1.3125rem;
-  transform: translateX(+150%);
+  transform: translateX(+100%);
+  opacity: 0;
 }
 
 .swipe-in {
@@ -133,10 +134,12 @@ h2 {
 
 @keyframes swipeIn {
   from {
-    transform: translateX(+150%);
+    transform: translateX(+100%);
+    opacity: 0;
   }
   to {
     transform: translateX(0);
+    opacity: 1;
   }
 }
 
