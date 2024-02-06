@@ -210,8 +210,10 @@ function renderContactList() {
  */
 function renderAddContactBtn() {
   return /*html*/ `
-    
-    <div class="add-contact">
+     <div 
+      onclick="openAddContactDB()"
+      id="add-contact-btn" 
+      class="add-contact-btn">
       <span>Add Contact</span>
       <img src="/assets/img/icons/contacts/add_contact-white.svg" />
     </div>
@@ -380,4 +382,39 @@ function closeContactInfoBox(i) {
 
   contactInfoBox.classList.add('d-none');
   contactItem.classList.toggle('selected');
+}
+
+/**
+ * Opens the add contact popup by removing the 'd-none' class from the
+ * add contact box and overlay elements. It then replaces the
+ * 'box-slide-out' class with 'box-slide-in' on the add contact box,
+ * and replaces the 'overlay-off' class with 'overlay-on' on the overlay.
+ */
+function openAddContactDB() {
+  const addContactBtn = document.getElementById('add-contact-btn');
+  const overlay = document.getElementById('overlay');
+  const addContactBox = document.getElementById('add-contact-db');
+
+  addContactBox.classList.remove('d-none');
+  addContactBox.classList.replace('box-slide-out', 'box-slide-in');
+  overlay.classList.remove('d-none');
+  overlay.classList.replace('overlay-off', 'overlay-on');
+}
+
+/**
+ * Closes the add contact popup by sliding it out, turning off
+ * the overlay, and then hiding the popup and overlay after
+ * a 350ms delay.
+ */
+function closeAddContactDB() {
+  const addContactBtn = document.getElementById('add-contact-btn');
+  const overlay = document.getElementById('overlay');
+  const addContactBox = document.getElementById('add-contact-db');
+
+  addContactBox.classList.replace('box-slide-in', 'box-slide-out');
+  overlay.classList.replace('overlay-on', 'overlay-off');
+  setTimeout(() => {
+    addContactBox.classList.add('d-none');
+    overlay.classList.add('d-none');
+  }, 350);
 }
