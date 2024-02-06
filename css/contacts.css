@@ -3,66 +3,67 @@
 /* ################# */
 
 :root {
-  /* bg = background */
   --site-bg: #f6f7f8;
-
   --primary: #2a3647;
   --secondary: #091931;
   --accent: #29abe2;
-  /* hvr = hover */
   --nav-link-hvr: #2a3d59;
   --nav-link-act: #091931;
-
   --checkbox-hvr: #edf2fa;
-
-  /* btn = button */
-  /* shdw = shadow */
-  /* td = top-down */
   --btn-shdw-td: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
-
-  /* ttb = top to bottom */
   --btn-shdw-ttb: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   --header-shdw-ttb: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
-
-  /* qm = questio-mark */
   --qm-grey: #a8a8a8;
-
   --icon-grey: #cdcdcd;
   --no-task-bg: #a8a8a8;
   --form-active-border: 1px solid #29abe2;
   --form-fail-border: 1px solid #ff8190;
-
-  /* txt-col = text color */
   --form-fail-txt-col: #ff8190;
-
-  /* TST */
-
-  /* ma = mailaddress */
   --contact-ma: #007cee;
-
-  /* set as 'background' - property!!! */
   --contact-hvr: linear-gradient(180deg, #f9f9f9 0%, #f0f0f0 100%);
-
   --profile-hvr: rgba(12, 46, 98, 0.1);
-
   --urgent: #ff3d00;
   --medium: #ffa800;
   --low: #7ae229;
-
-  /* small-br = button border-radius */
-  /* for buttons and contacts */
   --small-br: 0.625rem;
-
-  /* med-br = med border-radius */
-  /* for all tasks in the board (reduced) */
   --med-br: 1.5rem;
-
-  /* big-br = big border-radius */
-  /* for all slide-in pop-ups like _add contact+_ | _add task+_ and _task-detail-view_ */
   --big-br: 1.875rem;
-
-  /* refers to menu that shows up when profile in upper-right corner is clicked */
   --small-menu-br: 1.25rem 0rem 1.25rem 1.25rem;
+}
+
+.contacts-overlay {
+  position: absolute;
+  z-index: 200;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.25);
+  opacity: 0;
+}
+
+@keyframes overlayON {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes overlayOFF {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.overlay-on {
+  animation: overlayON 0.125s ease-in forwards;
+}
+
+.overlay-off {
+  animation: overlayOFF 0.125s ease-in forwards;
 }
 
 section.contacts-section {
@@ -76,7 +77,9 @@ section.contacts-section {
   padding: 0 2rem 4rem 0rem !important;
 }
 
-section.contacts-section p {
+section.contacts-section p,
+section.contacts-section h1,
+section.contacts-section h2 {
   margin: 0;
 }
 
@@ -99,10 +102,10 @@ section.contacts-section p {
   margin-bottom: 2rem;
 }
 
-.contacts-section--heading h1,
+/* .contacts-section--heading h1,
 h2 {
   margin: 0;
-}
+} */
 
 .contacts-section--heading .vert-spacer {
   width: 0;
@@ -346,7 +349,7 @@ h2 {
   background-color: #fff;
 }
 
-.add-contact {
+.add-contact-btn {
   position: sticky;
   top: 0rem;
   display: flex;
@@ -366,7 +369,223 @@ h2 {
   z-index: 222;
 }
 
-.add-contact:hover {
+.add-contact-btn:hover {
+  background-color: var(--accent);
+  box-shadow: var(--btn-shdw-ttb);
+}
+
+/* ################################################## */
+
+.add-contact-db {
+  position: absolute;
+  z-index: 333;
+  top: 50%;
+  left: 50%;
+  transform: translate(+100%, -50%);
+  display: flex;
+  width: 75.75rem;
+  height: 37rem;
+  overflow: hidden;
+  border-radius: var(--big-br);
+  box-shadow: var(--btn-shdw-td);
+  opacity: 0;
+}
+
+.box-slide-in {
+  animation: boxSlideIn 0.325s ease-in forwards;
+}
+
+.box-slide-out {
+  animation: boxSlideOut 0.325s ease-in forwards;
+}
+
+@keyframes boxSlideIn {
+  from {
+    transform: translate(+100%, -50%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+}
+
+@keyframes boxSlideOut {
+  from {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+  to {
+    transform: translate(+100%, -50%);
+    opacity: 0;
+  }
+}
+
+.add-contact-banner {
+  display: flex;
+  flex-direction: column;
+  width: 29.25rem;
+  height: 37.125rem;
+  padding: 4.125rem 3rem;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background-color: var(--primary);
+}
+
+.add-contact-banner img {
+  width: 3.475rem;
+  object-fit: contain;
+  padding-top: 5.505rem;
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: #fff;
+}
+
+.heading span {
+  font-size: 1.6875rem;
+  font-weight: 400;
+  line-height: 120%;
+}
+.custom-underline {
+  width: 90px;
+  margin-top: 0.5rem;
+  padding: 0;
+  border-radius: 1.5px;
+  border: var(--accent) 1.5px solid;
+}
+
+.close-btn {
+  position: absolute;
+  top: 3rem;
+  right: 3rem;
+  display: flex;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+}
+
+.close-btn img:hover {
+  content: url(/assets/img/icons/add-task/close_hover.svg);
+}
+
+.add-contact-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  gap: 4.5rem;
+  padding: 3rem 3rem 3rem 5.1875rem;
+  background-color: #fff;
+}
+
+.user-icon-dummy {
+  width: 120px;
+  height: 120px;
+  background-color: #d1d1d1;
+  border-radius: 50%;
+  outline: 2px #fff solid;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.125);
+  background-image: url(/assets/img/icons/contacts/person-white-big.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  flex-shrink: 0;
+}
+
+.add-contact-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+  width: 100%;
+}
+
+.add-contact-form input {
+  width: 100%;
+  height: 1.5rem;
+  border: none;
+  color: black;
+  font-size: 1.25rem;
+  line-height: 120%;
+}
+
+.add-contact-form input:focus {
+  outline: none;
+}
+
+.input--name:focus-within,
+.input--email:focus-within,
+.input--phone:focus-within {
+  border: 1px solid var(--accent);
+}
+
+::placeholder {
+  color: #d1d1d1;
+  font-size: 1.25rem;
+  line-height: 120%;
+}
+
+.input--name,
+.input--email,
+.input--phone {
+  display: flex;
+  width: 100%;
+  padding: 0.8125rem 1.3125rem;
+  align-items: center;
+  border-radius: 0.625rem;
+  border: 1px solid #d1d1d1;
+  background: #fff;
+}
+
+.btn-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.btn-bar button {
+  display: flex;
+  padding: 1rem;
+  border-radius: var(--small-br);
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 120%;
+  transition: all 0.125s ease-in-out;
+}
+
+.btn-bar button:first-of-type {
+  border: 1px solid var(--primary);
+  background-color: #fff;
+  color: var(--Version-2-main-color, #2a3647);
+}
+
+.btn-bar button:last-of-type {
+  border: 1px solid var(--primary);
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn-bar button:first-of-type:hover {
+  border: 1px solid var(--accent);
+  box-shadow: var(--btn-shdw-ttb);
+  color: var(--accent);
+}
+
+.btn-bar button:first-of-type:hover img {
+  content: url(/assets/img/icons/contacts/cancel-accent.svg);
+}
+
+.btn-bar button:last-of-type:hover {
+  border: 1px solid var(--accent);
   background-color: var(--accent);
   box-shadow: var(--btn-shdw-ttb);
 }
