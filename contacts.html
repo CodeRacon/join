@@ -26,6 +26,10 @@
 
   <body onload="includeHTML(); renderContactList()">
     <div
+      onclick="closeAddContactDB()"
+      id="overlay"
+      class="contacts-overlay d-none overlay-off"></div>
+    <div
       id="frame"
       class="header-template"
       w3-include-html="templates/desktop_frame.html"></div>
@@ -40,6 +44,48 @@
         </div>
         <div id="contact-info-box" class="contact-info-box">
           <!-- content generated via js -->
+        </div>
+      </div>
+      <div class="add-contact-db d-none box-slide-out" id="add-contact-db">
+        <div class="add-contact-banner">
+          <img src="/assets/img/logo/logo-white.svg" alt="" />
+          <div class="heading">
+            <h1>Add contact</h1>
+            <span>Tasks are better with a team!</span>
+            <div class="custom-underline"></div>
+          </div>
+        </div>
+        <div class="add-contact-box">
+          <div class="close-btn" onclick="closeAddContactDB()">
+            <img src="/assets/img/icons/add-task/close.svg" />
+          </div>
+          <div class="user-icon-dummy"></div>
+          <div class="add-contact-form">
+            <div class="input--name">
+              <input type="text" placeholder="Name" />
+              <img src="/assets/img/icons/contacts/person.svg" />
+            </div>
+
+            <div class="input--email">
+              <input type="email" placeholder="Email" />
+              <img src="/assets/img/icons/contacts/mail.svg" />
+            </div>
+
+            <div class="input--phone">
+              <input type="tel" placeholder="Phone" />
+              <img src="/assets/img/icons/contacts/call.svg" />
+            </div>
+
+            <div class="btn-bar">
+              <button onclick="closeAddContactDB()">
+                Cancel<img src="/assets/img/icons/general/other/cancel.svg" />
+              </button>
+              <button onclick="createContact()">
+                Create Contact
+                <img src="/assets/img/icons/contacts/check-white.svg" />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
