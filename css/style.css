@@ -76,7 +76,6 @@ body {
   padding: 0;
   background: var(--site-bg);
   font-family: 'Inter', sans-serif;
-  overflow: hidden;
 }
 
 body::-webkit-scrollbar {

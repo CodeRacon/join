@@ -31,6 +31,10 @@
   --small-menu-br: 1.25rem 0rem 1.25rem 1.25rem;
 }
 
+body {
+  overflow: hidden;
+}
+
 .contacts-overlay {
   position: absolute;
   z-index: 200;
