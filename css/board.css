@@ -63,8 +63,62 @@
 
   /* refers to menu that shows up when profile in upper-right corner is clicked */
   --small-menu-br: 1.25rem 0rem 1.25rem 1.25rem;
+
+  --white: #fff;
 }
 
 /* ############### */
 /* -----BOARD----- */
 /* ############### */
+#no-margin {
+  margin: 0;
+}
+
+.border-none {
+  border: none;
+  border-radius: var(--small-br);
+}
+
+.headline-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.input-and-button-container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  height: 3rem;
+}
+
+.input-container {
+  display: flex;
+  gap: 0;
+}
+
+.btn-find-task {
+  background-color: var(--white);
+}
+
+.input-find-task {
+  padding: 0.5rem 1rem;
+  height: auto;
+  width: 19.5rem;
+}
+
+.board-task-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.to-do-container,
+.in-progress-container,
+.await-feedback-container,
+.done-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
