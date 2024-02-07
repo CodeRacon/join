@@ -70,12 +70,12 @@
 /* ############### */
 /* -----BOARD----- */
 /* ############### */
-#no-margin {
+#margin-none {
   margin: 0;
 }
 
 .border-none {
-  border: none;
+  border: none !important;
   border-radius: var(--small-br);
 }
 
@@ -106,12 +106,17 @@
   padding: 0.5rem 1rem;
   height: auto;
   width: 19.5rem;
+  display: flex;
+  gap: 0;
+  justify-content: space-between;
 }
 
 .board-task-container {
   display: flex;
-  align-items: flex-start;
+  width: -webkit-fill-available;
   justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
 }
 
 .to-do-container,
@@ -119,6 +124,51 @@
 .await-feedback-container,
 .done-container {
   display: flex;
-  width: 100%;
+  width: 15.25rem;
   align-items: center;
+  justify-content: space-between;
+  margin-right: 3rem;
+}
+
+::placeholder {
+  color: var(--Style, #d1d1d1);
+  font-family: Inter;
+  font-size: 1.1rem;
+  font-style: normal;
+  font-weight: 400;
+}
+
+img {
+  cursor: pointer;
+}
+
+.drag-area {
+  height: 200px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border: 1px dashed black;
+  margin-bottom: 50px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.drag-area-highlight {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.todo {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.drag-and-drop-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.drag-area {
+  width: 25%;
 }
