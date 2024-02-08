@@ -132,7 +132,11 @@ section.contacts-section h2 {
 }
 
 .slide-in {
-  animation: slideIn 0.125s ease-in forwards;
+  animation: slideIn 0.150s ease-in forwards;
+}
+
+.slide-out {
+  animation: slideOut 0.150s ease-in forwards;
 }
 
 @keyframes slideIn {
@@ -144,6 +148,18 @@ section.contacts-section h2 {
     transform: translateX(0);
     opacity: 1;
   }
+}
+
+@keyframes slideOut {  
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(+100%);
+    opacity: 0;
+  }
+
 }
 
 .user-label {
@@ -259,6 +275,7 @@ section.contacts-section h2 {
   margin: 0;
   padding: 0;
 }
+
 
 /* for WebKit-based Browsers */
 .contact-list::-webkit-scrollbar-track {
@@ -381,9 +398,11 @@ section.contacts-section h2 {
 
 
 /* Add Contact Dialogue-Box */
+/* Edit Contact Dialogue-Box */
 /* ################################################## */
 
-.add-contact-db {
+.add-contact-db,
+.edit-contact-db {
   position: absolute;
   z-index: 333;
   top: 50%;
@@ -428,7 +447,8 @@ section.contacts-section h2 {
   }
 }
 
-.add-contact-banner {
+.add-contact-banner,
+.edit-contact-banner {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -440,7 +460,8 @@ section.contacts-section h2 {
   background-color: var(--primary);
 }
 
-.add-contact-banner img {
+.add-contact-banner img, 
+.edit-contact-banner img {
   width: 3.475rem;
   object-fit: contain;
   padding-top: 5.505rem;
@@ -480,7 +501,8 @@ section.contacts-section h2 {
   content: url(/assets/img/icons/add-task/close_hover.svg);
 }
 
-.add-contact-box {
+.add-contact-box,
+.edit-contact-box {
   position: relative;
   display: flex;
   align-items: center;
@@ -503,7 +525,8 @@ section.contacts-section h2 {
   flex-shrink: 0;
 }
 
-.add-contact-form {
+.add-contact-form,
+.edit-contact-form {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -511,7 +534,8 @@ section.contacts-section h2 {
   width: 100%;
 }
 
-.add-contact-form input {
+.add-contact-form input,
+.edit-contact-form input {
   width: 100%;
   height: 1.5rem;
   border: none;
@@ -520,7 +544,8 @@ section.contacts-section h2 {
   line-height: 120%;
 }
 
-.add-contact-form input:focus {
+.add-contact-form input:focus,
+.edit-contact-form input:focus {
   outline: none;
 }
 
@@ -595,3 +620,20 @@ section.contacts-section h2 {
   background-color: var(--accent);
   box-shadow: var(--btn-shdw-ttb);
 }
+
+.contact-success {
+display: flex;
+justify-content: center;
+align-items: center;
+width: 20.375rem;
+height: 4.625rem;
+margin-top: auto;
+border-radius: 1.25rem;
+background: var(--primary);
+box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
+color: #FFF;
+font-size: 1.25rem;
+font-weight: 400;
+line-height: 120%; 
+}
+
