@@ -10,3 +10,8 @@ function openAndCloseDropDownToAssign() {
     img.style.transform = "rotate(0deg)";
   }
 }
+
+// test um auf contacts von contact.js zuzugreifen
+function test() {
+  console.log(contacts);
+}
