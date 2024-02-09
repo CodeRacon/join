@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/storage.js"></script>
+    <script src="./js/signUp.js"></script>
+</head>
+<body onload="loadUsers()">
+    <form onsubmit=" createAccount();">
+        <div>
+            <input required id="name" required type="text" placeholder="Name">
+            <img src="./assets/img/icons/login_signup/person.svg" alt="" srcset="">
+        </div>
+        <div>
+            <input required id="mail" required type="email" placeholder="Email">
+            <img src="./assets/img/icons/login_signup/mail.svg" alt="" srcset="">
+        </div>
+        <div>
+            <input required id="paswort" type="password" placeholder="Password">
+            <img src="./assets/img/icons/login_signup/lock.svg" alt="" srcset="">
+        </div>
+        <div>
+            <input id="repeatPassword" required type="password" placeholder="Confirm Password">
+        </div>
+        <button>Do It</button>
+    </form>
+</body>
+</html>
