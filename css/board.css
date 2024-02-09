@@ -116,7 +116,7 @@
   width: -webkit-fill-available;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .to-do-container,
@@ -143,23 +143,29 @@ img {
 }
 
 .drag-area {
-  height: 200px;
-  background-color: rgba(0, 0, 0, 0.1);
-  border: 1px dashed black;
+  height: 50vh;
+  background-color: var(--site-bg);
   margin-bottom: 50px;
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
+  flex-direction: column;
+  text-align: left;
 }
 
 .drag-area-highlight {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
-.todo {
-  background-color: white;
-  border: 1px solid black;
-  border-radius: 5px;
-  padding: 10px;
+.task-card {
+  display: flex;
+  max-width: 15.75rem;
+  padding: 1rem;
+  flex-direction: column;
+  gap: 1.25rem;
+  border-radius: 1.5rem;
+  background: var(--white, #fff);
+  box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
+  margin-bottom: 1rem;
 }
 
 .drag-and-drop-container {
@@ -171,4 +177,86 @@ img {
 
 .drag-area {
   width: 25%;
+}
+
+div[draggable="true"] {
+  cursor: pointer;
+}
+
+.d-none {
+  display: none;
+}
+
+.empty-task {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--no-task-bg);
+  border: 1px dashed var(--no-task-bg, #a8a8a8);
+  border-radius: 0.625rem;
+  background: #e7e7e7;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+.category-of-task {
+  display: flex;
+  padding: 0.25rem 1rem;
+  gap: 0.625rem;
+  border-radius: 0.5rem;
+  background: #0038ff;
+  color: white;
+  width: 75%;
+  justify-content: center;
+}
+
+.title-of-task {
+  color: var(--primary, #2a3647);
+  font-family: Inter;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+}
+
+.description-of-task {
+  color: var(--qm-grey, #a8a8a8);
+  font-family: Inter;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+/* .subtasks-of-task {
+} */
+
+.assigned-to-of-task {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.625rem;
+  height: 2.625rem;
+  border-radius: 50%;
+  color: var(--form-fail-txt-col); /*testfarbe*/
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+.assigned-and-priority-container {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  align-items: center;
+}
+
+.technical-task-color {
+  background-color: #1fd7c1;
+}
+
+.user-story-task-color {
+  background-color: #0038ff;
 }
