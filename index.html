@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="css/root.css" />
     <script defer src="js/main.js"></script>
     <link rel="icon" type="image/png" href="assets/img/logo/favicon.png" />
-
     <title>join - kanban project management tool</title>
+    <script src="js/log_In.js"></script>
   </head>
 
   <!--  
@@ -26,29 +26,29 @@
      /    \         
 -->
 
-  <body>
+  <body onload="init()">
     <div class="start-page">
       <img
         class="start-logo"
         src="/assets/img/logo/start-logo-dark.svg"
         alt="join logo" />
 
-      <form class="log-in">
+      <form class="log-in" onsubmit="return checkExistence()">
         <h1 class="log-in--h1">Log In</h1>
         <div class="custom-underline"></div>
         <div class="log-in-inputs">
           <input id="login-email" type="email" required placeholder="Email" />
           <input
             id="login-password"
-            type="email"
+            type="password"
             required
             placeholder="Password" />
         </div>
-
         <div class="log-in-checkbox">
           <div class="rem-me--checkbox"></div>
           <p>Remember Me</p>
         </div>
+        <button>Got You</button>
       </form>
     </div>
   </body>
