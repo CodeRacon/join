@@ -126,6 +126,21 @@ contacts = [
     name: 'Mike Skinner',
     phone: '(758) 519-1073',
     email: 'm.skinner89@gmail.com',
+    password: 'pw1234',
     color: '#659c2b',
+    isRegistered: true,
+    tasks: {
+      category: 1,
+      title: 'Daily Kochwelt Recipe',
+      description: 'Implement daily recipe',
+      subtasks: [
+        { name: 're-design Mockup', done: true },
+        { name: 'update incredient calculator', done: false },
+      ],
+      assignedTo: ['Gene Ward', 'Kjelt Becker', 'Hasan Demir'],
+      priority: 2,
+      status: 3,
+      duedate: '20.02.2024',
+    },
   },
 ];
