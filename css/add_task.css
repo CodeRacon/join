@@ -114,7 +114,7 @@ span {
   gap: 1rem;
 }
 
-.priority div:nth-child(2) {
+.priority button:nth-child(2) {
   background-color: var(--medium);
   color: #fff;
   font-family: Inter;
@@ -193,7 +193,7 @@ span {
   display: flex;
   width: 100%;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
 }
 
 .clear-text {
@@ -278,7 +278,8 @@ button:hover {
 }
 
 input:focus,
-textarea:focus {
+textarea:focus,
+select:focus {
   outline: none;
 }
 
@@ -325,6 +326,7 @@ textarea:focus {
   flex-direction: row-reverse;
   justify-content: space-between;
   align-items: center;
+  width: 80%;
 }
 
 .custom-checkbox:before {
@@ -351,4 +353,39 @@ textarea:focus {
 
 .d-none {
   display: none;
+}
+
+.single-contact {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  width: 100%;
+  align-items: center;
+  gap: 2%;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.initialsCyrcle {
+  border-radius: 50px;
+  width: 12%;
+  padding: 8px;
+  color: white;
+}
+
+@media (max-width: 1340px) {
+  .main-cotainer {
+    display: flex;
+    margin-bottom: 5rem;
+    flex-direction: column;
+  }
+  .svg-separator {
+    display: none;
+  }
+}
+
+@media (max-width: 920px) {
+  .btn-clear {
+    display: none;
+  }
 }

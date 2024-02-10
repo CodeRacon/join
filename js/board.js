@@ -166,3 +166,9 @@ function highlight(id) {
 function removeHighlight(id) {
   document.getElementById(id).classList.remove("drag-area-highlight");
 }
+
+function openAddTaskOverlay() {
+  let overlay = document.getElementById("overlay-add-task");
+  let content = document.getElementById("add-task-content").innerHTML;
+  overlay.innerHTML = content;
+}
