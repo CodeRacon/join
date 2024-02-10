@@ -6,7 +6,7 @@
 async function initPage() {
   await includeHTML();
   highlightNavLink();
-  hideNavLinksOnBlank();
+  changeFrameOnNewTab();
 }
 
 /**
@@ -52,13 +52,15 @@ function highlightNavLink() {
   });
 }
 
-function hideNavLinksOnBlank() {
+function changeFrameOnNewTab() {
   const sideNav = document.getElementById('side-nav');
+  const headerIcons = document.getElementById('corner-icons');
   const privacyUrl = '/privacy_policy.html';
   const legalNoticeUrl = '/legal_notice.html';
   const currentUrl = window.location.pathname;
   if (currentUrl === privacyUrl || currentUrl === legalNoticeUrl) {
     sideNav.classList.toggle('hidden');
+    headerIcons.classList.toggle('hidden');
   }
 }
 
