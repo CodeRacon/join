@@ -9,8 +9,11 @@
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/fonts.css" />
     <link rel="stylesheet" href="css/root.css" />
+    <script defer src="js/add_task.js"></script>
+    <script defer src="js/contacts.js"></script>
     <script defer src="js/board.js"></script>
     <script defer src="js/main.js"></script>
+
     <title>join - Board</title>
     <link rel="icon" type="image/png" href="assets/img/logo/favicon.png" />
   </head>
@@ -54,7 +57,10 @@
               />
             </button>
           </div>
-          <button disabled class="btn-borders btn-span-img-ctn btn-create">
+          <button
+            onclick="openAddTaskOverlay()"
+            class="btn-borders btn-span-img-ctn btn-create"
+          >
             <svg
               width="160"
               height="48"
@@ -103,6 +109,8 @@
           </button>
         </div>
       </div>
+      <!-- Overlay add-task -->
+      <div id="overlay-add-task"></div>
       <!--  bord task container -->
       <div class="board-task-container">
         <!-- To do -->
@@ -131,30 +139,26 @@
         <div
           class="drag-area"
           id="toDo"
-          ondrop="moveTo('open')"
-          ondragleave="removeHighlight('open')"
-          ondragover="allowDrop(event); highlight('open')"
+          ondrop="moveTo('toDo')"
+          ondragover="allowDrop(event)"
         ></div>
         <div
           class="drag-area"
           id="inProgress"
           ondrop="moveTo('inProgress')"
-          ondragleave="removeHighlight('inProgress')"
-          ondragover="allowDrop(event); highlight('inProgress')"
+          ondragover="allowDrop(event)"
         ></div>
         <div
           class="drag-area"
           id="awaitFeedback"
           ondrop="moveTo('awaitFeedback')"
-          ondragleave="removeHighlight('awaitFeedback')"
-          ondragover="allowDrop(event); highlight('awaitFeedback')"
+          ondragover="allowDrop(event)"
         ></div>
         <div
           class="drag-area"
           id="closed"
           ondrop="moveTo('closed')"
-          ondragleave="removeHighlight('closed')"
-          ondragover="allowDrop(event); highlight('closed')"
+          ondragover="allowDrop(event)"
         ></div>
       </div>
     </section>

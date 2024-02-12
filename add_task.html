@@ -9,8 +9,10 @@
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/fonts.css" />
     <link rel="stylesheet" href="css/root.css" />
-    <script defer src="js/add_task.js"></script>
     <script defer src="js/main.js"></script>
+    <script defer src="js/contacts.js"></script>
+    <script defer src="js/add_task.js"></script>
+
     <title>join - Add Task</title>
     <link rel="icon" type="image/png" href="assets/img/logo/favicon.png" />
   </head>
@@ -25,7 +27,7 @@
 |__| |__||______| |______|     |___|  |__| |__||_______||___| |_|
 -->
 
-  <body onload="includeHTML()">
+  <body onload="includeHTML(), showContactsToAssign()">
     <div
       id="frame"
       class="header-template"
@@ -33,161 +35,160 @@
     ></div>
 
     <section class="add_task-section">
-      <h1>Add Task</h1>
+      <div id="add-task-content">
+        <h1>Add Task</h1>
 
-      <!-- Main-Cotainer für alle Felder -->
-      <div class="main-cotainer">
-        <!-- container li -->
-        <div class="frame219">
-          <span>Title<span class="asterisk">*</span></span>
-          <input
-            type="text"
-            placeholder="Enter a title"
-            class="field-width-height input-borders title"
-            required
-          />
-          <!-- -->
-          <span>Description</span>
-          <textarea
-            name="description-text"
-            id="description"
-            class="field-width-height description-height input-borders description"
-            placeholder="Enter a Description"
-            cols="30"
-            rows="10"
-          ></textarea>
-          <!-- neuer test für assign to -->
-          <label for="assign-select"><span>Assigned to</span> </label>
-          <div
-            class="field-width-height borders input-borders assigned-to"
-            onclick="openAndCloseDropDownToAssign()"
-          >
+        <!-- Main-Cotainer für alle Felder -->
+        <div class="main-cotainer">
+          <!-- container li -->
+          <div class="frame219">
+            <span>Title<span class="asterisk">*</span></span>
             <input
+              name="title"
               type="text"
-              class="border-none"
-              id="dropdownInput"
-              placeholder="Select contacts to assign"
-              readonly
-            />
-            <img
-              id="arrowImg"
-              src="./assets/img/icons/add-task/arrow-down.svg"
-              alt="Arrow down icon"
-            />
-          </div>
-          <div
-            class="dropdown-content btn-borders dropdown-content-style"
-            id="dropdownContent"
-          >
-            <label for="option1" class="label-layout">
-              <input
-                type="checkbox"
-                class="custom-checkbox"
-                id="option1"
-                value="Alice"
-              />
-              Alice Wonderland</label
-            ><br />
-            <label for="option2" class="label-layout"
-              ><input type="checkbox" id="option2" value="Bob" />Bob
-              Bobbikon</label
-            ><br />
-            <label for="option3" class="label-layout"
-              ><input type="checkbox" id="option3" value="Charlie" /> Charlie
-              Chaplin</label
-            ><br />
-            <label for="option4" class="label-layout"
-              ><input type="checkbox" id="option4" value="Diana" /> Diana
-              Mikrowisnovskacyk</label
-            ><br />
-          </div>
-        </div>
-        <!-- Trennlinie zw. li & re -->
-        <div class="svg-separator">
-          <img
-            src="./assets/img/icons/add-task/seperator.svg"
-            alt="seperator"
-          />
-        </div>
-        <!-- container re -->
-        <div class="frame39">
-          <!-- Date -->
-          <span>Due Date<span class="asterisk">*</span></span>
-          <div>
-            <input
-              type="date"
-              placeholder="dd/mm/yyy"
-              class="field-width-height input-borders due-date"
+              placeholder="Enter a title"
+              class="field-width-height input-borders title"
               required
             />
-          </div>
-          <!-- Prio  -->
-          <span>Prio</span>
-          <div class="priority">
-            <div class="prio-box input-borders">
-              Urgent
+            <!-- -->
+            <span>Description</span>
+            <textarea
+              name="description-text"
+              id="description"
+              class="field-width-height description-height input-borders description"
+              placeholder="Enter a Description"
+              cols="30"
+              rows="10"
+            ></textarea>
+            <!-- neuer test für assign to -->
+            <label for="assign-select"><span>Assigned to</span> </label>
+            <div
+              class="field-width-height borders input-borders assigned-to"
+              onclick="openAndCloseDropDownToAssign()"
+            >
+              <input
+                name="select-contact"
+                type="text"
+                class="border-none"
+                id="dropdownInput"
+                placeholder="Select contacts to assign"
+                readonly
+              />
               <img
-                src="./assets/img/icons/add-task/urgent.svg"
-                alt="urgent symbol"
+                id="arrowImg"
+                src="./assets/img/icons/add-task/arrow-down.svg"
+                alt="Arrow down icon"
               />
             </div>
-            <div class="prio-box input-borders">
-              Medium
-              <img
-                src="./assets/img/icons/add-task/medium.svg"
-                alt="medium symbol"
-              />
-            </div>
-            <div class="prio-box input-borders">
-              Low
-              <img src="./assets/img/icons/add-task/low.svg" alt="low symbol" />
+            <div
+              class="dropdown-content btn-borders dropdown-content-style"
+              id="dropdownContent"
+            >
+              <div id="labels"></div>
             </div>
           </div>
-          <!-- Category -->
-          <label for="category-select"
-            ><span>Category<span class="asterisk">*</span></span></label
-          >
-          <select
-            name="category"
-            id="category"
-            class="field-width-height input-borders category"
-            required
-          >
-            <option value="option-text">Select task category</option>
-            <option value="a">A</option>
-            <option value="b">B</option>
-            <option value="c">C</option>
-          </select>
-          <!-- Subtasks -->
-          <span>Subtasks</span>
-          <div class="field-width-height input-borders subtasks">
-            <input
-              type="text"
-              placeholder="Add new subtasks"
-              class="border-none"
+          <!-- Trennlinie zw. li & re -->
+          <div class="svg-separator">
+            <img
+              src="./assets/img/icons/add-task/seperator.svg"
+              alt="seperator"
             />
-            <img src="./assets/img/icons/add-task/plus.svg" alt="plus symbol" />
+          </div>
+          <!-- container re -->
+          <div class="frame39">
+            <!-- Date -->
+            <span>Due Date<span class="asterisk">*</span></span>
+            <div>
+              <input
+                name="date"
+                type="date"
+                placeholder="dd/mm/yyy"
+                class="field-width-height input-borders due-date"
+                required
+              />
+            </div>
+            <!--Prio-->
+            <span>Prio</span>
+            <div class="priority">
+              <button
+                class="prio-box input-borders"
+                onclick="setPriority('urgent')"
+              >
+                Urgent
+                <img
+                  src="./assets/img/icons/add-task/urgent.svg"
+                  alt="urgent symbol"
+                />
+              </button>
+              <button
+                class="prio-box input-borders"
+                onclick="setPriority('medium')"
+              >
+                Medium
+                <img
+                  src="./assets/img/icons/add-task/medium.svg"
+                  alt="medium symbol"
+                />
+              </button>
+              <button
+                class="prio-box input-borders"
+                onclick="setPriority('low')"
+              >
+                Low
+                <img
+                  src="./assets/img/icons/add-task/low.svg"
+                  alt="low symbol"
+                />
+              </button>
+            </div>
+            <!-- Category -->
+            <label for="category-select"
+              ><span>Category<span class="asterisk">*</span></span></label
+            >
+            <select
+              name="category"
+              id="category"
+              class="field-width-height input-borders category"
+              required
+            >
+              <option value="option-text">Select task category</option>
+              <option value="user-story">User Story</option>
+              <option value="technical-task">Technical Task</option>
+            </select>
+            <!-- Subtasks -->
+            <span>Subtasks</span>
+            <div class="field-width-height input-borders subtasks">
+              <input
+                type="text"
+                placeholder="Add new subtasks"
+                class="border-none"
+              />
+              <img
+                src="./assets/img/icons/add-task/plus.svg"
+                alt="plus symbol"
+              />
+            </div>
           </div>
         </div>
-      </div>
-      <!-- butons and required info -->
-      <div class="lower-container">
-        <span><span class="asterisk">*</span>This field is required</span>
-        <div class="btn-container">
-          <button class="btn-borders btn-span-img-ctn btn-clear">
-            <span class="clear-text">Clear</span>
-            <img
-              src="./assets/img/icons/add-task/close.svg"
-              alt="close symbol"
-            />
-          </button>
-          <button disabled class="btn-borders btn-span-img-ctn btn-create">
-            <span class="create-text">Create Task</span>
-            <img
-              src="./assets/img/icons/add-task/check.svg"
-              alt="close symbol"
-            />
-          </button>
+        <!-- butons and required info -->
+        <div class="lower-container">
+          <span><span class="asterisk">*</span>This field is required</span>
+          <div class="btn-container">
+            <button class="btn-borders btn-span-img-ctn btn-clear">
+              <span class="clear-text">Clear</span>
+              <img
+                src="./assets/img/icons/add-task/close.svg"
+                alt="close symbol"
+              />
+            </button>
+            <button disabled class="btn-borders btn-span-img-ctn btn-create">
+              <span class="create-text">Create Task</span>
+              <img
+                src="./assets/img/icons/add-task/check.svg"
+                alt="close symbol"
+              />
+            </button>
+          </div>
         </div>
       </div>
     </section>

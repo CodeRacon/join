@@ -1,7 +1,7 @@
 <header>
   <div class="top-bar">
     <p>Kanban Project Management Tool</p>
-    <div class="corner-icons">
+    <div id="corner-icons" class="corner-icons">
       <a href="help.html">
         <div class="help"></div>
       </a>
@@ -16,26 +16,26 @@
   <div class="logo" id="logo">
     <img src="assets/img/logo/logo-white.svg" alt="join logo" />
   </div>
-  <nav>
-    <a href="summary.html" class="nav-summary" id="nav-summary">
+  <nav id="side-nav">
+    <a href="/summary.html" class="nav-summary" id="nav-summary">
       <div class="summary-icon"></div>
       <p>Summary</p>
     </a>
-    <a href="add_task.html" class="nav-add-task" id="nav-add-task">
+    <a href="/add_task.html" class="nav-add-task" id="nav-add-task">
       <div class="add-task-icon"></div>
       <p>Add Task</p>
     </a>
-    <a href="board.html" class="nav-board" id="nav-board">
+    <a href="/board.html" class="nav-board" id="nav-board">
       <div class="board-icon"></div>
       <p>Board</p>
     </a>
-    <a href="contacts.html" class="nav-contacts" id="nav-contacts">
+    <a href="/contacts.html" class="nav-contacts" id="nav-contacts">
       <div class="contacts-icon"></div>
       <p>Contacts</p>
     </a>
   </nav>
   <div class="pp-ln">
-    <a href="privacy_policy.html">Privacy Policy</a>
-    <a href="legal_notice.html">Legal Notice</a>
+    <a onclick="openExternalLink('/privacy_policy.html')">Privacy Policy</a>
+    <a onclick="openExternalLink('/legal_notice.html')">Legal Notice</a>
   </div>
 </aside>

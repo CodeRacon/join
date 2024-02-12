@@ -317,8 +317,6 @@ function renderContactInfoBox(i) {
  * @returns {string} The HTML string for the info box
  */
 function contactInfoBoxHTML(listEntry, initials, i) {
-  console.log(i);
-
   return /*html*/ `
     <div class="user-label">
             <div class="user-icon" style="background-color: ${listEntry.color}" >
