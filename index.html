@@ -33,7 +33,7 @@
         src="/assets/img/logo/start-logo-dark.svg"
         alt="join logo" />
 
-      <form class="log-in" onsubmit="return checkExistence()">
+      <form class="log-in" onsubmit=" checkExistence(); return false">
         <h1 class="log-in--h1">Log In</h1>
         <div class="custom-underline"></div>
         <div class="log-in-inputs">
@@ -45,8 +45,13 @@
             placeholder="Password" />
         </div>
         <div class="log-in-checkbox">
-          <div class="rem-me--checkbox"></div>
-          <p>Remember Me</p>
+          <div class="rem-me--checkbox">
+            <p id="john" style="color: red;" class="dn">Incorect Pasword or Email</p>
+            <div id="checkedOrNot">
+              <img  onclick="checkBox()" class="imgmo" src="assets/img/icons/general/other/unchecked.svg" alt="" srcset="">
+              <p>Remember Me</p>
+            </div>
+          </div>
         </div>
         <button>Got You</button>
       </form>
