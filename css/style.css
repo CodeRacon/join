@@ -332,3 +332,28 @@ nav > a:active {
   color: var(--accent);
   background-color: var(--nav-link-act);
 }
+
+.log-in-checkbox p{
+  display: flex;
+  margin: 0;
+  align-items: center;
+}
+
+.log-in-checkbox{
+  margin-top: 20px;
+  display: flex;
+  gap: 8px;
+}
+
+#checkedOrNot:hover{
+  cursor: pointer;
+}
+
+.imgmo{
+  height: 24px;
+  width: 24px;
+}
+
+.dn{
+  display: none !important;
+}
