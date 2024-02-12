@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./css/signUp.css">
     <script src="./js/storage.js"></script>
     <script src="./js/signUp.js"></script>
 </head>
 <body onload="loadUsers()">
-    <form onsubmit=" createAccount();">
+    <form onsubmit="createAccount(); return false">
         <div>
             <input required id="name" required type="text" placeholder="Name">
             <img src="./assets/img/icons/login_signup/person.svg" alt="" srcset="">
@@ -24,6 +25,8 @@
         <div>
             <input id="repeatPassword" required type="password" placeholder="Confirm Password">
         </div>
+        <p style="color: red;" class="dn">Please make sure your passwords match</p>
+        <button onclick="toogleNum()">Click button</button>
         <button>Do It</button>
     </form>
 </body>
