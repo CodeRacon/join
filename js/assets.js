@@ -1,25 +1,75 @@
 /**
  * Array of hex color values used for contacts and task-categories
  */
-const hexColors = [
-  '#0038FF',
-  '#00BEE8',
-  '#1FD7C1',
-  '#6E52FF',
-  '#9747FF',
-  '#C3FF2B',
-  '#FC71FF',
-  '#FF4646',
-  '#FF5EB3',
-  '#FF745E',
-  '#FF7A00',
-  '#FFA35E',
-  '#FFBB2B',
-  '#FFC701',
-  '#FFE62B',
-];
+// const hexColors = [
+//   '#0038FF',
+//   '#00BEE8',
+//   '#1FD7C1',
+//   '#6E52FF',
+//   '#9747FF',
+//   '#C3FF2B',
+//   '#FC71FF',
+//   '#FF4646',
+//   '#FF5EB3',
+//   '#FF745E',
+//   '#FF7A00',
+//   '#FFA35E',
+//   '#FFBB2B',
+//   '#FFC701',
+//   '#FFE62B',
+// ];
 
-contacts = [
+startData = [
+  {
+    name: 'Mike Skinner',
+    phone: '(758) 519-1073',
+    email: 'm.skinner89@gmail.com',
+    password: 'pw1234',
+    color: '#659c2b',
+    isRegistered: true,
+    isLoggedIn: true,
+    userData: {
+      name: 'Mike Skinner',
+      email: 'm.skinner89@gmail.com',
+      password: 'pw1234',
+    },
+    tasks: [
+      {
+        // status 1 = In Progress
+        status: 1,
+
+        // category 1 = User Story
+        category: 1,
+
+        title: 'Daily Kochwelt Recipe',
+        description: 'Build start page with recipe recommendation...',
+        assignedTo: ['Gene Ward', 'Kjelt Becker'],
+
+        // priority 2 = medium
+        priority: 2,
+
+        subtasks: [
+          { name: 're-design Mockup', done: false },
+          { name: 'update incredient calculator', done: false },
+        ],
+        duedate: '20.02.2024',
+      },
+      {
+        status: 3,
+
+        title: 'HTML Base Template Creation',
+        description: 'Create reusable HTML base templates...',
+        subtasks: [
+          { name: 'set up basic html structure', done: true },
+          { name: 'usage of standard cssclasses', done: true },
+        ],
+        assignedTo: ['Gene Ward', 'Kjelt Becker', 'Hasan Demir'],
+        priority: 1,
+        status: 3,
+        duedate: '14.02.2024',
+      },
+    ],
+  },
   {
     name: 'Kamilla Morgentau',
     phone: '(741) 762-6527',
@@ -123,24 +173,16 @@ contacts = [
     color: '#1dab93',
   },
   {
-    name: 'Mike Skinner',
-    phone: '(758) 519-1073',
-    email: 'm.skinner89@gmail.com',
-    password: 'pw1234',
-    color: '#659c2b',
-    isRegistered: true,
-    tasks: {
-      category: 1,
-      title: 'Daily Kochwelt Recipe',
-      description: 'Implement daily recipe',
-      subtasks: [
-        { name: 're-design Mockup', done: true },
-        { name: 'update incredient calculator', done: false },
-      ],
-      assignedTo: ['Gene Ward', 'Kjelt Becker', 'Hasan Demir'],
-      priority: 2,
-      status: 3,
-      duedate: '20.02.2024',
-    },
+    name: 'Howard Stern',
+    phone: '(516) 1256-8652',
+    email: 'stern.h@gmail.com',
+    color: '#FFC300',
   },
 ];
+
+/**
+ * Stores the start data in local storage.
+ */
+function storeStartData() {
+  setItem('startData', JSON.stringify(startData));
+}
