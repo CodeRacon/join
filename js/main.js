@@ -1,7 +1,7 @@
 /**
  * Initializes the page by asynchronously including HTML snippets,
  * highlighting the current navigation link, and hiding navigation
- * links on blank pages.
+ * links on external pages.
  */
 async function initPage() {
   await includeHTML();
@@ -34,10 +34,21 @@ async function includeHTML() {
   }
 }
 
+/**
+ * Navigates to the previous page in the browser history.
+ */
 function goBack() {
   window.history.back();
 }
 
+/**
+ * Highlights the navigation link corresponding to the
+ * current page.
+ *
+ * Loops through all navigation links and compares their
+ * href to the current page URL. If they match, it adds
+ * the 'visited' class to highlight the link.
+ */
 function highlightNavLink() {
   const navLinks = document.querySelectorAll('aside a');
   const currentUrl = window.location.pathname;
@@ -52,6 +63,12 @@ function highlightNavLink() {
   });
 }
 
+/**
+ * Toggles the visibility of the side navigation and header icons
+ * when the privacy policy or legal notice pages are loaded.
+ * This hides the side nav and header icons on those pages since they are
+ * standalone legal pages.
+ */
 function changeFrameOnNewTab() {
   const sideNav = document.getElementById('side-nav');
   const headerIcons = document.getElementById('corner-icons');
@@ -64,6 +81,11 @@ function changeFrameOnNewTab() {
   }
 }
 
+/**
+ * Opens the given URL in a new tab, unless the current page is
+ * the privacy policy or legal notice. For those pages, refresh
+ * current page instead  of opening a new tab.
+ */
 function openExternalLink(url) {
   const currentUrl = window.location.pathname;
   const privacyUrl = '/privacy_policy.html';
