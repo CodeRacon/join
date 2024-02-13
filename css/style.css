@@ -65,6 +65,22 @@
   --small-menu-br: 1.25rem 0rem 1.25rem 1.25rem;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.d-none {
+  display: none !important;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -338,27 +354,27 @@ nav > a:active {
   background-color: var(--nav-link-act);
 }
 
-.log-in-checkbox p{
+.log-in-checkbox p {
   display: flex;
   margin: 0;
   align-items: center;
 }
 
-.log-in-checkbox{
+.log-in-checkbox {
   margin-top: 20px;
   display: flex;
   gap: 8px;
 }
 
-#checkedOrNot:hover{
+#checkedOrNot:hover {
   cursor: pointer;
 }
 
-.imgmo{
+.imgmo {
   height: 24px;
   width: 24px;
 }
 
-.dn{
+.dn {
   display: none !important;
 }
