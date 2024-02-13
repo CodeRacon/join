@@ -64,24 +64,3 @@
   /* refers to menu that shows up when profile in upper-right corner is clicked */
   --small-menu-br: 1.25rem 0rem 1.25rem 1.25rem;
 }
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-a {
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.d-none {
-  display: none !important;
-}
-
-.hidden {
-  visibility: hidden;
-}
