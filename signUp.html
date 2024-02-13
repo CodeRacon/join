@@ -9,18 +9,16 @@
     <script src="./js/signUp.js"></script>
 </head>
 <body onload="loadUsers()">
+   
     <form onsubmit="createAccount(); return false">
         <div>
             <input required id="name" required type="text" placeholder="Name">
-            <img src="./assets/img/icons/login_signup/person.svg" alt="" srcset="">
         </div>
         <div>
             <input required id="mail" required type="email" placeholder="Email">
-            <img src="./assets/img/icons/login_signup/mail.svg" alt="" srcset="">
         </div>
         <div>
             <input required id="paswort" type="password" placeholder="Password">
-            <img src="./assets/img/icons/login_signup/lock.svg" alt="" srcset="">
         </div>
         <div>
             <input id="repeatPassword" required type="password" placeholder="Confirm Password">
@@ -29,5 +27,6 @@
         <button onclick="toogleNum()">Click button</button>
         <button>Do It</button>
     </form>
+    
 </body>
 </html>
