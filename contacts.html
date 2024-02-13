@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/fonts.css" />
     <link rel="stylesheet" href="css/root.css" />
     <script defer src="js/contacts.js"></script>
+    <script defer src="js/assets.js"></script>
     <script defer src="js/main.js"></script>
     <title>join - Contacts</title>
     <link rel="icon" type="image/png" href="assets/img/logo/favicon.png" />
@@ -24,7 +25,7 @@
 |_______||_______||_|  |__|  |___|  |__| |__||_______|  |___|  |_______|
 -->
 
-  <body onload="initPage(); renderContactList()">
+  <body onload="initPage(); initContacts()">
     <div
       onclick="closeDialogueBox()"
       id="overlay"
@@ -111,7 +112,7 @@
           <div class="close-btn" onclick="closeEditContactDB()">
             <img src="/assets/img/icons/add-task/close.svg" />
           </div>
-          <div class="user-icon-dummy"></div>
+          <div id="edit-contact-user-icon" class="user-icon-edit"></div>
           <div class="edit-contact-form">
             <div class="input--name">
               <input id="edit-contact-name" type="text" placeholder="Name" />
