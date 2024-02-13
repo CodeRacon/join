@@ -68,19 +68,37 @@
             <img src="/assets/img/icons/add-task/close.svg" />
           </div>
           <div class="user-icon-dummy"></div>
-          <div class="add-contact-form">
+          <form
+            id="test"
+            class="add-contact-form"
+            onsubmit="createContact(); return false;">
             <div class="input--name">
-              <input id="new-contact-name" type="text" placeholder="Name" />
+              <input
+                id="new-contact-name"
+                type="text"
+                autocomplete="off"
+                placeholder="Name"
+                required />
               <img src="/assets/img/icons/contacts/person.svg" />
             </div>
 
             <div class="input--email">
-              <input id="new-contact-email" type="email" placeholder="Email" />
+              <input
+                id="new-contact-email"
+                type="email"
+                autocomplete="off"
+                placeholder="Email"
+                required />
               <img src="/assets/img/icons/contacts/mail.svg" />
             </div>
 
             <div class="input--phone">
-              <input id="new-contact-phone" type="tel" placeholder="Phone" />
+              <input
+                id="new-contact-phone"
+                type="tel"
+                autocomplete="off"
+                placeholder="Phone"
+                required />
               <img src="/assets/img/icons/contacts/call.svg" />
             </div>
 
@@ -88,12 +106,12 @@
               <button onclick="closeAddContactDB()">
                 Cancel<img src="/assets/img/icons/general/other/cancel.svg" />
               </button>
-              <button onclick="createContact()">
+              <button type="submit">
                 Create Contact
                 <img src="/assets/img/icons/contacts/check-white.svg" />
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
 
@@ -113,19 +131,36 @@
             <img src="/assets/img/icons/add-task/close.svg" />
           </div>
           <div id="edit-contact-user-icon" class="user-icon-edit"></div>
-          <div class="edit-contact-form">
+          <form
+            class="edit-contact-form"
+            onsubmit="editContact(); return false;">
             <div class="input--name">
-              <input id="edit-contact-name" type="text" placeholder="Name" />
+              <input
+                id="edit-contact-name"
+                type="text"
+                autocomplete="off"
+                placeholder="Name"
+                required />
               <img src="/assets/img/icons/contacts/person.svg" />
             </div>
 
             <div class="input--email">
-              <input id="edit-contact-email" type="email" placeholder="Email" />
+              <input
+                id="edit-contact-email"
+                type="email"
+                autocomplete="off"
+                placeholder="Email"
+                required />
               <img src="/assets/img/icons/contacts/mail.svg" />
             </div>
 
             <div class="input--phone">
-              <input id="edit-contact-phone" type="tel" placeholder="Phone" />
+              <input
+                id="edit-contact-phone"
+                type="tel"
+                autocomplete="off"
+                placeholder="Phone"
+                required />
               <img src="/assets/img/icons/contacts/call.svg" />
             </div>
 
@@ -133,12 +168,12 @@
               <button onclick="deleteContact()">
                 Delete<img src="/assets/img/icons/general/other/cancel.svg" />
               </button>
-              <button onclick="editContact()">
+              <button type="submit">
                 Save
                 <img src="/assets/img/icons/contacts/check-white.svg" />
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </section>
