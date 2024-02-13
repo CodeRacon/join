@@ -7,7 +7,6 @@ async function initPage() {
   await includeHTML();
   highlightNavLink();
   changeFrameOnNewTab();
-  updateHTML();
 }
 
 /**
