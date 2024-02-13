@@ -1,3 +1,28 @@
+body{
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .dn{
     display: none !important;
+}
+
+form{
+    width:  41.528vw;
+    background-color: aliceblue;
+     height: 43.75vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+input{
+    width: 29.306vw;
+    padding: 12px 21px;
+    border-radius: 30px;
 }
