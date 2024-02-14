@@ -18,7 +18,7 @@ let hexColors = [
   '#FFC701',
   '#FFE62B',
   '#00FF9D',
-  '#00FFD5',
+  '#00B155',
   '#85FF00',
   '#FFD100',
   '#FFC300',
