@@ -10,8 +10,10 @@
     <link rel="stylesheet" href="css/fonts.css" />
     <link rel="stylesheet" href="css/root.css" />
     <script defer src="js/main.js"></script>
+    <script defer src="js/assets.js"></script>
     <script defer src="js/contacts.js"></script>
     <script defer src="js/add_task.js"></script>
+    <script defer src="js/board.js"></script>
 
     <title>join - Add Task</title>
     <link rel="icon" type="image/png" href="assets/img/logo/favicon.png" />
@@ -27,7 +29,7 @@
 |__| |__||______| |______|     |___|  |__| |__||_______||___| |_|
 -->
 
-  <body onload="includeHTML(), showContactsToAssign()">
+  <body onload="initPage(), showContactsToAssign()">
     <div
       id="frame"
       class="header-template"
@@ -174,7 +176,10 @@
         <div class="lower-container">
           <span><span class="asterisk">*</span>This field is required</span>
           <div class="btn-container">
-            <button class="btn-borders btn-span-img-ctn btn-clear">
+            <button
+              class="btn-borders btn-span-img-ctn btn-clear"
+              onclick="clearForm()"
+            >
               <span class="clear-text">Clear</span>
               <img
                 src="./assets/img/icons/add-task/close.svg"

@@ -21,8 +21,8 @@ function openAndCloseDropDownToAssign() {
 function showContactsToAssign() {
   let content = document.getElementById("labels");
   content.innerHTML = "";
-  for (let i = 0; i < contacts.length; i++) {
-    const element = contacts[i];
+  for (let i = 0; i < startData.length; i++) {
+    const element = startData[i];
     content.innerHTML += `
       <div class="single-contact">
         <label for="option${i}" class="label-layout">

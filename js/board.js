@@ -168,7 +168,28 @@ function removeHighlight(id) {
 }
 
 function openAddTaskOverlay() {
-  let overlay = document.getElementById("overlay-add-task");
-  let content = document.getElementById("add-task-content").innerHTML;
-  overlay.innerHTML = content;
+  let overlay = document.getElementById("add-task-content-overlay");
+  overlay.classList.remove("slide-in", "d-none");
+  setTimeout(() => {
+    overlay.classList.add("slide-in");
+  }, 0);
+  overlay.classList.remove("d-none");
+}
+
+function closeAddTaskOverlay() {
+  let content = document.getElementById("add-task-content-overlay");
+  content.classList.add("d-none");
+}
+
+function clearForm() {
+  let inputs = document.querySelectorAll("input");
+  let textarea = document.getElementById("description");
+  let selects = document.querySelectorAll("select");
+  inputs.forEach(function (input) {
+    input.value = "";
+  });
+  selects.forEach(function (select) {
+    select.selectedIndex = -1;
+  });
+  textarea.value = "";
 }
