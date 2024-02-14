@@ -39,6 +39,9 @@
   /* fields color- width & height */
   --f-width: 27.5rem;
   --f-height: 3rem;
+  --f-width-small: 17.5rem;
+  --f-height-small: 1.5rem;
+
   --description-height: 7.5rem;
   --border-color: #d1d1d1;
 
@@ -290,7 +293,7 @@ select:focus {
 #dropdownContent {
   display: none;
   background-color: white;
-  width: -webkit-fill-available;
+  width: var(--f-width);
   min-height: 6rem;
   border-top: none;
   margin-top: -2rem;
@@ -351,10 +354,6 @@ select:focus {
   display: block;
 }
 
-.d-none {
-  display: none;
-}
-
 .single-contact {
   display: flex;
   flex-direction: row-reverse;
@@ -388,4 +387,21 @@ select:focus {
   .btn-clear {
     display: none;
   }
+}
+
+#show-subtasks-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 1rem;
+  width: 100%;
+}
+
+#input-of-subtask {
+  width: 90%;
+}
+
+.subtask-list-container {
+  display: flex;
+  justify-content: space-between;
 }

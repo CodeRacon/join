@@ -65,6 +65,10 @@
   --small-menu-br: 1.25rem 0rem 1.25rem 1.25rem;
 
   --white: #fff;
+
+  /* fields small width & height */
+  --f-width-small: 17.5rem;
+  --f-height-small: 1.5rem;
 }
 
 /* ############### */
@@ -183,10 +187,6 @@ div[draggable="true"] {
   cursor: pointer;
 }
 
-.d-none {
-  display: none;
-}
-
 .empty-task {
   display: flex;
   align-items: center;
@@ -259,4 +259,62 @@ div[draggable="true"] {
 
 .user-story-task-color {
   background-color: #0038ff;
+}
+
+.overlay-add-task {
+  position: absolute;
+  width: fit-content;
+}
+
+#add-task-content-overlay {
+  width: -webkit-fill-available;
+  max-width: 65rem;
+  position: absolute;
+  top: 20vh;
+  padding: 2rem;
+  border-radius: var(--big-br);
+  background: var(--white);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+.field-width-height-small {
+  width: var(--f-width);
+}
+
+.frame219-small,
+.frame39-small {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  width: 50%;
+}
+
+.main-container-small {
+  display: flex;
+  margin-bottom: 0;
+}
+
+.svg-separator-small {
+  padding: 2rem;
+}
+
+.prio-box-small {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 8.5rem;
+  height: 3.5rem;
+  color: #000;
+  font-family: Inter;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.headline-overlay {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
