@@ -7,7 +7,7 @@ let hexColors = [
   '#1FD7C1',
   '#6E52FF',
   '#9747FF',
-  '#a6c063',
+  '#A6C063',
   '#FC71FF',
   '#FF4646',
   '#FF5EB3',
@@ -25,138 +25,163 @@ let hexColors = [
   '#FF00E1',
   '#FF0091',
   '#0077FF',
-  '#00FFFB',
+  '#00A6FF',
   '#FF6A00',
   '#FF8A00',
   '#FF0038',
   '#FF005E',
   '#006AFF',
-  '#00b8ab',
+  '#00B8AB',
 ];
 
 /**
  * Array of contact objects with details like name, phone, email, and color hex code.
  * Used to display contacts and style them.
  */
-contacts = [
-  {
-    name: 'Kamilla Morgentau',
-    phone: '(741) 762-6527',
-    email: 'k.morgentau@gmail.com',
-    color: '#0038FF',
-  },
-  {
-    name: 'Gerd Förster',
-    phone: '(606) 200-4805',
-    email: 'g.foerster86@gmail.com',
-    color: '#00BEE8',
-  },
-  {
-    name: 'Bernd Steinemann',
-    phone: '(606) 659-4325',
-    email: 'steinemann83@mail.com',
-    color: '#1FD7C1',
-  },
-  {
-    name: 'Sophia Kostas',
-    phone: '(264) 911-2395',
-    email: 's.kostas84@mail.com',
-    color: '#6E52FF',
-  },
-  {
-    name: 'Ahmed Al-Farsi',
-    phone: '(353) 365-9874',
-    email: 'a.alfarsi89@mail.com',
-    color: '#9747FF',
-  },
-  {
-    name: 'Lindsay Orn',
-    phone: '(079) 862-6516',
-    email: 'lorn99@mail.com',
-    color: '#687fc4',
-  },
-  {
-    name: 'Annetta Grant',
-    phone: '(778) 560-8034',
-    email: 'a.grant@mail.com',
-    color: '#FC71FF',
-  },
-  {
-    name: 'Henna Yilmaz',
-    phone: '(494) 694-8019',
-    email: 'h.yilmaz79@gmail.com',
-    color: '#FF4646',
-  },
-  {
-    name: 'Joey Kub',
-    phone: '(227) 955-4546',
-    email: 'jokub74@mail.com',
-    color: '#FF5EB3',
-  },
-  {
-    name: 'Pascale Feeney',
-    phone: '(830) 099-6852',
-    email: 'pas.feeney@mail.com',
-    color: '#FF745E',
-  },
-  {
-    name: 'Lea Stamm',
-    phone: '(004) 386-7068',
-    email: 'lea.stamm98@gmail.com',
-    color: '#FF7A00',
-  },
-  {
-    name: 'Tess Moore',
-    phone: '(549) 753-7594',
-    email: 't.moore99@gmail.com',
-    color: '#FFA35E',
-  },
-  {
-    name: 'Jazmyn Tremblay',
-    phone: '(866) 844-0133',
-    email: 'j.tremblay92@mail.com',
-    color: '#FFBB2B',
-  },
-  {
-    name: 'George Kozey',
-    phone: '(176) 842-2961',
-    email: 'ge-ko@mail.com',
-    color: '#FFC701',
-  },
-  {
-    name: 'Hasan Demir',
-    phone: '(733) 649-6102',
-    email: 'hasan.demir81@mail.com',
-    color: '#9c8900',
-  },
-  {
-    name: 'Kjelt Becker',
-    phone: '(484) 742-4202',
-    email: 'k.becker@gmail.com',
-    color: '#61c39d',
-  },
-  {
-    name: 'Gene Ward',
-    phone: '(876) 110-8650',
-    email: 'g.ward@gmail.com',
-    color: '#1dab93',
-  },
-  {
-    name: 'Mike Skinner',
-    phone: '(758) 519-1073',
-    email: 'm.skinner89@gmail.com',
-    color: '#659c2b',
-  },
-];
+// contacts = [
+//   {
+//     name: 'Kamilla Morgentau',
+//     phone: '(741) 762-6527',
+//     email: 'k.morgentau@gmail.com',
+//     color: '#0038FF',
+//   },
+//   {
+//     name: 'Gerd Förster',
+//     phone: '(606) 200-4805',
+//     email: 'g.foerster86@gmail.com',
+//     color: '#00BEE8',
+//   },
+//   {
+//     name: 'Bernd Steinemann',
+//     phone: '(606) 659-4325',
+//     email: 'steinemann83@mail.com',
+//     color: '#1FD7C1',
+//   },
+//   {
+//     name: 'Sophia Kostas',
+//     phone: '(264) 911-2395',
+//     email: 's.kostas84@mail.com',
+//     color: '#6E52FF',
+//   },
+//   {
+//     name: 'Ahmed Al-Farsi',
+//     phone: '(353) 365-9874',
+//     email: 'a.alfarsi89@mail.com',
+//     color: '#9747FF',
+//   },
+//   {
+//     name: 'Lindsay Orn',
+//     phone: '(079) 862-6516',
+//     email: 'lorn99@mail.com',
+//     color: '#687fc4',
+//   },
+//   {
+//     name: 'Annetta Grant',
+//     phone: '(778) 560-8034',
+//     email: 'a.grant@mail.com',
+//     color: '#FC71FF',
+//   },
+//   {
+//     name: 'Henna Yilmaz',
+//     phone: '(494) 694-8019',
+//     email: 'h.yilmaz79@gmail.com',
+//     color: '#FF4646',
+//   },
+//   {
+//     name: 'Joey Kub',
+//     phone: '(227) 955-4546',
+//     email: 'jokub74@mail.com',
+//     color: '#FF5EB3',
+//   },
+//   {
+//     name: 'Pascale Feeney',
+//     phone: '(830) 099-6852',
+//     email: 'pas.feeney@mail.com',
+//     color: '#FF745E',
+//   },
+//   {
+//     name: 'Lea Stamm',
+//     phone: '(004) 386-7068',
+//     email: 'lea.stamm98@gmail.com',
+//     color: '#FF7A00',
+//   },
+//   {
+//     name: 'Tess Moore',
+//     phone: '(549) 753-7594',
+//     email: 't.moore99@gmail.com',
+//     color: '#FFA35E',
+//   },
+//   {
+//     name: 'Jazmyn Tremblay',
+//     phone: '(866) 844-0133',
+//     email: 'j.tremblay92@mail.com',
+//     color: '#FFBB2B',
+//   },
+//   {
+//     name: 'George Kozey',
+//     phone: '(176) 842-2961',
+//     email: 'ge-ko@mail.com',
+//     color: '#FFC701',
+//   },
+//   {
+//     name: 'Hasan Demir',
+//     phone: '(733) 649-6102',
+//     email: 'hasan.demir81@mail.com',
+//     color: '#9c8900',
+//   },
+//   {
+//     name: 'Kjelt Becker',
+//     phone: '(484) 742-4202',
+//     email: 'k.becker@gmail.com',
+//     color: '#61c39d',
+//   },
+//   {
+//     name: 'Gene Ward',
+//     phone: '(876) 110-8650',
+//     email: 'g.ward@gmail.com',
+//     color: '#1dab93',
+//   },
+//   {
+//     name: 'Mike Skinner',
+//     phone: '(758) 519-1073',
+//     email: 'm.skinner89@gmail.com',
+//     color: '#659c2b',
+//   },
+// ];
+
+let contacts = [];
+let formattedContactList = [];
 
 let currentContact;
+
+async function initContacts() {
+  // storeStartData();
+  await loadContacts();
+  renderContactList();
+}
+
+async function loadContacts() {
+  contacts = JSON.parse(await getItem('startData'));
+}
+
+function findIndexInContacts(wantedIndex) {
+  return contacts.findIndex((contact) => {
+    return contact === wantedIndex;
+  });
+}
+
+function findIndexInFormattedList(wantedIndex) {
+  return formattedContactList.findIndex((contact) => {
+    return contact === wantedIndex;
+  });
+}
 
 /**
  * Sorts the given array of contact objects alphabetically by name.
  * Modifies the contacts array in place.
  */
 function sortContacts(contacts) {
-  contacts.sort((a, b) => a.name.localeCompare(b.name));
+  contacts.sort((a, b) => a.userData.name.localeCompare(b.userData.name));
 }
 
 /**
@@ -169,11 +194,11 @@ function sortContacts(contacts) {
 function formatContactList(contacts) {
   sortContacts(contacts);
 
-  let formattedContactList = [];
+  formattedContactList = [];
   let currentLetter = '';
 
   contacts.forEach((contact) => {
-    const capFirstLetter = contact.name.charAt(0).toUpperCase();
+    const capFirstLetter = contact.userData.name.charAt(0).toUpperCase();
 
     if (capFirstLetter !== currentLetter) {
       formattedContactList.push({ type: 'divider', letter: capFirstLetter });
@@ -184,17 +209,17 @@ function formatContactList(contacts) {
   return formattedContactList;
 }
 
-let formattedContactList = formatContactList(contacts);
-
-// console.log(formattedContactList);
+formattedContactList = formatContactList(contacts);
 
 /**
  * Renders the contact list by formatting the contacts,
  * then inserting dividers and list items into the DOM.
  */
 function renderContactList() {
-  const formattedContactList = formatContactList(contacts);
-  let contactList = document.getElementById('contact-list');
+  formattedContactList = formatContactList(contacts);
+
+  // const formattedContactList = formatContactList(contacts);
+  const contactList = document.getElementById('contact-list');
   contactList.innerHTML = '';
   contactList.innerHTML = renderAddContactBtn();
 
@@ -248,7 +273,7 @@ function renderDivider(listEntry) {
  * @returns {string} The HTML markup for the list item.
  */
 function renderListItem(listEntry, i) {
-  const initials = listEntry.name
+  const initials = listEntry.userData.name
     .split(' ')
     .map((word) => word.charAt(0))
     .join('');
@@ -265,8 +290,8 @@ function renderListItem(listEntry, i) {
         ${initials}
       </div>
       <div class="list-item-info">
-        <p>${listEntry.name}</p>
-        <p >${listEntry.email}</p>
+        <p>${listEntry.userData.name}</p>
+        <p >${listEntry.userData.email}</p>
       </div>
     </div>
   `;
@@ -281,7 +306,7 @@ function renderListItem(listEntry, i) {
 function openContact(i) {
   const contactItem = document.getElementById(`contact-list-item-${i}`);
 
-  if (contactItem.classList.contains('selected')) {
+  if (contactItem.classList.contains('selected') || !contactItem) {
     closeContactInfoBox(i);
   } else {
     swipeInContactInfoBox(i);
@@ -298,7 +323,7 @@ function openContact(i) {
 function renderContactInfoBox(i) {
   const contactInfoBox = document.getElementById('contact-info-box');
   const listEntry = formattedContactList[i];
-  const initials = listEntry.name
+  const initials = listEntry.userData.name
     .split(' ')
     .map((word) => word.charAt(0))
     .join('');
@@ -323,14 +348,14 @@ function contactInfoBoxHTML(listEntry, initials, i) {
               ${initials}
             </div>
             <div class="user-name">
-              <span>${listEntry.name}</span>
+              <span>${listEntry.userData.name}</span>
               <div class="edit-user-info">
                 <div id="edit-contact-btn-${i}" class="edit" onclick="openEditContactDB(${i})">
                   <img
                     src="/assets/img/icons/contacts/edit_contact.svg"
                     alt="" />
                 </div>
-                <div id="delete-contact-btn" class="delete" onclick="deleteContactInfoBox(${i})">
+                <div id="delete-contact-btn" class="delete" onclick="deleteAtContactInfoBox(${i})">
                   <img src="/assets/img/icons/contacts/delete_contact.svg"/>
                      
                 </div>
@@ -340,13 +365,13 @@ function contactInfoBoxHTML(listEntry, initials, i) {
           <div class="sub-heading">Contact Information</div>
           <div class="mail-info">
             <p class="bold">Email</p>
-            <a  href="mailto:${listEntry.email} ">
-              ${listEntry.email}
+            <a  href="mailto:${listEntry.userData.email} ">
+              ${listEntry.userData.email}
             </a>
           </div>
           <div class="phone-info">
             <p class="bold">Phone</p>
-            <p>${listEntry.phone}</p>
+            <p>${listEntry.userData.phone}</p>
           </div>
   `;
 }
@@ -387,8 +412,10 @@ function closeContactInfoBox(i) {
   const contactItem = document.getElementById(`contact-list-item-${i}`);
 
   if (contactItem) {
-    contactInfoBox.classList.add('d-none');
     contactItem.classList.toggle('selected');
+    contactInfoBox.classList.add('d-none');
+  } else if (!contactItem) {
+    contactInfoBox.classList.add('d-none');
   }
 }
 
@@ -447,18 +474,25 @@ function createContact() {
   const contactColor = chooseRandomColor();
 
   const newContact = {
-    name: contactName,
-    email: contactEmail,
-    phone: contactPhone,
+    userData: {
+      name: contactName,
+      email: contactEmail,
+      phone: contactPhone,
+    },
     color: contactColor,
   };
+
   contacts.push(newContact);
 
-  formattedContactList = formatContactList(contacts);
+  console.log(contacts);
 
-  const newContactIndex = formattedContactList.findIndex((contact) => {
-    return contact.name === newContact.name;
-  });
+  const formattedContactList = formatContactList(contacts);
+
+  console.log(formattedContactList);
+
+  const newContactIndex = findIndexInFormattedList(newContact);
+
+  console.log(newContactIndex);
 
   scrollNewContactToTop(newContactIndex);
   renderContactList();
@@ -538,9 +572,11 @@ function openEditContactDB(i) {
   const contactEmail = document.getElementById('edit-contact-email');
   const contactPhone = document.getElementById('edit-contact-phone');
 
-  contactName.value = currentContact.name;
-  contactEmail.value = currentContact.email;
-  contactPhone.value = currentContact.phone;
+  updateUserIconInDB(i);
+
+  contactName.value = currentContact.userData.name;
+  contactEmail.value = currentContact.userData.email;
+  contactPhone.value = currentContact.userData.phone;
 
   editContactBox.classList.remove('d-none');
   editContactBox.classList.replace('box-slide-out', 'box-slide-in');
@@ -571,6 +607,18 @@ function closeEditContactDB() {
   }, 350);
 }
 
+function updateUserIconInDB(i) {
+  const userIcon = document.getElementById('edit-contact-user-icon');
+  const initials = formattedContactList[i].userData.name
+    .split(' ')
+    .map((word) => word.charAt(0))
+    .join('');
+  userIcon.innerHTML = /*html*/ `
+    <span>${initials}</span>
+  `;
+  userIcon.style.backgroundColor = formattedContactList[i].color;
+}
+
 /**
  * Edits the contact info for the currently selected contact.
  * Finds the contact index, updates the name/email/phone with values from the edit contact form,
@@ -581,26 +629,22 @@ function editContact() {
   // Finds the index of the contact in the contacts array
   // that matches the name of the currently selected contact.
   //  Used to get the index of the contact to delete.
-  const contactIndex = contacts.findIndex((contact) => {
-    return contact.name === currentContact.name;
-  });
+  const contactIndex = findIndexInContacts(currentContact);
 
   const updatedName = document.getElementById('edit-contact-name').value;
   const updatedEmail = document.getElementById('edit-contact-email').value;
   const updatedPhone = document.getElementById('edit-contact-phone').value;
 
-  contacts[contactIndex].name = updatedName;
-  contacts[contactIndex].email = updatedEmail;
-  contacts[contactIndex].phone = updatedPhone;
+  contacts[contactIndex].userData.name = updatedName;
+  contacts[contactIndex].userData.email = updatedEmail;
+  contacts[contactIndex].userData.phone = updatedPhone;
 
   formattedContactList = formatContactList(contacts);
 
   // Finds the index of the currently selected contact in the
   // formatted contact list array. Used to get the index of the
   // contact that needs to be updated after editing.
-  const updatedContactIndex = formattedContactList.findIndex((contact) => {
-    return contact.name === currentContact.name;
-  });
+  const updatedContactIndex = findIndexInFormattedList(currentContact);
 
   renderContactList();
   closeEditContactDB();
@@ -615,16 +659,13 @@ function editContact() {
  * formatted contact list, re-renders the contact list, and closes
  * the edit contact overlay.
  */
-function deleteContactInfoBox(i) {
+function deleteAtContactInfoBox(i) {
   currentContact = formattedContactList[i];
-  const contactIndex = contacts.findIndex((contact) => {
-    return contact.name === currentContact.name;
-  });
+  const contactIndex = findIndexInContacts(currentContact);
   contacts.splice(contactIndex, 1);
   formattedContactList = formatContactList(contacts);
   closeContactInfoBox(contactIndex);
   renderContactList();
-  closeEditContactDB();
 }
 
 /**
@@ -634,9 +675,7 @@ function deleteContactInfoBox(i) {
  * the edit contact overlay.
  */
 function deleteContact() {
-  const contactIndex = contacts.findIndex((contact) => {
-    return contact.name === currentContact.name;
-  });
+  const contactIndex = findIndexInContacts(currentContact);
   contacts.splice(contactIndex, 1);
   formattedContactList = formatContactList(contacts);
   closeContactInfoBox(contactIndex);
