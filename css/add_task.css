@@ -426,3 +426,10 @@ li > input {
 img {
   cursor: pointer;
 }
+
+.checked-assigned-to {
+  background-color: var(--secondary);
+  color: white;
+  padding: 0.6rem;
+  border-radius: 0.625rem;
+}

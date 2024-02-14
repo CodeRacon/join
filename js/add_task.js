@@ -3,6 +3,8 @@ let subtasks = [];
 
 function setPriority(prio) {
   currentPriority = prio;
+  if (currentPriority == 1) {
+  }
 }
 
 function openAndCloseDropDownToAssign() {
@@ -24,15 +26,16 @@ function showContactsToAssign() {
   for (let i = 0; i < startData.length; i++) {
     const element = startData[i];
     content.innerHTML += `
-      <div class="single-contact">
+      <div id="single-contact${i}" class="single-contact">
         <label for="option${i}" class="label-layout">
           <input
             type="checkbox"
             class="custom-checkbox"
             id="option${i}"
             value="${element}"
+            onchange="changeCheckboxColor(${i})"
           />
-          ${element["name"]}
+          ${element["userData"]["name"]}
         </label>
         <br />
         ${createContactInitials(element)}
@@ -40,8 +43,19 @@ function showContactsToAssign() {
   }
 }
 
+function changeCheckboxColor(i) {
+  let checkbox = document.getElementById(`option${i}`);
+  let container = document.getElementById(`single-contact${i}`);
+
+  if (checkbox.checked) {
+    container.classList.add("checked-assigned-to");
+  } else {
+    container.classList.remove("checked-assigned-to");
+  }
+}
+
 function createContactInitials(element) {
-  const initials = element.name
+  const initials = element.userData.name
     .split(" ")
     .map((word) => word.charAt(0))
     .join("");
