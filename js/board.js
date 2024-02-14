@@ -169,16 +169,20 @@ function removeHighlight(id) {
 
 function openAddTaskOverlay() {
   let overlay = document.getElementById("add-task-content-overlay");
-  overlay.classList.remove("slide-in", "d-none");
+  overlay.classList.remove("box-slide-out", "d-none");
   setTimeout(() => {
-    overlay.classList.add("slide-in");
+    overlay.classList.add("box-slide-in");
   }, 0);
   overlay.classList.remove("d-none");
 }
 
 function closeAddTaskOverlay() {
-  let content = document.getElementById("add-task-content-overlay");
-  content.classList.add("d-none");
+  let overlay = document.getElementById("add-task-content-overlay");
+  overlay.classList.remove("box-slide-in", "d-none");
+  setTimeout(() => {
+    overlay.classList.add("box-slide-out");
+  }, 0);
+  overlay.classList.remove("d-none");
 }
 
 // clear assigned to - is missing

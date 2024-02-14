@@ -67,7 +67,7 @@ function showCreatedSubtask() {
   content.innerHTML = "";
   for (let i = 0; i < subtasks.length; i++) {
     const element = subtasks[i];
-    let listItemId = `subtask-${i}`; // Generiere die ID für das Listenelement
+    let listItemId = `subtask-${i}`;
     content.innerHTML += `
       <div class="subtask-list-container">
         <li id="${listItemId}"><input readonly type="text" value="${element}"></li>
@@ -107,15 +107,9 @@ function changeSubtaskInArray(index) {
   let inputField = document
     .getElementById(`subtask-${index}`)
     .querySelector("input");
-
   let newInputValue = inputField.value;
-
-  // Entferne das Element an der angegebenen Indexposition
   subtasks.splice(index, 1);
-
-  // Füge das neue Element wieder an derselben Position ein
   subtasks.splice(index, 0, newInputValue);
-
   showCreatedSubtask();
 }
 
