@@ -161,15 +161,18 @@
             <span>Subtasks</span>
             <div class="field-width-height input-borders subtasks">
               <input
+                id="input-of-subtask"
                 type="text"
                 placeholder="Add new subtasks"
                 class="border-none"
               />
               <img
+                onclick="createSubtask()"
                 src="./assets/img/icons/add-task/plus.svg"
                 alt="plus symbol"
               />
             </div>
+            <div id="show-subtasks-container"></div>
           </div>
         </div>
         <!-- butons and required info -->

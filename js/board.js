@@ -181,10 +181,12 @@ function closeAddTaskOverlay() {
   content.classList.add("d-none");
 }
 
+// clear assigned to - is missing
 function clearForm() {
   let inputs = document.querySelectorAll("input");
   let textarea = document.getElementById("description");
   let selects = document.querySelectorAll("select");
+  let subtask = document.getElementById("show-subtasks-container");
   inputs.forEach(function (input) {
     input.value = "";
   });
@@ -192,4 +194,5 @@ function clearForm() {
     select.selectedIndex = -1;
   });
   textarea.value = "";
+  subtasks.innerHTML = "";
 }

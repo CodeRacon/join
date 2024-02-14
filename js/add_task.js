@@ -1,4 +1,5 @@
 let currentPriority;
+let subtasks = [];
 
 function setPriority(prio) {
   currentPriority = prio;
@@ -17,7 +18,6 @@ function openAndCloseDropDownToAssign() {
   }
 }
 
-// test um auf contacts von contact.js zuzugreifen
 function showContactsToAssign() {
   let content = document.getElementById("labels");
   content.innerHTML = "";
@@ -53,4 +53,34 @@ function createContactInitials(element) {
           ${initials}
     </div>
     `;
+}
+
+function createSubtask() {
+  let input = document.getElementById("input-of-subtask");
+  subtasks.unshift(input.value);
+  showCreatedSubtask();
+  input.value = "";
+}
+
+function showCreatedSubtask() {
+  let content = document.getElementById("show-subtasks-container");
+  content.innerHTML = "";
+  for (let i = 0; i < subtasks.length; i++) {
+    const element = subtasks[i];
+    content.innerHTML += `
+   
+      <div  class="subtask-list-container">
+      <li>${element}</li>
+        <div>
+          <img src="assets/img/icons/add-task/edit.svg" alt="edit">
+          <img onclick="deleteSubtask(${i})" src="assets/img/icons/add-task/delete.svg" alt="delete">
+        </div>
+      </div>
+   `;
+  }
+}
+
+function deleteSubtask(index) {
+  subtasks.splice(index, 1);
+  showCreatedSubtask();
 }
