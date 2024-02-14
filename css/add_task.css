@@ -404,4 +404,25 @@ select:focus {
 .subtask-list-container {
   display: flex;
   justify-content: space-between;
+  width: 100%;
+}
+
+li {
+  cursor: pointer;
+  width: 80%;
+}
+
+li > input {
+  border: none;
+  background-color: var(--site-bg);
+  color: #000;
+  font-family: Inter;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+img {
+  cursor: pointer;
 }

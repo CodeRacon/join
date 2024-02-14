@@ -67,17 +67,56 @@ function showCreatedSubtask() {
   content.innerHTML = "";
   for (let i = 0; i < subtasks.length; i++) {
     const element = subtasks[i];
+    let listItemId = `subtask-${i}`; // Generiere die ID für das Listenelement
     content.innerHTML += `
-   
-      <div  class="subtask-list-container">
-      <li>${element}</li>
-        <div>
-          <img src="assets/img/icons/add-task/edit.svg" alt="edit">
-          <img onclick="deleteSubtask(${i})" src="assets/img/icons/add-task/delete.svg" alt="delete">
-        </div>
+      <div class="subtask-list-container">
+        <li id="${listItemId}"><input readonly type="text" value="${element}"></li>
+         
+            <div class="edit-delete-container">
+              <img id="edit-button${i}" onclick="correctSubtask(${i})" src="assets/img/icons/add-task/edit.svg" alt="edit">
+              <img onclick="deleteSubtask(${i})" src="assets/img/icons/add-task/delete.svg" alt="delete">
+            </div>
+        
       </div>
-   `;
+    `;
   }
+}
+
+function correctSubtask(index) {
+  let inputField = document
+    .getElementById(`subtask-${index}`)
+    .querySelector("input");
+  inputField.removeAttribute("readonly");
+
+  let editImg = document.getElementById(`edit-button${index}`);
+  editImg.src = "assets/img/icons/add-task/done.svg";
+  editImg.alt = "done";
+  editImg.setAttribute("onclick", `changeSubtaskInArray(${index})`);
+}
+
+function changeSubtaskInArray(index) {
+  let inputField = document
+    .getElementById(`subtask-${index}`)
+    .querySelector("input");
+  deleteSubtask(index);
+  subtasks.unshift(inputField.value);
+  showCreatedSubtask();
+}
+
+function changeSubtaskInArray(index) {
+  let inputField = document
+    .getElementById(`subtask-${index}`)
+    .querySelector("input");
+
+  let newInputValue = inputField.value;
+
+  // Entferne das Element an der angegebenen Indexposition
+  subtasks.splice(index, 1);
+
+  // Füge das neue Element wieder an derselben Position ein
+  subtasks.splice(index, 0, newInputValue);
+
+  showCreatedSubtask();
 }
 
 function deleteSubtask(index) {
