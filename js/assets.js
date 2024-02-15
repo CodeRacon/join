@@ -24,7 +24,7 @@ startData = [
     isRegistered: false,
     isLoggedIn: false,
     timeStamp: 1618672694533,
-
+ // userdata selbst in den array pushen und wenn das gepushte dan der lenght entspricht wird eine neue json erstelltz
     userData: {
       name: 'Mike Skinner',
       phone: '(758) 519-1073',
