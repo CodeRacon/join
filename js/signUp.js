@@ -32,15 +32,44 @@ function checkExistenceOfAccount(name, email, paswort){
 }
 
 async function pushIntoArray(name, email, paswort){
-    window.open('index.html');
-    let accountInfo = {
+    let newData = {
+        isRegistered: true,
+        isLoggedIn: false,
+        timeStamp: Date.now(),
+        Data: { 
         "name": name.value,
         "email": email.value,
         "pasword":paswort.value 
+        }
     };   
-    createdAccountInfo.push(accountInfo);
-    await setItem('User', JSON.stringify(createdAccountInfo));
-    console.log(createdAccountInfo);
+    for (let i = 0; i < startData.length; i++) {
+        if(startData[i].hasOwnProperty('diffrentData')){
+            console.log('Dont push');
+            if(i == startData.length){
+                pushMoreInJson(name, email, paswort);
+            }
+        }
+        else{
+            startData[i].diffrentData = newData;
+        }
+        
+    }
+}
+
+function pushMoreInJson(name, email, paswort){
+    let newData = {
+
+       diffrentData:{ isRegistered: true,
+        isLoggedIn: false,
+        timeStamp: Date.now(),
+        Data: { 
+        "name": name.value,
+        "email": email.value,
+        "pasword":paswort.value 
+        }
+    }
+    }
+    startData.push(newData);
 }
 
 async function loadUsers(){
