@@ -3,6 +3,10 @@ let taskColor = {
   technicalTask: "#1FD7C1", //category 2
 };
 
+let low = "assets/img/icons/add-task/low.svg";
+let medium = "assets/img/icons/add-task/medium-orange.svg";
+let high = "assets/img/icons/add-task/urgent.svg";
+
 let currentDraggedElement;
 
 function updateHTML() {
@@ -10,7 +14,21 @@ function updateHTML() {
   updateInProgress();
   updateAwaitFeedback();
   updateDone();
-  updateTaskColor();
+  updateTaskColorAndCategory();
+  updatePriority();
+}
+
+function updatePriority() {
+  let prioBoxes = document.getElementsByClassName("priority-of-task");
+  Array.from(prioBoxes).forEach((prioBox) => {
+    if (prioBox.innerText.trim() == 1) {
+      prioBox.innerHTML = `<img src="${low}" alt="Low Priority">`;
+    } else if (prioBox.innerText.trim() == "2") {
+      prioBox.innerHTML = `<img src="${medium}" alt="Low Priority">`;
+    } else if (prioBox.innerText.trim() == "3") {
+      prioBox.innerHTML = `<img src="${high}" alt="Low Priority">`;
+    }
+  });
 }
 
 function updateToDos() {
@@ -63,7 +81,7 @@ function updateAwaitFeedback() {
         content.innerHTML += generateTaskCard(element);
       }
     } else if (awaitFeedback.length == 0) {
-      content.innerHTML = generateEmptyHTML("await feedback");
+      content.innerHTML = generateEmptyHTML("await Feedback");
     }
   }
 }
@@ -78,6 +96,7 @@ function updateDone() {
       for (let index = 0; index < closed.length; index++) {
         const element = closed[index];
         content.innerHTML += generateTaskCard(element);
+        // showCategory(element);
       }
     } else if (closed.length == 0) {
       content.innerHTML = generateEmptyHTML("are closed");
@@ -85,13 +104,15 @@ function updateDone() {
   }
 }
 
-function updateTaskColor() {
+function updateTaskColorAndCategory() {
   let elements = document.getElementsByClassName("category-of-task");
   Array.from(elements).forEach((element) => {
     if (element.innerText.trim() == 1) {
       element.classList.add("user-story-task-color");
+      element.innerHTML = "User Story";
     } else {
       element.classList.add("technical-task-color");
+      element.innerHTML = "Technical Task";
     }
   });
 }
@@ -125,14 +146,17 @@ function allowDrop(event) {
 
 function moveTo(status) {
   //hier die richtige task finden!!!
-  let index = currentDraggedElement;
-  for (let i = 0; i < startData.length; i++) {
+  let id = currentDraggedElement;
+  gotIt = false;
+  for (let i = 0; i < startData.length && gotIt == false; i++) {
     let element = startData[i]["tasks"];
-    if (element[i].id == currentDraggedElement) {
-      console.log("bin da!");
+    for (let j = 0; j < element.length; j++) {
+      if (element[j].id === id) {
+        startData[i]["tasks"][j].status = status;
+        gotIt = true;
+      }
     }
   }
-
   updateHTML();
 }
 
