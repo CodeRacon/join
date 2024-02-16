@@ -226,6 +226,63 @@ header {
   background-image: url(/assets/img/icons/general/gray/q_mark_hover.svg);
 }
 
+.quickmenu {
+  position: absolute;
+  top: 6rem;
+  right: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0.625rem;
+  border-radius: var(--small-menu-br);
+  background-color: var(--primary);
+  box-shadow: var(--btn-shdw-td);
+}
+
+.quickmenu > a {
+  display: flex;
+  width: 8.125rem;
+  height: 2.875rem;
+  padding: 0.5rem 1rem;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+  color: #cdcdcd;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+.quickmenu > a:hover {
+  background-color: var(--nav-link-hvr);
+}
+
+@keyframes qmOn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes qmOff {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.qm-on {
+  animation: qmOn 0.125s ease-in forwards;
+}
+
+.qm-off {
+  animation: qmOff 0.125s ease-in forwards;
+}
+
 /* ############### */
 /* -----ASIDE----- */
 /* ############### */
