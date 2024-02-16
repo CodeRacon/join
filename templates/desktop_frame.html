@@ -5,13 +5,19 @@
       <a href="help.html">
         <div class="help"></div>
       </a>
-      <div class="user-profile">
+      <div class="user-profile" id="user-profile" onclick="toggleQuickMenue()">
         <!-- add onclick-function 'toggleQuickMenue()'!  -->
         <p id="user-initials">??</p>
       </div>
     </div>
   </div>
+  <div class="quickmenu d-none" id="quickmenu">
+    <a onclick="openExternalLink('/privacy_policy.html')">Privacy Policy</a>
+    <a onclick="openExternalLink('/legal_notice.html')">Legal Notice</a>
+    <a onclick="logoutUser('/index.html')">Logout</a>
+  </div>
 </header>
+
 <aside>
   <div class="logo" id="logo">
     <img src="assets/img/logo/logo-white.svg" alt="join logo" />
