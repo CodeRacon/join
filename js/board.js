@@ -1,49 +1,6 @@
-let todos = [
-  {
-    id: 0,
-    category: "User Story",
-    title: "Kochwelt Page & Recipe Recommender",
-    description: "Build start page with recipe recommendation...",
-    subtasks: [],
-    assignedTo: ["max mustermann"],
-    priority: "medium",
-    status: "inProgress",
-  },
-  {
-    id: 1,
-    category: "Technical Task",
-    title: "HTML Base Template Creation",
-    description: "Create reusable HTML base templates...",
-    subtasks: [],
-    assignedTo: ["max mustermann", "Mara Musterfrau"],
-    priority: "low",
-    status: "awaitFeedback",
-  },
-  {
-    id: 2,
-    category: "Technical Task",
-    title: "CSS Architecture Planning",
-    description: "Define CSS naming conventions and structure...",
-    subtasks: [],
-    assignedTo: ["Molly May"],
-    priority: "high",
-    status: "closed",
-  },
-  {
-    id: 3,
-    category: "User Story",
-    title: "Daily Kochwelt Recipe",
-    description: "Implement daily recipe and portion calculator...",
-    subtasks: [],
-    assignedTo: ["Molly May", "Stephan S-Bahn", "Olga Oman"],
-    priority: "medium",
-    status: "awaitFeedback",
-  },
-];
-
 let taskColor = {
-  technicalTask: "#1FD7C1",
-  userStory: "#0038FF",
+  userStory: "#0038FF", // category 1
+  technicalTask: "#1FD7C1", //category 2
 };
 
 let currentDraggedElement;
@@ -57,77 +14,86 @@ function updateHTML() {
 }
 
 function updateToDos() {
-  let toDo = todos.filter((todo) => todo["status"] == "toDo");
   let content = document.getElementById("toDo");
   content.innerHTML = "";
-  if (toDo.length == 0) {
-    content.innerHTML = generateEmptyHTML("to do");
-  } else {
-    for (let index = 0; index < toDo.length; index++) {
-      const element = toDo[index];
-      content.innerHTML += generateTaskCard(element);
+  for (let i = 0; i < startData.length; i++) {
+    const element = startData[i];
+    if (element.hasOwnProperty("tasks")) {
+      let toDo = element["tasks"].filter((todo) => todo["status"] == "toDo");
+      for (let index = 0; index < toDo.length; index++) {
+        const element = toDo[index];
+        content.innerHTML += generateTaskCard(element);
+      }
+    } else if (toDo.length == 0) {
+      content.innerHTML = generateEmptyHTML("to do");
     }
   }
 }
 
 function updateInProgress() {
-  let inProgress = todos.filter(
-    (inProgress) => inProgress["status"] == "inProgress"
-  );
   let content = document.getElementById("inProgress");
   content.innerHTML = "";
-  if (inProgress.length == 0) {
-    content.innerHTML = generateEmptyHTML("in progress");
-  } else {
-    for (let index = 0; index < inProgress.length; index++) {
-      const element = inProgress[index];
-      content.innerHTML += generateTaskCard(element);
+  for (let i = 0; i < startData.length; i++) {
+    const element = startData[i];
+    if (element.hasOwnProperty("tasks")) {
+      let inProgress = element["tasks"].filter(
+        (task) => task["status"] == "inProgress"
+      );
+      for (let index = 0; index < inProgress.length; index++) {
+        const element = inProgress[index];
+        content.innerHTML += generateTaskCard(element);
+      }
+    } else if (inProgress.length == 0) {
+      content.innerHTML = generateEmptyHTML("in progress");
     }
   }
 }
 
 function updateAwaitFeedback() {
-  let awaitFeedback = todos.filter(
-    (awaitFeedback) => awaitFeedback["status"] == "awaitFeedback"
-  );
   let content = document.getElementById("awaitFeedback");
   content.innerHTML = "";
-  if (awaitFeedback.length == 0) {
-    content.innerHTML = generateEmptyHTML("await feedback");
-  } else {
-    for (let index = 0; index < awaitFeedback.length; index++) {
-      const element = awaitFeedback[index];
-      content.innerHTML += generateTaskCard(element);
+  for (let i = 0; i < startData.length; i++) {
+    const element = startData[i];
+    if (element.hasOwnProperty("tasks")) {
+      let awaitFeedback = element["tasks"].filter(
+        (task) => task["status"] == "awaitFeedback"
+      );
+      for (let index = 0; index < awaitFeedback.length; index++) {
+        const element = awaitFeedback[index];
+        content.innerHTML += generateTaskCard(element);
+      }
+    } else if (awaitFeedback.length == 0) {
+      content.innerHTML = generateEmptyHTML("await feedback");
     }
   }
 }
 
 function updateDone() {
-  let closed = todos.filter((todo) => todo["status"] == "closed");
   let content = document.getElementById("closed");
   content.innerHTML = "";
-  if (closed.length == 0) {
-    content.innerHTML = generateEmptyHTML("are closed");
-  } else content.innerHTML = "";
-  for (let index = 0; index < closed.length; index++) {
-    const element = closed[index];
-    content.innerHTML += generateTaskCard(element);
+  for (let i = 0; i < startData.length; i++) {
+    const element = startData[i];
+    if (element.hasOwnProperty("tasks")) {
+      let closed = element["tasks"].filter((task) => task["status"] == "done");
+      for (let index = 0; index < closed.length; index++) {
+        const element = closed[index];
+        content.innerHTML += generateTaskCard(element);
+      }
+    } else if (closed.length == 0) {
+      content.innerHTML = generateEmptyHTML("are closed");
+    }
   }
 }
 
 function updateTaskColor() {
   let elements = document.getElementsByClassName("category-of-task");
   Array.from(elements).forEach((element) => {
-    if (element.innerText.trim() === "User Story") {
+    if (element.innerText.trim() == 1) {
       element.classList.add("user-story-task-color");
     } else {
       element.classList.add("technical-task-color");
     }
   });
-}
-
-function startDragging(id) {
-  currentDraggedElement = id;
 }
 
 function generateEmptyHTML(text) {
@@ -136,8 +102,8 @@ function generateEmptyHTML(text) {
 
 function generateTaskCard(element) {
   return `<div draggable="true" 
-  ondragstart="startDragging(${element["id"]})" 
-  id="${element["id"]}" class="task-card">
+ondragstart="startDragging(${element["id"]})" 
+id="${element["id"]}" class="task-card">
   <div class="category-of-task">${element["category"]}</div>
   <div class="title-of-task">${element["title"]}</div>
   <div class="description-of-task">${element["description"]}</div>
@@ -146,8 +112,11 @@ function generateTaskCard(element) {
     <div class="assigned-to-of-task">${element["assignedTo"]}</div>
     <div class="priority-of-task">${element["priority"]}</div>
   </div>
-
   </div>`;
+}
+
+function startDragging(id) {
+  currentDraggedElement = id;
 }
 
 function allowDrop(event) {
@@ -155,7 +124,15 @@ function allowDrop(event) {
 }
 
 function moveTo(status) {
-  todos[currentDraggedElement]["status"] = status;
+  //hier die richtige task finden!!!
+  let index = currentDraggedElement;
+  for (let i = 0; i < startData.length; i++) {
+    let element = startData[i]["tasks"];
+    if (element[i].id == currentDraggedElement) {
+      console.log("bin da!");
+    }
+  }
+
   updateHTML();
 }
 

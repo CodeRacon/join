@@ -361,7 +361,7 @@ select:focus {
   width: 100%;
   align-items: center;
   gap: 2%;
-  margin-bottom: 1rem;
+  padding: 0.5rem;
   font-size: 1.2rem;
 }
 
@@ -430,6 +430,6 @@ img {
 .checked-assigned-to {
   background-color: var(--secondary);
   color: white;
-  padding: 0.6rem;
+  padding: 0.5rem;
   border-radius: 0.625rem;
 }
