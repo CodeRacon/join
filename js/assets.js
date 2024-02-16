@@ -85,7 +85,6 @@ startData = [
         ],
         assignedTo: ["Gene Ward", "Kjelt Becker", "Hasan Demir"],
         priority: 1,
-        status: 3,
         duedate: "14.02.2024",
       },
     ],
