@@ -25,8 +25,15 @@ async function getItem(key) {
     });
 }
 
+/**
+ * local copy of the startData-array template in remoteStorage.
+ */
 let localUserData = [];
 
+/**
+ * Loads user data from local storage if it exists, otherwise retrieves default data from remote storage.
+ * Parses the loaded data as JSON before assigning to localUserData.
+ */
 async function loadUserData() {
   const savedData = localStorage.getItem('changedData');
   if (!savedData) {
@@ -36,6 +43,9 @@ async function loadUserData() {
   }
 }
 
+/**
+ * Saves the edited local user data to local storage.
+ */
 function saveUserData() {
   localStorage.setItem('changedData', JSON.stringify(localUserData));
 
