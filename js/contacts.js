@@ -5,12 +5,12 @@ let currentContact;
 
 async function initContacts() {
   // storeStartData();
-  await loadContacts();
-  renderContactList();
-}
 
-async function loadContacts() {
-  contacts = JSON.parse(await getItem('startData'));
+  await loadUserData();
+
+  contacts = localUserData;
+
+  renderContactList();
 }
 
 function findIndexInContacts(wantedIndex) {
@@ -321,7 +321,6 @@ function createContact() {
   let contactEmail = document.getElementById('new-contact-email').value;
   let contactPhone = document.getElementById('new-contact-phone').value;
   const contactColor = chooseRandomColor();
-
   const newContact = {
     userData: {
       name: contactName,
@@ -330,19 +329,10 @@ function createContact() {
     },
     color: contactColor,
   };
-
   contacts.push(newContact);
-
-  console.log(contacts);
-
-  const formattedContactList = formatContactList(contacts);
-
-  console.log(formattedContactList);
-
+  formattedContactList = formatContactList(contacts);
   const newContactIndex = findIndexInFormattedList(newContact);
-
-  console.log(newContactIndex);
-
+  saveUserData();
   scrollNewContactToTop(newContactIndex);
   renderContactList();
   closeAddContactDB();
@@ -443,11 +433,9 @@ function closeEditContactDB() {
   const contactPhone = document.getElementById('edit-contact-phone');
   const overlay = document.getElementById('overlay');
   const editContactBox = document.getElementById('edit-contact-db');
-
   contactName.value = '';
   contactEmail.value = '';
   contactPhone.value = '';
-
   editContactBox.classList.replace('box-slide-in', 'box-slide-out');
   overlay.classList.replace('overlay-on', 'overlay-off');
   setTimeout(() => {
@@ -475,26 +463,16 @@ function updateUserIconInDB(i) {
  * and opens the updated contact's info box.
  */
 function editContact() {
-  // Finds the index of the contact in the contacts array
-  // that matches the name of the currently selected contact.
-  //  Used to get the index of the contact to delete.
   const contactIndex = findIndexInContacts(currentContact);
-
   const updatedName = document.getElementById('edit-contact-name').value;
   const updatedEmail = document.getElementById('edit-contact-email').value;
   const updatedPhone = document.getElementById('edit-contact-phone').value;
-
   contacts[contactIndex].userData.name = updatedName;
   contacts[contactIndex].userData.email = updatedEmail;
   contacts[contactIndex].userData.phone = updatedPhone;
-
   formattedContactList = formatContactList(contacts);
-
-  // Finds the index of the currently selected contact in the
-  // formatted contact list array. Used to get the index of the
-  // contact that needs to be updated after editing.
   const updatedContactIndex = findIndexInFormattedList(currentContact);
-
+  saveUserData();
   renderContactList();
   closeEditContactDB();
   setTimeout(() => {
@@ -513,6 +491,8 @@ function deleteAtContactInfoBox(i) {
   const contactIndex = findIndexInContacts(currentContact);
   contacts.splice(contactIndex, 1);
   formattedContactList = formatContactList(contacts);
+  saveUserData();
+  console.log('contact deleted', contactIndex);
   closeContactInfoBox(contactIndex);
   renderContactList();
 }
@@ -527,6 +507,8 @@ function deleteContact() {
   const contactIndex = findIndexInContacts(currentContact);
   contacts.splice(contactIndex, 1);
   formattedContactList = formatContactList(contacts);
+  console.log('contact deleted', contactIndex);
+  saveUserData();
   closeContactInfoBox(contactIndex);
   renderContactList();
   closeEditContactDB();
