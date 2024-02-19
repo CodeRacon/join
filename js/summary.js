@@ -13,11 +13,20 @@ const monthNames = [
   'December',
 ];
 
+/**
+ * Initializes the summary-page by loading user data and updating the summary first
+ * and then updating the dahboard-boxes with the latest user data.
+ */
 async function initSummary() {
   await loadUserData();
   updateSummary();
 }
 
+/**
+ * Updates the summary by calling various functions to update the dahboard-boxes.
+ * This function handles updating all the summary data after async
+ * operations have loaded the latest user data.
+ */
 function updateSummary() {
   updateToDoCounter();
   updateDoneCounter();
@@ -28,6 +37,11 @@ function updateSummary() {
   updateAwaitFeedBackCounter();
 }
 
+/**
+ * Updates the todo counter element with the total number of todo tasks.
+ * Gets all user tasks by putting them into a flat array,
+ * filters for todo status, counts them, and updates the todo counter element.
+ */
 function updateToDoCounter() {
   const toDoTasks = localUserData
     .flatMap((user) => user.tasks || [])
@@ -39,6 +53,11 @@ function updateToDoCounter() {
 `;
 }
 
+/**
+ * Updates the done counter element with the total number of done tasks.
+ * Gets all user tasks by putting them into a flat array,
+ * filters for done status, counts them, and updates the done counter element.
+ */
 function updateDoneCounter() {
   const doneTasks = localUserData
     .flatMap((user) => user.tasks || [])
@@ -50,6 +69,13 @@ function updateDoneCounter() {
 `;
 }
 
+/**
+ * Updates the high priority counter element with the total number
+ * of high priority tasks.
+ * Gets all user tasks, puts them into a flat array,
+ * filters for priority 3, counts them,
+ * and updates the high priority counter element.
+ */
 function updateHighPrioCounter() {
   const urgencyCounter = document.getElementById('urgency-counter');
   const highPrioTasks = localUserData
@@ -61,6 +87,11 @@ function updateHighPrioCounter() {
   `;
 }
 
+/**
+ * Updates the due date element with the closest upcoming due date.
+ * Gets all due dates, finds the closest one, formats it,
+ * and updates the due date element.
+ */
 function updateDueDate() {
   const dates = findAllDueDates();
   const closestDueDate = findClosestDueDate(dates);
@@ -71,6 +102,11 @@ function updateDueDate() {
   `;
 }
 
+/**
+ * Help-function to find all due dates across all user tasks.
+ * Gets all user tasks, filters for those with a dueDate,
+ * maps them to Date objects, and returns the array of dates.
+ */
 function findAllDueDates() {
   const tasksWithDueDate = localUserData
     .flatMap((user) => (user.tasks || []).filter((task) => task.dueDate))
@@ -78,6 +114,11 @@ function findAllDueDates() {
   return tasksWithDueDate;
 }
 
+/**
+ * Help-function to find the closest due date from an array of dates.
+ * Compares each date to today's date to calculate the difference,
+ * sorts the dates by difference, and returns the first (closest) date.
+ */
 function findClosestDueDate(dates) {
   const today = new Date();
   const dateDiffs = dates.map((date) => {
@@ -92,6 +133,13 @@ function findClosestDueDate(dates) {
   return closestDate;
 }
 
+/**
+ * Formats a Date object into a readable string with the
+ * full month name, day, and year.
+ *
+ * @param {Date} date - The date to format
+ * @returns {string} The formatted date string
+ */
 function formatDate(date) {
   const day = date.getDate();
   const monthIndex = date.getMonth();
@@ -100,8 +148,11 @@ function formatDate(date) {
   return `${monthName} ${day}, ${year}`;
 }
 
-const fbCounter = document.getElementById('fb-counter');
-
+/**
+ * Updates the task counter DOM element with the total number of tasks across all users.
+ * Gets all tasks from all users, puts them in a flat array,
+ * counts them, and updates the DOM element.
+ */
 function updateTaskCounter() {
   const taskCounter = document.getElementById('task-counter');
   const allTasks = localUserData.flatMap((user) => user.tasks || []);
@@ -112,6 +163,12 @@ function updateTaskCounter() {
   `;
 }
 
+/**
+ * Updates the in-progress task counter DOM element with the total number of
+ * in-progress tasks across all users.
+ * Gets all tasks from all users, puts them in a flat array, filters for in-progress tasks,
+ * counts them, and updates the DOM element.
+ */
 function updateInProgressCounter() {
   const progressCounter = document.getElementById('progress-counter');
   const tasksInProgress = localUserData
@@ -123,9 +180,14 @@ function updateInProgressCounter() {
   `;
 }
 
+/**
+ * Updates the await feedback counter DOM element with the total number of
+ * tasks that are awaiting feedback across all users.
+ * Gets all tasks from all users, puts them in a flat array, filters for tasks
+ * that are awaiting feedback, counts them, and updates the DOM element.
+ */
 function updateAwaitFeedBackCounter() {
   const fbCounter = document.getElementById('fb-counter');
-
   const awaitFbTasks = localUserData
     .flatMap((user) => user.tasks || [])
     .filter((task) => task && task.status === 'awaitFeedback');
