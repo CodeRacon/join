@@ -18,19 +18,6 @@ function updateHTML() {
   updatePriority();
 }
 
-function updatePriority() {
-  let prioBoxes = document.getElementsByClassName("priority-of-task");
-  Array.from(prioBoxes).forEach((prioBox) => {
-    if (prioBox.innerText.trim() == 1) {
-      prioBox.innerHTML = `<img src="${low}" alt="Low Priority">`;
-    } else if (prioBox.innerText.trim() == "2") {
-      prioBox.innerHTML = `<img src="${medium}" alt="Low Priority">`;
-    } else if (prioBox.innerText.trim() == "3") {
-      prioBox.innerHTML = `<img src="${high}" alt="Low Priority">`;
-    }
-  });
-}
-
 function updateToDos() {
   let content = document.getElementById("toDo");
   content.innerHTML = "";
@@ -41,6 +28,8 @@ function updateToDos() {
       for (let index = 0; index < toDo.length; index++) {
         const element = toDo[index];
         content.innerHTML += generateTaskCard(element);
+        showInitials(element);
+        break;
       }
     } else if (toDo.length == 0) {
       content.innerHTML = generateEmptyHTML("to do");
@@ -60,6 +49,7 @@ function updateInProgress() {
       for (let index = 0; index < inProgress.length; index++) {
         const element = inProgress[index];
         content.innerHTML += generateTaskCard(element);
+        showInitials(element);
       }
     } else if (inProgress.length == 0) {
       content.innerHTML = generateEmptyHTML("in progress");
@@ -79,6 +69,7 @@ function updateAwaitFeedback() {
       for (let index = 0; index < awaitFeedback.length; index++) {
         const element = awaitFeedback[index];
         content.innerHTML += generateTaskCard(element);
+        showInitials(element);
       }
     } else if (awaitFeedback.length == 0) {
       content.innerHTML = generateEmptyHTML("await Feedback");
@@ -96,7 +87,7 @@ function updateDone() {
       for (let index = 0; index < closed.length; index++) {
         const element = closed[index];
         content.innerHTML += generateTaskCard(element);
-        // showCategory(element);
+        showInitials(element);
       }
     } else if (closed.length == 0) {
       content.innerHTML = generateEmptyHTML("are closed");
@@ -117,6 +108,40 @@ function updateTaskColorAndCategory() {
   });
 }
 
+function updatePriority() {
+  let prioBoxes = document.getElementsByClassName("priority-of-task");
+  Array.from(prioBoxes).forEach((prioBox) => {
+    if (prioBox.innerText.trim() == 1) {
+      prioBox.innerHTML = `<img src="${low}" alt="Low Priority">`;
+    } else if (prioBox.innerText.trim() == "2") {
+      prioBox.innerHTML = `<img src="${medium}" alt="Low Priority">`;
+    } else if (prioBox.innerText.trim() == "3") {
+      prioBox.innerHTML = `<img src="${high}" alt="Low Priority">`;
+    }
+  });
+}
+
+function showInitials(element) {
+  let allInitials = element.assignedTo;
+  let container = document.getElementById(`assignedCircle${element["id"]}`);
+  container.innerHTML = "";
+  allInitials.forEach((name) => {
+    const initial = name
+      .split(" ")
+      .map((word) => word.charAt(0))
+      .join("");
+    let user = startData.find((user) => user.userData.name === name);
+    let color = user ? user.color : "#d98973";
+    container.innerHTML += `
+    <div
+    class="initialsCircleOfTasks"
+        style="background-color: ${color}">
+        ${initial}
+  </div>
+`;
+  });
+}
+
 function generateEmptyHTML(text) {
   return `<div draggable="true" class="empty-task drag-and-drop-container-border">No tasks ${text}</div>`;
 }
@@ -130,7 +155,7 @@ id="${element["id"]}" class="task-card">
   <div class="description-of-task">${element["description"]}</div>
   <div class="subtasks-of-task">${element["subtasks"]}</div>
   <div class="assigned-and-priority-container">
-    <div class="assigned-to-of-task">${element["assignedTo"]}</div>
+    <div id="assignedCircle${element["id"]}" class="assigned-to-of-task">${element["assignedTo"]}</div>
     <div class="priority-of-task">${element["priority"]}</div>
   </div>
   </div>`;
@@ -145,7 +170,6 @@ function allowDrop(event) {
 }
 
 function moveTo(status) {
-  //hier die richtige task finden!!!
   let id = currentDraggedElement;
   gotIt = false;
   for (let i = 0; i < startData.length && gotIt == false; i++) {
