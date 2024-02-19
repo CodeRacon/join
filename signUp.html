@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./css/signUp.css">
+    <script src="./js/main.js"></script>
+    <script src="./js/assets.js"></script>
     <script src="./js/storage.js"></script>
     <script src="./js/signUp.js"></script>
 </head>
 <body onload="loadUsers()">
-   
+   <div class="act">
     <form onsubmit="createAccount(); return false">
         <div>
             <input required id="name" required type="text" placeholder="Name">
@@ -27,6 +29,6 @@
         <button onclick="toogleNum()">Click button</button>
         <button>Do It</button>
     </form>
-    
+</div>
 </body>
 </html>

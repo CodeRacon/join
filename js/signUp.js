@@ -1,4 +1,6 @@
 // SignUp
+loadUsers();
+
 let createdAccountInfo = [];
 let cancelFunction = 0;
 let nameOfInputsId = ['name','mail','paswort'];
@@ -43,23 +45,21 @@ async function pushIntoArray(name, email, paswort){
         }
     };   
     for (let i = 0; i < startData.length; i++) {
-        if(startData[i].hasOwnProperty('diffrentData')){
-            console.log('Dont push');
-            if(i == startData.length){
-                pushMoreInJson(name, email, paswort);
-            }
-        }
-        else{
-            startData[i].diffrentData = newData;
+        if (!startData[i].hasOwnProperty('registerData')) {
+            startData[i].registerData = newData;
+            await storeStartData();
+            return 1;   
         }
         
     }
+    
+    loadUsers(); 
 }
 
-function pushMoreInJson(name, email, paswort){
-    let newData = {
 
-       diffrentData:{ isRegistered: true,
+async function pushMoreInJson(name, email, paswort){
+    let newData = {
+        diffrentData:{ isRegistered: true,
         isLoggedIn: false,
         timeStamp: Date.now(),
         Data: { 
@@ -70,11 +70,13 @@ function pushMoreInJson(name, email, paswort){
     }
     }
     startData.push(newData);
+    await storeStartData();
 }
 
 async function loadUsers(){
     try {
-        createdAccountInfo = JSON.parse(await getItem('User'));
+        startData = JSON.parse(await getItem('startData'));
+        console.log(startData);
     } catch(e){
         console.error('Loading error:', e);
     }

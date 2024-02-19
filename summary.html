@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="css/summary.css" />
     <link rel="stylesheet" href="css/style.css" />
     <script defer src="js/summary.js"></script>
+    <script defer src="js/assets.js"></script>
+    <script defer src="js/storage.js"></script>
     <script defer src="js/main.js"></script>
     <title>join - Add Task</title>
     <link rel="icon" type="image/png" href="assets/img/logo/favicon.png" />
@@ -24,7 +26,7 @@
 |_______||_______||_|   |_||_|   |_||__| |__||___|  |_|  |___|    
 -->
 
-  <body onload="initPage()">
+  <body onload="initPage(); initSummary()">
     <div
       id="frame"
       class="header-template"
@@ -40,66 +42,94 @@
         <div class="summary-box">
           <!-- Top part -->
           <div class="top-part">
-            <div class="half-box">
-              <div class="todo-tab">
-                <div class="todo-symbol"></div>
-                <div class="todo-counter">
-                  <span id="todo-counter">3</span>
-                  <p>To-Do</p>
+            <a href="/board.html">
+              <div class="half-box">
+                <div class="todo-tab">
+                  <div class="todo-symbol"></div>
+                  <div class="todo-counter">
+                    <span id="todo-counter">
+                      <!-- populated by JS -->
+                    </span>
+                    <p>To-Do</p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="half-box">
-              <div class="done-tab">
-                <div class="done-symbol"></div>
-                <div class="done-counter">
-                  <span id="done-counter">4</span>
-                  <p>Done</p>
+            </a>
+
+            <a href="/board.html">
+              <div class="half-box">
+                <div class="done-tab">
+                  <div class="done-symbol"></div>
+                  <div class="done-counter">
+                    <span id="done-counter">
+                      <!-- populated by JS -->
+                    </span>
+                    <p>Done</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </a>
           </div>
           <!-- Middle part -->
-          <div class="middle-part">
-            <div class="full-box">
-              <div class="urgency-tab">
-                <div class="urgency-symbol"></div>
-                <div class="urgency-counter">
-                  <span id="urgency-counter">1</span>
-                  <p>Urgent</p>
+          <a href="/board.html">
+            <div class="middle-part">
+              <div class="full-box">
+                <div class="urgency-tab">
+                  <div class="urgency-symbol"></div>
+                  <div class="urgency-counter">
+                    <span id="urgency-counter">
+                      <!-- populated by JS -->
+                    </span>
+                    <p>Urgent</p>
+                  </div>
+                </div>
+
+                <div class="vert-spacer-gray"></div>
+
+                <div class="due-date">
+                  <span id="due-date">
+                    <!-- populated by JS -->
+                  </span>
+                  <p>Upcoming Deadline</p>
                 </div>
               </div>
-
-              <div class="vert-spacer-gray"></div>
-
-              <div class="due-date">
-                <span>March 4, 2024</span>
-                <p>Upcoming Deadline</p>
-              </div>
             </div>
-          </div>
+          </a>
           <!-- Bottom part -->
+
           <div class="bottom-part">
-            <div class="onethird-box">
-              <div class="task-counter">
-                <span id="task-counter">5</span>
-                <p>Tasks in Board</p>
+            <a href="/board.html">
+              <div class="onethird-box">
+                <div class="task-counter">
+                  <span id="task-counter">
+                    <!-- populated by JS -->
+                  </span>
+                  <p>Tasks in Board</p>
+                </div>
               </div>
-            </div>
+            </a>
 
-            <div class="onethird-box">
-              <div class="progress-counter">
-                <span id="progress-counter">3</span>
-                <p>Tasks In Progress</p>
+            <a href="/board.html">
+              <div class="onethird-box">
+                <div class="progress-counter">
+                  <span id="progress-counter">
+                    <!-- populated by JS -->
+                  </span>
+                  <p>Tasks In Progress</p>
+                </div>
               </div>
-            </div>
+            </a>
 
-            <div class="onethird-box">
-              <div class="fb-counter">
-                <span id="fb-counter">2</span>
-                <p>Awaiting Feedback</p>
+            <a href="/board.html">
+              <div class="onethird-box">
+                <div class="fb-counter">
+                  <span id="fb-counter">
+                    <!-- populated by JS -->
+                  </span>
+                  <p>Awaiting Feedback</p>
+                </div>
               </div>
-            </div>
+            </a>
           </div>
         </div>
 

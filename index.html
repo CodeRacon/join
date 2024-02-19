@@ -8,10 +8,14 @@
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/fonts.css" />
     <link rel="stylesheet" href="css/root.css" />
+    <link rel="stylesheet" href="css/signUp.css">
     <script defer src="js/main.js"></script>
     <link rel="icon" type="image/png" href="assets/img/logo/favicon.png" />
     <title>join - kanban project management tool</title>
+    <script src="./js/assets.js"></script>
+    <script src="js/storage.js"></script>
     <script src="js/log_In.js"></script>
+    <script src="js/signUp.js"></script>
   </head>
 
   <!--  
@@ -26,13 +30,14 @@
      /    \         
 -->
 
-  <body onload="init()">
+  <body onload="init(), loadUsers()">
     <div class="start-page">
       <img
         class="start-logo"
         src="/assets/img/logo/start-logo-dark.svg"
         alt="join logo" />
-
+        <button onclick="switchToSignUp()"></button>
+      <div id="anyt">
       <form class="log-in" onsubmit=" checkExistence(); return false">
         <h1 class="log-in--h1">Log In</h1>
         <div class="custom-underline"></div>
@@ -55,6 +60,7 @@
         </div>
         <button>Got You</button>
       </form>
+    </div>
     </div>
   </body>
 </html>

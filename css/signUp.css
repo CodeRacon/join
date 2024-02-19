@@ -1,25 +1,19 @@
-body{
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+
 
 .dn{
     display: none !important;
 }
 
-form{
-    width:  41.528vw;
+.act{
+    padding: 48px 88px;
     background-color: aliceblue;
-     height: 43.75vw;
+    width: 598px;
+    height: 630px;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    
 }
+
 
 input{
     width: 29.306vw;
