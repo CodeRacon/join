@@ -142,23 +142,40 @@ function showInitials(element) {
   });
 }
 
+function generateProgressBar(element) {
+  let container;
+}
+
 function generateEmptyHTML(text) {
   return `<div draggable="true" class="empty-task drag-and-drop-container-border">No tasks ${text}</div>`;
 }
 
 function generateTaskCard(element) {
-  return `<div draggable="true" 
-ondragstart="startDragging(${element["id"]})" 
-id="${element["id"]}" class="task-card">
-  <div class="category-of-task">${element["category"]}</div>
-  <div class="title-of-task">${element["title"]}</div>
-  <div class="description-of-task">${element["description"]}</div>
-  <div class="subtasks-of-task">${element["subtasks"]}</div>
-  <div class="assigned-and-priority-container">
-    <div id="assignedCircle${element["id"]}" class="assigned-to-of-task">${element["assignedTo"]}</div>
-    <div class="priority-of-task">${element["priority"]}</div>
+  return `
+  <div draggable="true" 
+    ondragstart="startDragging(${element["id"]})" 
+    id="${element["id"]}" class="task-card">
+      <div class="category-of-task">${element["category"]}</div>
+      <div class="title-of-task">${element["title"]}</div>
+      <div class="description-of-task">${element["description"]}</div>
+      <div class="subtasks-of-task" id="progress${element["id"]}">
+        <div class="progress-bar-container">
+          <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="height: 0.5rem">
+          <div class="progress-bar" style="width: 25%"></div>
+        </div>
+        
+      </div>
+      <div class="amount-of-subtasks-container">
+          <div>
+            1/2 Subtasks
+          </div>
+        </div> 
+      </div>
+      <div class="assigned-and-priority-container">
+      <div id="assignedCircle${element["id"]}" class="assigned-to-of-task">${element["assignedTo"]}</div>
+      <div class="priority-of-task">${element["priority"]}</div>
   </div>
-  </div>`;
+   `;
 }
 
 function startDragging(id) {

@@ -148,7 +148,6 @@ img {
 
 .drag-area {
   height: 200vh;
-  background-color: var(--site-bg);
   margin-bottom: 50px;
   display: flex;
   align-items: stretch;
@@ -230,8 +229,21 @@ div[draggable="true"] {
   line-height: 120%;
 }
 
-/* .subtasks-of-task {
-} */
+.subtasks-of-task {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.progress-bar-container {
+  width: 50%;
+}
+
+.amount-of-subtasks-container {
+  width: 50%;
+}
 
 .assigned-to-of-task {
   display: flex;
@@ -349,13 +361,14 @@ div[draggable="true"] {
 }
 
 .initialsCircleOfTasks {
-  height: 4vh;
+  height: 2rem;
   border-radius: 50px;
-  width: 4vh;
-  padding: 8px;
+  width: 2rem;
+
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: -0.3rem;
+  margin: -0.2rem;
+  outline: solid 1px #fff;
 }
