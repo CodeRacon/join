@@ -7,6 +7,7 @@ async function initPage() {
   await includeHTML();
   highlightNavLink();
   changeFrameOnNewTab();
+  highlightExternalLink();
 }
 
 /**
@@ -92,6 +93,7 @@ function openExternalLink(url) {
   const currentUrl = window.location.pathname;
   const privacyUrl = '/privacy_policy.html';
   const legalNoticeUrl = '/legal_notice.html';
+
   if (currentUrl !== privacyUrl && currentUrl !== legalNoticeUrl) {
     window.open(url);
   } else if (currentUrl === privacyUrl) {
@@ -101,8 +103,17 @@ function openExternalLink(url) {
   }
 }
 
-function logoutUser(url) {
-  window.location.href = url;
+function highlightExternalLink() {
+  const url = window.location.href;
+
+  const privacyLink = document.getElementById('privacy-link');
+  const legalLink = document.getElementById('legal-link');
+
+  if (url.includes('privacy')) {
+    privacyLink.classList.add('visited');
+  } else if (url.includes('legal')) {
+    legalLink.classList.add('visited');
+  }
 }
 
 function toggleQuickMenue() {
@@ -118,4 +129,8 @@ function toggleQuickMenue() {
       quickMenu.classList.toggle('d-none');
     }, 125);
   }
+}
+
+function logoutUser(url) {
+  window.location.href = url;
 }
