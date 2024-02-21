@@ -8,7 +8,7 @@ async function initContacts() {
 
   await loadUserData();
 
-  contacts = localUserData;
+  contacts = localUserData.contacts;
 
   renderContactList();
 }
