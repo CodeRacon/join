@@ -18,6 +18,7 @@ const monthNames = [
  * and then updating the dahboard-boxes with the latest user data.
  */
 async function initSummary() {
+  // storeStartData();
   await loadUserData();
   updateSummary();
 }
@@ -43,7 +44,7 @@ function updateSummary() {
  * filters for todo status, counts them, and updates the todo counter element.
  */
 function updateToDoCounter() {
-  const toDoTasks = localUserData
+  const toDoTasks = localUserData.users
     .flatMap((user) => user.tasks || [])
     .filter((task) => task && task.status === 'toDo');
   const totalToDoTasks = toDoTasks.length;
@@ -59,7 +60,7 @@ function updateToDoCounter() {
  * filters for done status, counts them, and updates the done counter element.
  */
 function updateDoneCounter() {
-  const doneTasks = localUserData
+  const doneTasks = localUserData.users
     .flatMap((user) => user.tasks || [])
     .filter((task) => task && task.status === 'done');
   const totalDoneTasks = doneTasks.length;
@@ -78,7 +79,7 @@ function updateDoneCounter() {
  */
 function updateHighPrioCounter() {
   const urgencyCounter = document.getElementById('urgency-counter');
-  const highPrioTasks = localUserData
+  const highPrioTasks = localUserData.users
     .flatMap((user) => user.tasks || [])
     .filter((task) => task && task.priority === 3);
   const totalHighPrioTasks = highPrioTasks.length;
@@ -108,7 +109,7 @@ function updateDueDate() {
  * maps them to Date objects, and returns the array of dates.
  */
 function findAllDueDates() {
-  const tasksWithDueDate = localUserData
+  const tasksWithDueDate = localUserData.users
     .flatMap((user) => (user.tasks || []).filter((task) => task.dueDate))
     .map((task) => new Date(task.dueDate));
   return tasksWithDueDate;
@@ -155,7 +156,7 @@ function formatDate(date) {
  */
 function updateTaskCounter() {
   const taskCounter = document.getElementById('task-counter');
-  const allTasks = localUserData.flatMap((user) => user.tasks || []);
+  const allTasks = localUserData.users.flatMap((user) => user.tasks || []);
   const totalTasks = allTasks.length;
 
   taskCounter.innerHTML = /*html*/ `
@@ -171,7 +172,7 @@ function updateTaskCounter() {
  */
 function updateInProgressCounter() {
   const progressCounter = document.getElementById('progress-counter');
-  const tasksInProgress = localUserData
+  const tasksInProgress = localUserData.users
     .flatMap((user) => user.tasks || [])
     .filter((task) => task && task.status === 'inProgress');
   const totalTasksInProgress = tasksInProgress.length;
@@ -188,7 +189,7 @@ function updateInProgressCounter() {
  */
 function updateAwaitFeedBackCounter() {
   const fbCounter = document.getElementById('fb-counter');
-  const awaitFbTasks = localUserData
+  const awaitFbTasks = localUserData.users
     .flatMap((user) => user.tasks || [])
     .filter((task) => task && task.status === 'awaitFeedback');
   const totalAwaitFbTasks = awaitFbTasks.length;
