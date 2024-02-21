@@ -1,4 +1,5 @@
 // SignUp
+// einfach load und storeStartData wegmachen wenn du den urprünglichen wert willst
 loadUsers();
 
 let createdAccountInfo = [];
@@ -25,13 +26,33 @@ async function createAccount(){
 }
 
 function checkExistenceOfAccount(name, email, paswort){
-    for (let i = 0; i < createdAccountInfo.length; i++) {
-        if (createdAccountInfo[i]['name'] == name.value || createdAccountInfo[i]['email'] == email.value || createdAccountInfo[i]['pasword'] == paswort.value) {
+    for (let i = 0; i < startData.length; i++) {
+        if (startData[i].hasOwnProperty('registerData')){
+        if (startData[i].registerData.Data['name'] == name.value || startData[i].registerData.Data['email'] == email.value ||  startData[i].registerData.Data['password'] == paswort.value) {
             alert('hey');
             return true;
+        }}
+        else{
+            return false;
         }
     }
 }
+
+function generatePhoneNumber() {
+    var phoneNumber = "";
+    for (var i = 0; i < 10; i++) {
+        phoneNumber += Math.floor(Math.random() * 10);
+    }
+    
+    // Telefonnummer im Format "(xxx) xxx-xxxx" zurückgeben
+    return "(" + phoneNumber.substring(0, 3) + ") " +
+           phoneNumber.substring(3, 6) + "-" +
+           phoneNumber.substring(6, 10);
+}
+
+// Beispielaufruf
+var randomPhoneNumber = generatePhoneNumber();
+console.log(randomPhoneNumber);
 
 async function pushIntoArray(name, email, paswort){
     let newData = {
@@ -40,8 +61,9 @@ async function pushIntoArray(name, email, paswort){
         timeStamp: Date.now(),
         Data: { 
         "name": name.value,
+        "phoneNumber": generatePhoneNumber(),
         "email": email.value,
-        "pasword":paswort.value 
+        "password":paswort.value 
         }
     };   
     for (let i = 0; i < startData.length; i++) {
@@ -52,10 +74,8 @@ async function pushIntoArray(name, email, paswort){
         }
         
     }
-    
-    loadUsers(); 
+  
 }
-
 
 async function pushMoreInJson(name, email, paswort){
     let newData = {

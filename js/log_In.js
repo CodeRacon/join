@@ -6,37 +6,35 @@ let logInValue = [];
 let switchTemplates = 0;
 
 async function init() {
-    await fetchSignUpData();
+   
     loadTemplate();
 }
 
-async function fetchSignUpData() {
-    let url = `https://remote-storage.developerakademie.org/item?key=User&token=OLCMKPDCPKF9TQULRK3MARG5U8JK2GGGL5588K0M`;
-    let response = await fetch(url);
-    createdAccounts = await response.json();
-    let dataProperty = JSON.parse(createdAccounts.data.value);
-    SignUpData = dataProperty;
-}
+
 
 function checkExistence() {
     let mail = document.getElementById('login-email').value;
     let password = document.getElementById('login-password').value;
     if (checkIfValueIsLegit(mail, password) == true) {
         alert('found');
-    } else {
+    } else if(checkIfValueIsLegit(mail, password) == false){
         alert('dasd');
-        document.getElementById('login-email').style.borderColor = 'red';
-        document.getElementById('login-password').style.borderColor = 'red';
-        document.getElementById('john').classList.remove('dn');
     }
 }
 
 function checkIfValueIsLegit(mail, password) {
-    for (let i = 0; i < SignUpData.length; i++) {
-        if (SignUpData[i]['email'] == mail && SignUpData[i]['pasword'] == password) {
-            return true;
+    
+    for (let i = 0; i < startData.length; i++) {
+        if (startData[i].hasOwnProperty('registerData')) {
+            if (startData[i].registerData.Data['email'] == mail && startData[i].registerData.Data['password'] == password) {
+                return true;   
+            }   
         }
     }
+    return false;
+}
+
+function yolo(){
     return false;
 }
 
@@ -99,6 +97,8 @@ function getto(){
     switchTemplates = 0;
     saveSwitchInServer();
 }
+
+// speicher zahl in localStorage für die index hinweisung mit dem localStorage zahl greifst du wenn die Seite sich öffnet greifst du mit der zahl aufs json zu speichert die entsprechende stelle dan in einem anderen localstorage und löscht die Zahl die im Storage stand
 
 // Rufe init() auf, um den Datenabruf zu starten
 

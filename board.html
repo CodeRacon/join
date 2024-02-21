@@ -264,26 +264,30 @@
         <div
           class="drag-area"
           id="toDo"
-          ondrop="moveTo('toDo')"
-          ondragover="allowDrop(event)"
+          ondrop="moveTo('toDo'), removeHighlight('toDo')"
+          ondragover="allowDrop(event), highlight('toDo')"
+          ondragleave="removeHighlight('toDo')"
         ></div>
         <div
           class="drag-area"
           id="inProgress"
-          ondrop="moveTo('inProgress')"
-          ondragover="allowDrop(event)"
+          ondrop="moveTo('inProgress'), removeHighlight('inProgress')"
+          ondragover="allowDrop(event), highlight('inProgress')"
+          ondragleave="removeHighlight('inProgress')"
         ></div>
         <div
           class="drag-area"
           id="awaitFeedback"
-          ondrop="moveTo('awaitFeedback')"
-          ondragover="allowDrop(event)"
+          ondrop="moveTo('awaitFeedback'), removeHighlight('awaitFeedback')"
+          ondragover="allowDrop(event), highlight('awaitFeedback')"
+          ondragleave="removeHighlight('awaitFeedback')"
         ></div>
         <div
           class="drag-area"
           id="closed"
-          ondrop="moveTo('done')"
-          ondragover="allowDrop(event)"
+          ondrop="moveTo('done'), removeHighlight('closed')"
+          ondragover="allowDrop(event), highlight('closed')"
+          ondragleave="removeHighlight('closed')"
         ></div>
       </div>
     </section>
