@@ -1,5 +1,6 @@
 let currentPriority;
 let subtasks = [];
+let filteredContacts = []; // mal schauen, ob benötigt wird
 
 function setPriority(prio) {
   currentPriority = prio;
@@ -23,8 +24,8 @@ function openAndCloseDropDownToAssign() {
 function showContactsToAssign() {
   let content = document.getElementById("labels");
   content.innerHTML = "";
-  for (let i = 0; i < startData.length; i++) {
-    const element = startData[i];
+  for (let i = 0; i < startData["contacts"].length; i++) {
+    const element = startData["contacts"][i];
     content.innerHTML += `
       <div id="single-contact${i}" class="single-contact">
         <label for="option${i}" class="label-layout">
@@ -40,6 +41,41 @@ function showContactsToAssign() {
         <br />
         ${createContactInitials(element)}
       </div>`;
+  }
+}
+
+function filterContactsToAssign() {
+  let input = document.getElementById("dropdownInput").value.toLowerCase();
+  let content = document.getElementById("dropdownContent");
+  content.innerHTML = "";
+  let contacts = startData.contacts;
+  let matchedContacts = contacts.filter((contact) => {
+    return contact.userData.name.toLowerCase().includes(input);
+  });
+  for (let i = 0; i < matchedContacts.length; i++) {
+    const element = matchedContacts[i];
+    content.innerHTML += `
+      <div id="single-contact${i}" class="single-contact">
+        <label for="option${i}" class="label-layout">
+          <input
+            type="checkbox"
+            class="custom-checkbox"
+            id="option${i}"
+            value="${element}"
+            onchange="changeCheckboxColor(${i})"
+          />
+          ${element["userData"]["name"]}
+        </label>
+        <br />
+        ${createContactInitials(element)}
+      </div>`;
+  }
+  if (input == "") {
+    content.innerHTML = '<div id="labels"></div>';
+    showContactsToAssign();
+  }
+  if (matchedContacts == 0) {
+    return;
   }
 }
 

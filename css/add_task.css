@@ -294,7 +294,7 @@ select:focus {
   display: none;
   background-color: white;
   width: var(--f-width);
-  min-height: 8rem;
+  min-height: 6rem;
   border-top: none;
   margin-top: -2rem;
   overflow-y: auto;

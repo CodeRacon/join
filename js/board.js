@@ -172,6 +172,7 @@ function generateProgressBar(element) {
   }
 }
 
+// funktioniert noch nicht, muss angepasst werden!!! //
 function generateEmptyHTML(text) {
   return `<div draggable="true" class="empty-task drag-and-drop-container-border">No tasks ${text}</div>`;
 }
@@ -223,9 +224,11 @@ function removeHighlight(id) {
   document.getElementById(id).classList.remove("drag-area-highlight");
 }
 
-// :::::::::::::::::::::: Add - Task - PopUp ::::::::::::::::::::::
+// :::::::::::::::::::::: Task - Card - PopUp :::::::::::::::::::::://
 
-// clear assigned to - is missing
+// :::::::::::::::::::::: Add - Task - PopUp :::::::::::::::::::::://
+
+// clear assigned to - is missing //
 function clearForm() {
   let inputs = document.querySelectorAll("input");
   let textarea = document.getElementById("description");
