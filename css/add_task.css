@@ -294,7 +294,7 @@ select:focus {
   display: none;
   background-color: white;
   width: var(--f-width);
-  min-height: 6rem;
+  min-height: 8rem;
   border-top: none;
   margin-top: -2rem;
   overflow-y: auto;
@@ -366,9 +366,13 @@ select:focus {
 }
 
 .initialsCyrcle {
-  border-radius: 50px;
-  width: 12%;
-  padding: 8px;
+  border-radius: 50%;
+  width: 2.625rem;
+  height: 2.625rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
   color: white;
 }
 

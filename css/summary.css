@@ -295,7 +295,7 @@ h2 {
   justify-content: center;
 }
 
-.onethird-box:nth-of-type(2) {
+.bottom-part > a:nth-of-type(2) > .onethird-box {
   position: absolute;
   top: 50%;
   left: 50%;

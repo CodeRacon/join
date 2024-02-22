@@ -1,8 +1,7 @@
 // SignUp
 // einfach load und storeStartData wegmachen wenn du den urprünglichen wert willst
-loadUsers();
 
-let createdAccountInfo = [];
+
 let cancelFunction = 0;
 let nameOfInputsId = ['name','mail','paswort'];
 
@@ -67,11 +66,10 @@ async function pushIntoArray(name, email, paswort){
         }
     };   
     for (let i = 0; i < startData.length; i++) {
-        if (!startData[i].hasOwnProperty('registerData')) {
-            startData[i].registerData = newData;
-            await storeStartData();
+      
+            startData.users[i].unshift(newData);
             return 1;   
-        }
+        
         
     }
   
@@ -90,7 +88,7 @@ async function pushMoreInJson(name, email, paswort){
     }
     }
     startData.push(newData);
-    await storeStartData();
+    
 }
 
 async function loadUsers(){

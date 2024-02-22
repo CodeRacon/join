@@ -72,14 +72,14 @@ function highlightNavLink() {
 function changeFrameOnNewTab() {
   const sideNav = document.getElementById('side-nav');
   const headerIcons = document.getElementById('corner-icons');
-  const popoutMenu = document.getElementById('popout-menu');
+  const quickmenu = document.getElementById('quickmenu');
   const privacyUrl = '/privacy_policy.html';
   const legalNoticeUrl = '/legal_notice.html';
   const currentUrl = window.location.pathname;
   if (currentUrl === privacyUrl || currentUrl === legalNoticeUrl) {
     sideNav.classList.toggle('hidden');
     headerIcons.classList.toggle('hidden');
-    popoutMenu.classList.toggle('hidden');
+    quickmenu.classList.toggle('hidden');
   }
 }
 
