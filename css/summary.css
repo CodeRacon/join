@@ -68,6 +68,7 @@
 .summary-section--heading {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: fit-content;
   gap: 1.875rem;
 }
@@ -94,7 +95,7 @@ h2 {
 
 .summary-container {
   display: flex;
-  /* flex: 1; */
+  flex: 1;
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -107,8 +108,8 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
-  width: 36rem;
+  align-items: center;
+  width: 35rem;
   gap: 0.75rem;
 }
 
@@ -140,6 +141,7 @@ h2 {
 .middle-part {
   display: flex;
   align-items: center;
+  justify-content: center;
   width: 36rem;
   height: 11.5rem;
 }
@@ -223,6 +225,7 @@ h2 {
   flex-direction: column;
   text-align: left;
   gap: 0.805rem;
+  padding-right: 1.1875rem;
 }
 
 .due-date span {
@@ -336,4 +339,74 @@ h2 {
   font-size: 4rem;
   font-weight: 700;
   line-height: 120%;
+}
+
+/* ####################### */
+/* -----MEDIA-QUERIES----- */
+/* ####################### */
+
+@media (width <= 1200px) {
+  .summary-section--heading p {
+    color: var(--primary);
+    font-size: 1.2875rem;
+    font-weight: 400;
+    line-height: 120%;
+  }
+
+  .summary-container {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2rem;
+    margin-top: clamp(1.5rem, 26.316vw + -11.132rem, 4rem);
+  }
+}
+
+@media ((width <= 1200px) and (width >= 921px)) {
+  section.summary-section {
+    padding: 6.85rem clamp(4rem, 11.47vw + -2.602rem, 6rem) 4rem
+      clamp(4rem, 11.47vw + -2.602rem, 6rem);
+  }
+}
+
+@media (width <= 920px) {
+  section.summary-section {
+    width: calc(100% - clamp(10rem, 47.368vw + -12.737rem, 14.5rem));
+    margin: 6rem 0 2rem clamp(10rem, 47.368vw + -12.737rem, 14.5rem);
+    padding: clamp(2.85rem, 42.105vw + -17.361rem, 6.85rem) 1.5rem 4rem 1.5rem;
+  }
+
+  .summary-section--heading {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .summary-section--heading .vert-spacer {
+    height: 0;
+    width: 105px;
+    margin: 0;
+    border-radius: 1.5px;
+    border: var(--accent) 1.5px solid;
+  }
+  .summary-section--heading p {
+    margin-top: 0.75rem;
+    text-align: left;
+  }
+}
+
+@media (width <= 767px) {
+  section.summary-section {
+    margin: 6rem auto 2rem auto;
+    padding: 2.85rem 1.5rem 4rem 1.5rem;
+    width: fit-content;
+  }
+
+  aside {
+    display: none;
+  }
+}
+
+@media (width <= 607px) {
 }
