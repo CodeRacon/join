@@ -206,7 +206,7 @@ h2 {
   height: 3.75rem;
   background-color: var(--urgent);
   background-image: url(/assets/img/icons/general/white/urgent-white.svg);
-  background-size: 34.19px 25.12px;
+  background-size: 57.5%;
   background-repeat: no-repeat;
   background-position: center;
   border-radius: 50%;
@@ -214,7 +214,7 @@ h2 {
 
 .vert-spacer-gray {
   width: 0;
-  height: 102px;
+  height: 100%;
   margin: auto 0;
   border-radius: 1.5px;
   border: #d1d1d1 1.5px solid;
@@ -223,6 +223,7 @@ h2 {
 .due-date {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   text-align: left;
   gap: 0.805rem;
   padding-right: 1.1875rem;
@@ -244,13 +245,13 @@ h2 {
   justify-content: center;
 }
 
-.half-box:hover {
+/* .half-box:hover {
   width: 17.65625rem;
   height: 11.5rem;
   color: #fff;
   background-color: var(--primary);
   box-shadow: var(--btn-shdw-ttb);
-}
+} */
 
 .half-box:hover p {
   color: #fff;
@@ -406,7 +407,78 @@ h2 {
   aside {
     display: none;
   }
+
+  footer {
+    display: flex;
+  }
 }
 
 @media (width <= 607px) {
+  /* until 320 */
+  section.summary-section {
+    padding: 2.85rem 1rem 2rem 1rem;
+  }
+
+  .summary-box {
+    width: fit-content;
+    gap: clamp(0.125rem, 3.472vw + -0.569rem, 0.75rem);
+  }
+
+  .top-part,
+  .bottom-part,
+  .middle-part,
+  .full-box {
+    width: clamp(18rem, 94.444vw + -0.889rem, 35rem);
+    height: clamp(6.275rem, 29.028vw + 0.469rem, 11.5rem);
+  }
+
+  .full-box,
+  .half-box,
+  .onethird-box {
+    height: clamp(5.5rem, 27.778vw + -0.056rem, 10.5rem);
+    border-radius: clamp(1.25rem, 3.472vw + 0.556rem, 1.875rem);
+  }
+
+  .full-box {
+    padding: 1.25rem 0.25rem;
+  }
+
+  .half-box {
+    padding: 0;
+    width: clamp(8.625rem, 43.75vw + -0.125rem, 16.5rem);
+  }
+
+  .onethird-box {
+    width: clamp(5.5rem, 27.778vw + -0.056rem, 10.5rem);
+  }
+
+  .half-box span,
+  .urgency-counter span,
+  .onethird-box span {
+    font-size: clamp(2rem, 11.111vw + -0.222rem, 4rem);
+  }
+
+  .half-box p,
+  .urgency-counter p,
+  .onethird-box p,
+  .due-date p {
+    font-size: clamp(0.625rem, 3.472vw + -0.069rem, 1.25rem);
+  }
+
+  .todo-symbol,
+  .done-symbol,
+  .urgency-symbol {
+    width: clamp(2.5rem, 6.944vw + 1.111rem, 3.75rem);
+    height: clamp(2.5rem, 6.944vw + 1.111rem, 3.75rem);
+  }
+
+  #due-date {
+    font-size: clamp(0.875rem, 2.431vw + 0.389rem, 1.3125rem);
+  }
+}
+
+@media (width <= 428px) {
+  .personal-greeting {
+    display: none;
+  }
 }
