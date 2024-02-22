@@ -51,17 +51,38 @@ function goBack() {
  * the 'visited' class to highlight the link.
  */
 function highlightNavLink() {
-  const navLinks = document.querySelectorAll('aside a');
   const currentUrl = window.location.pathname;
+  const navLinks = getNavLinks();
 
   navLinks.forEach((navLink) => {
     const href = navLink.getAttribute('href');
-    if (currentUrl == href) {
+    if (currentUrl === href) {
       navLink.classList.add('visited');
     } else {
       navLink.classList.remove('visited');
     }
   });
+}
+
+/**
+ * Gets the navigation links that should be highlighted
+ * based on the current viewport.
+ *
+ * On mobile, returns the mobile navigation links.
+ * On desktop, returns the desktop side navigation links.
+ */
+function getNavLinks() {
+  const desktopLinks = document.querySelectorAll('#side-nav a');
+  const mobileLinks = document.querySelectorAll('#mobile-nav a');
+  const asideDisplay = getComputedStyle(
+    document.querySelector('aside')
+  ).display;
+
+  if (asideDisplay === 'none') {
+    return mobileLinks;
+  } else {
+    return desktopLinks;
+  }
 }
 
 /**
@@ -103,6 +124,12 @@ function openExternalLink(url) {
   }
 }
 
+/**
+ * Highlights the given links only on the external tab
+ * if the current page URL contains the link text.
+ * For example, highlights the "Privacy" link if the
+ * current page URL contains "privacy".
+ */
 function highlightExternalLink() {
   const url = window.location.href;
 
@@ -116,7 +143,12 @@ function highlightExternalLink() {
   }
 }
 
-function toggleQuickMenue() {
+/**
+ * Toggles the display of the quick menu UI element.
+ * If currently hidden, animates it sliding in.
+ * If currently shown, animates it sliding away.
+ */
+function toggleQuickMenu() {
   const quickMenu = document.getElementById('quickmenu');
   if (quickMenu.classList.contains('d-none')) {
     quickMenu.classList.replace('qmOff', 'qmIn');
