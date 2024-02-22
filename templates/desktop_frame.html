@@ -1,13 +1,18 @@
 <header>
   <div class="top-bar">
     <p>Kanban Project Management Tool</p>
+
+    <img
+      class="mobile-header-logo"
+      src="/assets/img/logo/mobile-header-logo.svg"
+      alt="" />
+
     <div id="corner-icons" class="corner-icons">
-      <a href="help.html">
+      <a class="hide-on-mobile" href="help.html">
         <div class="help"></div>
       </a>
-      <div class="user-profile" id="user-profile" onclick="toggleQuickMenue()">
-        <!-- add onclick-function 'toggleQuickMenue()'!  -->
-        <p id="user-initials">??</p>
+      <div class="user-profile" id="user-profile" onclick="toggleQuickMenu()">
+        <span id="user-initials">??</span>
       </div>
     </div>
   </div>
@@ -18,7 +23,7 @@
   </div>
 </header>
 
-<aside>
+<aside id="aside">
   <div class="logo" id="logo">
     <img src="assets/img/logo/logo-white.svg" alt="join logo" />
   </div>
@@ -41,7 +46,38 @@
     </a>
   </nav>
   <div class="pp-ln">
-    <a onclick="openExternalLink('/privacy_policy.html')">Privacy Policy</a>
-    <a onclick="openExternalLink('/legal_notice.html')">Legal Notice</a>
+    <a id="privacy-link" onclick="openExternalLink('/privacy_policy.html')"
+      >Privacy Policy</a
+    >
+    <a id="legal-link" onclick="openExternalLink('/legal_notice.html')"
+      >Legal Notice</a
+    >
   </div>
 </aside>
+
+<footer>
+  <nav id="mobile-nav">
+    <a href="/summary.html" class="mobile-nav-summary" id="mobile-nav-summary">
+      <div class="mobile-summary-icon"></div>
+      <p>Summary</p>
+    </a>
+    <a
+      href="/add_task.html"
+      class="mobile-nav-add-task"
+      id="mobile-nav-add-task">
+      <div class="mobile-add-task-icon"></div>
+      <p>Add Task</p>
+    </a>
+    <a href="/board.html" class="mobile-nav-board" id="mobile-nav-board">
+      <div class="mobile-board-icon"></div>
+      <p>Board</p>
+    </a>
+    <a
+      href="/contacts.html"
+      class="mobile-nav-contacts"
+      id="mobile-nav-contacts">
+      <div class="mobile-contacts-icon"></div>
+      <p>Contacts</p>
+    </a>
+  </nav>
+</footer>
