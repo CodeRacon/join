@@ -162,9 +162,10 @@ header {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: 90rem;
-  margin: 0 auto;
   height: 6rem;
+  max-width: 90rem;
+  min-width: 20rem;
+  margin: 0 auto;
   padding: 1.25rem 2.5rem 1.25rem 21.75rem;
   background-color: #fff;
   box-shadow: var(--header-shdw-ttb);
@@ -192,10 +193,14 @@ header {
   gap: 1rem;
 }
 
+.mobile-header-logo {
+  display: none;
+}
+
 .user-profile {
   display: flex;
-  width: 3rem;
-  height: 3rem;
+  width: clamp(2.5rem, 0.893vw + 2.214rem, 3.5rem);
+  height: clamp(2.5rem, 0.893vw + 2.214rem, 3.5rem);
   justify-content: center;
   align-items: center;
   border: solid 3px var(--primary);
@@ -220,6 +225,7 @@ header {
   cursor: pointer;
   background-image: url(/assets/img/icons/general/gray/q_mark.svg);
   background-size: contain;
+  margin-left: 2rem;
 }
 
 .help:hover {
@@ -306,7 +312,7 @@ aside {
   object-fit: contain;
 }
 
-nav {
+nav#side-nav {
   display: flex;
   flex-direction: column;
   gap: 0.95rem;
@@ -315,7 +321,7 @@ nav {
   margin: 0 auto;
 }
 
-nav > a {
+nav#side-nav > a {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -329,12 +335,16 @@ nav > a {
   cursor: pointer;
 }
 
-nav > a:hover {
+nav#side-nav > a > p {
+  margin: 0.125rem 0 0;
+}
+
+nav#side-nav > a:hover {
   color: #fff;
   background-color: var(--nav-link-hvr);
 }
 
-nav > a:active {
+nav#side-nav > a:active {
   color: #fff;
   background-color: var(--nav-link-act);
 }
@@ -345,9 +355,6 @@ nav > a:active {
 }
 
 .summary-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 1.875rem;
   height: 1.875rem;
   background-image: url(/assets/img/icons/general/gray/summary-gray.svg);
@@ -387,6 +394,27 @@ nav > a:active {
   background-image: url(/assets/img/icons/general/white/contacts-white.svg);
 }
 
+.visited {
+  color: #fff !important;
+  background-color: var(--nav-link-act);
+}
+
+.visited .summary-icon {
+  background-image: url(/assets/img/icons/general/white/summary-white.svg);
+}
+
+.visited .add-task-icon {
+  background-image: url(/assets/img/icons/general/white/add_task-white.svg);
+}
+
+.visited .board-icon {
+  background-image: url(/assets/img/icons/general/white/board-white.svg);
+}
+
+.visited .contacts-icon {
+  background-image: url(/assets/img/icons/general/white/contacts-white.svg);
+}
+
 .pp-ln {
   display: flex;
   flex-direction: column;
@@ -411,27 +439,115 @@ nav > a:active {
   background-color: var(--nav-link-act);
 }
 
-.log-in-checkbox p {
+/* ################ */
+/* -----FOOTER----- */
+/* ################ */
+
+footer {
+  position: fixed;
+  top: calc(100% - 5rem);
+  /* bottom: 0; */
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 5rem;
+  background: var(--primary);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+  z-index: 99;
+}
+
+#mobile-nav {
   display: flex;
-  margin: 0;
+  max-width: 37rem;
+  width: 100%;
+  height: 100%;
+  padding: 0.125rem 0.875rem;
+  justify-content: space-between;
   align-items: center;
 }
 
-.log-in-checkbox {
-  margin-top: 20px;
+#mobile-nav > a {
   display: flex;
-  gap: 8px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  width: 5rem;
+  height: 4.75rem;
+  padding: 0.5rem 0.0625rem;
+  flex-shrink: 0;
+  color: #cdcdcd;
+  font-size: 0.875rem;
+  line-height: 120%;
+  border-radius: 1rem;
 }
 
-#checkedOrNot:hover {
-  cursor: pointer;
+#mobile-nav > a:active {
+  background: #091931;
+  color: #fff;
 }
 
-.imgmo {
-  height: 24px;
-  width: 24px;
+#mobile-nav > a > p {
+  margin: 0;
 }
 
-.dn {
-  display: none !important;
+.mobile-summary-icon,
+.mobile-add-task-icon,
+.mobile-board-icon,
+.mobile-contacts-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.mobile-summary-icon {
+  background-image: url(/assets/img/icons/general/gray/summary-gray.svg);
+  background-size: cover;
+}
+
+.mobile-summary-icon:active {
+  background-image: url(/assets/img/icons/general/white/summary-white.svg);
+}
+
+.mobile-add-task-icon {
+  background-image: url(/assets/img/icons/general/gray/add_task-gray.svg);
+  background-size: cover;
+}
+
+.mobile-add-task-icon:active {
+  background-image: url(/assets/img/icons/general/white/add-white.svg);
+}
+
+.mobile-board-icon {
+  background-image: url(/assets/img/icons/general/gray/board-gray.svg);
+  background-size: cover;
+}
+
+.mobile-board-icon:active {
+  background-image: url(/assets/img/icons/general/white/board-white.svg);
+}
+
+.mobile-contacts-icon {
+  background-image: url(/assets/img/icons/general/gray/contacts-gray.svg);
+  background-size: cover;
+}
+
+.mobile-contacts-icon:active {
+  background-image: url(/assets/img/icons/general/white/contacts-white.svg);
+}
+
+.visited .mobile-summary-icon {
+  background-image: url(/assets/img/icons/general/white/summary-white.svg);
+}
+
+.visited .mobile-add-task-icon {
+  background-image: url(/assets/img/icons/general/white/add_task-white.svg);
+}
+
+.visited .mobile-board-icon {
+  background-image: url(/assets/img/icons/general/white/board-white.svg);
+}
+
+.visited .mobile-contacts-icon {
+  background-image: url(/assets/img/icons/general/white/contacts-white.svg);
 }
