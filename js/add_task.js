@@ -1,4 +1,5 @@
 let currentPriority;
+let dueDate;
 
 let lowBtn = document.getElementById("low-btn");
 let mediumBtn = document.getElementById("medium-btn");
@@ -217,4 +218,9 @@ function changeSubtaskInArray(index) {
 function deleteSubtask(index) {
   subtasks.splice(index, 1);
   showCreatedSubtask();
+}
+
+function getDueDate() {
+  let dueDateValue = document.getElementById("due-date-value").value;
+  dueDate = dueDateValue;
 }
