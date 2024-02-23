@@ -437,3 +437,41 @@ img {
   padding: 0.5rem;
   border-radius: 0.625rem;
 }
+
+.bg-urgent {
+  background-color: var(--urgent);
+}
+
+.bg-medium {
+  background-color: var(--medium);
+}
+
+.bg-low {
+  background-color: var(--low);
+}
+
+.bg-white {
+  background-color: white !important;
+}
+
+.font-white {
+  color: white !important;
+  font-family: Inter;
+  font-size: 1.3rem;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.font-black {
+  color: #000 !important;
+  font-family: Inter;
+  font-size: 1.25rem !important;
+  font-style: normal;
+  font-weight: 400 !important;
+}
+
+#img-low,
+#img-medium,
+#img-urgent {
+  padding-left: 0.4rem;
+}

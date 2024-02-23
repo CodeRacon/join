@@ -1,11 +1,62 @@
 let currentPriority;
+
+let lowBtn = document.getElementById("low-btn");
+let mediumBtn = document.getElementById("medium-btn");
+let urgentBtn = document.getElementById("urgent-btn");
+
+let imgLow = document.getElementById("img-low");
+let imgMedium = document.getElementById("img-medium");
+let imgUrgent = document.getElementById("img-urgent");
+
 let subtasks = [];
-let filteredContacts = []; // mal schauen, ob benötigt wird
 
 function setPriority(prio) {
   currentPriority = prio;
-  if (currentPriority == 1) {
+  resetPrioButtons();
+  if (currentPriority == "low") {
+    prioLow();
   }
+  if (currentPriority == "medium") {
+    prioMedium();
+  }
+  if (currentPriority == "urgent") {
+    prioUrgent();
+  }
+}
+
+function resetPrioButtons() {
+  lowBtn.classList.remove("bg-low", "bg-white", "font-black", "font-white");
+  mediumBtn.classList.remove("bg-medium", "bg-white", "font-black");
+  urgentBtn.classList.remove(
+    "bg-urgent",
+    "bg-white",
+    "font-black",
+    "font-white"
+  );
+  imgLow.src = "./assets/img/icons/add-task/low.svg";
+  imgMedium.src = "./assets/img/icons/add-task/medium-orange.svg";
+  imgUrgent.src = "./assets/img/icons/add-task/urgent.svg";
+}
+
+function prioLow() {
+  lowBtn.classList.add("bg-low", "font-white");
+  mediumBtn.classList.add("bg-white", "font-black");
+  urgentBtn.classList.add("bg-white", "font-black");
+  imgLow.src = "./assets/img/icons/add-task/low-white.svg";
+}
+
+function prioMedium() {
+  lowBtn.classList.add("bg-white", "font-black");
+  mediumBtn.classList.add("bg-medium", "font-white");
+  urgentBtn.classList.add("bg-white", "font-black");
+  imgMedium.src = "./assets/img/icons/add-task/medium-white.svg";
+}
+
+function prioUrgent() {
+  lowBtn.classList.add("bg-white", "font-black");
+  mediumBtn.classList.add("bg-white", "font-black");
+  urgentBtn.classList.add("bg-urgent", "font-white");
+  imgUrgent.src = "./assets/img/icons/add-task/urgent-white.svg";
 }
 
 function openAndCloseDropDownToAssign() {
