@@ -1,6 +1,6 @@
 // SignUp
 // einfach load und storeStartData wegmachen wenn du den urprünglichen wert willst
-
+loadUsers();
 
 let cancelFunction = 0;
 let nameOfInputsId = ['name','mail','paswort'];
@@ -25,9 +25,9 @@ async function createAccount(){
 }
 
 function checkExistenceOfAccount(name, email, paswort){
-    for (let i = 0; i < startData.length; i++) {
-        if (startData[i].hasOwnProperty('registerData')){
-        if (startData[i].registerData.Data['name'] == name.value || startData[i].registerData.Data['email'] == email.value ||  startData[i].registerData.Data['password'] == paswort.value) {
+    for (let i = 0; i < startData.users.length; i++) {
+        if (startData.users[i].hasOwnProperty('registerData')){
+        if (startData.users[i].registerData.Data['name'] == name.value || startData.users[i].registerData.Data['email'] == email.value ||  startData.users[i].registerData.Data['password'] == paswort.value) {
             alert('hey');
             return true;
         }}
@@ -56,7 +56,7 @@ console.log(randomPhoneNumber);
 async function pushIntoArray(name, email, paswort){
     let newData = {
         isRegistered: true,
-        isLoggedIn: false,
+        isLoggedIn: false,   // loged in true wenn sich der benutzer das erste mal einloggt und das bleibt auch so damit wenn zb der user eigelogt ist das man dan auf die copy mit zb has property zugreifen kann
         timeStamp: Date.now(),
         Data: { 
         "name": name.value,
@@ -64,32 +64,17 @@ async function pushIntoArray(name, email, paswort){
         "email": email.value,
         "password":paswort.value 
         }
-    };   
-    for (let i = 0; i < startData.length; i++) {
-      
-            startData.users[i].unshift(newData);
-            return 1;   
-        
-        
-    }
-  
+    }; 
+   
+     for (let i = 0; i < startData.users.length; i++) {
+        if (!startData.users[i].hasOwnProperty('registerData')) {
+            startData.users[i].registerData = newData;
+            await storeStartData();
+            return 1;
+        }
+     }  
 }
 
-async function pushMoreInJson(name, email, paswort){
-    let newData = {
-        diffrentData:{ isRegistered: true,
-        isLoggedIn: false,
-        timeStamp: Date.now(),
-        Data: { 
-        "name": name.value,
-        "email": email.value,
-        "pasword":paswort.value 
-        }
-    }
-    }
-    startData.push(newData);
-    
-}
 
 async function loadUsers(){
     try {

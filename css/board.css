@@ -147,7 +147,8 @@ img {
 }
 
 .drag-area {
-  height: 200vh;
+  min-height: 200vh;
+  width: 25%;
   margin-bottom: 50px;
   display: flex;
   align-items: stretch;
@@ -177,10 +178,6 @@ img {
   justify-content: space-between;
   align-items: flex-start;
   gap: 2rem;
-}
-
-.drag-area {
-  width: 25%;
 }
 
 div[draggable="true"] {
@@ -243,6 +240,12 @@ div[draggable="true"] {
 
 .amount-of-subtasks-container {
   width: 50%;
+  color: #000;
+  font-family: Inter;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
 }
 
 .assigned-to-of-task {

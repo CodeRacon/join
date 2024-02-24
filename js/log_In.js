@@ -6,7 +6,7 @@ let logInValue = [];
 let switchTemplates = 0;
 
 async function init() {
-   
+    console.log(startData);
     loadTemplate();
 }
 
@@ -16,22 +16,38 @@ function checkExistence() {
     let mail = document.getElementById('login-email').value;
     let password = document.getElementById('login-password').value;
     if (checkIfValueIsLegit(mail, password) == true) {
-        alert('found');
+        window.open("test.html");
     } else if(checkIfValueIsLegit(mail, password) == false){
         alert('dasd');
     }
 }
 
 function checkIfValueIsLegit(mail, password) {
-    
-    for (let i = 0; i < startData.length; i++) {
-        if (startData[i].hasOwnProperty('registerData')) {
-            if (startData[i].registerData.Data['email'] == mail && startData[i].registerData.Data['password'] == password) {
-                return true;   
+    for (let i = 0; i < startData.users.length; i++) {
+        if (startData.users[i].hasOwnProperty('registerData')) {
+            if (startData.users[i].registerData.Data['email'] == mail && startData.users[i].registerData.Data['password'] == password) {
+                num = i;
+                startData.users[i].registerData['isLoggedIn'] = true;
+                storeStartData();
+                saveIndexNum();
+                return true; 
+                //Wen logged in true ist und es den namen des users enthält wird die kopie genommen.  
             }   
         }
     }
     return false;
+}
+
+function saveIndexNum(){
+    let indexValue = JSON.stringify(num);
+    localStorage.setItem('accesToData', indexValue);
+}
+
+function loadIndexNum(){
+    let numOfIndex = localStorage.getItem('accesToData');
+    if(numOfIndex){
+      num = JSON.parse(numOfIndex);
+    }
 }
 
 function yolo(){

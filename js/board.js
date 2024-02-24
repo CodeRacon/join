@@ -21,15 +21,15 @@ function updateHTML() {
 function updateToDos() {
   let content = document.getElementById("toDo");
   content.innerHTML = "";
-  for (let i = 0; i < startData.length; i++) {
-    const element = startData[i];
+  for (let i = 0; i < startData["users"].length; i++) {
+    const element = startData["users"][i];
     if (element.hasOwnProperty("tasks")) {
       let toDo = element["tasks"].filter((todo) => todo["status"] == "toDo");
       for (let index = 0; index < toDo.length; index++) {
         const element = toDo[index];
         content.innerHTML += generateTaskCard(element);
         showInitials(element);
-        break;
+        generateProgressBar(element);
       }
     } else if (toDo.length == 0) {
       content.innerHTML = generateEmptyHTML("to do");
@@ -40,8 +40,8 @@ function updateToDos() {
 function updateInProgress() {
   let content = document.getElementById("inProgress");
   content.innerHTML = "";
-  for (let i = 0; i < startData.length; i++) {
-    const element = startData[i];
+  for (let i = 0; i < startData["users"].length; i++) {
+    const element = startData["users"][i];
     if (element.hasOwnProperty("tasks")) {
       let inProgress = element["tasks"].filter(
         (task) => task["status"] == "inProgress"
@@ -50,6 +50,7 @@ function updateInProgress() {
         const element = inProgress[index];
         content.innerHTML += generateTaskCard(element);
         showInitials(element);
+        generateProgressBar(element);
       }
     } else if (inProgress.length == 0) {
       content.innerHTML = generateEmptyHTML("in progress");
@@ -60,8 +61,8 @@ function updateInProgress() {
 function updateAwaitFeedback() {
   let content = document.getElementById("awaitFeedback");
   content.innerHTML = "";
-  for (let i = 0; i < startData.length; i++) {
-    const element = startData[i];
+  for (let i = 0; i < startData["users"].length; i++) {
+    const element = startData["users"][i];
     if (element.hasOwnProperty("tasks")) {
       let awaitFeedback = element["tasks"].filter(
         (task) => task["status"] == "awaitFeedback"
@@ -70,6 +71,7 @@ function updateAwaitFeedback() {
         const element = awaitFeedback[index];
         content.innerHTML += generateTaskCard(element);
         showInitials(element);
+        generateProgressBar(element);
       }
     } else if (awaitFeedback.length == 0) {
       content.innerHTML = generateEmptyHTML("await Feedback");
@@ -80,14 +82,15 @@ function updateAwaitFeedback() {
 function updateDone() {
   let content = document.getElementById("closed");
   content.innerHTML = "";
-  for (let i = 0; i < startData.length; i++) {
-    const element = startData[i];
+  for (let i = 0; i < startData["users"].length; i++) {
+    const element = startData["users"][i];
     if (element.hasOwnProperty("tasks")) {
       let closed = element["tasks"].filter((task) => task["status"] == "done");
       for (let index = 0; index < closed.length; index++) {
         const element = closed[index];
         content.innerHTML += generateTaskCard(element);
         showInitials(element);
+        generateProgressBar(element);
       }
     } else if (closed.length == 0) {
       content.innerHTML = generateEmptyHTML("are closed");
@@ -130,7 +133,7 @@ function showInitials(element) {
       .split(" ")
       .map((word) => word.charAt(0))
       .join("");
-    let user = startData.find((user) => user.userData.name === name);
+    let user = startData["users"].find((user) => user.userData.name === name);
     let color = user ? user.color : "#d98973";
     container.innerHTML += `
     <div
@@ -142,9 +145,57 @@ function showInitials(element) {
   });
 }
 
+// function generateProgressBar(element) {
+//   let container = document.getElementById(`progress${element["id"]}`);
+
+//   for (let i = 0; i < startData["users"].length; i++) {
+//     const user = startData["users"][i];
+//     for (let j = 0; j < user["tasks"].length; j++) {
+//       let task = user["tasks"][j];
+//       let subtasks = task["subtasks"];
+//       let doneSubtasks = subtasks.filter((subtask) => subtask.done).length;
+//       let progress = (doneSubtasks / subtasks.length) * 100;
+
+//       container.innerHTML = ` <div class="progress-bar-container">
+//         <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100" style="height: 0.5rem">
+//         <div class="progress-bar" style="width: ${progress}%"></div>
+//       </div>
+
+//       </div>
+//       <div class="amount-of-subtasks-container">
+//         <div>
+//         <span>${doneSubtasks}</span> / <span>${subtasks.length}</span>
+//         Subtasks
+//         </div>
+//       </div>
+//       </div>`;
+//     }
+//   }
+// }
+
 function generateProgressBar(element) {
-  let container;
+  let container = document.getElementById(`progress${element["id"]}`);
+
+  // for (let i = 0; i < element["subtasks"].length; i++) {
+  let subtasks = element["subtasks"];
+  let doneSubtasks = subtasks.filter((subtask) => subtask.done).length;
+  let progress = (doneSubtasks / subtasks.length) * 100;
+
+  container.innerHTML = ` <div class="progress-bar-container">
+        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100" style="height: 0.5rem">
+        <div class="progress-bar" style="width: ${progress}%"></div>
+      </div>
+      
+      </div>
+      <div class="amount-of-subtasks-container">
+        <div>
+        ${doneSubtasks}/${subtasks.length}
+        Subtasks
+        </div>
+      </div> 
+      </div>`;
 }
+// }
 
 function generateEmptyHTML(text) {
   return `<div draggable="true" class="empty-task drag-and-drop-container-border">No tasks ${text}</div>`;
@@ -158,19 +209,7 @@ function generateTaskCard(element) {
       <div class="category-of-task">${element["category"]}</div>
       <div class="title-of-task">${element["title"]}</div>
       <div class="description-of-task">${element["description"]}</div>
-      <div class="subtasks-of-task" id="progress${element["id"]}">
-        <div class="progress-bar-container">
-          <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="height: 0.5rem">
-          <div class="progress-bar" style="width: 25%"></div>
-        </div>
-        
-      </div>
-      <div class="amount-of-subtasks-container">
-          <div>
-            1/2 Subtasks
-          </div>
-        </div> 
-      </div>
+      <div class="subtasks-of-task" id="progress${element["id"]}"></div>
       <div class="assigned-and-priority-container">
       <div id="assignedCircle${element["id"]}" class="assigned-to-of-task">${element["assignedTo"]}</div>
       <div class="priority-of-task">${element["priority"]}</div>
@@ -189,11 +228,11 @@ function allowDrop(event) {
 function moveTo(status) {
   let id = currentDraggedElement;
   gotIt = false;
-  for (let i = 0; i < startData.length && gotIt == false; i++) {
-    let element = startData[i]["tasks"];
+  for (let i = 0; i < startData["users"].length && gotIt == false; i++) {
+    let element = startData["users"][i]["tasks"];
     for (let j = 0; j < element.length; j++) {
       if (element[j].id === id) {
-        startData[i]["tasks"][j].status = status;
+        startData["users"][i]["tasks"][j].status = status;
         gotIt = true;
       }
     }
@@ -207,6 +246,24 @@ function highlight(id) {
 
 function removeHighlight(id) {
   document.getElementById(id).classList.remove("drag-area-highlight");
+}
+
+// :::::::::::::::::::::: Add - Task - PopUp ::::::::::::::::::::::
+
+// clear assigned to - is missing
+function clearForm() {
+  let inputs = document.querySelectorAll("input");
+  let textarea = document.getElementById("description");
+  let selects = document.querySelectorAll("select");
+  let subtask = document.getElementById("show-subtasks-container");
+  inputs.forEach(function (input) {
+    input.value = "";
+  });
+  selects.forEach(function (select) {
+    select.selectedIndex = -1;
+  });
+  textarea.value = "";
+  subtasks.innerHTML = "";
 }
 
 function openAddTaskOverlay() {
@@ -225,20 +282,4 @@ function closeAddTaskOverlay() {
     overlay.classList.add("box-slide-out");
   }, 0);
   overlay.classList.remove("d-none");
-}
-
-// clear assigned to - is missing
-function clearForm() {
-  let inputs = document.querySelectorAll("input");
-  let textarea = document.getElementById("description");
-  let selects = document.querySelectorAll("select");
-  let subtask = document.getElementById("show-subtasks-container");
-  inputs.forEach(function (input) {
-    input.value = "";
-  });
-  selects.forEach(function (select) {
-    select.selectedIndex = -1;
-  });
-  textarea.value = "";
-  subtasks.innerHTML = "";
 }
