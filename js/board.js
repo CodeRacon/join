@@ -9,7 +9,8 @@ let high = "assets/img/icons/add-task/urgent.svg";
 
 let currentDraggedElement;
 
-function updateHTML() {
+async function updateHTML() {
+  await loadUserData();
   updateToDos();
   updateInProgress();
   updateAwaitFeedback();
@@ -61,6 +62,7 @@ function updateInProgress() {
 function updateAwaitFeedback() {
   let content = document.getElementById("awaitFeedback");
   content.innerHTML = "";
+
   for (let i = 0; i < startData["users"].length; i++) {
     const element = startData["users"][i];
     if (element.hasOwnProperty("tasks")) {
@@ -145,43 +147,16 @@ function showInitials(element) {
   });
 }
 
-// function generateProgressBar(element) {
-//   let container = document.getElementById(`progress${element["id"]}`);
-
-//   for (let i = 0; i < startData["users"].length; i++) {
-//     const user = startData["users"][i];
-//     for (let j = 0; j < user["tasks"].length; j++) {
-//       let task = user["tasks"][j];
-//       let subtasks = task["subtasks"];
-//       let doneSubtasks = subtasks.filter((subtask) => subtask.done).length;
-//       let progress = (doneSubtasks / subtasks.length) * 100;
-
-//       container.innerHTML = ` <div class="progress-bar-container">
-//         <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100" style="height: 0.5rem">
-//         <div class="progress-bar" style="width: ${progress}%"></div>
-//       </div>
-
-//       </div>
-//       <div class="amount-of-subtasks-container">
-//         <div>
-//         <span>${doneSubtasks}</span> / <span>${subtasks.length}</span>
-//         Subtasks
-//         </div>
-//       </div>
-//       </div>`;
-//     }
-//   }
-// }
-
 function generateProgressBar(element) {
   let container = document.getElementById(`progress${element["id"]}`);
-
-  // for (let i = 0; i < element["subtasks"].length; i++) {
   let subtasks = element["subtasks"];
-  let doneSubtasks = subtasks.filter((subtask) => subtask.done).length;
-  let progress = (doneSubtasks / subtasks.length) * 100;
+  if (!element.hasOwnProperty("subtasks")) {
+    return;
+  } else {
+    let doneSubtasks = subtasks.filter((subtask) => subtask.done).length;
+    let progress = (doneSubtasks / subtasks.length) * 100;
 
-  container.innerHTML = ` <div class="progress-bar-container">
+    container.innerHTML = ` <div class="progress-bar-container">
         <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100" style="height: 0.5rem">
         <div class="progress-bar" style="width: ${progress}%"></div>
       </div>
@@ -194,9 +169,10 @@ function generateProgressBar(element) {
         </div>
       </div> 
       </div>`;
+  }
 }
-// }
 
+// funktioniert noch nicht, muss angepasst werden!!! //
 function generateEmptyHTML(text) {
   return `<div draggable="true" class="empty-task drag-and-drop-container-border">No tasks ${text}</div>`;
 }
@@ -248,9 +224,11 @@ function removeHighlight(id) {
   document.getElementById(id).classList.remove("drag-area-highlight");
 }
 
-// :::::::::::::::::::::: Add - Task - PopUp ::::::::::::::::::::::
+// :::::::::::::::::::::: Task - Card - PopUp :::::::::::::::::::::://
 
-// clear assigned to - is missing
+// :::::::::::::::::::::: Add - Task - PopUp :::::::::::::::::::::://
+
+// clear assigned to - is missing //
 function clearForm() {
   let inputs = document.querySelectorAll("input");
   let textarea = document.getElementById("description");

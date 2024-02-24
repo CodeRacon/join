@@ -113,7 +113,7 @@
                 class="border-none"
                 id="dropdownInput"
                 placeholder="Select contacts to assign"
-                readonly
+                onkeyup="filterContactsToAssign()"
               />
               <img
                 id="arrowImg"
@@ -141,6 +141,7 @@
             <span>Due Date<span class="asterisk">*</span></span>
             <div>
               <input
+              id="due-date-value"
                 name="date"
                 type="date"
                 placeholder="dd/mm/yyy"
@@ -152,31 +153,37 @@
             <span>Prio</span>
             <div class="priority">
               <button
+              id="urgent-btn"
                 class="prio-box-small input-borders"
                 onclick="setPriority('urgent')"
               >
                 Urgent
                 <img
+                id="img-urgent"
                   src="./assets/img/icons/add-task/urgent.svg"
                   alt="urgent symbol"
                 />
               </button>
               <button
+              id="medium-btn"
                 class="prio-box-small input-borders"
                 onclick="setPriority('medium')"
               >
                 Medium
                 <img
-                  src="./assets/img/icons/add-task/medium.svg"
+                id="img-medium"
+                  src="./assets/img/icons/add-task/medium-white.svg"
                   alt="medium symbol"
                 />
               </button>
               <button
+              id="low-btn"
                 class="prio-box-small input-borders"
                 onclick="setPriority('low')"
               >
                 Low
                 <img
+                id="img-low"
                   src="./assets/img/icons/add-task/low.svg"
                   alt="low symbol"
                 />
@@ -284,7 +291,7 @@
           ondrop="moveTo('awaitFeedback'), removeHighlight('awaitFeedback')"
           ondragover="allowDrop(event), highlight('awaitFeedback')"
           ondragleave="removeHighlight('awaitFeedback')"
-        ></div>
+      ></div>
         <div
           class="drag-area"
           id="closed"

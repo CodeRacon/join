@@ -283,11 +283,6 @@ startData = {
             "Enhance user interface design to improve user experience.",
           assignedTo: ["Sophia Kostas", "Ahmed Al-Farsi"],
           priority: 2,
-          subtasks: [
-            { name: "Design new UI components", done: false },
-            { name: "Implement responsive layout", done: false },
-            { name: "Conduct user feedback sessions", done: false },
-          ],
           dueDate: "2024-02-25",
         },
       ],
