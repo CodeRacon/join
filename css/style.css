@@ -420,6 +420,7 @@ nav#side-nav > a:active {
   flex-direction: column;
   text-align: center;
   width: 100%;
+  color: #cdcdcd;
 }
 
 .pp-ln a {
