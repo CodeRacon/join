@@ -27,8 +27,12 @@ function checkIfValueIsLegit(mail, password) {
         if (startData.users[i].hasOwnProperty('registerData')) {
             if (startData.users[i].registerData.Data['email'] == mail && startData.users[i].registerData.Data['password'] == password) {
                 num = i;
+                if(startData.users[i].registerData['isLoggedIn'] == false){
                 startData.users[i].registerData['isLoggedIn'] = true;
                 storeStartData();
+                }
+                // Vom Server in den LocalStorage muss von hier beginnen aber nur isLoggedIn True ist und dan mit einer fors schleife überprüft wird ob der name in dem true zugeordnet ist auch in dem anderedd   
+                // Beachte die Dokumentation oben was heißt das du beim DataHandling.js villeicht par sachen ändern musst
                 saveIndexNum();
                 return true; 
                 //Wen logged in true ist und es den namen des users enthält wird die kopie genommen.  

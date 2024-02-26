@@ -477,10 +477,18 @@ startData = {
   ],
 };
 
+let loginData = [
+
+];
+
+async function storeLoginData(){
+  await setItem("LogInData", JSON.stringify(loginData));
+}
+
 /**
  * Stores the start data in local storage.
  */
-async function storeStartData() {
+async function storeStartData(){
   await setItem("startData", JSON.stringify(startData));
 }
  async function getData(){
