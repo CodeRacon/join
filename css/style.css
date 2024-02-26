@@ -447,7 +447,6 @@ nav#side-nav > a:active {
 footer {
   position: fixed;
   top: calc(100% - 5rem);
-  /* bottom: 0; */
   display: none;
   justify-content: center;
   align-items: center;
