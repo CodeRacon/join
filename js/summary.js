@@ -29,6 +29,7 @@ async function initSummary() {
  * operations have loaded the latest user data.
  */
 function updateSummary() {
+  updateUserGreeting();
   updateToDoCounter();
   updateDoneCounter();
   updateHighPrioCounter();
@@ -196,4 +197,76 @@ function updateAwaitFeedBackCounter() {
   fbCounter.innerHTML = /*html*/ `
     ${totalAwaitFbTasks}
   `;
+}
+
+/**
+ * Updates the user greeting DOM element with the current logged in user's name.
+ * Gets the current logged in user from the user data, checks if they are a guest user,
+ * and conditionally updates the greeting with their name or clears it if no user is logged in.
+ * Also calls updateDayTime() to refresh the day/time display.
+ */
+function updateUserGreeting() {
+  const userName = document.getElementById('sum-username');
+  const loggedInUsers = getLoggedInUser();
+  const currentUserName = loggedInUsers.userData.name;
+  if (isGuestUser === false) {
+    userName.innerHTML = /*html*/ `
+    ${currentUserName}
+  `;
+    updateDayTime();
+  } else {
+    userName.innerHTML = '';
+    updateDayTime();
+  }
+}
+
+/**
+ * Gets the currently logged in user from the local user data.
+ * Filters the users array to find the one where isLoggedIn is true.
+ * Returns the first logged in user object, or undefined if none are logged in.
+ */
+function getLoggedInUser() {
+  const loggedInUsers = localUserData.users.filter(
+    (user) => user.isLoggedIn === true
+  );
+  return loggedInUsers[0];
+}
+
+/**
+ * Updates the daytime greeting DOM element with the current hour and a greeting.
+ * Gets the current Unix timestamp, saves to localStorage.
+ * Retrieves the saved timestamp, converts to Date object to get hour.
+ * Calls getGreeting() to get the greeting based on hour, updates DOM element.
+ */
+function updateDayTime() {
+  const daytime = document.getElementById('daytime');
+  const unixTimestamp = Date.now();
+  localStorage.setItem('loginTimestamp', unixTimestamp.toString());
+  const storedTimestamp = localStorage.getItem('loginTimestamp');
+  const loginTimestamp = parseInt(storedTimestamp);
+  const loginDate = new Date(loginTimestamp);
+  const loginHour = loginDate.getHours();
+  const greeting = getGreeting(loginHour);
+  daytime.innerHTML = /*html*/ `
+    ${greeting}
+  `;
+}
+
+/**
+ * Returns a greeting based on the provided hour.
+ * If guest user, returns a greeting without a name.
+ * If logged in user, returns a greeting with a comma to append the user's name.
+ */
+function getGreeting(hour) {
+  if (isGuestUser) {
+    if (hour < 12) return 'Good Morning!';
+    if (hour < 14) return 'Good Day!';
+    if (hour < 18) return 'Good Afternoon!';
+    return 'Good Evening!';
+  } else if (!isGuestUser) {
+    if (hour < 12) return 'Good Morning,';
+    if (hour < 14) return 'Good Day,';
+    if (hour < 18) return 'Good Afternoon,';
+    return 'Good Evening,';
+  }
 }
