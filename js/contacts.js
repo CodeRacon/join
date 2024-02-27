@@ -90,14 +90,15 @@ function renderContactList() {
  */
 function renderAddContactBtn() {
   return /*html*/ `
-     <div 
-      onclick="openAddContactDB()"
-      id="add-contact-btn" 
-      class="add-contact-btn">
-      <span>Add Contact</span>
-      <img src="/assets/img/icons/contacts/add_contact-white.svg" />
+    <div class="spacer">
+      <div
+        onclick="openAddContactDB()"
+        id="add-contact-btn"
+        class="add-contact-btn">
+        <span>Add Contact</span>
+        <img src="/assets/img/icons/contacts/add_contact-white.svg" />
+      </div>
     </div>
-    <div class="spacer"></div>
   `;
 }
 
@@ -341,7 +342,7 @@ function createContact() {
   }, 150);
   setTimeout(() => {
     showContactSuccess();
-  }, 150);
+  }, 300);
 }
 
 /**
