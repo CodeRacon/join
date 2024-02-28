@@ -1,5 +1,9 @@
-let currentPriority;
+let title;
+let description;
+let assignedContacts = [];
 let dueDate;
+let currentPriority;
+let subtasks = [];
 
 let lowBtn = document.getElementById("low-btn");
 let mediumBtn = document.getElementById("medium-btn");
@@ -8,8 +12,6 @@ let urgentBtn = document.getElementById("urgent-btn");
 let imgLow = document.getElementById("img-low");
 let imgMedium = document.getElementById("img-medium");
 let imgUrgent = document.getElementById("img-urgent");
-
-let subtasks = [];
 
 function setPriority(prio) {
   currentPriority = prio;
@@ -79,7 +81,7 @@ function showContactsToAssign() {
   for (let i = 0; i < startData["contacts"].length; i++) {
     const element = startData["contacts"][i];
     content.innerHTML += `
-      <div id="single-contact${i}" class="single-contact">
+      <div id="single-contact${i}" class="single-contact" onclick="getAssignedContacts()">
         <label for="option${i}" class="label-layout">
           <input
             type="checkbox"
@@ -223,4 +225,54 @@ function deleteSubtask(index) {
 function getDueDate() {
   let dueDateValue = document.getElementById("due-date-value").value;
   dueDate = dueDateValue;
+}
+
+function getTitle() {
+  let titleValue = document.getElementById("title-value").value;
+  title = titleValue;
+}
+
+function getDescription() {
+  let descriptionValue = document.getElementById("description").value;
+  description = descriptionValue;
+}
+
+function getAssignedContacts() {
+  assignedContacts = [];
+  let options = document.getElementsByClassName("single-contact");
+  for (let i = 0; i < options.length; i++) {
+    const checkbox = options[i].querySelector('input[type="checkbox"]');
+    if (checkbox.checked) {
+      let option = options[i].querySelector("label");
+      let name = option.textContent.trim();
+      assignedContacts.push(name);
+    }
+  }
+  showInitialsOfAssigned();
+}
+
+function showInitialsOfAssigned() {
+  let content = document.getElementById("initialsOfAssigned");
+  content.innerHTML = "";
+  for (let i = 0; i < assignedContacts.length; i++) {
+    const assignedContact = assignedContacts[i];
+    const initials = assignedContact
+      .split(" ")
+      .map((word) => word.charAt(0))
+      .join("");
+
+    let user = startData.contacts.find(
+      (user) => user.userData.name === assignedContact
+    );
+    if (user) {
+      let color = user.color;
+      content.innerHTML += `
+        <div 
+        class="initialsCyrcle"
+            style="background-color: ${color}">
+            ${initials}
+      </div>
+      `;
+    }
+  }
 }
