@@ -3,6 +3,7 @@ let description;
 let assignedContacts = [];
 let dueDate;
 let currentPriority;
+let category;
 let subtasks = [];
 
 let lowBtn = document.getElementById("low-btn");
@@ -37,7 +38,7 @@ function resetPrioButtons() {
     "font-white"
   );
   imgLow.src = "./assets/img/icons/add-task/low.svg";
-  imgMedium.src = "./assets/img/icons/add-task/medium-orange.svg";
+  imgMedium.src = "./assets/img/icons/add-task/medium-white.svg";
   imgUrgent.src = "./assets/img/icons/add-task/urgent.svg";
 }
 
@@ -46,6 +47,7 @@ function prioLow() {
   mediumBtn.classList.add("bg-white", "font-black");
   urgentBtn.classList.add("bg-white", "font-black");
   imgLow.src = "./assets/img/icons/add-task/low-white.svg";
+  imgMedium.src = "./assets/img/icons/add-task/medium-orange.svg";
 }
 
 function prioMedium() {
@@ -60,6 +62,7 @@ function prioUrgent() {
   mediumBtn.classList.add("bg-white", "font-black");
   urgentBtn.classList.add("bg-urgent", "font-white");
   imgUrgent.src = "./assets/img/icons/add-task/urgent-white.svg";
+  imgMedium.src = "./assets/img/icons/add-task/medium-orange.svg";
 }
 
 function openAndCloseDropDownToAssign() {
@@ -109,7 +112,7 @@ function filterContactsToAssign() {
   for (let i = 0; i < matchedContacts.length; i++) {
     const element = matchedContacts[i];
     content.innerHTML += `
-      <div id="single-contact${i}" class="single-contact">
+      <div id="single-contact${i}" class="single-contact" onclick="getAssignedContacts()">
         <label for="option${i}" class="label-layout">
           <input
             type="checkbox"
@@ -237,6 +240,15 @@ function getDescription() {
   description = descriptionValue;
 }
 
+function getCategory() {
+  let categorySelected = document.getElementById("category");
+  if (categorySelected.value === "user-story") {
+    category = 1;
+  } else {
+    category = 2;
+  }
+}
+
 function getAssignedContacts() {
   assignedContacts = [];
   let options = document.getElementsByClassName("single-contact");
@@ -260,7 +272,6 @@ function showInitialsOfAssigned() {
       .split(" ")
       .map((word) => word.charAt(0))
       .join("");
-
     let user = startData.contacts.find(
       (user) => user.userData.name === assignedContact
     );
@@ -275,4 +286,63 @@ function showInitialsOfAssigned() {
       `;
     }
   }
+}
+
+function clearForm() {
+  resetInputs();
+  resetTextarea();
+  resetSelects();
+  resetSubtasks();
+  resetAssignedContacts();
+  showContactsToAssign();
+  openAndCloseDropDownToAssign();
+  resetPrioButtons();
+  resetGlobal();
+}
+
+function resetSubtasks() {
+  let subtask = document.getElementById("show-subtasks-container");
+  subtask.innerHTML = "";
+}
+
+function resetSelects() {
+  let selects = document.querySelectorAll("select");
+  selects.forEach(function (select) {
+    select.selectedIndex = -1;
+  });
+}
+
+function resetTextarea() {
+  let textarea = document.getElementById("description");
+  textarea.value = "";
+}
+
+function resetInputs() {
+  let inputs = document.querySelectorAll("input");
+  inputs.forEach(function (input) {
+    input.value = "";
+  });
+}
+
+function resetAssignedContacts() {
+  assignedContacts = [];
+  let options = document.getElementsByClassName("single-contact");
+  for (let i = 0; i < options.length; i++) {
+    const checkbox = options[i].querySelector('input[type="checkbox"]');
+    if (checkbox.checked) {
+      let option = options[i].querySelector("label");
+      option.checked = false;
+    }
+  }
+  showInitialsOfAssigned();
+}
+
+function resetGlobal() {
+  title;
+  description;
+  assignedContacts = [];
+  dueDate;
+  currentPriority;
+  category;
+  subtasks = [];
 }

@@ -153,7 +153,7 @@
               </button>
             </div>
             <!-- Category -->
-            <label for="category-select"
+            <label for="category-select" onclick="getCategory()"
               ><span>Category<span class="asterisk">*</span></span></label
             >
             <select
@@ -162,7 +162,9 @@
               class="field-width-height input-borders category"
               required
             >
-              <option value="option-text">Select task category</option>
+              <option value="option-text" disabled selected>
+                Select task category
+              </option>
               <option value="user-story">User Story</option>
               <option value="technical-task">Technical Task</option>
             </select>

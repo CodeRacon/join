@@ -147,31 +147,6 @@ function showInitials(element) {
   });
 }
 
-// function generateProgressBar(element) {
-//   let container = document.getElementById(`progress${element["id"]}`);
-//   let subtasks = element["subtasks"];
-//   if (!element.hasOwnProperty("subtasks")) {
-//     return;
-//   } else {
-//     let doneSubtasks = subtasks.filter((subtask) => subtask.done).length;
-//     let progress = (doneSubtasks / subtasks.length) * 100;
-
-//     container.innerHTML = ` <div class="progress-bar-container">
-//         <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100" style="height: 0.5rem">
-//         <div class="progress-bar" style="width: ${progress}%"></div>
-//       </div>
-
-//       </div>
-//       <div class="amount-of-subtasks-container">
-//         <div>
-//         ${doneSubtasks}/${subtasks.length}
-//         Subtasks
-//         </div>
-//       </div>
-//       </div>`;
-//   }
-// }
-
 function generateProgressBar(element) {
   let container = document.getElementById(`progress${element["id"]}`);
   let subtasks = element["subtasks"];
@@ -245,22 +220,6 @@ function removeHighlight(id) {
 // :::::::::::::::::::::: Task - Card - PopUp :::::::::::::::::::::://
 
 // :::::::::::::::::::::: Add - Task - PopUp :::::::::::::::::::::://
-
-// clear assigned to - is missing //
-function clearForm() {
-  let inputs = document.querySelectorAll("input");
-  let textarea = document.getElementById("description");
-  let selects = document.querySelectorAll("select");
-  let subtask = document.getElementById("show-subtasks-container");
-  inputs.forEach(function (input) {
-    input.value = "";
-  });
-  selects.forEach(function (select) {
-    select.selectedIndex = -1;
-  });
-  textarea.value = "";
-  subtasks.innerHTML = "";
-}
 
 function openAddTaskOverlay() {
   let overlay = document.getElementById("add-task-content-overlay");
