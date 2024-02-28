@@ -147,6 +147,31 @@ function showInitials(element) {
   });
 }
 
+// function generateProgressBar(element) {
+//   let container = document.getElementById(`progress${element["id"]}`);
+//   let subtasks = element["subtasks"];
+//   if (!element.hasOwnProperty("subtasks")) {
+//     return;
+//   } else {
+//     let doneSubtasks = subtasks.filter((subtask) => subtask.done).length;
+//     let progress = (doneSubtasks / subtasks.length) * 100;
+
+//     container.innerHTML = ` <div class="progress-bar-container">
+//         <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100" style="height: 0.5rem">
+//         <div class="progress-bar" style="width: ${progress}%"></div>
+//       </div>
+
+//       </div>
+//       <div class="amount-of-subtasks-container">
+//         <div>
+//         ${doneSubtasks}/${subtasks.length}
+//         Subtasks
+//         </div>
+//       </div>
+//       </div>`;
+//   }
+// }
+
 function generateProgressBar(element) {
   let container = document.getElementById(`progress${element["id"]}`);
   let subtasks = element["subtasks"];
@@ -156,18 +181,11 @@ function generateProgressBar(element) {
     let doneSubtasks = subtasks.filter((subtask) => subtask.done).length;
     let progress = (doneSubtasks / subtasks.length) * 100;
 
-    container.innerHTML = ` <div class="progress-bar-container">
-        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100" style="height: 0.5rem">
-        <div class="progress-bar" style="width: ${progress}%"></div>
-      </div>
-      
-      </div>
-      <div class="amount-of-subtasks-container">
+    container.innerHTML = `<progress value="${progress}" max="100" class="progress-bar"></progress>
+          <div class="amount-of-subtasks-container">
         <div>
-        ${doneSubtasks}/${subtasks.length}
-        Subtasks
-        </div>
-      </div> 
+        ${doneSubtasks}/${subtasks.length} Subtasks
+       </div>
       </div>`;
   }
 }

@@ -374,3 +374,19 @@ div[draggable="true"] {
   margin: -0.2rem;
   outline: solid 1px #fff;
 }
+
+.progress-bar {
+  border: none;
+  appearance: none;
+  height: 0.5rem;
+}
+
+progress::-webkit-progress-value {
+  background: rgb(69, 137, 255);
+  border-radius: 0.25rem;
+}
+
+progress::-webkit-progress-bar {
+  background: rgb(244, 244, 244);
+  border-radius: 0.25rem;
+}
