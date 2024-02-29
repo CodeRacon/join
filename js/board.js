@@ -174,7 +174,7 @@ function generateTaskCard(element) {
   return `
   <div draggable="true" 
     ondragstart="startDragging(${element["id"]})" 
-    id="${element["id"]}" class="task-card">
+    id="${element["id"]}" class="task-card" onclick="openTaskCardOverlay(${element["id"]})">
       <div class="category-of-task">${element["category"]}</div>
       <div class="title-of-task">${element["title"]}</div>
       <div class="description-of-task">${element["description"]}</div>
@@ -218,6 +218,32 @@ function removeHighlight(id) {
 }
 
 // :::::::::::::::::::::: Task - Card - PopUp :::::::::::::::::::::://
+
+function openTaskCardOverlay(element) {
+  let overlay = document.getElementById("overlay-task-card");
+  overlay.classList.remove("box-slide-out", "d-none");
+  setTimeout(() => {
+    overlay.classList.add("box-slide-in");
+  }, 0);
+  overlay.classList.remove("d-none");
+
+  startData.users.forEach((user) => {
+    let cardIndex = user.tasks.findIndex((task) => task.id === element);
+    let card = user.tasks[cardIndex];
+    overlay.innerHTML = `<div draggable="true" 
+        id="${card.id}" class="task-card">
+          <div class="category-of-task">${card.category}</div>
+          <div class="title-of-task">${card.title}</div>
+          <div class="description-of-task">${card.description}</div>
+          <div class="subtasks-of-task" id="progress${card.id}"></div>
+          <div class="assigned-and-priority-container">
+            <div id="assignedCircle${card.id}" class="assigned-to-of-task">${card.assignedTo}</div>
+            <div class="priority-of-task">${card.priority}</div>
+          </div>
+        </div>`;
+    return;
+  });
+}
 
 // :::::::::::::::::::::: Add - Task - PopUp :::::::::::::::::::::://
 
