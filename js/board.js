@@ -7,6 +7,9 @@ let low = "assets/img/icons/add-task/low.svg";
 let medium = "assets/img/icons/add-task/medium-orange.svg";
 let high = "assets/img/icons/add-task/urgent.svg";
 
+let taskDone = "assets/img/icons/board/cf_checked.svg";
+let taskNotDone = "assets/img/icons/board/cf_unchecked.svg";
+
 let currentDraggedElement;
 
 let actualCard;
@@ -235,13 +238,13 @@ function openTaskCardOverlay(element) {
 
     if (cardIndex !== -1) {
       actualCard = card;
-      overlay.innerHTML = `<div draggable="true" 
-        id="${card.id}" class="task-card">
+      overlay.innerHTML = `<div draggable="false" 
+        id="${card.id}" class="single-task-card">
           <div class="category-of-single-task">${card.category}</div>
-          <div class="title-of-task">${card.title}</div>
+          <div class="title-of-single-task">${card.title}</div>
           <div class="description-of-single-task"><span>${card.description}</span></div>
-          <div class="due-date-of-single-task"><span>Due Date: ${card.dueDate}</span></div>
-          <div class="priority-of-single-task">${card.priority}</div>
+          <div class="due-date-of-single-task gap-one-rem"><span>Due Date:</span><span>${card.dueDate}</span></div>
+          <div class="priority-of-single-task gap-one-rem">${card.priority}</div>
           <div class="assigned-and-priority-single-container">
           <span>Assigned To:</span> 
             <div id="singleAssignedCircle${card.id}" class="assigned-to-of-single-task">${card.assignedTo}</div>
@@ -275,11 +278,17 @@ function updatePriorityForSingleTask() {
   let prioBox = document.getElementsByClassName("priority-of-single-task");
   Array.from(prioBox).forEach((prioBox) => {
     if (prioBox.innerText.trim() == 1) {
-      prioBox.innerHTML = `<span>Priority: Low</span> <img src="${low}" alt="Low Priority">`;
+      prioBox.innerHTML = `<span>Priority:
+      </span><div class="priority-and-icon"><span>Low</span><img src="${low}" alt="low Priority">
+      </div>`;
     } else if (prioBox.innerText.trim() == "2") {
-      prioBox.innerHTML = `<span>Priority: Medium</span> <img src="${medium}" alt="Low Priority">`;
+      prioBox.innerHTML = `<span>Priority:
+      </span><div class="priority-and-icon"><span>Medium</span><img src="${medium}" alt="medium Priority">
+      </div>`;
     } else if (prioBox.innerText.trim() == "3") {
-      prioBox.innerHTML = `<span>Priority: High</span> <img src="${high}" alt="Low Priority">`;
+      prioBox.innerHTML = `<span>Priority:
+      </span><div class="priority-and-icon"><span>High</span><img src="${high}" alt="high Priority">
+      </div>`;
     }
   });
 }
@@ -314,10 +323,20 @@ function showInitialsForSingleCard() {
 function showSubtasks() {
   let content = document.getElementById(`progress${actualCard.id}`);
   content.innerHTML = "";
-  content.innerHTML = `<span>Subtasks: </span>`;
+  content.innerHTML = `<span>Subtasks</span>`;
   for (let index = 0; index < actualCard.subtasks.length; index++) {
-    const element = actualCard.subtasks[index]["name"];
-    content.innerHTML += `<div>${element}</div>`;
+    let element = actualCard.subtasks[index]["name"];
+    content.innerHTML += `<div class="subtask-container">
+    <img class="img-checked-true-false" alt="checked">
+    ${element}
+    </div>`;
+    let status = actualCard.subtasks[index]["done"];
+    let img = document.getElementsByClassName("img-checked-true-false")[index];
+    if (status === true) {
+      img.src = taskDone;
+    } else {
+      img.src = taskNotDone;
+    }
   }
 }
 
