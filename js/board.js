@@ -240,7 +240,10 @@ function openTaskCardOverlay(element) {
       actualCard = card;
       overlay.innerHTML = `<div draggable="false" 
         id="${card.id}" class="single-task-card">
-          <div class="category-of-single-task">${card.category}</div>
+        <div class="header-of-task-card">
+        <div class="category-of-single-task">${card.category}</div>
+        <img src="assets/img/icons/board/close.svg" alt="close">
+        </div>
           <div class="title-of-single-task">${card.title}</div>
           <div class="description-of-single-task"><span>${card.description}</span></div>
           <div class="due-date-of-single-task gap-one-rem"><span>Due Date:</span><span>${card.dueDate}</span></div>
@@ -250,6 +253,11 @@ function openTaskCardOverlay(element) {
             <div id="singleAssignedCircle${card.id}" class="assigned-to-of-single-task">${card.assignedTo}</div>
           </div>
           <div class="subtasks-of-single-task" id="progress${card.id}"></div>
+          <div class="delete-edit-container">
+          <img onclick="deleteTask()" src="assets/img/icons/board/delete-bin.svg" alt="delete">
+          <hr>
+          <img src="assets/img/icons/board/edit-pen.svg" alt="edit">
+          </div>
         </div>`;
     } else {
       return;
@@ -311,8 +319,7 @@ function showInitialsForSingleCard() {
     <div
     class="initialsCircleOfSingleTasks"
         style="background-color: ${color}">
-        ${initial}
-         
+        ${initial}    
   </div>
   <span>${name}</span>
   </div>
@@ -338,6 +345,10 @@ function showSubtasks() {
       img.src = taskNotDone;
     }
   }
+}
+
+function deleteTask() {
+  //hier löschfunktion für diese spezielle task!
 }
 
 // :::::::::::::::::::::: Add - Task - PopUp :::::::::::::::::::::://

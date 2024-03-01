@@ -402,13 +402,13 @@ progress::-webkit-progress-bar {
   z-index: 1;
   position: absolute;
   top: 20vh;
-  width: calc(100% - 20rem);
+  max-width: 30rem;
 }
 
 .single-task-card {
   display: flex;
   max-width: 30rem;
-  padding: 1rem;
+  padding: 2rem;
   flex-direction: column;
   gap: 1.5rem;
   border-radius: 1.5rem;
@@ -433,7 +433,7 @@ progress::-webkit-progress-bar {
   border-radius: 0.5rem;
   background: #0038ff;
   color: white;
-  width: 50%;
+  width: 40%;
   justify-content: center;
 }
 
@@ -512,4 +512,21 @@ progress::-webkit-progress-bar {
 .gap-one-rem {
   display: flex;
   gap: 1rem;
+}
+
+.delete-edit-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.delete-edit-container > hr {
+  height: 1.5rem;
+  margin: 0.7rem;
+}
+
+.header-of-task-card {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0 1rem 0;
 }
