@@ -9,6 +9,8 @@ let high = "assets/img/icons/add-task/urgent.svg";
 
 let currentDraggedElement;
 
+let actualCard;
+
 async function updateHTML() {
   await loadUserData();
   updateToDos();
@@ -230,19 +232,93 @@ function openTaskCardOverlay(element) {
   startData.users.forEach((user) => {
     let cardIndex = user.tasks.findIndex((task) => task.id === element);
     let card = user.tasks[cardIndex];
-    overlay.innerHTML = `<div draggable="true" 
+
+    if (cardIndex !== -1) {
+      actualCard = card;
+      overlay.innerHTML = `<div draggable="true" 
         id="${card.id}" class="task-card">
-          <div class="category-of-task">${card.category}</div>
+          <div class="category-of-single-task">${card.category}</div>
           <div class="title-of-task">${card.title}</div>
-          <div class="description-of-task">${card.description}</div>
-          <div class="subtasks-of-task" id="progress${card.id}"></div>
-          <div class="assigned-and-priority-container">
-            <div id="assignedCircle${card.id}" class="assigned-to-of-task">${card.assignedTo}</div>
-            <div class="priority-of-task">${card.priority}</div>
+          <div class="description-of-single-task"><span>${card.description}</span></div>
+          <div class="due-date-of-single-task"><span>Due Date: ${card.dueDate}</span></div>
+          <div class="priority-of-single-task">${card.priority}</div>
+          <div class="assigned-and-priority-single-container">
+          <span>Assigned To:</span> 
+            <div id="singleAssignedCircle${card.id}" class="assigned-to-of-single-task">${card.assignedTo}</div>
           </div>
+          <div class="subtasks-of-single-task" id="progress${card.id}"></div>
         </div>`;
-    return;
+    } else {
+      return;
+    }
   });
+  taskColorAndCategoryForSingleCard();
+  updatePriorityForSingleTask();
+  showInitialsForSingleCard();
+  showSubtasks();
+}
+
+function taskColorAndCategoryForSingleCard() {
+  let element = document.getElementsByClassName("category-of-single-task");
+  Array.from(element).forEach((element) => {
+    if (element.innerText.trim() == 1) {
+      element.classList.add("user-story-task-color");
+      element.innerHTML = "User Story";
+    } else {
+      element.classList.add("technical-task-color");
+      element.innerHTML = "Technical Task";
+    }
+  });
+}
+
+function updatePriorityForSingleTask() {
+  let prioBox = document.getElementsByClassName("priority-of-single-task");
+  Array.from(prioBox).forEach((prioBox) => {
+    if (prioBox.innerText.trim() == 1) {
+      prioBox.innerHTML = `<span>Priority: Low</span> <img src="${low}" alt="Low Priority">`;
+    } else if (prioBox.innerText.trim() == "2") {
+      prioBox.innerHTML = `<span>Priority: Medium</span> <img src="${medium}" alt="Low Priority">`;
+    } else if (prioBox.innerText.trim() == "3") {
+      prioBox.innerHTML = `<span>Priority: High</span> <img src="${high}" alt="Low Priority">`;
+    }
+  });
+}
+
+function showInitialsForSingleCard() {
+  let allInitials = actualCard.assignedTo;
+  let container = document.getElementById(
+    `singleAssignedCircle${actualCard["id"]}`
+  );
+  container.innerHTML = "";
+  allInitials.forEach((name) => {
+    const initial = name
+      .split(" ")
+      .map((word) => word.charAt(0))
+      .join("");
+    let user = startData["users"].find((user) => user.userData.name === name);
+    let color = user ? user.color : "#d98973";
+    container.innerHTML += `
+    <div class="name-and-initial-container">
+    <div
+    class="initialsCircleOfSingleTasks"
+        style="background-color: ${color}">
+        ${initial}
+         
+  </div>
+  <span>${name}</span>
+  </div>
+`;
+  });
+}
+
+function showSubtasks() {
+  let content = document.getElementById(`progress${actualCard.id}`);
+  content.innerHTML = "";
+  content.innerHTML = `<span>Subtasks: </span>`;
+  for (let index = 0; index < actualCard.subtasks.length; index++) {
+    const element = actualCard.subtasks[index]["name"];
+    content.innerHTML += `<div>${element}</div>`;
+  }
 }
 
 // :::::::::::::::::::::: Add - Task - PopUp :::::::::::::::::::::://
