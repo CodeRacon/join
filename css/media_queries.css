@@ -7,10 +7,10 @@
   nav#side-nav > a {
     padding: 0.5rem clamp(1.25rem, 23.684vw + -10.118rem, 3.5rem);
   }
-}
-
-header {
-  padding: 1.25rem 2.5rem 1.25rem clamp(2.5rem, 98.718vw + -35.013rem, 21.75rem);
+  header {
+    padding: 1.25rem 2.5rem 1.25rem
+      clamp(2.5rem, 98.718vw + -35.013rem, 21.75rem);
+  }
 }
 
 @media (width <= 607px) {
