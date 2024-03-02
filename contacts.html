@@ -58,7 +58,13 @@
 
       <div class="add-contact-db d-none box-slide-out" id="add-contact-db">
         <div class="add-contact-banner">
-          <img src="/assets/img/logo/logo-white.svg" alt="" />
+          <div class="close-btn-mobile" onclick="closeAddContactDB()">
+            <img src="/assets/img/icons/general/white/cancel-white.svg" />
+          </div>
+          <img
+            class="banner-logo"
+            src="/assets/img/logo/logo-white.svg"
+            alt="" />
           <div class="heading">
             <h1>Add contact</h1>
             <span>Tasks are better with a team!</span>
@@ -72,41 +78,44 @@
           </div>
           <div class="user-icon-dummy"></div>
           <form
-            id="test"
             class="add-contact-form"
-            onsubmit="createContact(); return false;">
-            <div class="input--name">
+            onsubmit="validateForm('add'); return false;"
+            novalidate>
+            <div class="input--name" id="input--name-add">
               <input
-                id="new-contact-name"
+                id="add-contact-name"
                 type="text"
                 autocomplete="off"
                 placeholder="Name"
                 required />
               <img src="/assets/img/icons/contacts/person.svg" />
+              <p id="name-error-add" class="error-message"></p>
             </div>
 
-            <div class="input--email">
+            <div class="input--email" id="input--email-add">
               <input
-                id="new-contact-email"
+                id="add-contact-email"
                 type="email"
                 autocomplete="off"
                 placeholder="Email"
                 required />
               <img src="/assets/img/icons/contacts/mail.svg" />
+              <p id="mail-error-add" class="error-message"></p>
             </div>
 
-            <div class="input--phone">
+            <div class="input--phone" id="input--phone-add">
               <input
-                id="new-contact-phone"
+                id="add-contact-phone"
                 type="tel"
                 autocomplete="off"
                 placeholder="Phone"
                 required />
               <img src="/assets/img/icons/contacts/call.svg" />
+              <p id="phone-error-add" class="error-message"></p>
             </div>
 
             <div class="btn-bar">
-              <button onclick="closeAddContactDB()">
+              <button type="button" onclick="closeAddContactDB()">
                 Cancel<img src="/assets/img/icons/general/other/cancel.svg" />
               </button>
               <button type="submit">
@@ -122,7 +131,13 @@
 
       <div class="edit-contact-db d-none box-slide-out" id="edit-contact-db">
         <div class="edit-contact-banner">
-          <img src="/assets/img/logo/logo-white.svg" alt="" />
+          <div class="close-btn-mobile" onclick="closeAddContactDB()">
+            <img src="/assets/img/icons/general/white/cancel-white.svg" />
+          </div>
+          <img
+            class="banner-logo"
+            src="/assets/img/logo/logo-white.svg"
+            alt="" />
           <div class="heading">
             <h1>Edit contact</h1>
             <div class="custom-underline"></div>
@@ -136,8 +151,9 @@
           <div id="edit-contact-user-icon" class="user-icon-edit"></div>
           <form
             class="edit-contact-form"
-            onsubmit="editContact(); return false;">
-            <div class="input--name">
+            onsubmit="validateForm('edit'); return false;"
+            novalidate>
+            <div class="input--name" id="input--name-edit">
               <input
                 id="edit-contact-name"
                 type="text"
@@ -145,9 +161,10 @@
                 placeholder="Name"
                 required />
               <img src="/assets/img/icons/contacts/person.svg" />
+              <p id="name-error-edit" class="error-message"></p>
             </div>
 
-            <div class="input--email">
+            <div class="input--email" id="input--email-edit">
               <input
                 id="edit-contact-email"
                 type="email"
@@ -155,9 +172,10 @@
                 placeholder="Email"
                 required />
               <img src="/assets/img/icons/contacts/mail.svg" />
+              <p id="mail-error-edit" class="error-message"></p>
             </div>
 
-            <div class="input--phone">
+            <div class="input--phone" id="input--phone-edit">
               <input
                 id="edit-contact-phone"
                 type="tel"
@@ -165,6 +183,7 @@
                 placeholder="Phone"
                 required />
               <img src="/assets/img/icons/contacts/call.svg" />
+              <p id="phone-error-edit" class="error-message"></p>
             </div>
 
             <div class="btn-bar">
