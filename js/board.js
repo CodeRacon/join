@@ -242,7 +242,7 @@ function openTaskCardOverlay(element) {
         id="${card.id}" class="single-task-card">
         <div class="header-of-task-card">
         <div class="category-of-single-task">${card.category}</div>
-        <img src="assets/img/icons/board/close.svg" alt="close">
+        <img onclick="closeTaskCardOverlay()" src="assets/img/icons/board/close.svg" alt="close">
         </div>
           <div class="title-of-single-task">${card.title}</div>
           <div class="description-of-single-task"><span>${card.description}</span></div>
@@ -345,6 +345,16 @@ function showSubtasks() {
       img.src = taskNotDone;
     }
   }
+}
+
+function closeTaskCardOverlay() {
+  let overlay = document.getElementById("overlay-task-card");
+  overlay.classList.remove("box-slide-in", "d-none");
+  setTimeout(() => {
+    overlay.classList.add("box-slide-out");
+  }, 0);
+  overlay.classList.remove("d-none");
+  overlay.innerHTML = "";
 }
 
 function deleteTask() {
