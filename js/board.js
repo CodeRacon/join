@@ -257,7 +257,7 @@ function openTaskCardOverlay(element) {
           </div>
           <div class="subtasks-of-single-task" id="progress${card.id}"></div>
           <div class="delete-edit-container">
-          <img onclick="deleteTask()" src="assets/img/icons/board/delete-bin.svg" alt="delete">
+          <img onclick="deleteTask(${card.id})" src="assets/img/icons/board/delete-bin.svg" alt="delete">
           <hr>
           <img src="assets/img/icons/board/edit-pen.svg" alt="edit">
           </div>
@@ -362,8 +362,18 @@ function closeTaskCardOverlay() {
   overlay.innerHTML = "";
 }
 
-function deleteTask() {
-  //hier löschfunktion für diese spezielle task!
+function deleteTask(card) {
+  console.log(card); //---> id der task
+  for (let i = 0; i < localUserData.users.length; i++) {
+    for (let j = 0; j < localUserData.users[i].tasks.length; j++) {
+      if (localUserData.users[i].tasks[j].id === card) {
+        localUserData.users[i].tasks.splice(j, 1);
+      }
+    }
+  }
+  saveUserData();
+  closeTaskCardOverlay();
+  updateHTML();
 }
 
 // :::::::::::::::::::::: Add - Task - PopUp :::::::::::::::::::::://
