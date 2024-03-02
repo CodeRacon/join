@@ -27,8 +27,8 @@ async function updateHTML() {
 function updateToDos() {
   let content = document.getElementById("toDo");
   content.innerHTML = "";
-  for (let i = 0; i < startData["users"].length; i++) {
-    const element = startData["users"][i];
+  for (let i = 0; i < localUserData["users"].length; i++) {
+    const element = localUserData["users"][i];
     if (element.hasOwnProperty("tasks")) {
       let toDo = element["tasks"].filter((todo) => todo["status"] == "toDo");
       for (let index = 0; index < toDo.length; index++) {
@@ -46,8 +46,8 @@ function updateToDos() {
 function updateInProgress() {
   let content = document.getElementById("inProgress");
   content.innerHTML = "";
-  for (let i = 0; i < startData["users"].length; i++) {
-    const element = startData["users"][i];
+  for (let i = 0; i < localUserData["users"].length; i++) {
+    const element = localUserData["users"][i];
     if (element.hasOwnProperty("tasks")) {
       let inProgress = element["tasks"].filter(
         (task) => task["status"] == "inProgress"
@@ -68,8 +68,8 @@ function updateAwaitFeedback() {
   let content = document.getElementById("awaitFeedback");
   content.innerHTML = "";
 
-  for (let i = 0; i < startData["users"].length; i++) {
-    const element = startData["users"][i];
+  for (let i = 0; i < localUserData["users"].length; i++) {
+    const element = localUserData["users"][i];
     if (element.hasOwnProperty("tasks")) {
       let awaitFeedback = element["tasks"].filter(
         (task) => task["status"] == "awaitFeedback"
@@ -89,8 +89,8 @@ function updateAwaitFeedback() {
 function updateDone() {
   let content = document.getElementById("closed");
   content.innerHTML = "";
-  for (let i = 0; i < startData["users"].length; i++) {
-    const element = startData["users"][i];
+  for (let i = 0; i < localUserData["users"].length; i++) {
+    const element = localUserData["users"][i];
     if (element.hasOwnProperty("tasks")) {
       let closed = element["tasks"].filter((task) => task["status"] == "done");
       for (let index = 0; index < closed.length; index++) {
@@ -140,7 +140,9 @@ function showInitials(element) {
       .split(" ")
       .map((word) => word.charAt(0))
       .join("");
-    let user = startData["users"].find((user) => user.userData.name === name);
+    let user = localUserData["users"].find(
+      (user) => user.userData.name === name
+    );
     let color = user ? user.color : "#d98973";
     container.innerHTML += `
     <div
@@ -202,15 +204,16 @@ function allowDrop(event) {
 function moveTo(status) {
   let id = currentDraggedElement;
   gotIt = false;
-  for (let i = 0; i < startData["users"].length && gotIt == false; i++) {
-    let element = startData["users"][i]["tasks"];
+  for (let i = 0; i < localUserData["users"].length && gotIt == false; i++) {
+    let element = localUserData["users"][i]["tasks"];
     for (let j = 0; j < element.length; j++) {
       if (element[j].id === id) {
-        startData["users"][i]["tasks"][j].status = status;
+        localUserData["users"][i]["tasks"][j].status = status;
         gotIt = true;
       }
     }
   }
+  saveUserData();
   updateHTML();
 }
 
@@ -232,7 +235,7 @@ function openTaskCardOverlay(element) {
   }, 0);
   overlay.classList.remove("d-none");
 
-  startData.users.forEach((user) => {
+  localUserData.users.forEach((user) => {
     let cardIndex = user.tasks.findIndex((task) => task.id === element);
     let card = user.tasks[cardIndex];
 
@@ -312,7 +315,9 @@ function showInitialsForSingleCard() {
       .split(" ")
       .map((word) => word.charAt(0))
       .join("");
-    let user = startData["users"].find((user) => user.userData.name === name);
+    let user = localUserData["users"].find(
+      (user) => user.userData.name === name
+    );
     let color = user ? user.color : "#d98973";
     container.innerHTML += `
     <div class="name-and-initial-container">
