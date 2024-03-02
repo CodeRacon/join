@@ -99,6 +99,12 @@ function renderAddContactBtn() {
         <img src="/assets/img/icons/contacts/add_contact-white.svg" />
       </div>
     </div>
+
+    <div 
+      onclick="openAddContactDB()"
+      class="mobile-add-contct-btn">
+      <img src="/assets/img/icons/contacts/add_contact-white.svg" alt="" />
+    </div>
   `;
 }
 
@@ -283,6 +289,8 @@ function openAddContactDB() {
   addContactBox.classList.replace('box-slide-out', 'box-slide-in');
   overlay.classList.remove('d-none');
   overlay.classList.replace('overlay-off', 'overlay-on');
+  resetErrorFeedback('add');
+  resetErrorMessage('add');
 }
 
 /**
@@ -291,16 +299,14 @@ function openAddContactDB() {
  * a 350ms delay.
  */
 function closeAddContactDB() {
-  const contactName = document.getElementById('new-contact-name');
-  const contactEmail = document.getElementById('new-contact-email');
-  const contactPhone = document.getElementById('new-contact-phone');
+  const contactName = document.getElementById('add-contact-name');
+  const contactEmail = document.getElementById('add-contact-email');
+  const contactPhone = document.getElementById('add-contact-phone');
   const overlay = document.getElementById('overlay');
   const addContactBox = document.getElementById('add-contact-db');
-
   contactName.value = '';
   contactEmail.value = '';
   contactPhone.value = '';
-
   addContactBox.classList.replace('box-slide-in', 'box-slide-out');
   overlay.classList.replace('overlay-on', 'overlay-off');
   setTimeout(() => {
@@ -318,9 +324,9 @@ function closeAddContactDB() {
  * contact's info, and shows a success message.
  */
 function createContact() {
-  let contactName = document.getElementById('new-contact-name').value;
-  let contactEmail = document.getElementById('new-contact-email').value;
-  let contactPhone = document.getElementById('new-contact-phone').value;
+  let contactName = document.getElementById('add-contact-name').value;
+  let contactEmail = document.getElementById('add-contact-email').value;
+  let contactPhone = document.getElementById('add-contact-phone').value;
   const contactColor = chooseRandomColor();
   const newContact = {
     userData: {
@@ -405,19 +411,17 @@ function showContactSuccess() {
 
 function openEditContactDB(i) {
   currentContact = formattedContactList[i];
-
   const overlay = document.getElementById('overlay');
   const editContactBox = document.getElementById('edit-contact-db');
   const contactName = document.getElementById('edit-contact-name');
   const contactEmail = document.getElementById('edit-contact-email');
   const contactPhone = document.getElementById('edit-contact-phone');
-
   updateUserIconInDB(i);
-
+  resetErrorFeedback('edit');
+  resetErrorMessage('edit');
   contactName.value = currentContact.userData.name;
   contactEmail.value = currentContact.userData.email;
   contactPhone.value = currentContact.userData.phone;
-
   editContactBox.classList.remove('d-none');
   editContactBox.classList.replace('box-slide-out', 'box-slide-in');
   overlay.classList.remove('d-none');
@@ -529,4 +533,118 @@ function closeDialogueBox() {
   } else if (addContactBox.classList.contains('d-none')) {
     closeEditContactDB();
   }
+}
+
+/**
+ * Validates the form for adding or editing a contact.
+ * Checks if name, email, and phone are valid.
+ * If valid, calls createContact() or editContact() depending
+ * which form is been validated.
+ * Returns false if validation fails.
+ */
+function validateForm(identifier) {
+  const isValidName = validateName(identifier);
+  const isValidEmail = validateEmail(identifier);
+  const isValidPhone = validatePhone(identifier);
+  if (isValidName && isValidEmail && isValidPhone) {
+    if (identifier === 'add') {
+      createContact();
+    } else if (identifier === 'edit') {
+      editContact();
+    }
+  }
+  return false;
+}
+
+/**
+ * Validates the contact name input field.
+ * Checks if the name matches the required pattern and is not empty.
+ * Adds/removes error class on input container and displays error message if invalid.
+ * Returns true if valid, false if invalid.
+ */
+function validateName(identifier) {
+  const nameInputCont = document.getElementById('input--name-' + identifier);
+  const inputName = document.getElementById(identifier + '-contact-name');
+  const nameError = document.getElementById('name-error-' + identifier);
+  const validNamePattern = /^[a-zA-Z-]+ [a-zA-Z-]+ ?[a-zA-Z-]+?$/;
+  if (
+    !validNamePattern.test(inputName.value) ||
+    inputName.value.trim() === ''
+  ) {
+    nameInputCont.classList.add('invalid');
+    nameError.textContent = '*Please enter first- and surname.';
+    return false;
+  } else {
+    nameInputCont.classList.remove('invalid');
+    nameError.textContent = '';
+    return true;
+  }
+}
+
+/**
+ * Validates the email input field.
+ * Checks if email is in valid format and not empty.
+ * Adds/removes error class on input container and displays error message if invalid.
+ * Returns true if valid, false if invalid.
+ */
+function validateEmail(identifier) {
+  const emailInputCont = document.getElementById('input--email-' + identifier);
+  const inputEmail = document.getElementById(identifier + '-contact-email');
+  const emailError = document.getElementById('mail-error-' + identifier);
+  if (!inputEmail.value.includes('@') || inputEmail.value.trim() === '') {
+    emailInputCont.classList.add('invalid');
+    emailError.textContent = '*Please enter a valid email address.';
+    return false;
+  } else {
+    emailInputCont.classList.remove('invalid');
+    emailError.textContent = '';
+    return true;
+  }
+}
+
+/**
+ * Validates the phone number input field.
+ * Checks if the phone number contains only digits and is not empty.
+ * Adds/removes error class on input container and displays error message if invalid.
+ * Returns true if valid, false if invalid.
+ */
+function validatePhone(identifier) {
+  const phoneInputCont = document.getElementById('input--phone-' + identifier);
+  const inputPhone = document.getElementById(identifier + '-contact-phone');
+  const phoneError = document.getElementById('phone-error-' + identifier);
+  if (/[a-zA-Z]/.test(inputPhone.value) || inputPhone.value.trim() === '') {
+    phoneInputCont.classList.add('invalid');
+    phoneError.textContent = '*Please enter a valid phone number.';
+    return false;
+  } else {
+    phoneInputCont.classList.remove('invalid');
+    phoneError.textContent = '';
+    return true;
+  }
+}
+
+/**
+ * Removes any invalid error styling from the name, email, and phone input
+ * containers for the contact form depending on the given identifier.
+ */
+function resetErrorFeedback(identifier) {
+  const nameInputCont = document.getElementById('input--name-' + identifier);
+  const emailInputCont = document.getElementById('input--email-' + identifier);
+  const phoneInputCont = document.getElementById('input--phone-' + identifier);
+  nameInputCont.classList.remove('invalid');
+  emailInputCont.classList.remove('invalid');
+  phoneInputCont.classList.remove('invalid');
+}
+
+/**
+ * Removes any error messages from the name, email, and phone
+ * elements for the contact form depending on the given identifier.
+ */
+function resetErrorMessage(identifier) {
+  const nameError = document.getElementById('name-error-' + identifier);
+  const emailError = document.getElementById('mail-error-' + identifier);
+  const phoneError = document.getElementById('phone-error-' + identifier);
+  nameError.textContent = '';
+  emailError.textContent = '';
+  phoneError.textContent = '';
 }
