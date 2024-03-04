@@ -209,9 +209,10 @@ function updateUserGreeting() {
   const userName = document.getElementById('sum-username');
   const loggedInUsers = getLoggedInUser();
   const currentUserName = loggedInUsers.userData.name;
+  const firstName = currentUserName.split(' ')[0];
   if (isGuestUser === false) {
     userName.innerHTML = /*html*/ `
-    ${currentUserName}
+    ${firstName}
   `;
     updateDayTime();
   } else {
