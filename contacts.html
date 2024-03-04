@@ -40,9 +40,12 @@
       <div class="contact-list" id="contact-list">
         <!-- content generated via js -->
       </div>
-      <div class="contact-details">
+      <div class="contact-details" id="contact-details">
         <div class="contacts-section--heading">
           <h1>Contacts</h1>
+          <div
+            class="back-arrow-mobile"
+            onclick="leaveMobileContactInfoBox()"></div>
           <div class="vert-spacer"></div>
           <p>Better with a Team</p>
         </div>
@@ -131,7 +134,7 @@
 
       <div class="edit-contact-db d-none box-slide-out" id="edit-contact-db">
         <div class="edit-contact-banner">
-          <div class="close-btn-mobile" onclick="closeAddContactDB()">
+          <div class="close-btn-mobile" onclick="closeEditContactDB()">
             <img src="/assets/img/icons/general/white/cancel-white.svg" />
           </div>
           <img
@@ -187,7 +190,7 @@
             </div>
 
             <div class="btn-bar">
-              <button onclick="deleteContact()">
+              <button type="button" onclick="deleteContact()">
                 Delete<img src="/assets/img/icons/general/other/cancel.svg" />
               </button>
               <button type="submit">
