@@ -5,12 +5,18 @@ let currentContact;
 
 async function initContacts() {
   // storeStartData();
-
+  setMobileLayout();
   await loadUserData();
-
   contacts = localUserData.contacts;
-
   renderContactList();
+}
+
+function setMobileLayout() {
+  const screenWidth = window.innerWidth;
+  const contactDetails = document.getElementById('contact-details');
+  if (screenWidth <= 607) {
+    contactDetails.classList.add('d-none');
+  }
 }
 
 function findIndexInContacts(wantedIndex) {
@@ -161,11 +167,12 @@ function renderListItem(listEntry, i) {
  */
 function openContact(i) {
   const contactItem = document.getElementById(`contact-list-item-${i}`);
-
   if (contactItem.classList.contains('selected') || !contactItem) {
     closeContactInfoBox(i);
   } else {
+    showContactInfoBoxMobile();
     swipeInContactInfoBox(i);
+    selectListItems(i);
     renderContactInfoBox(i);
   }
 }
@@ -199,38 +206,70 @@ function renderContactInfoBox(i) {
  */
 function contactInfoBoxHTML(listEntry, initials, i) {
   return /*html*/ `
+    
     <div class="user-label">
-            <div class="user-icon" style="background-color: ${listEntry.color}" >
-              ${initials}
-            </div>
-            <div class="user-name">
-              <span>${listEntry.userData.name}</span>
-              <div class="edit-user-info">
-                <div id="edit-contact-btn-${i}" class="edit" onclick="openEditContactDB(${i})">
-                  <img
-                    src="/assets/img/icons/contacts/edit_contact.svg"
-                    alt="" />
-                </div>
-                <div id="delete-contact-btn" class="delete" onclick="deleteAtContactInfoBox(${i})">
-                  <img src="/assets/img/icons/contacts/delete_contact.svg"/>
-                     
-                </div>
-              </div>
-            </div>
+      <div class="user-icon" style="background-color: ${listEntry.color}">
+        ${initials}
+      </div>
+      <div class="user-name">
+        <span>${listEntry.userData.name}</span>
+        <div class="edit-user-info">
+          <div
+            id="edit-contact-btn-${i}"
+            class="edit"
+            onclick="openEditContactDB(${i})">
+            <img src="/assets/img/icons/contacts/edit_contact.svg" alt="" />
           </div>
-          <div class="sub-heading">Contact Information</div>
-          <div class="mail-info">
-            <p class="bold">Email</p>
-            <a  href="mailto:${listEntry.userData.email} ">
-              ${listEntry.userData.email}
-            </a>
+          <div
+            id="delete-contact-btn"
+            class="delete"
+            onclick="deleteAtContactInfoBox(${i})">
+            <img src="/assets/img/icons/contacts/delete_contact.svg" />
           </div>
-          <div class="phone-info">
-            <p class="bold">Phone</p>
-            <p>${listEntry.userData.phone}</p>
-          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sub-heading">Contact Information</div>
+    <div class="mail-info">
+      <p class="bold">Email</p>
+      <a href="mailto:${listEntry.userData.email} ">
+        ${listEntry.userData.email}
+      </a>
+    </div>
+    <div class="phone-info">
+      <p class="bold">Phone</p>
+      <p>${listEntry.userData.phone}</p>
+    </div>
+    <div
+      id="edit-menu"
+      class="edit-user-menu d-none em-off">
+      <div class="img-wrapper" onclick="openEditContactDB(${i})">
+        <img src="/assets/img/icons/contacts/edit_contact.svg" alt="" />
+      </div>
+      <div class="img-wrapper" onclick="deleteAtContactInfoBox(${i})">
+        <img src="/assets/img/icons/contacts/delete_contact.svg" />
+      </div>
+    </div>
+
+    <div 
+      class="edit-user-btn-mobile" 
+      id="edit-user-btn" 
+      onclick="toggleEditUserMenu()">
+        <img src="/assets/img/icons/contacts/more_vert.svg" />
+    </div>
+
   `;
 }
+
+window.addEventListener('resize', () => {
+  const screenWidth = window.innerWidth;
+  const contactDetails = document.getElementById('contact-details');
+  if (screenWidth <= 607) {
+    contactDetails.classList.add('d-none');
+  } else {
+    contactDetails.classList.remove('d-none');
+  }
+});
 
 /**
  * Shows the contact info popup by adding the 'slide-in' class and removing
@@ -240,20 +279,41 @@ function contactInfoBoxHTML(listEntry, initials, i) {
  *
  * @param {number} i - The index of the clicked contact list item
  */
-function swipeInContactInfoBox(i) {
+function swipeInContactInfoBox() {
   const contactInfoBox = document.getElementById('contact-info-box');
-  const contactItem = document.getElementById(`contact-list-item-${i}`);
-  const allContactItems = document.querySelectorAll('.contact-list-item');
 
   contactInfoBox.classList.remove('slide-in', 'd-none');
   setTimeout(() => {
     contactInfoBox.classList.add('slide-in');
   }, 0);
+}
 
+function selectListItems(i) {
+  const contactItem = document.getElementById(`contact-list-item-${i}`);
+  const allContactItems = document.querySelectorAll('.contact-list-item');
   setTimeout(() => {
     allContactItems.forEach((item) => item.classList.remove('selected'));
     contactItem.classList.toggle('selected');
   }, 125);
+}
+
+function showContactInfoBoxMobile() {
+  const contactDetails = document.getElementById('contact-details');
+  const contactInfoBox = document.getElementById('contact-info-box');
+  const screenWidth = window.innerWidth;
+  if (screenWidth <= 607) {
+    contactDetails.classList.remove('d-none');
+    contactInfoBox.classList.remove('d-none');
+  }
+}
+
+function leaveMobileContactInfoBox() {
+  const contactDetails = document.getElementById('contact-details');
+  const contactInfoBox = document.getElementById('contact-info-box');
+  const allContactItems = document.querySelectorAll('.contact-list-item');
+  allContactItems.forEach((item) => item.classList.remove('selected'));
+  contactDetails.classList.add('d-none');
+  contactInfoBox.classList.add('d-none');
 }
 
 /**
@@ -266,12 +326,38 @@ function swipeInContactInfoBox(i) {
 function closeContactInfoBox(i) {
   const contactInfoBox = document.getElementById('contact-info-box');
   const contactItem = document.getElementById(`contact-list-item-${i}`);
-
   if (contactItem) {
     contactItem.classList.toggle('selected');
     contactInfoBox.classList.add('d-none');
   } else if (!contactItem) {
     contactInfoBox.classList.add('d-none');
+  }
+}
+
+function handleClickOutside(event) {
+  const editMenu = document.getElementById('edit-menu');
+  if (!editMenu.contains(event.target)) {
+    toggleEditUserMenu();
+  }
+}
+
+function toggleEditUserMenu() {
+  const editMenuBtn = document.getElementById('edit-user-btn');
+  const editMenu = document.getElementById('edit-menu');
+  if (editMenu.classList.contains('d-none')) {
+    editMenu.classList.replace('em-off', 'em-on');
+    setTimeout(() => {
+      editMenu.classList.toggle('d-none');
+      editMenuBtn.classList.toggle('d-none');
+      document.addEventListener('click', handleClickOutside);
+    }, 125);
+  } else {
+    editMenu.classList.replace('em-on', 'em-off');
+    setTimeout(() => {
+      editMenu.classList.toggle('d-none');
+      editMenuBtn.classList.toggle('d-none');
+      document.removeEventListener('click', handleClickOutside);
+    }, 125);
   }
 }
 
@@ -390,14 +476,11 @@ function openNewContactInfo(newContactIndex) {
  */
 function showContactSuccess() {
   const successBox = document.getElementById('contact-success');
-
   successBox.classList.toggle('d-none');
   successBox.classList.replace('slide-out', 'slide-in');
-
   setTimeout(() => {
     successBox.classList.replace('slide-in', 'slide-out');
   }, 2000);
-
   setTimeout(() => {
     successBox.classList.toggle('d-none');
   }, 2150);
@@ -416,9 +499,6 @@ function openEditContactDB(i) {
   const contactName = document.getElementById('edit-contact-name');
   const contactEmail = document.getElementById('edit-contact-email');
   const contactPhone = document.getElementById('edit-contact-phone');
-  updateUserIconInDB(i);
-  resetErrorFeedback('edit');
-  resetErrorMessage('edit');
   contactName.value = currentContact.userData.name;
   contactEmail.value = currentContact.userData.email;
   contactPhone.value = currentContact.userData.phone;
@@ -426,6 +506,9 @@ function openEditContactDB(i) {
   editContactBox.classList.replace('box-slide-out', 'box-slide-in');
   overlay.classList.remove('d-none');
   overlay.classList.replace('overlay-off', 'overlay-on');
+  updateUserIconInDB(i);
+  resetErrorFeedback('edit');
+  resetErrorMessage('edit');
 }
 
 /**
@@ -500,6 +583,7 @@ function deleteAtContactInfoBox(i) {
   console.log('contact deleted', contactIndex);
   closeContactInfoBox(contactIndex);
   renderContactList();
+  leaveMobileContactInfoBox();
 }
 
 /**
