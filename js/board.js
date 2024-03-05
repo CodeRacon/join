@@ -339,15 +339,17 @@ function showSubtasks() {
   for (let index = 0; index < actualCard.subtasks.length; index++) {
     let element = actualCard.subtasks[index]["name"];
     content.innerHTML += `<div class="subtask-container">
-    <img class="img-checked-true-false" alt="checked">
+    <img class="img-checked-true-false" alt="checked" onclick="changeSubtaskToDoneOrNot(${index})">
     ${element}
     </div>`;
     let status = actualCard.subtasks[index]["done"];
     let img = document.getElementsByClassName("img-checked-true-false")[index];
     if (status === true) {
       img.src = taskDone;
+      img.classList.add("is-done");
     } else {
       img.src = taskNotDone;
+      img.classList.add("not-done");
     }
   }
 }
@@ -363,7 +365,6 @@ function closeTaskCardOverlay() {
 }
 
 function deleteTask(card) {
-  console.log(card); //---> id der task
   for (let i = 0; i < localUserData.users.length; i++) {
     for (let j = 0; j < localUserData.users[i].tasks.length; j++) {
       if (localUserData.users[i].tasks[j].id === card) {
@@ -374,6 +375,18 @@ function deleteTask(card) {
   saveUserData();
   closeTaskCardOverlay();
   updateHTML();
+}
+
+function changeSubtaskToDoneOrNot(index) {
+  let subtask = actualCard.subtasks[index];
+  if (subtask.done === false) {
+    subtask.done = true;
+  } else {
+    subtask.done = false;
+  }
+  localUserData.users.indexOf(actualCard);
+  saveUserData();
+  showSubtasks();
 }
 
 // :::::::::::::::::::::: Add - Task - PopUp :::::::::::::::::::::://

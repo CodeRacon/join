@@ -67,7 +67,7 @@
   --white: #fff;
 
   /* fields small width & height */
-  --f-width-small: 17.5rem;
+  --f-width-small: 100%;
   --f-height-small: 1.5rem;
 }
 
@@ -354,7 +354,7 @@ div[draggable="true"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 8.5rem;
+  width: 30%;
   height: 3.5rem;
   color: #000;
   font-family: Inter;
@@ -401,7 +401,7 @@ progress::-webkit-progress-bar {
 #overlay-task-card {
   z-index: 1;
   position: absolute;
-  top: 20vh;
+  top: 15vh;
   max-width: 30rem;
 }
 
@@ -528,4 +528,12 @@ progress::-webkit-progress-bar {
   display: flex;
   justify-content: space-between;
   margin: 1rem 0 1rem 0;
+}
+
+.not-done:hover {
+  content: url(/assets/img/icons/board/cf-unchecked-hover.svg);
+}
+
+.is-done:hover {
+  content: url(/assets/img/icons/board/cf-checked-hover.svg);
 }
