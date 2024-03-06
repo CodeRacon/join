@@ -420,6 +420,7 @@ nav#side-nav > a:active {
   flex-direction: column;
   text-align: center;
   width: 100%;
+  color: #cdcdcd;
 }
 
 .pp-ln a {
@@ -446,7 +447,6 @@ nav#side-nav > a:active {
 footer {
   position: fixed;
   top: calc(100% - 5rem);
-  /* bottom: 0; */
   display: none;
   justify-content: center;
   align-items: center;

@@ -202,8 +202,8 @@ h2 {
 }
 
 .urgency-symbol {
-  width: 3.75rem;
-  height: 3.75rem;
+  width: 4.3125rem;
+  height: 4.3125rem;
   background-color: var(--urgent);
   background-image: url(/assets/img/icons/general/white/urgent-white.svg);
   background-size: 57.5%;
@@ -245,13 +245,13 @@ h2 {
   justify-content: center;
 }
 
-/* .half-box:hover {
+.half-box:hover {
   width: 17.65625rem;
   height: 11.5rem;
   color: #fff;
   background-color: var(--primary);
   box-shadow: var(--btn-shdw-ttb);
-} */
+}
 
 .half-box:hover p {
   color: #fff;
@@ -271,6 +271,7 @@ h2 {
   height: 4.3125rem;
   background-image: url(/assets/img/icons/general/white/edit-white.svg);
   background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .half-box:first-of-type:hover .todo-symbol {
@@ -282,6 +283,7 @@ h2 {
   height: 4.3125rem;
   background-image: url(/assets/img/icons/general/other/done.svg);
   background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .half-box:last-of-type:hover .done-symbol {
@@ -416,7 +418,7 @@ h2 {
 @media (width <= 607px) {
   /* until 320 */
   section.summary-section {
-    padding: 2.85rem 1rem 2rem 1rem;
+    padding: 2.85rem 1rem 4rem 1rem;
   }
 
   .summary-box {
@@ -440,7 +442,7 @@ h2 {
   }
 
   .full-box {
-    padding: 1.25rem 0.25rem;
+    padding: 1.25rem clamp(0.25rem, 15.278vw + -2.806rem, 3rem);
   }
 
   .half-box {
@@ -450,6 +452,30 @@ h2 {
 
   .onethird-box {
     width: clamp(5.5rem, 27.778vw + -0.056rem, 10.5rem);
+  }
+
+  .full-box:hover {
+    width: clamp(19rem, 94.444vw + 0.111rem, 36rem);
+    height: clamp(6.275rem, 29.028vw + 0.469rem, 11.5rem);
+    color: #fff;
+    background-color: var(--primary);
+    box-shadow: var(--btn-shdw-ttb);
+  }
+
+  .half-box:hover {
+    width: clamp(9rem, 48.09vw + -0.618rem, 17.65625rem);
+    height: clamp(6.275rem, 29.028vw + 0.469rem, 11.5rem);
+    color: #fff;
+    background-color: var(--primary);
+    box-shadow: var(--btn-shdw-ttb);
+  }
+
+  .onethird-box:hover {
+    width: clamp(6rem, 30.556vw + -0.111rem, 11.5rem);
+    height: clamp(6rem, 30.556vw + -0.111rem, 11.5rem);
+    color: #fff;
+    background-color: var(--primary);
+    box-shadow: var(--btn-shdw-ttb);
   }
 
   .half-box span,
@@ -468,12 +494,25 @@ h2 {
   .todo-symbol,
   .done-symbol,
   .urgency-symbol {
-    width: clamp(2.5rem, 6.944vw + 1.111rem, 3.75rem);
-    height: clamp(2.5rem, 6.944vw + 1.111rem, 3.75rem);
+    width: clamp(2.5rem, 10.069vw + 0.486rem, 4.3125rem);
+    height: clamp(2.5rem, 10.069vw + 0.486rem, 4.3125rem);
   }
 
   #due-date {
     font-size: clamp(0.875rem, 2.431vw + 0.389rem, 1.3125rem);
+  }
+}
+
+@media (width <= 472px) {
+  .personal-greeting {
+    font-size: 2.9375rem;
+    font-weight: 500;
+  }
+
+  .personal-greeting span#sum-username {
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 120%;
   }
 }
 

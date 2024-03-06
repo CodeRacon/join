@@ -151,12 +151,12 @@ function highlightExternalLink() {
 function toggleQuickMenu() {
   const quickMenu = document.getElementById('quickmenu');
   if (quickMenu.classList.contains('d-none')) {
-    quickMenu.classList.replace('qmOff', 'qmIn');
+    quickMenu.classList.replace('qm-off', 'qm-on');
     setTimeout(() => {
       quickMenu.classList.toggle('d-none');
     }, 125);
   } else {
-    quickMenu.classList.replace('qmIn', 'qmOff');
+    quickMenu.classList.replace('qm-on', 'qm-off');
     setTimeout(() => {
       quickMenu.classList.toggle('d-none');
     }, 125);

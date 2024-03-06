@@ -7,10 +7,10 @@
   nav#side-nav > a {
     padding: 0.5rem clamp(1.25rem, 23.684vw + -10.118rem, 3.5rem);
   }
-}
-
-header {
-  padding: 1.25rem 2.5rem 1.25rem clamp(2.5rem, 98.718vw + -35.013rem, 21.75rem);
+  header {
+    padding: 1.25rem 2.5rem 1.25rem
+      clamp(2.5rem, 98.718vw + -35.013rem, 21.75rem);
+  }
 }
 
 @media (width <= 607px) {
@@ -43,5 +43,27 @@ header {
 
   #mobile-nav > a {
     width: clamp(4.5rem, 5.263vw + 3.447rem, 5rem);
+  }
+
+  @keyframes qmOn {
+    from {
+      opacity: 0;
+      transform: translateX(+115%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes qmOff {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(+115%);
+    }
   }
 }
