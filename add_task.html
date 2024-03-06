@@ -9,10 +9,11 @@
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/fonts.css" />
     <link rel="stylesheet" href="css/root.css" />
-    <script defer src="js/main.js"></script>
+    <script defer src="js/storage.js"></script>
+    <script defer src="js/board.js"></script>
     <script defer src="js/assets.js"></script>
     <script defer src="js/add_task.js"></script>
-    <script defer src="js/board.js"></script>
+    <script defer src="js/main.js"></script>
 
     <title>join - Add Task</title>
     <link rel="icon" type="image/png" href="assets/img/logo/favicon.png" />
@@ -28,7 +29,7 @@
 |__| |__||______| |______|     |___|  |__| |__||_______||___| |_|
 -->
 
-  <body onload="initPage(), showContactsToAssign()">
+  <body onload="renderPage()">
     <div
       id="frame"
       class="header-template"
@@ -74,7 +75,7 @@
                 class="border-none"
                 id="dropdownInput"
                 placeholder="Select contacts to assign"
-                onkeyup="filterContactsToAssign()"
+                onkeyup="filterContactsToAssign(), onlyOpenDropDownToAssign()"
               />
               <img
                 id="arrowImg"
@@ -200,7 +201,10 @@
                 alt="close symbol"
               />
             </button>
-            <button disabled class="btn-borders btn-span-img-ctn btn-create">
+            <button
+              class="btn-borders btn-span-img-ctn btn-create submit-btn"
+              onclick="checkIfFieldsAreFilled()"
+            >
               <span class="create-text">Create Task</span>
               <img
                 src="./assets/img/icons/add-task/check.svg"
