@@ -1,87 +1,71 @@
 let separateIndedNum = 0;
+loadUserszr();
 
-let localUserLogin = []; // wird beim ersten Mal in den LocalStorage gepackt und beim zweiten aufruf werden die Server daten in den LocalStorage gepackt
+localUserData = []; // wird beim ersten Mal in den LocalStorage gepackt und beim zweiten aufruf werden die Server daten in den LocalStorage gepackt
+let TestStorage = [];
 
-function loadLocalLoginData(){
-    let loadLocalLogin = localStorage.getItem('LogInData');
-    if(loadLocalLogin){
-        localUserLogin = JSON.parse(loadLocalLogin);
+loadamountds();
+
+function loadamountds(){
+    let dd = localStorage.getItem('Anzahlomp');
+    if(dd){
+      TestStorage = JSON.parse(dd);
     }
 }
 
-function saveLocalLoginData(){
-    let saveLocalLogin = JSON.stringify(localUserLogin);
-    localStorage.setItem('LogInData', saveLocalLogin);
-} 
+function saveTestArray(){
+        let dd = JSON.stringify(TestStorage);
+        localStorage.setItem('Anzahlomp', dd);
+}
+
 //test bzw ein neuer Variablen name muss mit einem neuen key in den remote storage
 async function init(){
     loadIndexNum();
-    loadLocalLoginData();
-     ppt();
+    await loadUserData();
+    ppt();
     await loadUsers();
 }
 
-
-
 async function ppt(){
+    await loadUserData();
     await loadUsers();
     let combinedUser = {
         user: startData.users[0],
         contacts: startData.contacts
     }
-    if (checkIfArrayExistInServer(combinedUser) == true) {
-        // localStorage wird an die Stelle gepackt wo es ursprünglich im server war es wird sozusagen ersetzt meine damen und herren;
-        return 1;
-    }
+    await checkIfArrayExistInServer(combinedUser);
 }
 
 
-function checkIfArrayExistInServer(combinedUser){
-    loadLocalLoginData();
-    for (let i = 0; i < localUserLogin.length; i++) {
-        if (localUserLogin[i].hasOwnProperty('user') && localUserLogin[i].hasOwnProperty('contacts')) {
-            if (localUserLogin[i].user == combinedUser.user) {
-                alert('heyo');
-                localUserLogin[i] = combinedUser;
-                separateIndedNum = i;
-                return true; 
-            }
-        }
-    }
-    localUserLogin.push(combinedUser);
-    saveLocalLoginData();
-    console.log(localUserLogin[0]);
-    // wenn combined User im Server vorhanden ist wird ppt garnicht erst ausgeführt 
+async function checkIfArrayExistInServer(combinedUser) {
+    await loadUserData();
+    
+   
+    
+    localUserData.push(combinedUser);
+    saveUserData();
+    console.log(localUserData[0]);
+    // Wenn combined User im Server vorhanden ist, wird ppt garnicht erst ausgeführt
 }
 
-/*window.addEventListener('unload', () =>{
-        if(window.closed){
-            localStorage.removeItem('accesToData');
-         localStorage.removeItem('LogInData');
-          for (let i = 0; i < loginData.length; i++) {
-            if(loginData[i].hasOwnProperty('user') && loginData[i].hasOwnProperty('contacts')){
-                if(loginData[i].user == localUserLogin.user){
-                    loginData[i] = localUserLogin;
-                }
-            }
-          }
-         
-        }
-    } 
-);
-*/
 function beforeUnloadHandler(event) {
-    if (event.persisted) {
+    if(event.persisted){
+
         return;
     }
-
-    localStorage.removeItem('accesToData');
-    localStorage.removeItem('LogInData');
+    if (document.readyState === 'complete') {
+        TestStorage.push(localUserData);
+        saveTestArray();
+        localStorage.removeItem('changedData');
+        return;
+    }
 }
 
-// Hinzufügen des Event-Listeners
-window.addEventListener('beforeunload', beforeUnloadHandler);
 
+
+// Hinzufügen des Event-Listeners
+
+window.addEventListener('beforeunload', beforeUnloadHandler);
 // Funktion zum Entfernen des Event-Listeners
 function removeBeforeUnloadListener() {
     window.removeEventListener('beforeunload', beforeUnloadHandler);
@@ -89,20 +73,19 @@ function removeBeforeUnloadListener() {
 
 // Funktion zum Wiederhinzufügen des Event-Listeners
 function addBeforeUnloadListener() {
-    window.addEventListener('beforeunload', beforeUnloadHandler);
+        window.addEventListener('beforeunload', beforeUnloadHandler);
 }
 
 let myLink = 0;
 
 
-
-
-function linkToNewSite(locateSite) {
+function linkToNewSite(locateSite, ths, i) {
     let myLink = document.getElementById(locateSite);
-    window.location.href = myLink.href;
+    window.location.href = ths[i];
 }
 
 let lunk = [];
+
 const links = document.querySelectorAll('a');
 
 function dopemope(){
@@ -112,30 +95,50 @@ for (const link of links) {
 }
 }
 
+let numForLinkLocation;
+
 dopemope();
 
-let numForLinkLocation = -1;
-
-function numForLinkAcces(idOfAElement){
-    for (const linkAccess of links) {
-        if (linkAccess.id == idOfAElement) {
-            alert('yolo');
-        }
-    }
-}
-
-function oioipo(idgrapper) {
-    let dynamicLink = document.getElementById(idgrapper);
-    dynamicLink.addEventListener('click', (event) => {
-        event.preventDefault();
-        removeBeforeUnloadListener();
-        linkToNewSite(idgrapper);
-        addBeforeUnloadListener();
+function higherNumber() {
+    links.forEach((link) => {
+        let ths = [];
+        let nn;
+        link.addEventListener('click', (event) => {
+            for (let i = 0; i < lunk.length; i++) {
+                if (lunk[i] == link.id) {
+                    ths.push(link.href);
+                    numForLinkLocation = i;
+                    nn = i;
+                }  
+            }
+            console.log(numForLinkLocation);
+            // Hier oioipo aufrufen
+            oioipo(lunk[numForLinkLocation], nn, ths); // Beachte die Korrektur des Index
+        });
     });
 }
 
-// Example: Call oioipo with the ID of the link you want to dynamically handle
+// ...
 
-oioipo(lunk[0]);
+// Entferne den vorherigen Aufruf von oioipo hier
+function oioipo(idgrapper, i, ths) {
+    let dynamicLink = document.getElementById(idgrapper);
+        removeBeforeUnloadListener();
+        linkToNewSite(idgrapper,ths, i);
+        addBeforeUnloadListener();
+}
+
+async function loadUserszr(){
+    try {
+        spezLogInData = JSON.parse(await getItem('LogInData'));
+        console.log(spezLogInData);
+    } catch(e){
+        console.error('Loading error:', e);
+    }
+}
+
+// Example: Call oioipo with the ID of the link you want to dynamically handle
+higherNumber();
+
 
 

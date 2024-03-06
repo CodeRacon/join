@@ -484,7 +484,6 @@ let loginData = [
 async function storeLoginData(){
   await setItem("LogInData", JSON.stringify(loginData));
 }
-
 /**
  * Stores the start data in local storage.
  */
@@ -493,4 +492,10 @@ async function storeStartData(){
 }
  async function getData(){
   await getItem('startData');
+ }
+
+ let spezLogInData = [];
+
+ async function storeSpezLogInData(){
+  await setItem("LogInData", JSON.stringify(spezLogInData)); 
  }

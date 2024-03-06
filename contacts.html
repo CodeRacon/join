@@ -9,9 +9,12 @@
     <link rel="stylesheet" href="css/fonts.css" />
     <link rel="stylesheet" href="css/root.css" />
     <script defer src="js/contacts.js"></script>
-    <script defer src="js/assets.js"></script>
-    <script defer src="js/storage.js"></script>
     <script defer src="js/main.js"></script>
+    <script src="./js/log_In.js"></script>
+    <script src="./js/storage.js"></script>
+    <script src="./js/signUp.js"></script>
+    <script src="./js/assets.js"></script>
+    <script src="./js/dataHandling.js"></script>
     <title>join - Contacts</title>
     <link rel="icon" type="image/png" href="assets/img/logo/favicon.png" />
   </head>
@@ -26,7 +29,7 @@
 |_______||_______||_|  |__|  |___|  |__| |__||_______|  |___|  |_______|
 -->
 
-  <body onload="initPage(); initContacts()">
+  <body onload="initPage(); initContacts(), init()">
     <div
       onclick="closeDialogueBox()"
       id="overlay"
