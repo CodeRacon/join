@@ -897,6 +897,12 @@ p.error-message {
   }
 }
 
+@media (width <= 1280px) {
+  .contact-details {
+    padding-top: 2.85rem;
+  }
+}
+
 @media (width <= 1252px) {
   /* until 768px */
 
@@ -924,10 +930,6 @@ p.error-message {
   .contacts-section--heading p {
     margin-top: 0.75rem;
     text-align: left;
-  }
-
-  .contact-details {
-    padding-top: 2.85rem;
   }
 
   .user-icon {
