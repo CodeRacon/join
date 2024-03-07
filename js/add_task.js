@@ -415,6 +415,7 @@ function saveNewTask() {
     subtasks: subtasksArray,
     title: newTitle,
   };
+  showConfirmation();
   clearForm();
 }
 
@@ -428,4 +429,16 @@ function generateNewIdForTask() {
       }
     }
   }
+}
+
+function showConfirmation() {
+  let overlay = document.getElementById("add-task-overlay-task-created");
+  overlay.classList.remove("box-slide-out", "d-none");
+  overlay.classList.add("box-slide-in");
+  setTimeout(() => {
+    overlay.classList.remove("box-slide-in");
+    setTimeout(() => {
+      overlay.classList.add("box-slide-out", "d-none");
+    }, 3000);
+  }, 0);
 }
