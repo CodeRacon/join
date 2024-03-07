@@ -1,8 +1,11 @@
 let contacts = [];
 let formattedContactList = [];
-
 let currentContact;
 
+/**
+ * Initializes the contacts page by setting the layout, loading user data,
+ * populating the contacts array, and rendering the contact list.
+ */
 async function initContacts() {
   // storeStartData();
   setMobileLayout();
@@ -11,6 +14,10 @@ async function initContacts() {
   renderContactList();
 }
 
+/**
+ * Sets the mobile layout by hiding the contact details section if the
+ * screen width is less than or equal to 607px.
+ */
 function setMobileLayout() {
   const screenWidth = window.innerWidth;
   const contactDetails = document.getElementById('contact-details');
@@ -19,12 +26,26 @@ function setMobileLayout() {
   }
 }
 
+/**
+ * Searches through the contacts array to find the index of the
+ * contact that matches the provided wantedIndex.
+ *
+ * @param {*} wantedIndex - The contact object to search for
+ * @returns {number} The index of the matching contact, or -1 if not found
+ */
 function findIndexInContacts(wantedIndex) {
   return contacts.findIndex((contact) => {
     return contact === wantedIndex;
   });
 }
 
+/**
+ * Searches through the formattedContactList array to find the index of the
+ * contact that matches the provided wantedIndex.
+ *
+ * @param {*} wantedIndex - The contact object to search for
+ * @returns {number} The index of the matching contact, or -1 if not found
+ */
 function findIndexInFormattedList(wantedIndex) {
   return formattedContactList.findIndex((contact) => {
     return contact === wantedIndex;
@@ -48,13 +69,10 @@ function sortContacts(contacts) {
  */
 function formatContactList(contacts) {
   sortContacts(contacts);
-
   formattedContactList = [];
   let currentLetter = '';
-
   contacts.forEach((contact) => {
     const capFirstLetter = contact.userData.name.charAt(0).toUpperCase();
-
     if (capFirstLetter !== currentLetter) {
       formattedContactList.push({ type: 'divider', letter: capFirstLetter });
       currentLetter = capFirstLetter;
@@ -72,12 +90,9 @@ formattedContactList = formatContactList(contacts);
  */
 function renderContactList() {
   formattedContactList = formatContactList(contacts);
-
-  // const formattedContactList = formatContactList(contacts);
   const contactList = document.getElementById('contact-list');
   contactList.innerHTML = '';
   contactList.innerHTML = renderAddContactBtn();
-
   for (let i = 0; i < formattedContactList.length; i++) {
     const listEntry = formattedContactList[i];
 
@@ -139,7 +154,6 @@ function renderListItem(listEntry, i) {
     .split(' ')
     .map((word) => word.charAt(0))
     .join('');
-
   return /*html*/ `
     <div 
       id="contact-list-item-${i}" 
@@ -206,7 +220,6 @@ function renderContactInfoBox(i) {
  */
 function contactInfoBoxHTML(listEntry, initials, i) {
   return /*html*/ `
-    
     <div class="user-label">
       <div class="user-icon" style="background-color: ${listEntry.color}">
         ${initials}
@@ -250,7 +263,6 @@ function contactInfoBoxHTML(listEntry, initials, i) {
         <img src="/assets/img/icons/contacts/delete_contact.svg" />
       </div>
     </div>
-
     <div 
       class="edit-user-btn-mobile" 
       id="edit-user-btn" 
@@ -261,6 +273,10 @@ function contactInfoBoxHTML(listEntry, initials, i) {
   `;
 }
 
+/**
+ * hides or shows the contact details element
+ * based on the window width, to hide/show it responsively.
+ */
 window.addEventListener('resize', () => {
   const screenWidth = window.innerWidth;
   const contactDetails = document.getElementById('contact-details');
@@ -281,13 +297,18 @@ window.addEventListener('resize', () => {
  */
 function swipeInContactInfoBox() {
   const contactInfoBox = document.getElementById('contact-info-box');
-
   contactInfoBox.classList.remove('slide-in', 'd-none');
   setTimeout(() => {
     contactInfoBox.classList.add('slide-in');
   }, 0);
 }
 
+/**
+ * Toggles the 'selected' class on the contact list item at the given index,
+ * and removes 'selected' from all other list items after a short delay.
+ *
+ * @param {number} i - The index of the contact list item to select
+ */
 function selectListItems(i) {
   const contactItem = document.getElementById(`contact-list-item-${i}`);
   const allContactItems = document.querySelectorAll('.contact-list-item');
@@ -297,6 +318,11 @@ function selectListItems(i) {
   }, 125);
 }
 
+/**
+ * Shows the contact info on mobile by removing the
+ * 'd-none' class from the contact details and info box elements
+ * if the screen width is less than or equal to 607px.
+ */
 function showContactInfoBoxMobile() {
   const contactDetails = document.getElementById('contact-details');
   const contactInfoBox = document.getElementById('contact-info-box');
@@ -307,6 +333,12 @@ function showContactInfoBoxMobile() {
   }
 }
 
+/**
+ * Hides the contact info popup on mobile by adding the 'd-none' class back
+ * to the contact details and info box elements, removing 'selected' from
+ * all contact list items, and scrolling the new contact back to the top.
+ * This is called when the user closes the popup by clicking the overlay.
+ */
 function leaveMobileContactInfoBox() {
   const contactDetails = document.getElementById('contact-details');
   const contactInfoBox = document.getElementById('contact-info-box');
@@ -337,6 +369,13 @@ function closeContactInfoBox(i) {
 
 let menuOpen = false;
 
+/**
+ * Closes the mobile edit menu if the user clicks outside of it.
+ * Checks if the click target is not contained within the edit menu element,
+ * and if so, calls closeMobileEditMenu().
+ *
+ * @param {Event} event - The click event
+ */
 function handleClickOutside(event) {
   const editMenu = document.getElementById('edit-menu');
   if (!editMenu.contains(event.target)) {
@@ -344,6 +383,12 @@ function handleClickOutside(event) {
   }
 }
 
+/**
+ * Toggles the mobile edit menu open/closed.
+ * Opens the menu, adds a click handler to close on outside click,
+ * closes the menu, and removes the click handler.
+ * Handles menuOpen state.
+ */
 function toggleMobileEditMenu() {
   menuOpen = !menuOpen;
   if (menuOpen) {
@@ -355,6 +400,15 @@ function toggleMobileEditMenu() {
   }
 }
 
+/**
+ * Opens the mobile edit menu by:
+ * - Removing the 'd-none' class and adding the 'em-on' class on the menu
+ * - Adding a small timeout before toggling the 'd-none' class again to trigger
+ *   the CSS transition animation
+ * - Toggling the 'd-none' class on the edit button and body element
+ *
+ * This handles the initial opening transition animation of the mobile edit menu.
+ */
 function openMobileEditMenu() {
   const editMenu = document.getElementById('edit-menu');
   const editMenuBtn = document.getElementById('edit-user-btn');
@@ -369,6 +423,16 @@ function openMobileEditMenu() {
   }
 }
 
+/**
+ * Closes the mobile edit menu by:
+ * - Replacing the 'em-on' class with 'em-off' on the menu
+ * - Adding a small timeout before toggling the 'd-none' class again to trigger
+ *   the CSS transition animation
+ * - Toggling the 'd-none' class on the edit button and body element
+ * - Setting menuOpen to false
+ *
+ * This handles the closing transition animation of the mobile edit menu.
+ */
 function closeMobileEditMenu() {
   const editMenu = document.getElementById('edit-menu');
   const editMenuBtn = document.getElementById('edit-user-btn');
@@ -448,6 +512,19 @@ function createContact() {
   contacts.push(newContact);
   formattedContactList = formatContactList(contacts);
   const newContactIndex = findIndexInFormattedList(newContact);
+  createContactAftermath(newContactIndex);
+}
+
+/**
+ * Performs actions after a new contact is created:
+ * - Saves user data
+ * - Scrolls new contact to top of list
+ * - Renders updated contact list
+ * - Closes add contact popup
+ * - Waits 150ms, then opens new contact info
+ * - Waits 300ms, then shows success message
+ */
+function createContactAftermath(newContactIndex) {
   saveUserData();
   scrollNewContactToTop(newContactIndex);
   renderContactList();
@@ -515,13 +592,13 @@ function showContactSuccess() {
     successBox.classList.toggle('d-none');
   }, 2150);
 }
+
 /**
  * Opens the edit contact overlay with the contact info for the contact at the given index pre-populated.
  * Handles setting the current contact, showing the overlay and edit contact box, and pre-filling the form.
  *
  * @param {number} i - The index of the contact to edit
  */
-
 function openEditContactDB(i) {
   currentContact = formattedContactList[i];
   const overlay = document.getElementById('overlay');
@@ -537,11 +614,37 @@ function openEditContactDB(i) {
   overlay.classList.remove('d-none');
   overlay.classList.replace('overlay-off', 'overlay-on');
   updateUserIconInDB(i);
+  resetEditUI();
+}
+
+/**
+ * Resets the edit contact UI after editing is complete.
+ * Clears any error feedback and messages, then also closes
+ * the mobile edit menu after a small delay.
+ */
+function resetEditUI() {
   resetErrorFeedback('edit');
   resetErrorMessage('edit');
   setTimeout(() => {
     closeMobileEditMenu();
   }, 250);
+}
+
+/**
+ * Updates the user icon in the Edit Contacts dialogue box
+ * by setting the inner HTML to the user's initials,
+ * and the background color to the user's color.
+ */
+function updateUserIconInDB(i) {
+  const userIcon = document.getElementById('edit-contact-user-icon');
+  const initials = formattedContactList[i].userData.name
+    .split(' ')
+    .map((word) => word.charAt(0))
+    .join('');
+  userIcon.innerHTML = /*html*/ `
+    <span>${initials}</span>
+  `;
+  userIcon.style.backgroundColor = formattedContactList[i].color;
 }
 
 /**
@@ -563,18 +666,6 @@ function closeEditContactDB() {
     editContactBox.classList.add('d-none');
     overlay.classList.add('d-none');
   }, 350);
-}
-
-function updateUserIconInDB(i) {
-  const userIcon = document.getElementById('edit-contact-user-icon');
-  const initials = formattedContactList[i].userData.name
-    .split(' ')
-    .map((word) => word.charAt(0))
-    .join('');
-  userIcon.innerHTML = /*html*/ `
-    <span>${initials}</span>
-  `;
-  userIcon.style.backgroundColor = formattedContactList[i].color;
 }
 
 /**
@@ -613,7 +704,6 @@ function deleteAtContactInfoBox(i) {
   contacts.splice(contactIndex, 1);
   formattedContactList = formatContactList(contacts);
   saveUserData();
-  console.log('contact deleted', contactIndex);
   closeContactInfoBox(contactIndex);
   renderContactList();
   leaveMobileContactInfoBox();
@@ -629,7 +719,6 @@ function deleteContact() {
   const contactIndex = findIndexInContacts(currentContact);
   contacts.splice(contactIndex, 1);
   formattedContactList = formatContactList(contacts);
-  console.log('contact deleted', contactIndex);
   saveUserData();
   closeContactInfoBox(contactIndex);
   renderContactList();
