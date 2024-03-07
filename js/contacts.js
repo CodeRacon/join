@@ -254,7 +254,7 @@ function contactInfoBoxHTML(listEntry, initials, i) {
     <div 
       class="edit-user-btn-mobile" 
       id="edit-user-btn" 
-      onclick="toggleEditUserMenu()">
+      onclick="toggleMobileEditMenu()">
         <img src="/assets/img/icons/contacts/more_vert.svg" />
     </div>
 
@@ -314,6 +314,7 @@ function leaveMobileContactInfoBox() {
   allContactItems.forEach((item) => item.classList.remove('selected'));
   contactDetails.classList.add('d-none');
   contactInfoBox.classList.add('d-none');
+  scrollNewContactToTop(1);
 }
 
 /**
@@ -334,30 +335,52 @@ function closeContactInfoBox(i) {
   }
 }
 
+let menuOpen = false;
+
 function handleClickOutside(event) {
   const editMenu = document.getElementById('edit-menu');
   if (!editMenu.contains(event.target)) {
-    toggleEditUserMenu();
+    closeMobileEditMenu();
   }
 }
 
-function toggleEditUserMenu() {
-  const editMenuBtn = document.getElementById('edit-user-btn');
+function toggleMobileEditMenu() {
+  menuOpen = !menuOpen;
+  if (menuOpen) {
+    openMobileEditMenu();
+    document.addEventListener('click', handleClickOutside);
+  } else {
+    closeMobileEditMenu();
+    document.removeEventListener('click', handleClickOutside);
+  }
+}
+
+function openMobileEditMenu() {
   const editMenu = document.getElementById('edit-menu');
+  const editMenuBtn = document.getElementById('edit-user-btn');
+  const bodyElement = document.getElementById('contacts-body');
   if (editMenu.classList.contains('d-none')) {
     editMenu.classList.replace('em-off', 'em-on');
     setTimeout(() => {
       editMenu.classList.toggle('d-none');
       editMenuBtn.classList.toggle('d-none');
-      document.addEventListener('click', handleClickOutside);
+      bodyElement.classList.add('menu-open');
     }, 125);
-  } else {
+  }
+}
+
+function closeMobileEditMenu() {
+  const editMenu = document.getElementById('edit-menu');
+  const editMenuBtn = document.getElementById('edit-user-btn');
+  const bodyElement = document.getElementById('contacts-body');
+  if (!editMenu.classList.contains('d-none')) {
     editMenu.classList.replace('em-on', 'em-off');
     setTimeout(() => {
       editMenu.classList.toggle('d-none');
       editMenuBtn.classList.toggle('d-none');
-      document.removeEventListener('click', handleClickOutside);
+      bodyElement.classList.remove('menu-open');
     }, 125);
+    menuOpen = false;
   }
 }
 
@@ -452,11 +475,18 @@ function chooseRandomColor() {
  * @param {number} newContactIndex - The index of the new contact to scroll to.
  */
 function scrollNewContactToTop(newContactIndex) {
+  let topSpacing;
+  const screenWidth = window.innerWidth;
+  if (screenWidth <= 607) {
+    topSpacing = 264;
+  } else {
+    topSpacing = 106;
+  }
   setTimeout(() => {
     const contactList = document.getElementById('contact-list');
     contactList.scrollTop =
       document.getElementById(`contact-list-item-${newContactIndex}`)
-        .offsetTop - 106;
+        .offsetTop - topSpacing;
   }, 0);
 }
 
@@ -509,6 +539,9 @@ function openEditContactDB(i) {
   updateUserIconInDB(i);
   resetErrorFeedback('edit');
   resetErrorMessage('edit');
+  setTimeout(() => {
+    closeMobileEditMenu();
+  }, 250);
 }
 
 /**
@@ -611,7 +644,6 @@ function deleteContact() {
 function closeDialogueBox() {
   const editContactBox = document.getElementById('edit-contact-db');
   const addContactBox = document.getElementById('add-contact-db');
-
   if (editContactBox.classList.contains('d-none')) {
     closeAddContactDB();
   } else if (addContactBox.classList.contains('d-none')) {
