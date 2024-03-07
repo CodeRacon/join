@@ -65,6 +65,10 @@
   --small-menu-br: 1.25rem 0rem 1.25rem 1.25rem;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 /* ############## */
 /* -----HELP----- */
 /* ############## */
@@ -137,4 +141,43 @@ ul {
 
 ul.privacy-list li::marker {
   color: var(--accent);
+}
+
+/* ####################### */
+/* -----MEDIA-QUERIES----- */
+/* ####################### */
+
+@media (width <= 1032px) {
+  section.help-section {
+    margin: 6rem 0 2rem 14.5rem;
+    padding: clamp(2.85rem, 24.151vw + -8.727rem, 6.85rem)
+      clamp(4rem, 28.571vw + -12.429rem, 6rem) 4rem
+      clamp(4rem, 28.571vw + -12.429rem, 6rem);
+  }
+}
+
+@media (width <= 920px) {
+  section.help-section {
+    margin: 6rem 0 0 clamp(10rem, 47.059vw + -12.559rem, 14.5rem);
+    padding: 2.85rem 2rem 4rem 2rem;
+    width: calc(100% - clamp(10rem, 47.059vw + -12.559rem, 14.5rem));
+  }
+}
+
+@media (width <= 767px) {
+  aside {
+    display: none;
+  }
+
+  footer {
+    display: flex;
+  }
+
+  section.help-section {
+    width: fit-content;
+    margin: 6rem auto 4rem auto;
+    padding: 2.85rem clamp(1.5rem, 8.949vw + -0.29rem, 4rem)
+      clamp(1.5rem, 8.949vw + -0.29rem, 4rem)
+      clamp(1.5rem, 8.949vw + -0.29rem, 4rem);
+  }
 }
