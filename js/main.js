@@ -11,6 +11,25 @@ async function initPage() {
 }
 
 /**
+ * Initializes the info page by calling initPage(), setting styles for small screens,
+ * and adding a resize listener to toggle the footer links on small screens.
+ *
+ * An async function that handles initializing the info page.
+ */
+async function initInfoPage() {
+  await initPage();
+  const screenWidth = window.innerWidth;
+  if (screenWidth <= 767) {
+    setForSmallScreens();
+  }
+  window.addEventListener('resize', () => {
+    if (window.innerWidth <= 767) {
+      toggleFooterLinks();
+    }
+  });
+}
+
+/**
  * Asynchronously fetches HTML snippets and includes them in the page.
  *
  * It looks for elements with the 'w3-include-html' attribute,
@@ -161,6 +180,75 @@ function toggleQuickMenu() {
       quickMenu.classList.toggle('d-none');
     }, 125);
   }
+}
+
+/**
+ * Toggles the footer navigation links between a stacked layout for small screens
+ * and a horizontal layout for wider screens.
+ */
+function toggleFooterLinks() {
+  const screenWidth = window.innerWidth;
+  if (screenWidth <= 767) {
+    setForSmallScreens();
+  } else {
+    setForLargeScreens();
+  }
+}
+
+/**
+ * Sets the mobile navigation links for small screens.
+ * Clears the mobile nav element and populates it with
+ * privacy policy and legal notice links.
+ */
+function setForSmallScreens() {
+  const mobileNav = document.getElementById('mobile-nav');
+  mobileNav.innerHTML = '';
+  mobileNav.innerHTML = /*html*/ `
+  <div class="pp-ln">
+    <a id="privacy-link" onclick="openExternalLink('/privacy_policy.html')"
+      >Privacy Policy
+    </a>
+    <a id="legal-link" onclick="openExternalLink('/legal_notice.html')"
+      >Legal Notice
+    </a>
+  </div>
+  `;
+}
+
+/**
+ * Sets the footer navigation links for large screens.
+ * Clears the mobile nav element and populates it with
+ * summary, add task, board, and contacts links.
+ */
+function setForLargeScreens() {
+  const mobileNav = document.getElementById('mobile-nav');
+  mobileNav.innerHTML = '';
+  mobileNav.innerHTML = /*html*/ `  
+  <nav id="mobile-nav">
+    <a href="/summary.html" class="mobile-nav-summary" id="mobile-nav-summary">
+      <div class="mobile-summary-icon"></div>
+      <p>Summary</p>
+    </a>
+    <a
+      href="/add_task.html"
+      class="mobile-nav-add-task"
+      id="mobile-nav-add-task">
+      <div class="mobile-add-task-icon"></div>
+      <p>Add Task</p>
+    </a>
+    <a href="/board.html" class="mobile-nav-board" id="mobile-nav-board">
+      <div class="mobile-board-icon"></div>
+      <p>Board</p>
+    </a>
+    <a
+      href="/contacts.html"
+      class="mobile-nav-contacts"
+      id="mobile-nav-contacts">
+      <div class="mobile-contacts-icon"></div>
+      <p>Contacts</p>
+    </a>
+  </nav>
+  `;
 }
 
 function logoutUser(url) {
