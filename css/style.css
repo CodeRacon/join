@@ -245,6 +245,10 @@ header {
   box-shadow: var(--btn-shdw-td);
 }
 
+.quickmenu a:first-of-type {
+  display: none;
+}
+
 .quickmenu > a {
   display: flex;
   width: 8.125rem;
