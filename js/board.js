@@ -22,6 +22,7 @@ async function updateHTML() {
   updateDone();
   updateTaskColorAndCategory();
   updatePriority();
+  showContactsToAssign();
 }
 
 function updateToDos() {

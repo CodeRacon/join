@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="css/media_queries.css" />
     <link rel="stylesheet" href="css/contacts.css" />
     <script defer src="js/contacts.js"></script>
+    <script defer src="js/contacts-templates.js"></script>
+    <script defer src="js/contacts-ui.js"></script>
+    <script defer src="js/assets.js"></script>
+    <script defer src="js/storage.js"></script>
     <script defer src="js/main.js"></script>
     <script src="./js/log_In.js"></script>
     <script src="./js/storage.js"></script>
@@ -29,7 +33,7 @@
 |_______||_______||_|  |__|  |___|  |__| |__||_______|  |___|  |_______|
 -->
 
-  <body onload="initPage(); initContacts(), init()">
+  <body id="contacts-body" onload="initPage(); initContacts()">
     <div
       onclick="closeDialogueBox()"
       id="overlay"

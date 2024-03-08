@@ -1,10 +1,13 @@
-let title;
-let description;
-let assignedContacts = [];
-let dueDate;
-let currentPriority;
-let category;
-let subtasks = [];
+let newTitle;
+let newDescription;
+let newAssignedContacts = [];
+let newDueDate;
+let currentPriority = 2;
+let newCategory;
+let newSubtasks = [];
+let maxId = 0;
+
+let newTask = [];
 
 let lowBtn = document.getElementById("low-btn");
 let mediumBtn = document.getElementById("medium-btn");
@@ -13,6 +16,12 @@ let urgentBtn = document.getElementById("urgent-btn");
 let imgLow = document.getElementById("img-low");
 let imgMedium = document.getElementById("img-medium");
 let imgUrgent = document.getElementById("img-urgent");
+
+async function renderPage() {
+  initPage();
+  await loadUserData();
+  showContactsToAssign();
+}
 
 function setPriority(prio) {
   currentPriority = prio;
@@ -78,11 +87,35 @@ function openAndCloseDropDownToAssign() {
   }
 }
 
+function onlyOpenDropDownToAssign() {
+  const dropdownContent = document.getElementById("dropdownContent");
+  const img = document.getElementById("arrowImg");
+
+  if (dropdownContent.style.display !== "block") {
+    dropdownContent.style.display = "block";
+    img.style.transform = "rotate(180deg)";
+  } else {
+    return;
+  }
+}
+
+function onlyCloseDropDownToAssign() {
+  const dropdownContent = document.getElementById("dropdownContent");
+  const img = document.getElementById("arrowImg");
+
+  if (dropdownContent.style.display !== "block") {
+    return;
+  } else {
+    dropdownContent.style.display = "none";
+    img.style.transform = "rotate(0deg)";
+  }
+}
+
 function showContactsToAssign() {
   let content = document.getElementById("labels");
   content.innerHTML = "";
-  for (let i = 0; i < startData["contacts"].length; i++) {
-    const element = startData["contacts"][i];
+  for (let i = 0; i < localUserData["contacts"].length; i++) {
+    const element = localUserData["contacts"][i];
     content.innerHTML += `
       <div id="single-contact${i}" class="single-contact" onclick="getAssignedContacts()">
         <label for="option${i}" class="label-layout">
@@ -105,7 +138,7 @@ function filterContactsToAssign() {
   let input = document.getElementById("dropdownInput").value.toLowerCase();
   let content = document.getElementById("dropdownContent");
   content.innerHTML = "";
-  let contacts = startData.contacts;
+  let contacts = localUserData.contacts;
   let matchedContacts = contacts.filter((contact) => {
     return contact.userData.name.toLowerCase().includes(input);
   });
@@ -164,7 +197,7 @@ function createContactInitials(element) {
 
 function createSubtask() {
   let input = document.getElementById("input-of-subtask");
-  subtasks.unshift(input.value);
+  newSubtasks.unshift(input.value);
   showCreatedSubtask();
   input.value = "";
 }
@@ -172,8 +205,8 @@ function createSubtask() {
 function showCreatedSubtask() {
   let content = document.getElementById("show-subtasks-container");
   content.innerHTML = "";
-  for (let i = 0; i < subtasks.length; i++) {
-    const element = subtasks[i];
+  for (let i = 0; i < newSubtasks.length; i++) {
+    const element = newSubtasks[i];
     let listItemId = `subtask-${i}`;
     content.innerHTML += `
       <div class="subtask-list-container">
@@ -206,7 +239,7 @@ function changeSubtaskInArray(index) {
     .getElementById(`subtask-${index}`)
     .querySelector("input");
   deleteSubtask(index);
-  subtasks.unshift(inputField.value);
+  newSubtasks.unshift(inputField.value);
   showCreatedSubtask();
 }
 
@@ -215,49 +248,49 @@ function changeSubtaskInArray(index) {
     .getElementById(`subtask-${index}`)
     .querySelector("input");
   let newInputValue = inputField.value;
-  subtasks.splice(index, 1);
-  subtasks.splice(index, 0, newInputValue);
+  newSubtasks.splice(index, 1);
+  newSubtasks.splice(index, 0, newInputValue);
   showCreatedSubtask();
 }
 
 function deleteSubtask(index) {
-  subtasks.splice(index, 1);
+  newSubtasks.splice(index, 1);
   showCreatedSubtask();
 }
 
 function getDueDate() {
   let dueDateValue = document.getElementById("due-date-value").value;
-  dueDate = dueDateValue;
+  newDueDate = dueDateValue;
 }
 
 function getTitle() {
   let titleValue = document.getElementById("title-value").value;
-  title = titleValue;
+  newTitle = titleValue;
 }
 
 function getDescription() {
   let descriptionValue = document.getElementById("description").value;
-  description = descriptionValue;
+  newDescription = descriptionValue;
 }
 
 function getCategory() {
   let categorySelected = document.getElementById("category");
   if (categorySelected.value === "user-story") {
-    category = 1;
+    newCategory = 1;
   } else {
-    category = 2;
+    newCategory = 2;
   }
 }
 
 function getAssignedContacts() {
-  assignedContacts = [];
+  newAssignedContacts = [];
   let options = document.getElementsByClassName("single-contact");
   for (let i = 0; i < options.length; i++) {
     const checkbox = options[i].querySelector('input[type="checkbox"]');
     if (checkbox.checked) {
       let option = options[i].querySelector("label");
       let name = option.textContent.trim();
-      assignedContacts.push(name);
+      newAssignedContacts.push(name);
     }
   }
   showInitialsOfAssigned();
@@ -266,13 +299,13 @@ function getAssignedContacts() {
 function showInitialsOfAssigned() {
   let content = document.getElementById("initialsOfAssigned");
   content.innerHTML = "";
-  for (let i = 0; i < assignedContacts.length; i++) {
-    const assignedContact = assignedContacts[i];
+  for (let i = 0; i < newAssignedContacts.length; i++) {
+    const assignedContact = newAssignedContacts[i];
     const initials = assignedContact
       .split(" ")
       .map((word) => word.charAt(0))
       .join("");
-    let user = startData.contacts.find(
+    let user = localUserData.contacts.find(
       (user) => user.userData.name === assignedContact
     );
     if (user) {
@@ -296,6 +329,7 @@ function clearForm() {
   resetAssignedContacts();
   showContactsToAssign();
   openAndCloseDropDownToAssign();
+  onlyCloseDropDownToAssign();
   resetPrioButtons();
   resetGlobal();
 }
@@ -338,11 +372,60 @@ function resetAssignedContacts() {
 }
 
 function resetGlobal() {
-  title;
-  description;
-  assignedContacts = [];
-  dueDate;
+  newTitle;
+  newDescription;
+  newAssignedContacts = [];
+  newDueDate;
   currentPriority;
-  category;
-  subtasks = [];
+  newCategory;
+  newSubtasks = [];
+}
+
+function checkIfFieldsAreFilled() {
+  let button = document.querySelector(".submit-btn");
+  saveInputs();
+  if (newTitle && newDueDate && newCategory !== "") {
+    saveNewTask();
+    button.removeAttribute("disabled");
+  } else {
+    return; // hier muss statt return dieses rote Feld auftauchen, in dem steht, was genau ausgefüllt werden muss
+  }
+}
+
+function saveInputs() {
+  getTitle();
+  getDescription();
+  getCategory();
+  getDueDate();
+}
+
+function saveNewTask() {
+  let subtasksArray = [];
+  newSubtasks.forEach((subtask) => {
+    subtasksArray.push({ name: subtask, done: false });
+  });
+  newTask = {
+    assignedTo: newAssignedContacts,
+    category: newCategory,
+    description: newDescription,
+    dueDate: newDueDate,
+    id: maxId,
+    priority: currentPriority,
+    status: "toDo",
+    subtasks: subtasksArray,
+    title: newTitle,
+  };
+  clearForm();
+}
+
+function generateNewIdForTask() {
+  for (let i = 0; i < localUserData.users.length; i++) {
+    const user = localUserData.users[i];
+    for (let j = 0; j < user.tasks.length; j++) {
+      const task = user.tasks[j];
+      if (task.id > maxId) {
+        maxId = task.id;
+      }
+    }
+  }
 }

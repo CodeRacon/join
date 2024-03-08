@@ -27,7 +27,7 @@
   |_______||_______||__| |__||___|  |_||______| 
   -->
 
-  <body onload="initPage(),  updateHTML(), showContactsToAssign(),init()">
+  <body onload=" initPage(), updateHTML()">
     <div
       id="frame"
       class="header-template"
@@ -240,7 +240,10 @@
                 alt="close symbol"
               />
             </button>
-            <button disabled class="btn-borders btn-span-img-ctn btn-create">
+            <button
+              onclick="checkIfFieldsAreFilled()"
+              class="btn-borders btn-span-img-ctn btn-create submit-btn"
+            >
               <span class="create-text">Create Task</span>
               <img
                 src="./assets/img/icons/add-task/check.svg"

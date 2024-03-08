@@ -1,8 +1,11 @@
 let contacts = [];
 let formattedContactList = [];
-
 let currentContact;
 
+/**
+ * Initializes the contacts page by setting the layout, loading user data,
+ * populating the contacts array, and rendering the contact list.
+ */
 async function initContacts() {
   // storeStartData();
   setMobileLayout();
@@ -11,20 +14,26 @@ async function initContacts() {
   renderContactList();
 }
 
-function setMobileLayout() {
-  const screenWidth = window.innerWidth;
-  const contactDetails = document.getElementById('contact-details');
-  if (screenWidth <= 607) {
-    contactDetails.classList.add('d-none');
-  }
-}
-
+/**
+ * Searches through the contacts array to find the index of the
+ * contact that matches the provided wantedIndex.
+ *
+ * @param {*} wantedIndex - The contact object to search for
+ * @returns {number} The index of the matching contact, or -1 if not found
+ */
 function findIndexInContacts(wantedIndex) {
   return contacts.findIndex((contact) => {
     return contact === wantedIndex;
   });
 }
 
+/**
+ * Searches through the formattedContactList array to find the index of the
+ * contact that matches the provided wantedIndex.
+ *
+ * @param {*} wantedIndex - The contact object to search for
+ * @returns {number} The index of the matching contact, or -1 if not found
+ */
 function findIndexInFormattedList(wantedIndex) {
   return formattedContactList.findIndex((contact) => {
     return contact === wantedIndex;
@@ -48,13 +57,10 @@ function sortContacts(contacts) {
  */
 function formatContactList(contacts) {
   sortContacts(contacts);
-
   formattedContactList = [];
   let currentLetter = '';
-
   contacts.forEach((contact) => {
     const capFirstLetter = contact.userData.name.charAt(0).toUpperCase();
-
     if (capFirstLetter !== currentLetter) {
       formattedContactList.push({ type: 'divider', letter: capFirstLetter });
       currentLetter = capFirstLetter;
@@ -65,99 +71,6 @@ function formatContactList(contacts) {
 }
 
 formattedContactList = formatContactList(contacts);
-
-/**
- * Renders the contact list by formatting the contacts,
- * then inserting dividers and list items into the DOM.
- */
-function renderContactList() {
-  formattedContactList = formatContactList(contacts);
-
-  // const formattedContactList = formatContactList(contacts);
-  const contactList = document.getElementById('contact-list');
-  contactList.innerHTML = '';
-  contactList.innerHTML = renderAddContactBtn();
-
-  for (let i = 0; i < formattedContactList.length; i++) {
-    const listEntry = formattedContactList[i];
-
-    if (listEntry.type === 'divider') {
-      contactList.innerHTML += renderDivider(listEntry);
-    } else {
-      contactList.innerHTML += renderListItem(listEntry, i);
-    }
-  }
-}
-
-/**
- * Renders the add contact button in the contacts list UI.
- *
- * @returns {string} The HTML markup for the add contact button.
- */
-function renderAddContactBtn() {
-  return /*html*/ `
-    <div class="spacer">
-      <div
-        onclick="openAddContactDB()"
-        id="add-contact-btn"
-        class="add-contact-btn">
-        <span>Add Contact</span>
-        <img src="/assets/img/icons/contacts/add_contact-white.svg" />
-      </div>
-    </div>
-
-    <div 
-      onclick="openAddContactDB()"
-      class="mobile-add-contct-btn">
-      <img src="/assets/img/icons/contacts/add_contact-white.svg" alt="" />
-    </div>
-  `;
-}
-
-/**
- * Renders a divider element for the contact list with the given letter.
- *
- * @param {Object} listEntry - The divider data including letter property.
- * @returns {string} The HTML markup for the divider.
- */
-function renderDivider(listEntry) {
-  return /*html*/ `
-    <div class="divider">
-      <p>${listEntry.letter}</p>        
-    </div>
-  `;
-}
-
-/**
- * Renders a list item for a contact in the contact list.
- *
- * @param {Object} listEntry - The contact data to render.
- * @returns {string} The HTML markup for the list item.
- */
-function renderListItem(listEntry, i) {
-  const initials = listEntry.userData.name
-    .split(' ')
-    .map((word) => word.charAt(0))
-    .join('');
-
-  return /*html*/ `
-    <div 
-      id="contact-list-item-${i}" 
-      class="contact-list-item" 
-      onclick="openContact(${i})" >
-      <div 
-        id="list-item-icon"
-        class="list-item-icon"  
-        style="background-color: ${listEntry.color}">
-        ${initials}
-      </div>
-      <div class="list-item-info">
-        <p>${listEntry.userData.name}</p>
-        <p >${listEntry.userData.email}</p>
-      </div>
-    </div>
-  `;
-}
 
 /**
  * Opens the contact info box for the contact at the given index.
@@ -178,116 +91,11 @@ function openContact(i) {
 }
 
 /**
- * Renders the contact info box with details for the contact at the given index.
- * Gets the contact data from the formatted contact list.
- * Renders the contact's initials and info box HTML.
- * @param {number} i - The index of the contact in the formatted contact list.
- */
-function renderContactInfoBox(i) {
-  const contactInfoBox = document.getElementById('contact-info-box');
-  const listEntry = formattedContactList[i];
-  const initials = listEntry.userData.name
-    .split(' ')
-    .map((word) => word.charAt(0))
-    .join('');
-
-  if (listEntry.type !== 'divider') {
-    contactInfoBox.innerHTML = contactInfoBoxHTML(listEntry, initials, i);
-  }
-}
-
-/**
- * Generates the HTML for the contact info box popup
- * based on the provided contact list entry and initials.
+ * Toggles the 'selected' class on the contact list item at the given index,
+ * and removes 'selected' from all other list items after a short delay.
  *
- * @param {Object} listEntry - The contact list entry object
- * @param {string} initials - The contact's initials
- * @returns {string} The HTML string for the info box
+ * @param {number} i - The index of the contact list item to select
  */
-function contactInfoBoxHTML(listEntry, initials, i) {
-  return /*html*/ `
-    
-    <div class="user-label">
-      <div class="user-icon" style="background-color: ${listEntry.color}">
-        ${initials}
-      </div>
-      <div class="user-name">
-        <span>${listEntry.userData.name}</span>
-        <div class="edit-user-info">
-          <div
-            id="edit-contact-btn-${i}"
-            class="edit"
-            onclick="openEditContactDB(${i})">
-            <img src="/assets/img/icons/contacts/edit_contact.svg" alt="" />
-          </div>
-          <div
-            id="delete-contact-btn"
-            class="delete"
-            onclick="deleteAtContactInfoBox(${i})">
-            <img src="/assets/img/icons/contacts/delete_contact.svg" />
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="sub-heading">Contact Information</div>
-    <div class="mail-info">
-      <p class="bold">Email</p>
-      <a href="mailto:${listEntry.userData.email} ">
-        ${listEntry.userData.email}
-      </a>
-    </div>
-    <div class="phone-info">
-      <p class="bold">Phone</p>
-      <p>${listEntry.userData.phone}</p>
-    </div>
-    <div
-      id="edit-menu"
-      class="edit-user-menu d-none em-off">
-      <div class="img-wrapper" onclick="openEditContactDB(${i})">
-        <img src="/assets/img/icons/contacts/edit_contact.svg" alt="" />
-      </div>
-      <div class="img-wrapper" onclick="deleteAtContactInfoBox(${i})">
-        <img src="/assets/img/icons/contacts/delete_contact.svg" />
-      </div>
-    </div>
-
-    <div 
-      class="edit-user-btn-mobile" 
-      id="edit-user-btn" 
-      onclick="toggleEditUserMenu()">
-        <img src="/assets/img/icons/contacts/more_vert.svg" />
-    </div>
-
-  `;
-}
-
-window.addEventListener('resize', () => {
-  const screenWidth = window.innerWidth;
-  const contactDetails = document.getElementById('contact-details');
-  if (screenWidth <= 607) {
-    contactDetails.classList.add('d-none');
-  } else {
-    contactDetails.classList.remove('d-none');
-  }
-});
-
-/**
- * Shows the contact info popup by adding the 'slide-in' class and removing
- * the 'd-none' class after a 125ms delay. It also adds the 'selected' class
- * to the clicked contact list item, and removes 'selected' from all other
- * list items after a 125ms delay.
- *
- * @param {number} i - The index of the clicked contact list item
- */
-function swipeInContactInfoBox() {
-  const contactInfoBox = document.getElementById('contact-info-box');
-
-  contactInfoBox.classList.remove('slide-in', 'd-none');
-  setTimeout(() => {
-    contactInfoBox.classList.add('slide-in');
-  }, 0);
-}
-
 function selectListItems(i) {
   const contactItem = document.getElementById(`contact-list-item-${i}`);
   const allContactItems = document.querySelectorAll('.contact-list-item');
@@ -295,25 +103,6 @@ function selectListItems(i) {
     allContactItems.forEach((item) => item.classList.remove('selected'));
     contactItem.classList.toggle('selected');
   }, 125);
-}
-
-function showContactInfoBoxMobile() {
-  const contactDetails = document.getElementById('contact-details');
-  const contactInfoBox = document.getElementById('contact-info-box');
-  const screenWidth = window.innerWidth;
-  if (screenWidth <= 607) {
-    contactDetails.classList.remove('d-none');
-    contactInfoBox.classList.remove('d-none');
-  }
-}
-
-function leaveMobileContactInfoBox() {
-  const contactDetails = document.getElementById('contact-details');
-  const contactInfoBox = document.getElementById('contact-info-box');
-  const allContactItems = document.querySelectorAll('.contact-list-item');
-  allContactItems.forEach((item) => item.classList.remove('selected'));
-  contactDetails.classList.add('d-none');
-  contactInfoBox.classList.add('d-none');
 }
 
 /**
@@ -332,73 +121,6 @@ function closeContactInfoBox(i) {
   } else if (!contactItem) {
     contactInfoBox.classList.add('d-none');
   }
-}
-
-function handleClickOutside(event) {
-  const editMenu = document.getElementById('edit-menu');
-  if (!editMenu.contains(event.target)) {
-    toggleEditUserMenu();
-  }
-}
-
-function toggleEditUserMenu() {
-  const editMenuBtn = document.getElementById('edit-user-btn');
-  const editMenu = document.getElementById('edit-menu');
-  if (editMenu.classList.contains('d-none')) {
-    editMenu.classList.replace('em-off', 'em-on');
-    setTimeout(() => {
-      editMenu.classList.toggle('d-none');
-      editMenuBtn.classList.toggle('d-none');
-      document.addEventListener('click', handleClickOutside);
-    }, 125);
-  } else {
-    editMenu.classList.replace('em-on', 'em-off');
-    setTimeout(() => {
-      editMenu.classList.toggle('d-none');
-      editMenuBtn.classList.toggle('d-none');
-      document.removeEventListener('click', handleClickOutside);
-    }, 125);
-  }
-}
-
-/**
- * Opens the add contact popup by removing the 'd-none' class from the
- * add contact box and overlay elements. It then replaces the
- * 'box-slide-out' class with 'box-slide-in' on the add contact box,
- * and replaces the 'overlay-off' class with 'overlay-on' on the overlay.
- */
-function openAddContactDB() {
-  const overlay = document.getElementById('overlay');
-  const addContactBox = document.getElementById('add-contact-db');
-
-  addContactBox.classList.remove('d-none');
-  addContactBox.classList.replace('box-slide-out', 'box-slide-in');
-  overlay.classList.remove('d-none');
-  overlay.classList.replace('overlay-off', 'overlay-on');
-  resetErrorFeedback('add');
-  resetErrorMessage('add');
-}
-
-/**
- * Closes the add contact popup by sliding it out, turning off
- * the overlay, and then hiding the popup and overlay after
- * a 350ms delay.
- */
-function closeAddContactDB() {
-  const contactName = document.getElementById('add-contact-name');
-  const contactEmail = document.getElementById('add-contact-email');
-  const contactPhone = document.getElementById('add-contact-phone');
-  const overlay = document.getElementById('overlay');
-  const addContactBox = document.getElementById('add-contact-db');
-  contactName.value = '';
-  contactEmail.value = '';
-  contactPhone.value = '';
-  addContactBox.classList.replace('box-slide-in', 'box-slide-out');
-  overlay.classList.replace('overlay-on', 'overlay-off');
-  setTimeout(() => {
-    addContactBox.classList.add('d-none');
-    overlay.classList.add('d-none');
-  }, 350);
 }
 
 /**
@@ -425,6 +147,19 @@ function createContact() {
   contacts.push(newContact);
   formattedContactList = formatContactList(contacts);
   const newContactIndex = findIndexInFormattedList(newContact);
+  createContactAftermath(newContactIndex);
+}
+
+/**
+ * Performs actions after a new contact is created:
+ * - Saves user data
+ * - Scrolls new contact to top of list
+ * - Renders updated contact list
+ * - Closes add contact popup
+ * - Waits 150ms, then opens new contact info
+ * - Waits 300ms, then shows success message
+ */
+function createContactAftermath(newContactIndex) {
   saveUserData();
   scrollNewContactToTop(newContactIndex);
   renderContactList();
@@ -452,11 +187,18 @@ function chooseRandomColor() {
  * @param {number} newContactIndex - The index of the new contact to scroll to.
  */
 function scrollNewContactToTop(newContactIndex) {
+  let topSpacing;
+  const screenWidth = window.innerWidth;
+  if (screenWidth <= 607) {
+    topSpacing = 264;
+  } else {
+    topSpacing = 106;
+  }
   setTimeout(() => {
     const contactList = document.getElementById('contact-list');
     contactList.scrollTop =
       document.getElementById(`contact-list-item-${newContactIndex}`)
-        .offsetTop - 106;
+        .offsetTop - topSpacing;
   }, 0);
 }
 
@@ -467,81 +209,6 @@ function scrollNewContactToTop(newContactIndex) {
  */
 function openNewContactInfo(newContactIndex) {
   openContact(newContactIndex);
-}
-
-/**
- * Toggles the visibility of the contact success message box, animates it sliding in,
- * then sliding out after a delay. Handles toggling the 'd-none' class to hide/show the box,
- * and swapping the 'slide-in' and 'slide-out' classes to animate the slide effect.
- */
-function showContactSuccess() {
-  const successBox = document.getElementById('contact-success');
-  successBox.classList.toggle('d-none');
-  successBox.classList.replace('slide-out', 'slide-in');
-  setTimeout(() => {
-    successBox.classList.replace('slide-in', 'slide-out');
-  }, 2000);
-  setTimeout(() => {
-    successBox.classList.toggle('d-none');
-  }, 2150);
-}
-/**
- * Opens the edit contact overlay with the contact info for the contact at the given index pre-populated.
- * Handles setting the current contact, showing the overlay and edit contact box, and pre-filling the form.
- *
- * @param {number} i - The index of the contact to edit
- */
-
-function openEditContactDB(i) {
-  currentContact = formattedContactList[i];
-  const overlay = document.getElementById('overlay');
-  const editContactBox = document.getElementById('edit-contact-db');
-  const contactName = document.getElementById('edit-contact-name');
-  const contactEmail = document.getElementById('edit-contact-email');
-  const contactPhone = document.getElementById('edit-contact-phone');
-  contactName.value = currentContact.userData.name;
-  contactEmail.value = currentContact.userData.email;
-  contactPhone.value = currentContact.userData.phone;
-  editContactBox.classList.remove('d-none');
-  editContactBox.classList.replace('box-slide-out', 'box-slide-in');
-  overlay.classList.remove('d-none');
-  overlay.classList.replace('overlay-off', 'overlay-on');
-  updateUserIconInDB(i);
-  resetErrorFeedback('edit');
-  resetErrorMessage('edit');
-}
-
-/**
- * Closes the edit contact overlay by clearing the form fields, sliding the
- * overlay and edit contact box out, and hiding them after the animation.
- */
-function closeEditContactDB() {
-  const contactName = document.getElementById('edit-contact-name');
-  const contactEmail = document.getElementById('edit-contact-email');
-  const contactPhone = document.getElementById('edit-contact-phone');
-  const overlay = document.getElementById('overlay');
-  const editContactBox = document.getElementById('edit-contact-db');
-  contactName.value = '';
-  contactEmail.value = '';
-  contactPhone.value = '';
-  editContactBox.classList.replace('box-slide-in', 'box-slide-out');
-  overlay.classList.replace('overlay-on', 'overlay-off');
-  setTimeout(() => {
-    editContactBox.classList.add('d-none');
-    overlay.classList.add('d-none');
-  }, 350);
-}
-
-function updateUserIconInDB(i) {
-  const userIcon = document.getElementById('edit-contact-user-icon');
-  const initials = formattedContactList[i].userData.name
-    .split(' ')
-    .map((word) => word.charAt(0))
-    .join('');
-  userIcon.innerHTML = /*html*/ `
-    <span>${initials}</span>
-  `;
-  userIcon.style.backgroundColor = formattedContactList[i].color;
 }
 
 /**
@@ -580,7 +247,6 @@ function deleteAtContactInfoBox(i) {
   contacts.splice(contactIndex, 1);
   formattedContactList = formatContactList(contacts);
   saveUserData();
-  console.log('contact deleted', contactIndex);
   closeContactInfoBox(contactIndex);
   renderContactList();
   leaveMobileContactInfoBox();
@@ -596,27 +262,10 @@ function deleteContact() {
   const contactIndex = findIndexInContacts(currentContact);
   contacts.splice(contactIndex, 1);
   formattedContactList = formatContactList(contacts);
-  console.log('contact deleted', contactIndex);
   saveUserData();
   closeContactInfoBox(contactIndex);
   renderContactList();
   closeEditContactDB();
-}
-
-/**
- * Closes the currently open dialogue box for editing or adding a contact.
- * Checks if the edit contact box or add contact box is open, and closes
- * the appropriate one.
- */
-function closeDialogueBox() {
-  const editContactBox = document.getElementById('edit-contact-db');
-  const addContactBox = document.getElementById('add-contact-db');
-
-  if (editContactBox.classList.contains('d-none')) {
-    closeAddContactDB();
-  } else if (addContactBox.classList.contains('d-none')) {
-    closeEditContactDB();
-  }
 }
 
 /**
@@ -688,7 +337,7 @@ function validateEmail(identifier) {
 
 /**
  * Validates the phone number input field.
- * Checks if the phone number contains only digits and is not empty.
+ * Checks if the phone number contains only digits and is at least 9 digits long.
  * Adds/removes error class on input container and displays error message if invalid.
  * Returns true if valid, false if invalid.
  */
@@ -696,9 +345,13 @@ function validatePhone(identifier) {
   const phoneInputCont = document.getElementById('input--phone-' + identifier);
   const inputPhone = document.getElementById(identifier + '-contact-phone');
   const phoneError = document.getElementById('phone-error-' + identifier);
-  if (/[a-zA-Z]/.test(inputPhone.value) || inputPhone.value.trim() === '') {
+  if (
+    /^[a-zA-Z]+$/.test(inputPhone.value) ||
+    inputPhone.value.trim().length < 9
+  ) {
     phoneInputCont.classList.add('invalid');
-    phoneError.textContent = '*Please enter a valid phone number.';
+    phoneError.textContent =
+      '*Please enter a valid phone number with at least 9 digits.';
     return false;
   } else {
     phoneInputCont.classList.remove('invalid');

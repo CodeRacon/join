@@ -37,9 +37,9 @@
   --form-fail-txt-col: #ff8190;
 
   /* fields color- width & height */
-  --f-width: 27.5rem;
+  --f-width: 100%;
   --f-height: 3rem;
-  --f-width-small: 17.5rem;
+  --f-width-small: 100%;
   --f-height-small: 1.5rem;
 
   --description-height: 7.5rem;
@@ -111,7 +111,7 @@ span {
 
 .priority {
   display: flex;
-  width: 27.5rem;
+  width: 100%;
   justify-content: flex-start;
   align-items: center;
   gap: 1rem;
@@ -143,7 +143,7 @@ span {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 8.5rem;
+  width: 100%;
   height: 3.5rem;
   color: #000;
   font-family: Inter;
@@ -469,12 +469,6 @@ img {
   font-size: 1.25rem !important;
   font-style: normal;
   font-weight: 400 !important;
-}
-
-#img-low,
-#img-medium,
-#img-urgent {
-  padding-left: 0.4rem;
 }
 
 #initialsOfAssigned {

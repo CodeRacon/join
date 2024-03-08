@@ -54,7 +54,13 @@ function beforeUnloadHandler(event) {
         return;
     }
     if (document.readyState === 'complete') {
-        TestStorage.push(localUserData);
+        for (let i = 0; i < TestStorage.length; i++) {
+           if (TestStorage[i].user.hasOwnProperty('registerData')) {
+             return;
+           }
+            // sorgt dafür das changeData nicht removed wird musst dich darum sorgen
+        }
+        TestStorage.push(localUserData[0]);
         saveTestArray();
         localStorage.removeItem('changedData');
         return;
