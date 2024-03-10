@@ -1,26 +1,36 @@
 const monthNames = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
+	'January',
+	'February',
+	'March',
+	'April',
+	'May',
+	'June',
+	'July',
+	'August',
+	'September',
+	'October',
+	'November',
+	'December',
 ];
 
 /**
- * Initializes the summary-page by loading user data and updating the summary first
- * and then updating the dahboard-boxes with the latest user data.
+ * Initializes the summary section by loading user data, setting the greeting flag in localStorage, and updating the summary UI.
  */
 async function initSummary() {
-  // storeStartData();
-  await loadUserData();
-  updateSummary();
+	// storeStartData();
+	await loadUserData();
+	setGreetingFlagLS();
+	updateSummary();
+}
+
+/**
+ * Sets a flag in localStorage indicating whether the user has been greeted.
+ * If the flag does not exist, it is initialized to false.
+ */
+function setGreetingFlagLS() {
+	if (!localStorage.getItem('isGreeted')) {
+		localStorage.setItem('isGreeted', false);
+	}
 }
 
 /**
@@ -29,14 +39,15 @@ async function initSummary() {
  * operations have loaded the latest user data.
  */
 function updateSummary() {
-  updateUserGreeting();
-  updateToDoCounter();
-  updateDoneCounter();
-  updateHighPrioCounter();
-  updateDueDate();
-  updateTaskCounter();
-  updateInProgressCounter();
-  updateAwaitFeedBackCounter();
+	mobileWelcomeMessage();
+	updateUserGreeting();
+	updateToDoCounter();
+	updateDoneCounter();
+	updateHighPrioCounter();
+	updateDueDate();
+	updateTaskCounter();
+	updateInProgressCounter();
+	updateAwaitFeedBackCounter();
 }
 
 /**
@@ -45,12 +56,12 @@ function updateSummary() {
  * filters for todo status, counts them, and updates the todo counter element.
  */
 function updateToDoCounter() {
-  const toDoTasks = localUserData.users
-    .flatMap((user) => user.tasks || [])
-    .filter((task) => task && task.status === 'toDo');
-  const totalToDoTasks = toDoTasks.length;
-  const todoCounter = document.getElementById('todo-counter');
-  todoCounter.innerHTML = /*html*/ `
+	const toDoTasks = localUserData.users
+		.flatMap((user) => user.tasks || [])
+		.filter((task) => task && task.status === 'toDo');
+	const totalToDoTasks = toDoTasks.length;
+	const todoCounter = document.getElementById('todo-counter');
+	todoCounter.innerHTML = /*html*/ `
   ${totalToDoTasks}
 `;
 }
@@ -61,12 +72,12 @@ function updateToDoCounter() {
  * filters for done status, counts them, and updates the done counter element.
  */
 function updateDoneCounter() {
-  const doneTasks = localUserData.users
-    .flatMap((user) => user.tasks || [])
-    .filter((task) => task && task.status === 'done');
-  const totalDoneTasks = doneTasks.length;
-  const doneCounter = document.getElementById('done-counter');
-  doneCounter.innerHTML = /*html*/ `
+	const doneTasks = localUserData.users
+		.flatMap((user) => user.tasks || [])
+		.filter((task) => task && task.status === 'done');
+	const totalDoneTasks = doneTasks.length;
+	const doneCounter = document.getElementById('done-counter');
+	doneCounter.innerHTML = /*html*/ `
   ${totalDoneTasks}
 `;
 }
@@ -79,12 +90,12 @@ function updateDoneCounter() {
  * and updates the high priority counter element.
  */
 function updateHighPrioCounter() {
-  const urgencyCounter = document.getElementById('urgency-counter');
-  const highPrioTasks = localUserData.users
-    .flatMap((user) => user.tasks || [])
-    .filter((task) => task && task.priority === 3);
-  const totalHighPrioTasks = highPrioTasks.length;
-  urgencyCounter.innerHTML = /*html*/ `
+	const urgencyCounter = document.getElementById('urgency-counter');
+	const highPrioTasks = localUserData.users
+		.flatMap((user) => user.tasks || [])
+		.filter((task) => task && task.priority === 3);
+	const totalHighPrioTasks = highPrioTasks.length;
+	urgencyCounter.innerHTML = /*html*/ `
     ${totalHighPrioTasks}
   `;
 }
@@ -95,11 +106,11 @@ function updateHighPrioCounter() {
  * and updates the due date element.
  */
 function updateDueDate() {
-  const dates = findAllDueDates();
-  const closestDueDate = findClosestDueDate(dates);
-  const formattedDueDate = formatDate(closestDueDate);
-  const dueDate = document.getElementById('due-date');
-  dueDate.innerHTML = /*html*/ `
+	const dates = findAllDueDates();
+	const closestDueDate = findClosestDueDate(dates);
+	const formattedDueDate = formatDate(closestDueDate);
+	const dueDate = document.getElementById('due-date');
+	dueDate.innerHTML = /*html*/ `
     ${formattedDueDate}
   `;
 }
@@ -110,10 +121,10 @@ function updateDueDate() {
  * maps them to Date objects, and returns the array of dates.
  */
 function findAllDueDates() {
-  const tasksWithDueDate = localUserData.users
-    .flatMap((user) => (user.tasks || []).filter((task) => task.dueDate))
-    .map((task) => new Date(task.dueDate));
-  return tasksWithDueDate;
+	const tasksWithDueDate = localUserData.users
+		.flatMap((user) => (user.tasks || []).filter((task) => task.dueDate))
+		.map((task) => new Date(task.dueDate));
+	return tasksWithDueDate;
 }
 
 /**
@@ -122,17 +133,17 @@ function findAllDueDates() {
  * sorts the dates by difference, and returns the first (closest) date.
  */
 function findClosestDueDate(dates) {
-  const today = new Date();
-  const dateDiffs = dates.map((date) => {
-    return {
-      date: date,
-      diff: Math.abs(today - date),
-    };
-  });
-  const closestDate = dateDiffs
-    .sort((a, b) => a.diff - b.diff)
-    .map((d) => d.date)[0];
-  return closestDate;
+	const today = new Date();
+	const dateDiffs = dates.map((date) => {
+		return {
+			date: date,
+			diff: Math.abs(today - date),
+		};
+	});
+	const closestDate = dateDiffs
+		.sort((a, b) => a.diff - b.diff)
+		.map((d) => d.date)[0];
+	return closestDate;
 }
 
 /**
@@ -143,11 +154,11 @@ function findClosestDueDate(dates) {
  * @returns {string} The formatted date string
  */
 function formatDate(date) {
-  const day = date.getDate();
-  const monthIndex = date.getMonth();
-  const year = date.getFullYear();
-  const monthName = monthNames[monthIndex];
-  return `${monthName} ${day}, ${year}`;
+	const day = date.getDate();
+	const monthIndex = date.getMonth();
+	const year = date.getFullYear();
+	const monthName = monthNames[monthIndex];
+	return `${monthName} ${day}, ${year}`;
 }
 
 /**
@@ -156,11 +167,11 @@ function formatDate(date) {
  * counts them, and updates the DOM element.
  */
 function updateTaskCounter() {
-  const taskCounter = document.getElementById('task-counter');
-  const allTasks = localUserData.users.flatMap((user) => user.tasks || []);
-  const totalTasks = allTasks.length;
+	const taskCounter = document.getElementById('task-counter');
+	const allTasks = localUserData.users.flatMap((user) => user.tasks || []);
+	const totalTasks = allTasks.length;
 
-  taskCounter.innerHTML = /*html*/ `
+	taskCounter.innerHTML = /*html*/ `
     ${totalTasks}
   `;
 }
@@ -172,12 +183,12 @@ function updateTaskCounter() {
  * counts them, and updates the DOM element.
  */
 function updateInProgressCounter() {
-  const progressCounter = document.getElementById('progress-counter');
-  const tasksInProgress = localUserData.users
-    .flatMap((user) => user.tasks || [])
-    .filter((task) => task && task.status === 'inProgress');
-  const totalTasksInProgress = tasksInProgress.length;
-  progressCounter.innerHTML = /*html*/ `
+	const progressCounter = document.getElementById('progress-counter');
+	const tasksInProgress = localUserData.users
+		.flatMap((user) => user.tasks || [])
+		.filter((task) => task && task.status === 'inProgress');
+	const totalTasksInProgress = tasksInProgress.length;
+	progressCounter.innerHTML = /*html*/ `
     ${totalTasksInProgress}
   `;
 }
@@ -189,12 +200,12 @@ function updateInProgressCounter() {
  * that are awaiting feedback, counts them, and updates the DOM element.
  */
 function updateAwaitFeedBackCounter() {
-  const fbCounter = document.getElementById('fb-counter');
-  const awaitFbTasks = localUserData.users
-    .flatMap((user) => user.tasks || [])
-    .filter((task) => task && task.status === 'awaitFeedback');
-  const totalAwaitFbTasks = awaitFbTasks.length;
-  fbCounter.innerHTML = /*html*/ `
+	const fbCounter = document.getElementById('fb-counter');
+	const awaitFbTasks = localUserData.users
+		.flatMap((user) => user.tasks || [])
+		.filter((task) => task && task.status === 'awaitFeedback');
+	const totalAwaitFbTasks = awaitFbTasks.length;
+	fbCounter.innerHTML = /*html*/ `
     ${totalAwaitFbTasks}
   `;
 }
@@ -206,19 +217,19 @@ function updateAwaitFeedBackCounter() {
  * Also calls updateDayTime() to refresh the day/time display.
  */
 function updateUserGreeting() {
-  const userName = document.getElementById('sum-username');
-  const loggedInUsers = getLoggedInUser();
-  const currentUserName = loggedInUsers.userData.name;
-  const firstName = currentUserName.split(' ')[0];
-  if (isGuestUser === false) {
-    userName.innerHTML = /*html*/ `
+	const userName = document.getElementById('sum-username');
+	const loggedInUsers = getLoggedInUser();
+	const currentUserName = loggedInUsers.userData.name;
+	const firstName = currentUserName.split(' ')[0];
+	if (isGuestUser === false) {
+		userName.innerHTML = /*html*/ `
     ${firstName}
   `;
-    updateDayTime();
-  } else {
-    userName.innerHTML = '';
-    updateDayTime();
-  }
+		updateDayTime();
+	} else {
+		userName.innerHTML = '';
+		updateDayTime();
+	}
 }
 
 /**
@@ -227,10 +238,10 @@ function updateUserGreeting() {
  * Returns the first logged in user object, or undefined if none are logged in.
  */
 function getLoggedInUser() {
-  const loggedInUsers = localUserData.users.filter(
-    (user) => user.isLoggedIn === true
-  );
-  return loggedInUsers[0];
+	const loggedInUsers = localUserData.users.filter(
+		(user) => user.isLoggedIn === true
+	);
+	return loggedInUsers[0];
 }
 
 /**
@@ -240,15 +251,15 @@ function getLoggedInUser() {
  * Calls getGreeting() to get the greeting based on hour, updates DOM element.
  */
 function updateDayTime() {
-  const daytime = document.getElementById('daytime');
-  const unixTimestamp = Date.now();
-  localStorage.setItem('loginTimestamp', unixTimestamp.toString());
-  const storedTimestamp = localStorage.getItem('loginTimestamp');
-  const loginTimestamp = parseInt(storedTimestamp);
-  const loginDate = new Date(loginTimestamp);
-  const loginHour = loginDate.getHours();
-  const greeting = getGreeting(loginHour);
-  daytime.innerHTML = /*html*/ `
+	const daytime = document.getElementById('daytime');
+	const unixTimestamp = Date.now();
+	localStorage.setItem('loginTimestamp', unixTimestamp.toString());
+	const storedTimestamp = localStorage.getItem('loginTimestamp');
+	const loginTimestamp = parseInt(storedTimestamp);
+	const loginDate = new Date(loginTimestamp);
+	const loginHour = loginDate.getHours();
+	const greeting = getGreeting(loginHour);
+	daytime.innerHTML = /*html*/ `
     ${greeting}
   `;
 }
@@ -259,15 +270,40 @@ function updateDayTime() {
  * If logged in user, returns a greeting with a comma to append the user's name.
  */
 function getGreeting(hour) {
-  if (isGuestUser) {
-    if (hour < 12) return 'Good Morning!';
-    if (hour < 14) return 'Good Day!';
-    if (hour < 18) return 'Good Afternoon!';
-    return 'Good Evening!';
-  } else if (!isGuestUser) {
-    if (hour < 12) return 'Good Morning,';
-    if (hour < 14) return 'Good Day,';
-    if (hour < 18) return 'Good Afternoon,';
-    return 'Good Evening,';
-  }
+	if (isGuestUser) {
+		if (hour < 12) return 'Good Morning!';
+		if (hour < 14) return 'Good Day!';
+		if (hour < 18) return 'Good Afternoon!';
+		return 'Good Evening!';
+	} else if (!isGuestUser) {
+		if (hour < 12) return 'Good Morning,';
+		if (hour < 14) return 'Good Day,';
+		if (hour < 18) return 'Good Afternoon,';
+		return 'Good Evening,';
+	}
+}
+
+let isGreeted = localStorage.getItem('isGreeted');
+
+/**
+ * Checks if screen width is mobile, shows mobile welcome message if not already shown.
+ * Gets screen width, checks if <= 428px (mobile).
+ * Gets greeting element, adds mobile-welcome class if mobile + not greeted.
+ * Sets timeout to add fade-out class after 1.5s.
+ * Sets timeout to remove classes after 2.75s total.
+ * Sets localStorage value to indicate message has been shown.
+ */
+function mobileWelcomeMessage() {
+	const screenWidth = window.innerWidth;
+	const greeting = document.getElementById('greeting');
+	if (screenWidth <= 428 && isGreeted === 'false') {
+		greeting.classList.add('mobile-welcome');
+		setTimeout(() => {
+			greeting.classList.add('fade-out');
+		}, 1500);
+		setTimeout(() => {
+			greeting.classList.remove('mobile-welcome', 'fade-out');
+		}, 2750);
+		localStorage.setItem('isGreeted', 'true');
+	}
 }
