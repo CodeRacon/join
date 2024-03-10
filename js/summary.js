@@ -19,7 +19,7 @@ const monthNames = [
 async function initSummary() {
 	// storeStartData();
 	await loadUserData();
-	setGreetingFlagLS();
+	await setGreetingFlagLS();
 	updateSummary();
 }
 
@@ -27,7 +27,7 @@ async function initSummary() {
  * Sets a flag in localStorage indicating whether the user has been greeted.
  * If the flag does not exist, it is initialized to false.
  */
-function setGreetingFlagLS() {
+async function setGreetingFlagLS() {
 	if (!localStorage.getItem('isGreeted')) {
 		localStorage.setItem('isGreeted', false);
 	}
