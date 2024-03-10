@@ -1,84 +1,86 @@
 <header>
-  <div class="top-bar">
-    <p>Kanban Project Management Tool</p>
+	<div class="top-bar">
+		<p>Kanban Project Management Tool</p>
 
-    <img
-      class="mobile-header-logo"
-      src="/assets/img/logo/mobile-header-logo.svg"
-      alt="" />
+		<img
+			class="mobile-header-logo"
+			src="/assets/img/logo/mobile-header-logo.svg"
+			alt="" />
 
-    <div id="corner-icons" class="corner-icons">
-      <a class="hide-on-mobile" href="help.html">
-        <div class="help"></div>
-      </a>
-      <div class="user-profile" id="user-profile" onclick="toggleQuickMenu()">
-        <span id="user-initials">??</span>
-      </div>
-    </div>
-  </div>
-  <div class="quickmenu d-none qm-off" id="quickmenu">
-    <a href="/help.html">Help</a>
-    <a onclick="openExternalLink('/privacy_policy.html')">Privacy Policy</a>
-    <a onclick="openExternalLink('/legal_notice.html')">Legal Notice</a>
-    <a onclick="logoutUser('/index.html')">Logout</a>
-  </div>
+		<div id="corner-icons" class="corner-icons">
+			<a class="hide-on-mobile" href="help.html">
+				<div class="help"></div>
+			</a>
+			<div class="user-profile" id="user-profile" onclick="toggleQuickMenu()">
+				<span id="user-initials">
+					<!-- populated by JS -->
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="quickmenu d-none qm-off" id="quickmenu">
+		<a href="/help.html">Help</a>
+		<a onclick="openExternalLink('/privacy_policy.html')">Privacy Policy</a>
+		<a onclick="openExternalLink('/legal_notice.html')">Legal Notice</a>
+		<a onclick="logoutUser('/index.html')">Logout</a>
+	</div>
 </header>
 
 <aside id="aside">
-  <div class="logo" id="logo">
-    <img src="assets/img/logo/logo-white.svg" alt="join logo" />
-  </div>
-  <nav id="side-nav">
-    <a href="/summary.html" class="nav-summary" id="nav-summary">
-      <div class="summary-icon"></div>
-      <p>Summary</p>
-    </a>
-    <a href="/add_task.html" class="nav-add-task" id="nav-add-task">
-      <div class="add-task-icon"></div>
-      <p>Add Task</p>
-    </a>
-    <a href="/board.html" class="nav-board" id="nav-board">
-      <div class="board-icon"></div>
-      <p>Board</p>
-    </a>
-    <a href="/contacts.html" class="nav-contacts" id="nav-contacts">
-      <div class="contacts-icon"></div>
-      <p>Contacts</p>
-    </a>
-  </nav>
-  <div class="pp-ln">
-    <a id="privacy-link" onclick="openExternalLink('/privacy_policy.html')"
-      >Privacy Policy</a
-    >
-    <a id="legal-link" onclick="openExternalLink('/legal_notice.html')"
-      >Legal Notice</a
-    >
-  </div>
+	<div class="logo" id="logo">
+		<img src="assets/img/logo/logo-white.svg" alt="join logo" />
+	</div>
+	<nav id="side-nav">
+		<a href="/summary.html" class="nav-summary" id="nav-summary">
+			<div class="summary-icon"></div>
+			<p>Summary</p>
+		</a>
+		<a href="/add_task.html" class="nav-add-task" id="nav-add-task">
+			<div class="add-task-icon"></div>
+			<p>Add Task</p>
+		</a>
+		<a href="/board.html" class="nav-board" id="nav-board">
+			<div class="board-icon"></div>
+			<p>Board</p>
+		</a>
+		<a href="/contacts.html" class="nav-contacts" id="nav-contacts">
+			<div class="contacts-icon"></div>
+			<p>Contacts</p>
+		</a>
+	</nav>
+	<div class="pp-ln">
+		<a id="privacy-link" onclick="openExternalLink('/privacy_policy.html')"
+			>Privacy Policy</a
+		>
+		<a id="legal-link" onclick="openExternalLink('/legal_notice.html')"
+			>Legal Notice</a
+		>
+	</div>
 </aside>
 
 <footer>
-  <nav id="mobile-nav">
-    <a href="/summary.html" class="mobile-nav-summary" id="mobile-nav-summary">
-      <div class="mobile-summary-icon"></div>
-      <p>Summary</p>
-    </a>
-    <a
-      href="/add_task.html"
-      class="mobile-nav-add-task"
-      id="mobile-nav-add-task">
-      <div class="mobile-add-task-icon"></div>
-      <p>Add Task</p>
-    </a>
-    <a href="/board.html" class="mobile-nav-board" id="mobile-nav-board">
-      <div class="mobile-board-icon"></div>
-      <p>Board</p>
-    </a>
-    <a
-      href="/contacts.html"
-      class="mobile-nav-contacts"
-      id="mobile-nav-contacts">
-      <div class="mobile-contacts-icon"></div>
-      <p>Contacts</p>
-    </a>
-  </nav>
+	<nav id="mobile-nav">
+		<a href="/summary.html" class="mobile-nav-summary" id="mobile-nav-summary">
+			<div class="mobile-summary-icon"></div>
+			<p>Summary</p>
+		</a>
+		<a
+			href="/add_task.html"
+			class="mobile-nav-add-task"
+			id="mobile-nav-add-task">
+			<div class="mobile-add-task-icon"></div>
+			<p>Add Task</p>
+		</a>
+		<a href="/board.html" class="mobile-nav-board" id="mobile-nav-board">
+			<div class="mobile-board-icon"></div>
+			<p>Board</p>
+		</a>
+		<a
+			href="/contacts.html"
+			class="mobile-nav-contacts"
+			id="mobile-nav-contacts">
+			<div class="mobile-contacts-icon"></div>
+			<p>Contacts</p>
+		</a>
+	</nav>
 </footer>
