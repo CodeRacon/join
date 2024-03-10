@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/fonts.css" />
-    <link rel="stylesheet" href="css/root.css" />
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/media_queries.css" />
-    <link rel="stylesheet" href="css/contacts.css" />
-    <link rel="stylesheet" href="css/contacts-mediaqueries.css" />
-    <script defer src="js/contacts.js"></script>
-    <script defer src="js/contacts-templates.js"></script>
-    <script defer src="js/contacts-ui.js"></script>
-    <script defer src="js/assets.js"></script>
-    <script defer src="js/storage.js"></script>
-    <script defer src="js/main.js"></script>
-    <title>join - Contacts</title>
-    <link rel="icon" type="image/png" href="assets/img/logo/favicon.png" />
-  </head>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="css/fonts.css" />
+		<link rel="stylesheet" href="css/root.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/media_queries.css" />
+		<link rel="stylesheet" href="css/contacts.css" />
+		<link rel="stylesheet" href="css/contacts-mq.css" />
+		<script defer src="js/contacts.js"></script>
+		<script defer src="js/contacts-templates.js"></script>
+		<script defer src="js/contacts-ui.js"></script>
+		<script defer src="js/assets.js"></script>
+		<script defer src="js/storage.js"></script>
+		<script defer src="js/main.js"></script>
+		<title>join - Contacts</title>
+		<link rel="icon" type="image/png" href="assets/img/logo/favicon.png" />
+	</head>
 
-  <!--  
+	<!--  
  _______  _______  __    _  _______  _______  _______  _______  _______ 
 |       ||       ||  |  | ||       ||   _   ||       ||       ||       |
 |       ||   _   ||   |_| ||_     _||  |_|  ||       ||_     _||  _____|
@@ -29,181 +29,181 @@
 |_______||_______||_|  |__|  |___|  |__| |__||_______|  |___|  |_______|
 -->
 
-  <body id="contacts-body" onload="initPage(); initContacts()">
-    <div
-      onclick="closeDialogueBox()"
-      id="overlay"
-      class="contacts-overlay d-none overlay-off"></div>
-    <div
-      id="frame"
-      class="header-template"
-      w3-include-html="templates/desktop_frame.html"></div>
+	<body id="contacts-body" onload="initPage(); initContacts()">
+		<div
+			onclick="closeDialogueBox()"
+			id="overlay"
+			class="contacts-overlay d-none overlay-off"></div>
+		<div
+			id="frame"
+			class="header-template"
+			w3-include-html="templates/desktop_frame.html"></div>
 
-    <section class="contacts-section">
-      <div class="contact-list" id="contact-list">
-        <!-- content generated via js -->
-      </div>
-      <div class="contact-details" id="contact-details">
-        <div class="contacts-section--heading">
-          <h1>Contacts</h1>
-          <div
-            class="back-arrow-mobile"
-            onclick="leaveMobileContactInfoBox()"></div>
-          <div class="vert-spacer"></div>
-          <p>Better with a Team</p>
-        </div>
-        <div id="contact-info-box" class="contact-info-box">
-          <!-- content generated via js -->
-        </div>
-        <div id="contact-success" class="contact-success d-none slide-out">
-          Contact succesfully created
-        </div>
-      </div>
+		<section class="contacts-section">
+			<div class="contact-list" id="contact-list">
+				<!-- content generated via js -->
+			</div>
+			<div class="contact-details" id="contact-details">
+				<div class="contacts-section--heading">
+					<h1>Contacts</h1>
+					<div
+						class="back-arrow-mobile"
+						onclick="leaveMobileContactInfoBox()"></div>
+					<div class="vert-spacer"></div>
+					<p>Better with a Team</p>
+				</div>
+				<div id="contact-info-box" class="contact-info-box">
+					<!-- content generated via js -->
+				</div>
+				<div id="contact-success" class="contact-success d-none slide-out">
+					Contact succesfully created
+				</div>
+			</div>
 
-      <!-- Add Contact Dialogue Box -->
+			<!-- Add Contact Dialogue Box -->
 
-      <div class="add-contact-db d-none box-slide-out" id="add-contact-db">
-        <div class="add-contact-banner">
-          <div class="close-btn-mobile" onclick="closeAddContactDB()">
-            <img src="/assets/img/icons/general/white/cancel-white.svg" />
-          </div>
-          <img
-            class="banner-logo"
-            src="/assets/img/logo/logo-white.svg"
-            alt="" />
-          <div class="heading">
-            <h1>Add contact</h1>
-            <span>Tasks are better with a team!</span>
-            <div class="custom-underline"></div>
-          </div>
-        </div>
+			<div class="add-contact-db d-none box-slide-out" id="add-contact-db">
+				<div class="add-contact-banner">
+					<div class="close-btn-mobile" onclick="closeAddContactDB()">
+						<img src="/assets/img/icons/general/white/cancel-white.svg" />
+					</div>
+					<img
+						class="banner-logo"
+						src="/assets/img/logo/logo-white.svg"
+						alt="" />
+					<div class="heading">
+						<h1>Add contact</h1>
+						<span>Tasks are better with a team!</span>
+						<div class="custom-underline"></div>
+					</div>
+				</div>
 
-        <div class="add-contact-box">
-          <div class="close-btn" onclick="closeAddContactDB()">
-            <img src="/assets/img/icons/add-task/close.svg" />
-          </div>
-          <div class="user-icon-dummy"></div>
-          <form
-            class="add-contact-form"
-            onsubmit="validateForm('add'); return false;"
-            novalidate>
-            <div class="input--name" id="input--name-add">
-              <input
-                id="add-contact-name"
-                type="text"
-                autocomplete="off"
-                placeholder="Name"
-                required />
-              <img src="/assets/img/icons/contacts/person.svg" />
-              <p id="name-error-add" class="error-message"></p>
-            </div>
+				<div class="add-contact-box">
+					<div class="close-btn" onclick="closeAddContactDB()">
+						<img src="/assets/img/icons/add-task/close.svg" />
+					</div>
+					<div class="user-icon-dummy"></div>
+					<form
+						class="add-contact-form"
+						onsubmit="validateForm('add'); return false;"
+						novalidate>
+						<div class="input--name" id="input--name-add">
+							<input
+								id="add-contact-name"
+								type="text"
+								autocomplete="off"
+								placeholder="Name"
+								required />
+							<img src="/assets/img/icons/contacts/person.svg" />
+							<p id="name-error-add" class="error-message"></p>
+						</div>
 
-            <div class="input--email" id="input--email-add">
-              <input
-                id="add-contact-email"
-                type="email"
-                autocomplete="off"
-                placeholder="Email"
-                required />
-              <img src="/assets/img/icons/contacts/mail.svg" />
-              <p id="mail-error-add" class="error-message"></p>
-            </div>
+						<div class="input--email" id="input--email-add">
+							<input
+								id="add-contact-email"
+								type="email"
+								autocomplete="off"
+								placeholder="Email"
+								required />
+							<img src="/assets/img/icons/contacts/mail.svg" />
+							<p id="mail-error-add" class="error-message"></p>
+						</div>
 
-            <div class="input--phone" id="input--phone-add">
-              <input
-                id="add-contact-phone"
-                type="tel"
-                autocomplete="off"
-                placeholder="Phone"
-                required />
-              <img src="/assets/img/icons/contacts/call.svg" />
-              <p id="phone-error-add" class="error-message"></p>
-            </div>
+						<div class="input--phone" id="input--phone-add">
+							<input
+								id="add-contact-phone"
+								type="tel"
+								autocomplete="off"
+								placeholder="Phone"
+								required />
+							<img src="/assets/img/icons/contacts/call.svg" />
+							<p id="phone-error-add" class="error-message"></p>
+						</div>
 
-            <div class="btn-bar">
-              <button type="button" onclick="closeAddContactDB()">
-                Cancel<img src="/assets/img/icons/general/other/cancel.svg" />
-              </button>
-              <button type="submit">
-                Create Contact
-                <img src="/assets/img/icons/contacts/check-white.svg" />
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
+						<div class="btn-bar">
+							<button type="button" onclick="closeAddContactDB()">
+								Cancel<img src="/assets/img/icons/general/other/cancel.svg" />
+							</button>
+							<button type="submit">
+								Create Contact
+								<img src="/assets/img/icons/contacts/check-white.svg" />
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
 
-      <!-- Edit Contact Dialogue Box -->
+			<!-- Edit Contact Dialogue Box -->
 
-      <div class="edit-contact-db d-none box-slide-out" id="edit-contact-db">
-        <div class="edit-contact-banner">
-          <div class="close-btn-mobile" onclick="closeEditContactDB()">
-            <img src="/assets/img/icons/general/white/cancel-white.svg" />
-          </div>
-          <img
-            class="banner-logo"
-            src="/assets/img/logo/logo-white.svg"
-            alt="" />
-          <div class="heading">
-            <h1>Edit contact</h1>
-            <div class="custom-underline"></div>
-          </div>
-        </div>
+			<div class="edit-contact-db d-none box-slide-out" id="edit-contact-db">
+				<div class="edit-contact-banner">
+					<div class="close-btn-mobile" onclick="closeEditContactDB()">
+						<img src="/assets/img/icons/general/white/cancel-white.svg" />
+					</div>
+					<img
+						class="banner-logo"
+						src="/assets/img/logo/logo-white.svg"
+						alt="" />
+					<div class="heading">
+						<h1>Edit contact</h1>
+						<div class="custom-underline"></div>
+					</div>
+				</div>
 
-        <div class="edit-contact-box">
-          <div class="close-btn" onclick="closeEditContactDB()">
-            <img src="/assets/img/icons/add-task/close.svg" />
-          </div>
-          <div id="edit-contact-user-icon" class="user-icon-edit"></div>
-          <form
-            class="edit-contact-form"
-            onsubmit="validateForm('edit'); return false;"
-            novalidate>
-            <div class="input--name" id="input--name-edit">
-              <input
-                id="edit-contact-name"
-                type="text"
-                autocomplete="off"
-                placeholder="Name"
-                required />
-              <img src="/assets/img/icons/contacts/person.svg" />
-              <p id="name-error-edit" class="error-message"></p>
-            </div>
+				<div class="edit-contact-box">
+					<div class="close-btn" onclick="closeEditContactDB()">
+						<img src="/assets/img/icons/add-task/close.svg" />
+					</div>
+					<div id="edit-contact-user-icon" class="user-icon-edit"></div>
+					<form
+						class="edit-contact-form"
+						onsubmit="validateForm('edit'); return false;"
+						novalidate>
+						<div class="input--name" id="input--name-edit">
+							<input
+								id="edit-contact-name"
+								type="text"
+								autocomplete="off"
+								placeholder="Name"
+								required />
+							<img src="/assets/img/icons/contacts/person.svg" />
+							<p id="name-error-edit" class="error-message"></p>
+						</div>
 
-            <div class="input--email" id="input--email-edit">
-              <input
-                id="edit-contact-email"
-                type="email"
-                autocomplete="off"
-                placeholder="Email"
-                required />
-              <img src="/assets/img/icons/contacts/mail.svg" />
-              <p id="mail-error-edit" class="error-message"></p>
-            </div>
+						<div class="input--email" id="input--email-edit">
+							<input
+								id="edit-contact-email"
+								type="email"
+								autocomplete="off"
+								placeholder="Email"
+								required />
+							<img src="/assets/img/icons/contacts/mail.svg" />
+							<p id="mail-error-edit" class="error-message"></p>
+						</div>
 
-            <div class="input--phone" id="input--phone-edit">
-              <input
-                id="edit-contact-phone"
-                type="tel"
-                autocomplete="off"
-                placeholder="Phone"
-                required />
-              <img src="/assets/img/icons/contacts/call.svg" />
-              <p id="phone-error-edit" class="error-message"></p>
-            </div>
+						<div class="input--phone" id="input--phone-edit">
+							<input
+								id="edit-contact-phone"
+								type="tel"
+								autocomplete="off"
+								placeholder="Phone"
+								required />
+							<img src="/assets/img/icons/contacts/call.svg" />
+							<p id="phone-error-edit" class="error-message"></p>
+						</div>
 
-            <div class="btn-bar">
-              <button type="button" onclick="deleteContact()">
-                Delete<img src="/assets/img/icons/general/other/cancel.svg" />
-              </button>
-              <button type="submit">
-                Save
-                <img src="/assets/img/icons/contacts/check-white.svg" />
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </section>
-  </body>
+						<div class="btn-bar">
+							<button type="button" onclick="deleteContact()">
+								Delete<img src="/assets/img/icons/general/other/cancel.svg" />
+							</button>
+							<button type="submit">
+								Save
+								<img src="/assets/img/icons/contacts/check-white.svg" />
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</section>
+	</body>
 </html>
