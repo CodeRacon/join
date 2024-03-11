@@ -1,5 +1,5 @@
 body {
-  overflow-x: hidden;
+	overflow-x: hidden;
 }
 
 /* ############## */
@@ -7,53 +7,53 @@ body {
 /* ############## */
 
 .section-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
 }
 
 .back-arrow {
-  width: 2rem;
-  height: 2rem;
-  background-image: url(/assets/img/icons/general/other/back_arrow.svg);
-  cursor: pointer;
+	width: 2rem;
+	height: 2rem;
+	background-image: url(/assets/img/icons/general/other/back_arrow.svg);
+	cursor: pointer;
 }
 
 .back-arrow:hover {
-  background-image: url(/assets/img/icons/general/other/back_arrow-hover.svg);
+	background-image: url(/assets/img/icons/general/other/back_arrow-hover.svg);
 }
 
 section.help-section p {
-  margin: 0;
+	margin: 0;
 }
 
 table.how-to-join {
-  border-spacing: 0px 12px;
-  width: 100%;
-  height: fit-content;
-  margin-top: 1rem;
+	border-spacing: 0px 12px;
+	width: 100%;
+	height: fit-content;
+	margin-top: 1rem;
 }
 
 table.how-to-join tr {
-  padding: 1rem 0;
+	padding: 1rem 0;
 }
 
 table.how-to-join td {
-  vertical-align: top;
+	vertical-align: top;
 }
 
 table.how-to-join td:first-child {
-  padding-top: 0.25rem;
+	padding-top: 0.25rem;
 }
 
 .step-nmbr {
-  font-size: 1.6875rem;
-  font-weight: 700;
-  padding-right: 2.2rem;
+	font-size: 1.6875rem;
+	font-weight: 700;
+	padding-right: 2.2rem;
 }
 
 .step-content {
-  margin-bottom: 1rem;
+	margin-bottom: 1rem;
 }
 
 /* ############### */
@@ -61,7 +61,7 @@ table.how-to-join td:first-child {
 /* ############### */
 
 ul {
-  padding-left: 1.5rem;
+	padding-left: 1.5rem;
 }
 
 /* ################# */
@@ -69,11 +69,11 @@ ul {
 /* ################# */
 
 .privacy-section h2 {
-  scroll-margin-top: 7rem;
+	scroll-margin-top: 7rem;
 }
 
 ul.privacy-list li::marker {
-  color: var(--accent);
+	color: var(--accent);
 }
 
 /* ####################### */
@@ -81,48 +81,53 @@ ul.privacy-list li::marker {
 /* ####################### */
 
 @media (width <= 1032px) {
-  section.help-section,
-  section.privacy-section,
-  section.legal-section {
-    margin: 6rem 0 2rem 14.5rem;
-    padding: clamp(2.85rem, 24.151vw + -8.727rem, 6.85rem)
-      clamp(4rem, 28.571vw + -12.429rem, 6rem) 4rem
-      clamp(4rem, 28.571vw + -12.429rem, 6rem);
-  }
+	section.help-section,
+	section.privacy-section,
+	section.legal-section {
+		margin: 6rem 0 2rem 14.5rem;
+		padding: clamp(2.85rem, 24.151vw + -8.727rem, 6.85rem)
+			clamp(4rem, 28.571vw + -12.429rem, 6rem) 4rem
+			clamp(4rem, 28.571vw + -12.429rem, 6rem);
+	}
 }
 
 @media (width <= 920px) {
-  section.help-section,
-  section.privacy-section,
-  section.legal-section {
-    margin: 6rem 0 0 clamp(10rem, 47.059vw + -12.559rem, 14.5rem);
-    padding: 2.85rem 2rem 4rem 2rem;
-    width: calc(100% - clamp(10rem, 47.059vw + -12.559rem, 14.5rem));
-  }
+	section.help-section,
+	section.privacy-section,
+	section.legal-section {
+		margin: 6rem 0 0 clamp(10rem, 47.059vw + -12.559rem, 14.5rem);
+		padding: 2.85rem 2rem 4rem 2rem;
+		width: calc(100% - clamp(10rem, 47.059vw + -12.559rem, 14.5rem));
+	}
 }
 
 @media (width <= 767px) {
-  aside {
-    display: none;
-  }
+	aside {
+		display: none;
+	}
 
-  footer {
-    display: flex;
-  }
+	footer {
+		display: flex;
+	}
 
-  section.help-section,
-  section.privacy-section,
-  section.legal-section {
-    width: fit-content;
-    margin: 6rem auto 4rem auto;
-    padding: 2.85rem clamp(1.5rem, 8.949vw + -0.29rem, 4rem)
-      clamp(1.5rem, 8.949vw + -0.29rem, 4rem)
-      clamp(1.5rem, 8.949vw + -0.29rem, 4rem);
-  }
+	section.help-section,
+	section.privacy-section,
+	section.legal-section {
+		width: fit-content;
+		margin: 6rem auto 4rem auto;
+		padding: 2.85rem clamp(1.5rem, 8.949vw + -0.29rem, 4rem)
+			clamp(1.5rem, 8.949vw + -0.29rem, 4rem)
+			clamp(1.5rem, 8.949vw + -0.29rem, 4rem);
+	}
 
-  .pp-ln {
-    flex-direction: row;
-    justify-content: space-around;
-    gap: 1.25rem;
-  }
+	.pp-ln {
+		flex-direction: row;
+		justify-content: space-around;
+		gap: 1.25rem;
+	}
+
+	.step-nmbr {
+		font-size: clamp(1.5rem, 0.671vw + 1.366rem, 1.6875rem);
+		padding-right: clamp(0.75rem, 5.19vw + -0.288rem, 2.2rem);
+	}
 }

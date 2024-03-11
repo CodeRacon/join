@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body onload="init(), loadUsers()">
+<body onload="init(), loadUsers(), moinme()">
     <a id="dope"  href="miu.html">hey</a>
     <p onclick="mmmano()">komplett</p>
     <script src="./js/storage.js"></script>
@@ -15,7 +15,10 @@
     <script src="./js/signUp.js"></script>
     <script src="./js/cool.js"></script>
     <script>
-        
+        // wahrscheinlich muss TestStorage Data noch geladen werden
+        function moinme(){
+            console.log(TestStorage[7].user);
+        }
     </script>
 </body>
 </html>

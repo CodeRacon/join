@@ -7,11 +7,11 @@ let currentContact;
  * populating the contacts array, and rendering the contact list.
  */
 async function initContacts() {
-  // storeStartData();
-  setMobileLayout();
-  await loadUserData();
-  contacts = localUserData.contacts;
-  renderContactList();
+	// storeStartData();
+	setMobileLayout();
+	await loadUserData();
+	contacts = localUserData.contacts;
+	renderContactList();
 }
 
 /**
@@ -22,9 +22,9 @@ async function initContacts() {
  * @returns {number} The index of the matching contact, or -1 if not found
  */
 function findIndexInContacts(wantedIndex) {
-  return contacts.findIndex((contact) => {
-    return contact === wantedIndex;
-  });
+	return contacts.findIndex((contact) => {
+		return contact === wantedIndex;
+	});
 }
 
 /**
@@ -35,9 +35,9 @@ function findIndexInContacts(wantedIndex) {
  * @returns {number} The index of the matching contact, or -1 if not found
  */
 function findIndexInFormattedList(wantedIndex) {
-  return formattedContactList.findIndex((contact) => {
-    return contact === wantedIndex;
-  });
+	return formattedContactList.findIndex((contact) => {
+		return contact === wantedIndex;
+	});
 }
 
 /**
@@ -45,7 +45,7 @@ function findIndexInFormattedList(wantedIndex) {
  * Modifies the contacts array in place.
  */
 function sortContacts(contacts) {
-  contacts.sort((a, b) => a.userData.name.localeCompare(b.userData.name));
+	contacts.sort((a, b) => a.userData.name.localeCompare(b.userData.name));
 }
 
 /**
@@ -56,18 +56,18 @@ function sortContacts(contacts) {
  * @returns a sorted and formatted contact list.
  */
 function formatContactList(contacts) {
-  sortContacts(contacts);
-  formattedContactList = [];
-  let currentLetter = '';
-  contacts.forEach((contact) => {
-    const capFirstLetter = contact.userData.name.charAt(0).toUpperCase();
-    if (capFirstLetter !== currentLetter) {
-      formattedContactList.push({ type: 'divider', letter: capFirstLetter });
-      currentLetter = capFirstLetter;
-    }
-    formattedContactList.push(contact);
-  });
-  return formattedContactList;
+	sortContacts(contacts);
+	formattedContactList = [];
+	let currentLetter = '';
+	contacts.forEach((contact) => {
+		const capFirstLetter = contact.userData.name.charAt(0).toUpperCase();
+		if (capFirstLetter !== currentLetter) {
+			formattedContactList.push({ type: 'divider', letter: capFirstLetter });
+			currentLetter = capFirstLetter;
+		}
+		formattedContactList.push(contact);
+	});
+	return formattedContactList;
 }
 
 formattedContactList = formatContactList(contacts);
@@ -79,15 +79,15 @@ formattedContactList = formatContactList(contacts);
  * If not selected, opens the info box and renders the contact details.
  */
 function openContact(i) {
-  const contactItem = document.getElementById(`contact-list-item-${i}`);
-  if (contactItem.classList.contains('selected') || !contactItem) {
-    closeContactInfoBox(i);
-  } else {
-    showContactInfoBoxMobile();
-    swipeInContactInfoBox(i);
-    selectListItems(i);
-    renderContactInfoBox(i);
-  }
+	const contactItem = document.getElementById(`contact-list-item-${i}`);
+	if (contactItem.classList.contains('selected') || !contactItem) {
+		closeContactInfoBox(i);
+	} else {
+		showContactInfoBoxMobile();
+		swipeInContactInfoBox(i);
+		selectListItems(i);
+		renderContactInfoBox(i);
+	}
 }
 
 /**
@@ -97,12 +97,12 @@ function openContact(i) {
  * @param {number} i - The index of the contact list item to select
  */
 function selectListItems(i) {
-  const contactItem = document.getElementById(`contact-list-item-${i}`);
-  const allContactItems = document.querySelectorAll('.contact-list-item');
-  setTimeout(() => {
-    allContactItems.forEach((item) => item.classList.remove('selected'));
-    contactItem.classList.toggle('selected');
-  }, 125);
+	const contactItem = document.getElementById(`contact-list-item-${i}`);
+	const allContactItems = document.querySelectorAll('.contact-list-item');
+	setTimeout(() => {
+		allContactItems.forEach((item) => item.classList.remove('selected'));
+		contactItem.classList.toggle('selected');
+	}, 125);
 }
 
 /**
@@ -113,14 +113,14 @@ function selectListItems(i) {
  * @param {number} i - The index of the clicked contact list item
  */
 function closeContactInfoBox(i) {
-  const contactInfoBox = document.getElementById('contact-info-box');
-  const contactItem = document.getElementById(`contact-list-item-${i}`);
-  if (contactItem) {
-    contactItem.classList.toggle('selected');
-    contactInfoBox.classList.add('d-none');
-  } else if (!contactItem) {
-    contactInfoBox.classList.add('d-none');
-  }
+	const contactInfoBox = document.getElementById('contact-info-box');
+	const contactItem = document.getElementById(`contact-list-item-${i}`);
+	if (contactItem) {
+		contactItem.classList.toggle('selected');
+		contactInfoBox.classList.add('d-none');
+	} else if (!contactItem) {
+		contactInfoBox.classList.add('d-none');
+	}
 }
 
 /**
@@ -132,22 +132,22 @@ function closeContactInfoBox(i) {
  * contact's info, and shows a success message.
  */
 function createContact() {
-  let contactName = document.getElementById('add-contact-name').value;
-  let contactEmail = document.getElementById('add-contact-email').value;
-  let contactPhone = document.getElementById('add-contact-phone').value;
-  const contactColor = chooseRandomColor();
-  const newContact = {
-    userData: {
-      name: contactName,
-      email: contactEmail,
-      phone: contactPhone,
-    },
-    color: contactColor,
-  };
-  contacts.push(newContact);
-  formattedContactList = formatContactList(contacts);
-  const newContactIndex = findIndexInFormattedList(newContact);
-  createContactAftermath(newContactIndex);
+	let contactName = document.getElementById('add-contact-name').value;
+	let contactEmail = document.getElementById('add-contact-email').value;
+	let contactPhone = document.getElementById('add-contact-phone').value;
+	const contactColor = chooseRandomColor();
+	const newContact = {
+		userData: {
+			name: contactName,
+			email: contactEmail,
+			phone: contactPhone,
+		},
+		color: contactColor,
+	};
+	contacts.push(newContact);
+	formattedContactList = formatContactList(contacts);
+	const newContactIndex = findIndexInFormattedList(newContact);
+	createContactAftermath(newContactIndex);
 }
 
 /**
@@ -160,16 +160,16 @@ function createContact() {
  * - Waits 300ms, then shows success message
  */
 function createContactAftermath(newContactIndex) {
-  saveUserData();
-  scrollNewContactToTop(newContactIndex);
-  renderContactList();
-  closeAddContactDB();
-  setTimeout(() => {
-    openNewContactInfo(newContactIndex);
-  }, 150);
-  setTimeout(() => {
-    showContactSuccess();
-  }, 300);
+	saveUserData();
+	scrollNewContactToTop(newContactIndex);
+	renderContactList();
+	closeAddContactDB();
+	setTimeout(() => {
+		openNewContactInfo(newContactIndex);
+	}, 150);
+	setTimeout(() => {
+		showContactSuccess();
+	}, 300);
 }
 
 /**
@@ -177,8 +177,8 @@ function createContactAftermath(newContactIndex) {
  * Used to generate a random color when creating a new contact.
  */
 function chooseRandomColor() {
-  const randomIndex = Math.floor(Math.random() * hexColors.length);
-  return hexColors[randomIndex];
+	const randomIndex = Math.floor(Math.random() * hexColors.length);
+	return hexColors[randomIndex];
 }
 
 /**
@@ -187,19 +187,19 @@ function chooseRandomColor() {
  * @param {number} newContactIndex - The index of the new contact to scroll to.
  */
 function scrollNewContactToTop(newContactIndex) {
-  let topSpacing;
-  const screenWidth = window.innerWidth;
-  if (screenWidth <= 607) {
-    topSpacing = 264;
-  } else {
-    topSpacing = 106;
-  }
-  setTimeout(() => {
-    const contactList = document.getElementById('contact-list');
-    contactList.scrollTop =
-      document.getElementById(`contact-list-item-${newContactIndex}`)
-        .offsetTop - topSpacing;
-  }, 0);
+	let topSpacing;
+	const screenWidth = window.innerWidth;
+	if (screenWidth <= 607) {
+		topSpacing = 264;
+	} else {
+		topSpacing = 106;
+	}
+	setTimeout(() => {
+		const contactList = document.getElementById('contact-list');
+		contactList.scrollTop =
+			document.getElementById(`contact-list-item-${newContactIndex}`)
+				.offsetTop - topSpacing;
+	}, 0);
 }
 
 /**
@@ -208,7 +208,7 @@ function scrollNewContactToTop(newContactIndex) {
  * @param {number} newContactIndex - The index of the new contact to open.
  */
 function openNewContactInfo(newContactIndex) {
-  openContact(newContactIndex);
+	openContact(newContactIndex);
 }
 
 /**
@@ -218,21 +218,21 @@ function openNewContactInfo(newContactIndex) {
  * and opens the updated contact's info box.
  */
 function editContact() {
-  const contactIndex = findIndexInContacts(currentContact);
-  const updatedName = document.getElementById('edit-contact-name').value;
-  const updatedEmail = document.getElementById('edit-contact-email').value;
-  const updatedPhone = document.getElementById('edit-contact-phone').value;
-  contacts[contactIndex].userData.name = updatedName;
-  contacts[contactIndex].userData.email = updatedEmail;
-  contacts[contactIndex].userData.phone = updatedPhone;
-  formattedContactList = formatContactList(contacts);
-  const updatedContactIndex = findIndexInFormattedList(currentContact);
-  saveUserData();
-  renderContactList();
-  closeEditContactDB();
-  setTimeout(() => {
-    openNewContactInfo(updatedContactIndex);
-  }, 150);
+	const contactIndex = findIndexInContacts(currentContact);
+	const updatedName = document.getElementById('edit-contact-name').value;
+	const updatedEmail = document.getElementById('edit-contact-email').value;
+	const updatedPhone = document.getElementById('edit-contact-phone').value;
+	contacts[contactIndex].userData.name = updatedName;
+	contacts[contactIndex].userData.email = updatedEmail;
+	contacts[contactIndex].userData.phone = updatedPhone;
+	formattedContactList = formatContactList(contacts);
+	const updatedContactIndex = findIndexInFormattedList(currentContact);
+	saveUserData();
+	renderContactList();
+	closeEditContactDB();
+	setTimeout(() => {
+		openNewContactInfo(updatedContactIndex);
+	}, 150);
 }
 
 /**
@@ -242,14 +242,14 @@ function editContact() {
  * the edit contact overlay.
  */
 function deleteAtContactInfoBox(i) {
-  currentContact = formattedContactList[i];
-  const contactIndex = findIndexInContacts(currentContact);
-  contacts.splice(contactIndex, 1);
-  formattedContactList = formatContactList(contacts);
-  saveUserData();
-  closeContactInfoBox(contactIndex);
-  renderContactList();
-  leaveMobileContactInfoBox();
+	currentContact = formattedContactList[i];
+	const contactIndex = findIndexInContacts(currentContact);
+	contacts.splice(contactIndex, 1);
+	formattedContactList = formatContactList(contacts);
+	saveUserData();
+	closeContactInfoBox(contactIndex);
+	renderContactList();
+	leaveMobileContactInfoBox();
 }
 
 /**
@@ -259,13 +259,13 @@ function deleteAtContactInfoBox(i) {
  * the edit contact overlay.
  */
 function deleteContact() {
-  const contactIndex = findIndexInContacts(currentContact);
-  contacts.splice(contactIndex, 1);
-  formattedContactList = formatContactList(contacts);
-  saveUserData();
-  closeContactInfoBox(contactIndex);
-  renderContactList();
-  closeEditContactDB();
+	const contactIndex = findIndexInContacts(currentContact);
+	contacts.splice(contactIndex, 1);
+	formattedContactList = formatContactList(contacts);
+	saveUserData();
+	closeContactInfoBox(contactIndex);
+	renderContactList();
+	closeEditContactDB();
 }
 
 /**
@@ -276,17 +276,17 @@ function deleteContact() {
  * Returns false if validation fails.
  */
 function validateForm(identifier) {
-  const isValidName = validateName(identifier);
-  const isValidEmail = validateEmail(identifier);
-  const isValidPhone = validatePhone(identifier);
-  if (isValidName && isValidEmail && isValidPhone) {
-    if (identifier === 'add') {
-      createContact();
-    } else if (identifier === 'edit') {
-      editContact();
-    }
-  }
-  return false;
+	const isValidName = validateName(identifier);
+	const isValidEmail = validateEmail(identifier);
+	const isValidPhone = validatePhone(identifier);
+	if (isValidName && isValidEmail && isValidPhone) {
+		if (identifier === 'add') {
+			createContact();
+		} else if (identifier === 'edit') {
+			editContact();
+		}
+	}
+	return false;
 }
 
 /**
@@ -296,22 +296,22 @@ function validateForm(identifier) {
  * Returns true if valid, false if invalid.
  */
 function validateName(identifier) {
-  const nameInputCont = document.getElementById('input--name-' + identifier);
-  const inputName = document.getElementById(identifier + '-contact-name');
-  const nameError = document.getElementById('name-error-' + identifier);
-  const validNamePattern = /^[a-zA-Z-]+ [a-zA-Z-]+ ?[a-zA-Z-]+?$/;
-  if (
-    !validNamePattern.test(inputName.value) ||
-    inputName.value.trim() === ''
-  ) {
-    nameInputCont.classList.add('invalid');
-    nameError.textContent = '*Please enter first- and surname.';
-    return false;
-  } else {
-    nameInputCont.classList.remove('invalid');
-    nameError.textContent = '';
-    return true;
-  }
+	const nameInputCont = document.getElementById('input--name-' + identifier);
+	const inputName = document.getElementById(identifier + '-contact-name');
+	const nameError = document.getElementById('name-error-' + identifier);
+	const validNamePattern = /^[a-zA-Z-]+ [a-zA-Z-]+ ?[a-zA-Z-]+?$/;
+	if (
+		!validNamePattern.test(inputName.value) ||
+		inputName.value.trim() === ''
+	) {
+		nameInputCont.classList.add('invalid');
+		nameError.textContent = '*Please enter first- and surname.';
+		return false;
+	} else {
+		nameInputCont.classList.remove('invalid');
+		nameError.textContent = '';
+		return true;
+	}
 }
 
 /**
@@ -321,18 +321,18 @@ function validateName(identifier) {
  * Returns true if valid, false if invalid.
  */
 function validateEmail(identifier) {
-  const emailInputCont = document.getElementById('input--email-' + identifier);
-  const inputEmail = document.getElementById(identifier + '-contact-email');
-  const emailError = document.getElementById('mail-error-' + identifier);
-  if (!inputEmail.value.includes('@') || inputEmail.value.trim() === '') {
-    emailInputCont.classList.add('invalid');
-    emailError.textContent = '*Please enter a valid email address.';
-    return false;
-  } else {
-    emailInputCont.classList.remove('invalid');
-    emailError.textContent = '';
-    return true;
-  }
+	const emailInputCont = document.getElementById('input--email-' + identifier);
+	const inputEmail = document.getElementById(identifier + '-contact-email');
+	const emailError = document.getElementById('mail-error-' + identifier);
+	if (!inputEmail.value.includes('@') || inputEmail.value.trim() === '') {
+		emailInputCont.classList.add('invalid');
+		emailError.textContent = '*Please enter a valid email address.';
+		return false;
+	} else {
+		emailInputCont.classList.remove('invalid');
+		emailError.textContent = '';
+		return true;
+	}
 }
 
 /**
@@ -342,22 +342,22 @@ function validateEmail(identifier) {
  * Returns true if valid, false if invalid.
  */
 function validatePhone(identifier) {
-  const phoneInputCont = document.getElementById('input--phone-' + identifier);
-  const inputPhone = document.getElementById(identifier + '-contact-phone');
-  const phoneError = document.getElementById('phone-error-' + identifier);
-  if (
-    /^[a-zA-Z]+$/.test(inputPhone.value) ||
-    inputPhone.value.trim().length < 9
-  ) {
-    phoneInputCont.classList.add('invalid');
-    phoneError.textContent =
-      '*Please enter a valid phone number with at least 9 digits.';
-    return false;
-  } else {
-    phoneInputCont.classList.remove('invalid');
-    phoneError.textContent = '';
-    return true;
-  }
+	const phoneInputCont = document.getElementById('input--phone-' + identifier);
+	const inputPhone = document.getElementById(identifier + '-contact-phone');
+	const phoneError = document.getElementById('phone-error-' + identifier);
+	const validPhonePattern = /^[+()-9\s]+$/;
+	if (
+		!validPhonePattern.test(inputPhone.value) ||
+		inputPhone.value.trim() === ''
+	) {
+		phoneInputCont.classList.add('invalid');
+		phoneError.textContent = '*Please enter a valid phone number.';
+		return false;
+	} else {
+		phoneInputCont.classList.remove('invalid');
+		phoneError.textContent = '';
+		return true;
+	}
 }
 
 /**
@@ -365,12 +365,12 @@ function validatePhone(identifier) {
  * containers for the contact form depending on the given identifier.
  */
 function resetErrorFeedback(identifier) {
-  const nameInputCont = document.getElementById('input--name-' + identifier);
-  const emailInputCont = document.getElementById('input--email-' + identifier);
-  const phoneInputCont = document.getElementById('input--phone-' + identifier);
-  nameInputCont.classList.remove('invalid');
-  emailInputCont.classList.remove('invalid');
-  phoneInputCont.classList.remove('invalid');
+	const nameInputCont = document.getElementById('input--name-' + identifier);
+	const emailInputCont = document.getElementById('input--email-' + identifier);
+	const phoneInputCont = document.getElementById('input--phone-' + identifier);
+	nameInputCont.classList.remove('invalid');
+	emailInputCont.classList.remove('invalid');
+	phoneInputCont.classList.remove('invalid');
 }
 
 /**
@@ -378,10 +378,10 @@ function resetErrorFeedback(identifier) {
  * elements for the contact form depending on the given identifier.
  */
 function resetErrorMessage(identifier) {
-  const nameError = document.getElementById('name-error-' + identifier);
-  const emailError = document.getElementById('mail-error-' + identifier);
-  const phoneError = document.getElementById('phone-error-' + identifier);
-  nameError.textContent = '';
-  emailError.textContent = '';
-  phoneError.textContent = '';
+	const nameError = document.getElementById('name-error-' + identifier);
+	const emailError = document.getElementById('mail-error-' + identifier);
+	const phoneError = document.getElementById('phone-error-' + identifier);
+	nameError.textContent = '';
+	emailError.textContent = '';
+	phoneError.textContent = '';
 }

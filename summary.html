@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/fonts.css" />
-    <link rel="stylesheet" href="css/root.css" />
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/media_queries.css" />
-    <link rel="stylesheet" href="css/summary.css" />
-    <script defer src="js/summary.js"></script>
-    <script defer src="js/assets.js"></script>
-    <script defer src="js/storage.js"></script>
-    <script defer src="js/main.js"></script>
-    <title>join - Summary</title>
-    <link rel="icon" type="image/png" href="assets/img/logo/favicon.png" />
-  </head>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="css/fonts.css" />
+		<link rel="stylesheet" href="css/root.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/media_queries.css" />
+		<link rel="stylesheet" href="css/summary.css" />
+		<script defer src="js/storage.js"></script>
+		<script defer src="js/main.js"></script>
+		<script defer src="js/assets.js"></script>
+		<script defer src="js/summary.js"></script>
+		<title>join - Summary</title>
+		<link rel="icon" type="image/png" href="assets/img/logo/favicon.png" />
+	</head>
 
-  <!--  
+	<!--  
  _______  __   __  __   __  __   __  _______  ______    __   __ 
 |       ||  | |  ||  |_|  ||  |_|  ||   _   ||    _ |  |  | |  |
 |  _____||  | |  ||       ||       ||  |_|  ||   | ||  |  |_|  |
@@ -26,123 +26,123 @@
 |_______||_______||_|   |_||_|   |_||__| |__||___|  |_|  |___|    
 -->
 
-  <body onload="initPage(); initSummary()">
-    <div
-      id="frame"
-      class="header-template"
-      w3-include-html="templates/desktop_frame.html"></div>
+	<body onload="initPage(); initSummary()">
+		<div
+			id="frame"
+			class="header-template"
+			w3-include-html="templates/desktop_frame.html"></div>
 
-    <section class="summary-section">
-      <div class="summary-section--heading">
-        <h1>Join 360</h1>
-        <div class="vert-spacer"></div>
-        <p>Key Metrics at a Glance</p>
-      </div>
-      <div class="summary-container">
-        <div class="summary-box">
-          <!-- Top part -->
-          <div class="top-part">
-            <a href="/board.html">
-              <div class="half-box">
-                <div class="todo-tab">
-                  <div class="todo-symbol"></div>
-                  <div class="todo-counter">
-                    <span id="todo-counter">
-                      <!-- populated by JS -->
-                    </span>
-                    <p>To-Do</p>
-                  </div>
-                </div>
-              </div>
-            </a>
+		<section class="summary-section">
+			<div class="summary-section--heading">
+				<h1>Join 360</h1>
+				<div class="vert-spacer"></div>
+				<p>Key Metrics at a Glance</p>
+			</div>
+			<div class="summary-container">
+				<div class="summary-box">
+					<!-- Top part -->
+					<div class="top-part">
+						<a href="/board.html">
+							<div class="half-box">
+								<div class="todo-tab">
+									<div class="todo-symbol"></div>
+									<div class="todo-counter">
+										<span id="todo-counter">
+											<!-- populated by JS -->
+										</span>
+										<p>To-Do</p>
+									</div>
+								</div>
+							</div>
+						</a>
 
-            <a href="/board.html">
-              <div class="half-box">
-                <div class="done-tab">
-                  <div class="done-symbol"></div>
-                  <div class="done-counter">
-                    <span id="done-counter">
-                      <!-- populated by JS -->
-                    </span>
-                    <p>Done</p>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <!-- Middle part -->
-          <a href="/board.html">
-            <div class="middle-part">
-              <div class="full-box">
-                <div class="urgency-tab">
-                  <div class="urgency-symbol"></div>
-                  <div class="urgency-counter">
-                    <span id="urgency-counter">
-                      <!-- populated by JS -->
-                    </span>
-                    <p>Urgent</p>
-                  </div>
-                </div>
+						<a href="/board.html">
+							<div class="half-box">
+								<div class="done-tab">
+									<div class="done-symbol"></div>
+									<div class="done-counter">
+										<span id="done-counter">
+											<!-- populated by JS -->
+										</span>
+										<p>Done</p>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+					<!-- Middle part -->
+					<a href="/board.html">
+						<div class="middle-part">
+							<div class="full-box">
+								<div class="urgency-tab">
+									<div class="urgency-symbol"></div>
+									<div class="urgency-counter">
+										<span id="urgency-counter">
+											<!-- populated by JS -->
+										</span>
+										<p>Urgent</p>
+									</div>
+								</div>
 
-                <div class="vert-spacer-gray"></div>
+								<div class="vert-spacer-gray"></div>
 
-                <div class="due-date">
-                  <span id="due-date">
-                    <!-- populated by JS -->
-                  </span>
-                  <p>Upcoming Deadline</p>
-                </div>
-              </div>
-            </div>
-          </a>
-          <!-- Bottom part -->
+								<div class="due-date">
+									<span id="due-date">
+										<!-- populated by JS -->
+									</span>
+									<p>Upcoming Deadline</p>
+								</div>
+							</div>
+						</div>
+					</a>
+					<!-- Bottom part -->
 
-          <div class="bottom-part">
-            <a href="/board.html">
-              <div class="onethird-box">
-                <div class="task-counter">
-                  <span id="task-counter">
-                    <!-- populated by JS -->
-                  </span>
-                  <p>Tasks in Board</p>
-                </div>
-              </div>
-            </a>
+					<div class="bottom-part">
+						<a href="/board.html">
+							<div class="onethird-box">
+								<div class="task-counter">
+									<span id="task-counter">
+										<!-- populated by JS -->
+									</span>
+									<p>Tasks in Board</p>
+								</div>
+							</div>
+						</a>
 
-            <a href="/board.html">
-              <div class="onethird-box">
-                <div class="progress-counter">
-                  <span id="progress-counter">
-                    <!-- populated by JS -->
-                  </span>
-                  <p>Tasks In Progress</p>
-                </div>
-              </div>
-            </a>
+						<a href="/board.html">
+							<div class="onethird-box">
+								<div class="progress-counter">
+									<span id="progress-counter">
+										<!-- populated by JS -->
+									</span>
+									<p>Tasks In Progress</p>
+								</div>
+							</div>
+						</a>
 
-            <a href="/board.html">
-              <div class="onethird-box">
-                <div class="fb-counter">
-                  <span id="fb-counter">
-                    <!-- populated by JS -->
-                  </span>
-                  <p>Awaiting Feedback</p>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
+						<a href="/board.html">
+							<div class="onethird-box">
+								<div class="fb-counter">
+									<span id="fb-counter">
+										<!-- populated by JS -->
+									</span>
+									<p>Awaiting Feedback</p>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
 
-        <div class="personal-greeting">
-          <span id="daytime">
-            <!-- populated by JS -->
-          </span>
-          <br />
-          <span id="sum-username" class="accentuated">
-            <!-- populated by JS -->
-          </span>
-        </div>
-      </div>
-    </section>
-  </body>
+				<div id="greeting" class="personal-greeting">
+					<span id="daytime">
+						<!-- populated by JS -->
+					</span>
+					<br />
+					<span id="sum-username" class="accentuated">
+						<!-- populated by JS -->
+					</span>
+				</div>
+			</div>
+		</section>
+	</body>
 </html>

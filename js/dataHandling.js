@@ -30,7 +30,7 @@ async function ppt(){
     await loadUserData();
     await loadUsers();
     let combinedUser = {
-        user: startData.users[0],
+        user: startData.users[num],
         contacts: startData.contacts
     }
     await checkIfArrayExistInServer(combinedUser);
@@ -56,11 +56,15 @@ function beforeUnloadHandler(event) {
     if (document.readyState === 'complete') {
         for (let i = 0; i < TestStorage.length; i++) {
            if (TestStorage[i].user.hasOwnProperty('registerData')) {
+            TestStorage[i] = localUserData[4];
+            localUserData[0] = TestStorage[i];
+            saveTestArray();
              return;
-           }
+           } // else teil
             // sorgt dafür das changeData nicht removed wird musst dich darum sorgen
         }
-        TestStorage.push(localUserData[0]);
+        // unter mir besser in den else teik
+        TestStorage.push(localUserData[4]);
         saveTestArray();
         localStorage.removeItem('changedData');
         return;
