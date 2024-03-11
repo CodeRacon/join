@@ -30,6 +30,7 @@ async function initInfoPage() {
 	const screenWidth = window.innerWidth;
 	if (screenWidth <= 767) {
 		setForSmallScreens();
+		highlightMobileExtLinks();
 	}
 	window.addEventListener('resize', () => {
 		if (window.innerWidth <= 767) {
@@ -115,7 +116,6 @@ function goBack() {
 function highlightNavLink() {
 	const currentUrl = window.location.pathname;
 	const navLinks = getNavLinks();
-
 	navLinks.forEach((navLink) => {
 		const href = navLink.getAttribute('href');
 		if (currentUrl === href) {
@@ -124,6 +124,29 @@ function highlightNavLink() {
 			navLink.classList.remove('visited');
 		}
 	});
+}
+
+/**
+ * Highlights the mobile external links in the footer
+ * based on the current page.
+ *
+ * Checks the current page URL against the privacy policy
+ * and legal notice page URLs. If there is a match, it
+ * highlights the corresponding link by adding a 'visited'
+ * class.
+ */
+function highlightMobileExtLinks() {
+	const currentUrl = window.location.pathname;
+	const extPrivacyLink = document.getElementById('mobile-privacy-link');
+	const extLegalLink = document.getElementById('mobile-legal-link');
+	if (currentUrl.includes('privacy_policy')) {
+		extPrivacyLink.classList.add('visited');
+		extLegalLink.classList.remove('visited');
+	}
+	if (currentUrl.includes('legal_notice')) {
+		extLegalLink.classList.add('visited');
+		extPrivacyLink.classList.remove('visited');
+	}
 }
 
 /**
@@ -139,7 +162,6 @@ function getNavLinks() {
 	const asideDisplay = getComputedStyle(
 		document.querySelector('aside')
 	).display;
-
 	if (asideDisplay === 'none') {
 		return mobileLinks;
 	} else {
@@ -176,7 +198,6 @@ function openExternalLink(url) {
 	const currentUrl = window.location.pathname;
 	const privacyUrl = '/privacy_policy.html';
 	const legalNoticeUrl = '/legal_notice.html';
-
 	if (currentUrl !== privacyUrl && currentUrl !== legalNoticeUrl) {
 		window.open(url);
 	} else if (currentUrl === privacyUrl) {
@@ -194,10 +215,8 @@ function openExternalLink(url) {
  */
 function highlightExternalLink() {
 	const url = window.location.href;
-
 	const privacyLink = document.getElementById('privacy-link');
 	const legalLink = document.getElementById('legal-link');
-
 	if (url.includes('privacy')) {
 		privacyLink.classList.add('visited');
 	} else if (url.includes('legal')) {
@@ -248,10 +267,10 @@ function setForSmallScreens() {
 	mobileNav.innerHTML = '';
 	mobileNav.innerHTML = /*html*/ `
   <div class="pp-ln">
-    <a id="privacy-link" onclick="openExternalLink('/privacy_policy.html')"
+    <a id="mobile-privacy-link" onclick="openExternalLink('/privacy_policy.html')"
       >Privacy Policy
     </a>
-    <a id="legal-link" onclick="openExternalLink('/legal_notice.html')"
+    <a id="mobile-legal-link" onclick="openExternalLink('/legal_notice.html')"
       >Legal Notice
     </a>
   </div>
