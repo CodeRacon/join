@@ -1,13 +1,22 @@
 /**
- * Initializes the page by asynchronously including HTML snippets,
- * highlighting the current navigation link, and hiding navigation
- * links on external pages.
+ * Initializes the page by calling several async functions:
+ *
+ * - loadUserData() - Loads user data from local storage
+ * - includeHTML() - Fetches and includes HTML snippets in page
+ * - setUserInitials() - Sets the user's initials in the UI
+ * - highlightNavLink() - Highlights current page nav link
+ * - changeFrameOnNewTab() - Handles changing iframe src on new tabs
+ * - highlightExternalLink() - Adds visual indicator for external links
+ *
+ * This is an async function since it awaits other async init logic.
  */
 async function initPage() {
-  await includeHTML();
-  highlightNavLink();
-  changeFrameOnNewTab();
-  highlightExternalLink();
+	await loadUserData();
+	await includeHTML();
+	setUserInitials();
+	highlightNavLink();
+	changeFrameOnNewTab();
+	highlightExternalLink();
 }
 
 /**
@@ -17,16 +26,51 @@ async function initPage() {
  * An async function that handles initializing the info page.
  */
 async function initInfoPage() {
-  await initPage();
-  const screenWidth = window.innerWidth;
-  if (screenWidth <= 767) {
-    setForSmallScreens();
-  }
-  window.addEventListener('resize', () => {
-    if (window.innerWidth <= 767) {
-      toggleFooterLinks();
-    }
-  });
+	await initPage();
+	const screenWidth = window.innerWidth;
+	if (screenWidth <= 767) {
+		setForSmallScreens();
+		highlightMobileExtLinks();
+	}
+	window.addEventListener('resize', () => {
+		if (window.innerWidth <= 767) {
+			toggleFooterLinks();
+		}
+	});
+}
+
+/**
+ * Sets the user's initials in the UI.
+ *
+ * Gets the logged in user data, extracts the first letter of each word in the user's
+ * name, joins them into initials, and sets the initials in the UI element with id 'user-initials'.
+ * Handles setting a default 'G' initial for guest users.
+ */
+function setUserInitials() {
+	const userInitials = document.getElementById('user-initials');
+	const loggedInUser = getLoggedInUser();
+	const processedInitials = loggedInUser.userData.name
+		.split(' ')
+		.map((word) => word.charAt(0))
+		.join('');
+	if (isGuestUser) {
+		userInitials.innerHTML = 'G';
+	} else {
+		userInitials.innerHTML = processedInitials;
+	}
+}
+
+/**
+ * Gets the logged in user from the local user data.
+ *
+ * Filters the local user data array to find the user where isLoggedIn is true,
+ * and returns the first logged in user object.
+ */
+function getLoggedInUser() {
+	const loggedInUsers = localUserData.users.filter(
+		(user) => user.isLoggedIn === true
+	);
+	return loggedInUsers[0];
 }
 
 /**
@@ -39,26 +83,26 @@ async function initInfoPage() {
  * If the fetch fails, it sets the innerHTML to an error message instead.
  */
 async function includeHTML() {
-  let includeElements = document.querySelectorAll('[w3-include-html]');
+	let includeElements = document.querySelectorAll('[w3-include-html]');
 
-  for (let i = 0; i < includeElements.length; i++) {
-    const element = includeElements[i];
-    file = element.getAttribute('w3-include-html');
-    let resp = await fetch(file);
+	for (let i = 0; i < includeElements.length; i++) {
+		const element = includeElements[i];
+		file = element.getAttribute('w3-include-html');
+		let resp = await fetch(file);
 
-    if (resp.ok) {
-      element.innerHTML = await resp.text();
-    } else {
-      element.innerHTML = 'Page not found';
-    }
-  }
+		if (resp.ok) {
+			element.innerHTML = await resp.text();
+		} else {
+			element.innerHTML = 'Page not found';
+		}
+	}
 }
 
 /**
  * Navigates to the previous page in the browser history.
  */
 function goBack() {
-  window.history.back();
+	window.history.back();
 }
 
 /**
@@ -70,17 +114,39 @@ function goBack() {
  * the 'visited' class to highlight the link.
  */
 function highlightNavLink() {
-  const currentUrl = window.location.pathname;
-  const navLinks = getNavLinks();
+	const currentUrl = window.location.pathname;
+	const navLinks = getNavLinks();
+	navLinks.forEach((navLink) => {
+		const href = navLink.getAttribute('href');
+		if (currentUrl === href) {
+			navLink.classList.add('visited');
+		} else {
+			navLink.classList.remove('visited');
+		}
+	});
+}
 
-  navLinks.forEach((navLink) => {
-    const href = navLink.getAttribute('href');
-    if (currentUrl === href) {
-      navLink.classList.add('visited');
-    } else {
-      navLink.classList.remove('visited');
-    }
-  });
+/**
+ * Highlights the mobile external links in the footer
+ * based on the current page.
+ *
+ * Checks the current page URL against the privacy policy
+ * and legal notice page URLs. If there is a match, it
+ * highlights the corresponding link by adding a 'visited'
+ * class.
+ */
+function highlightMobileExtLinks() {
+	const currentUrl = window.location.pathname;
+	const extPrivacyLink = document.getElementById('mobile-privacy-link');
+	const extLegalLink = document.getElementById('mobile-legal-link');
+	if (currentUrl.includes('privacy_policy')) {
+		extPrivacyLink.classList.add('visited');
+		extLegalLink.classList.remove('visited');
+	}
+	if (currentUrl.includes('legal_notice')) {
+		extLegalLink.classList.add('visited');
+		extPrivacyLink.classList.remove('visited');
+	}
 }
 
 /**
@@ -91,17 +157,16 @@ function highlightNavLink() {
  * On desktop, returns the desktop side navigation links.
  */
 function getNavLinks() {
-  const desktopLinks = document.querySelectorAll('#side-nav a');
-  const mobileLinks = document.querySelectorAll('#mobile-nav a');
-  const asideDisplay = getComputedStyle(
-    document.querySelector('aside')
-  ).display;
-
-  if (asideDisplay === 'none') {
-    return mobileLinks;
-  } else {
-    return desktopLinks;
-  }
+	const desktopLinks = document.querySelectorAll('#side-nav a');
+	const mobileLinks = document.querySelectorAll('#mobile-nav a');
+	const asideDisplay = getComputedStyle(
+		document.querySelector('aside')
+	).display;
+	if (asideDisplay === 'none') {
+		return mobileLinks;
+	} else {
+		return desktopLinks;
+	}
 }
 
 /**
@@ -111,17 +176,17 @@ function getNavLinks() {
  * standalone legal pages.
  */
 function changeFrameOnNewTab() {
-  const sideNav = document.getElementById('side-nav');
-  const headerIcons = document.getElementById('corner-icons');
-  const quickmenu = document.getElementById('quickmenu');
-  const privacyUrl = '/privacy_policy.html';
-  const legalNoticeUrl = '/legal_notice.html';
-  const currentUrl = window.location.pathname;
-  if (currentUrl === privacyUrl || currentUrl === legalNoticeUrl) {
-    sideNav.classList.toggle('hidden');
-    headerIcons.classList.toggle('hidden');
-    quickmenu.classList.toggle('hidden');
-  }
+	const sideNav = document.getElementById('side-nav');
+	const headerIcons = document.getElementById('corner-icons');
+	const quickmenu = document.getElementById('quickmenu');
+	const privacyUrl = '/privacy_policy.html';
+	const legalNoticeUrl = '/legal_notice.html';
+	const currentUrl = window.location.pathname;
+	if (currentUrl === privacyUrl || currentUrl === legalNoticeUrl) {
+		sideNav.classList.toggle('hidden');
+		headerIcons.classList.toggle('hidden');
+		quickmenu.classList.toggle('hidden');
+	}
 }
 
 /**
@@ -130,17 +195,16 @@ function changeFrameOnNewTab() {
  * current page instead  of opening a new tab.
  */
 function openExternalLink(url) {
-  const currentUrl = window.location.pathname;
-  const privacyUrl = '/privacy_policy.html';
-  const legalNoticeUrl = '/legal_notice.html';
-
-  if (currentUrl !== privacyUrl && currentUrl !== legalNoticeUrl) {
-    window.open(url);
-  } else if (currentUrl === privacyUrl) {
-    window.location.href = url;
-  } else if (currentUrl === legalNoticeUrl) {
-    window.location.href = url;
-  }
+	const currentUrl = window.location.pathname;
+	const privacyUrl = '/privacy_policy.html';
+	const legalNoticeUrl = '/legal_notice.html';
+	if (currentUrl !== privacyUrl && currentUrl !== legalNoticeUrl) {
+		window.open(url);
+	} else if (currentUrl === privacyUrl) {
+		window.location.href = url;
+	} else if (currentUrl === legalNoticeUrl) {
+		window.location.href = url;
+	}
 }
 
 /**
@@ -150,16 +214,14 @@ function openExternalLink(url) {
  * current page URL contains "privacy".
  */
 function highlightExternalLink() {
-  const url = window.location.href;
-
-  const privacyLink = document.getElementById('privacy-link');
-  const legalLink = document.getElementById('legal-link');
-
-  if (url.includes('privacy')) {
-    privacyLink.classList.add('visited');
-  } else if (url.includes('legal')) {
-    legalLink.classList.add('visited');
-  }
+	const url = window.location.href;
+	const privacyLink = document.getElementById('privacy-link');
+	const legalLink = document.getElementById('legal-link');
+	if (url.includes('privacy')) {
+		privacyLink.classList.add('visited');
+	} else if (url.includes('legal')) {
+		legalLink.classList.add('visited');
+	}
 }
 
 /**
@@ -168,18 +230,18 @@ function highlightExternalLink() {
  * If currently shown, animates it sliding away.
  */
 function toggleQuickMenu() {
-  const quickMenu = document.getElementById('quickmenu');
-  if (quickMenu.classList.contains('d-none')) {
-    quickMenu.classList.replace('qm-off', 'qm-on');
-    setTimeout(() => {
-      quickMenu.classList.toggle('d-none');
-    }, 125);
-  } else {
-    quickMenu.classList.replace('qm-on', 'qm-off');
-    setTimeout(() => {
-      quickMenu.classList.toggle('d-none');
-    }, 125);
-  }
+	const quickMenu = document.getElementById('quickmenu');
+	if (quickMenu.classList.contains('d-none')) {
+		quickMenu.classList.replace('qm-off', 'qm-on');
+		setTimeout(() => {
+			quickMenu.classList.toggle('d-none');
+		}, 125);
+	} else {
+		quickMenu.classList.replace('qm-on', 'qm-off');
+		setTimeout(() => {
+			quickMenu.classList.toggle('d-none');
+		}, 125);
+	}
 }
 
 /**
@@ -187,12 +249,12 @@ function toggleQuickMenu() {
  * and a horizontal layout for wider screens.
  */
 function toggleFooterLinks() {
-  const screenWidth = window.innerWidth;
-  if (screenWidth <= 767) {
-    setForSmallScreens();
-  } else {
-    setForLargeScreens();
-  }
+	const screenWidth = window.innerWidth;
+	if (screenWidth <= 767) {
+		setForSmallScreens();
+	} else {
+		setForLargeScreens();
+	}
 }
 
 /**
@@ -201,14 +263,14 @@ function toggleFooterLinks() {
  * privacy policy and legal notice links.
  */
 function setForSmallScreens() {
-  const mobileNav = document.getElementById('mobile-nav');
-  mobileNav.innerHTML = '';
-  mobileNav.innerHTML = /*html*/ `
+	const mobileNav = document.getElementById('mobile-nav');
+	mobileNav.innerHTML = '';
+	mobileNav.innerHTML = /*html*/ `
   <div class="pp-ln">
-    <a id="privacy-link" onclick="openExternalLink('/privacy_policy.html')"
+    <a id="mobile-privacy-link" onclick="openExternalLink('/privacy_policy.html')"
       >Privacy Policy
     </a>
-    <a id="legal-link" onclick="openExternalLink('/legal_notice.html')"
+    <a id="mobile-legal-link" onclick="openExternalLink('/legal_notice.html')"
       >Legal Notice
     </a>
   </div>
@@ -221,9 +283,9 @@ function setForSmallScreens() {
  * summary, add task, board, and contacts links.
  */
 function setForLargeScreens() {
-  const mobileNav = document.getElementById('mobile-nav');
-  mobileNav.innerHTML = '';
-  mobileNav.innerHTML = /*html*/ `  
+	const mobileNav = document.getElementById('mobile-nav');
+	mobileNav.innerHTML = '';
+	mobileNav.innerHTML = /*html*/ `  
   <nav id="mobile-nav">
     <a href="/summary.html" class="mobile-nav-summary" id="mobile-nav-summary">
       <div class="mobile-summary-icon"></div>
@@ -252,5 +314,5 @@ function setForLargeScreens() {
 }
 
 function logoutUser(url) {
-  window.location.href = url;
+	window.location.href = url;
 }

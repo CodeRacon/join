@@ -17,12 +17,21 @@ let imgLow = document.getElementById("img-low");
 let imgMedium = document.getElementById("img-medium");
 let imgUrgent = document.getElementById("img-urgent");
 
+/**
+ * Renders the page by initializing it, loading user data, and showing contacts to assign.
+ * This is an async function that handles the overall page rendering flow.
+ */
 async function renderPage() {
   initPage();
   await loadUserData();
   showContactsToAssign();
 }
 
+/**
+ * Sets the task priority level and updates the UI accordingly.
+ *
+ * @param {string} prio - The priority level - "low", "medium" or "urgent".
+ */
 function setPriority(prio) {
   currentPriority = prio;
   resetPrioButtons();
@@ -37,6 +46,10 @@ function setPriority(prio) {
   }
 }
 
+/**
+ * Resets the styling of the priority buttons to their default state.
+ * Removes any priority-related styling classes and resets the button icons.
+ */
 function resetPrioButtons() {
   lowBtn.classList.remove("bg-low", "bg-white", "font-black", "font-white");
   mediumBtn.classList.remove("bg-medium", "bg-white", "font-black");
@@ -51,6 +64,12 @@ function resetPrioButtons() {
   imgUrgent.src = "./assets/img/icons/add-task/urgent.svg";
 }
 
+/**
+ * Updates the UI styling to indicate low priority:
+ * - Adds low priority styling to the low priority button.
+ * - Adds default styling to the medium and urgent buttons.
+ * - Changes the button icons to match the priority.
+ */
 function prioLow() {
   lowBtn.classList.add("bg-low", "font-white");
   mediumBtn.classList.add("bg-white", "font-black");
@@ -59,6 +78,12 @@ function prioLow() {
   imgMedium.src = "./assets/img/icons/add-task/medium-orange.svg";
 }
 
+/**
+ * Updates the UI styling to indicate medium priority:
+ * - Adds medium priority styling to the medium priority button.
+ * - Adds default styling to the low and urgent buttons.
+ * - Changes the medium priority button icon to match the priority.
+ */
 function prioMedium() {
   lowBtn.classList.add("bg-white", "font-black");
   mediumBtn.classList.add("bg-medium", "font-white");
@@ -66,6 +91,12 @@ function prioMedium() {
   imgMedium.src = "./assets/img/icons/add-task/medium-white.svg";
 }
 
+/**
+ * Updates the UI styling to indicate urgent priority:
+ * - Adds urgent priority styling to the urgent priority button.
+ * - Adds default styling to the low and medium priority buttons.
+ * - Changes the urgent priority button icon to match the priority.
+ */
 function prioUrgent() {
   lowBtn.classList.add("bg-white", "font-black");
   mediumBtn.classList.add("bg-white", "font-black");
@@ -74,6 +105,10 @@ function prioUrgent() {
   imgMedium.src = "./assets/img/icons/add-task/medium-orange.svg";
 }
 
+/**
+ * Toggles opening and closing the dropdown content element
+ * by changing its display style and rotating the arrow image.
+ */
 function openAndCloseDropDownToAssign() {
   const dropdownContent = document.getElementById("dropdownContent");
   const img = document.getElementById("arrowImg");
@@ -87,6 +122,11 @@ function openAndCloseDropDownToAssign() {
   }
 }
 
+/**
+ * Opens the dropdown content element
+ * by changing its display style and adjusting the arrow image.
+ * Only performs this action if dropdown is currently closed.
+ */
 function onlyOpenDropDownToAssign() {
   const dropdownContent = document.getElementById("dropdownContent");
   const img = document.getElementById("arrowImg");
@@ -99,6 +139,12 @@ function onlyOpenDropDownToAssign() {
   }
 }
 
+/**
+ * Closes the dropdown content element
+ * by changing its display style to 'none'
+ * and rotating the arrow image back to default state.
+ * Only performs this action if dropdown is currently open.
+ */
 function onlyCloseDropDownToAssign() {
   const dropdownContent = document.getElementById("dropdownContent");
   const img = document.getElementById("arrowImg");
@@ -111,6 +157,12 @@ function onlyCloseDropDownToAssign() {
   }
 }
 
+/**
+ * Displays a list of available contacts as checkboxes
+ * by populating the 'labels' element with a checkbox input
+ * for each contact in the 'contacts' array in localUserData.
+ * Adds click handler to get assigned contacts when checkbox is clicked.
+ */
 function showContactsToAssign() {
   let content = document.getElementById("labels");
   content.innerHTML = "";
@@ -134,6 +186,13 @@ function showContactsToAssign() {
   }
 }
 
+/**
+ * Filters the contacts to show in the dropdown menu based on the input text.
+ * Matches contacts whose name includes the input text (case insensitive).
+ * Shows the matched contacts by generating HTML for each one.
+ * If no input, shows all contacts.
+ * If no matches, shows nothing.
+ */
 function filterContactsToAssign() {
   let input = document.getElementById("dropdownInput").value.toLowerCase();
   let content = document.getElementById("dropdownContent");
@@ -169,6 +228,11 @@ function filterContactsToAssign() {
   }
 }
 
+/**
+ * Toggles the 'checked-assigned-to' class on the contact container
+ * when the contact checkbox is checked/unchecked. This highlights
+ * the contact visually when it is assigned to the task.
+ */
 function changeCheckboxColor(i) {
   let checkbox = document.getElementById(`option${i}`);
   let container = document.getElementById(`single-contact${i}`);
@@ -180,6 +244,13 @@ function changeCheckboxColor(i) {
   }
 }
 
+/**
+ * Creates a string of initials from the given contact's name,
+ * and returns HTML markup for displaying the initials in a colored circle.
+ *
+ * @param {Object} element - The contact object
+ * @returns {string} The HTML markup for the initials circle
+ */
 function createContactInitials(element) {
   const initials = element.userData.name
     .split(" ")
@@ -195,6 +266,10 @@ function createContactInitials(element) {
     `;
 }
 
+/**
+ * Creates a new subtask by adding the input value to the newSubtasks array,
+ * updating the UI to show the new subtask, and clearing the input field.
+ */
 function createSubtask() {
   let input = document.getElementById("input-of-subtask");
   newSubtasks.unshift(input.value);
@@ -202,6 +277,12 @@ function createSubtask() {
   input.value = "";
 }
 
+/**
+ * Updates the UI to display the newly created subtask
+ * by looping through the newSubtasks array, creating a list item
+ * for each one with the subtask text, and appending the list items
+ * to the subtasks container element.
+ */
 function showCreatedSubtask() {
   let content = document.getElementById("show-subtasks-container");
   content.innerHTML = "";
@@ -222,6 +303,13 @@ function showCreatedSubtask() {
   }
 }
 
+/**
+ * Allows user to edit an existing subtask.
+ * Finds the input field for the subtask at the provided index,
+ * makes it editable, updates the edit button to save changes,
+ * and updates the button's onclick handler to call changeSubtaskInArray()
+ * to update the subtask text.
+ */
 function correctSubtask(index) {
   let inputField = document
     .getElementById(`subtask-${index}`)
@@ -234,6 +322,13 @@ function correctSubtask(index) {
   editImg.setAttribute("onclick", `changeSubtaskInArray(${index})`);
 }
 
+/**
+ * Updates the subtasks array and UI when the user edits a subtask.
+ * Removes the existing subtask at the provided index using deleteSubtask().
+ * Gets the updated subtask text from the input field.
+ * Adds the updated subtask text to the start of the array using unshift().
+ * Updates the UI display of the subtasks using showCreatedSubtask().
+ */
 function changeSubtaskInArray(index) {
   let inputField = document
     .getElementById(`subtask-${index}`)
@@ -243,6 +338,13 @@ function changeSubtaskInArray(index) {
   showCreatedSubtask();
 }
 
+/**
+ * Updates the subtasks array and UI when the user edits a subtask.
+ * Removes the existing subtask at the provided index using deleteSubtask().
+ * Gets the updated subtask text from the input field.
+ * Adds the updated subtask text to the start of the array using unshift().
+ * Updates the UI display of the subtasks using showCreatedSubtask().
+ */
 function changeSubtaskInArray(index) {
   let inputField = document
     .getElementById(`subtask-${index}`)
@@ -253,26 +355,46 @@ function changeSubtaskInArray(index) {
   showCreatedSubtask();
 }
 
+/**
+ * Removes the subtask at the provided index from the newSubtasks array.
+ * Updates the UI display of the subtasks using showCreatedSubtask().
+ */
 function deleteSubtask(index) {
   newSubtasks.splice(index, 1);
   showCreatedSubtask();
 }
 
+/**
+ * Gets the due date value entered by the user from the due date input field.
+ * Stores the extracted due date value in the newDueDate variable.
+ */
 function getDueDate() {
   let dueDateValue = document.getElementById("due-date-value").value;
   newDueDate = dueDateValue;
 }
 
+/**
+ * Gets the task title value entered by the user from the title input field.
+ * Stores the extracted title value in the newTitle variable.
+ */
 function getTitle() {
   let titleValue = document.getElementById("title-value").value;
   newTitle = titleValue;
 }
 
+/**
+ * Gets the task description value entered by the user from the description textarea.
+ * Stores the extracted description value in the newDescription variable.
+ */
 function getDescription() {
   let descriptionValue = document.getElementById("description").value;
   newDescription = descriptionValue;
 }
 
+/**
+ * Gets the selected category value from the category dropdown.
+ * Stores the selected category value (1 for user story, 2 for bug) in the newCategory variable.
+ */
 function getCategory() {
   let categorySelected = document.getElementById("category");
   if (categorySelected.value === "user-story") {
@@ -282,6 +404,11 @@ function getCategory() {
   }
 }
 
+/**
+ * Gets the selected contacts from the contact checkboxes
+ * and stores the names in the newAssignedContacts array.
+ * Calls showInitialsOfAssigned() to update display.
+ */
 function getAssignedContacts() {
   newAssignedContacts = [];
   let options = document.getElementsByClassName("single-contact");
@@ -296,6 +423,12 @@ function getAssignedContacts() {
   showInitialsOfAssigned();
 }
 
+/**
+ * Updates the DOM to show the initials of the currently
+ * assigned contacts in colored circles. Initials are
+ * generated from the contact names and matched to colors
+ * from the local user data.
+ */
 function showInitialsOfAssigned() {
   let content = document.getElementById("initialsOfAssigned");
   content.innerHTML = "";
@@ -321,6 +454,11 @@ function showInitialsOfAssigned() {
   }
 }
 
+/**
+ * Clears the form by resetting all inputs, textareas, selects,
+ * subtasks, assigned contacts, dropdowns, priority buttons,
+ * and global state.
+ */
 function clearForm() {
   resetInputs();
   resetTextarea();
@@ -334,11 +472,18 @@ function clearForm() {
   resetGlobal();
 }
 
+/**
+ * Resets the subtasks section by clearing the HTML.
+ */
 function resetSubtasks() {
   let subtask = document.getElementById("show-subtasks-container");
   subtask.innerHTML = "";
 }
 
+/**
+ * Resets all select elements on the page by setting
+ * their selectedIndex property to -1.
+ */
 function resetSelects() {
   let selects = document.querySelectorAll("select");
   selects.forEach(function (select) {
@@ -346,11 +491,19 @@ function resetSelects() {
   });
 }
 
+/**
+ * Resets the textarea element with ID 'description'
+ * by setting its value to an empty string.
+ */
 function resetTextarea() {
   let textarea = document.getElementById("description");
   textarea.value = "";
 }
 
+/**
+ * Resets all input elements on the page by setting
+ * their value property to an empty string.
+ */
 function resetInputs() {
   let inputs = document.querySelectorAll("input");
   inputs.forEach(function (input) {
@@ -358,6 +511,11 @@ function resetInputs() {
   });
 }
 
+/**
+ * Resets the assigned contacts by clearing any checked
+ * checkboxes and removing contacts from the assignedContacts
+ * array.
+ */
 function resetAssignedContacts() {
   assignedContacts = [];
   let options = document.getElementsByClassName("single-contact");
@@ -371,6 +529,9 @@ function resetAssignedContacts() {
   showInitialsOfAssigned();
 }
 
+/**
+ * Resets all global state variables to their initial values.
+ */
 function resetGlobal() {
   newTitle;
   newDescription;
@@ -381,6 +542,11 @@ function resetGlobal() {
   newSubtasks = [];
 }
 
+/**
+ * Checks if the required fields for adding a new task are filled out.
+ * If so, saves the new task. If not, returns without saving to
+ * indicate there are missing fields.
+ */
 function checkIfFieldsAreFilled() {
   let button = document.querySelector(".submit-btn");
   saveInputs();
@@ -392,6 +558,11 @@ function checkIfFieldsAreFilled() {
   }
 }
 
+/**
+ * Saves the user input values from the form fields
+ * into the appropriate global variables to be used when
+ * saving a new task.
+ */
 function saveInputs() {
   getTitle();
   getDescription();
@@ -399,6 +570,11 @@ function saveInputs() {
   getDueDate();
 }
 
+/**
+ * Saves a new task object to the tasks array
+ * after populating it with the data from the form fields.
+ * Clears the form fields after saving.
+ */
 function saveNewTask() {
   let subtasksArray = [];
   newSubtasks.forEach((subtask) => {
@@ -415,10 +591,14 @@ function saveNewTask() {
     subtasks: subtasksArray,
     title: newTitle,
   };
-  showConfirmation();
   clearForm();
 }
 
+/**
+ * Generates a new unique ID to be used for the next task that is created.
+ * Iterates through all users and their tasks to find the current maximum ID,
+ * and increments it by 1.
+ */
 function generateNewIdForTask() {
   for (let i = 0; i < localUserData.users.length; i++) {
     const user = localUserData.users[i];
