@@ -354,7 +354,8 @@ select:focus {
   display: block;
 }
 
-.single-contact {
+.single-contact,
+.edit-single-contact {
   display: flex;
   flex-direction: row-reverse;
   justify-content: flex-end;
@@ -475,6 +476,7 @@ img {
   display: flex;
   gap: 0.5rem;
   padding: 0 0 1rem 0;
+  flex-wrap: wrap;
 }
 
 #add-task-overlay-task-created {

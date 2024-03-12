@@ -175,7 +175,7 @@ function showContactsToAssign() {
             type="checkbox"
             class="custom-checkbox"
             id="option${i}"
-            value="${element}"
+            value="${element["userData"]["name"]}"
             onchange="changeCheckboxColor(${i})"
           />
           ${element["userData"]["name"]}
@@ -210,7 +210,7 @@ function filterContactsToAssign() {
             type="checkbox"
             class="custom-checkbox"
             id="option${i}"
-            value="${element}"
+            value="${element["userData"]["name"]}"
             onchange="changeCheckboxColor(${i})"
           />
           ${element["userData"]["name"]}

@@ -591,7 +591,7 @@ function editTask(card) {
 					  class="border-none"
 					  id="dropdownInput"
 					  placeholder="Select contacts to assign"
-					  onkeyup="filterContactsToAssign(), onlyOpenDropDownToAssign()"
+					  onkeyup="filterContactsToAssignEdit(), onlyOpenDropDownToAssign()"
 					/>
 					<img
 					  id="arrowImg"
@@ -695,20 +695,93 @@ function editTask(card) {
 				</div>
 		
 		`;
+        newAssignedContacts = task.assignedTo;
 
-        assignContactsToEdit(task);
         showSubtasksToEdit(task);
-        showContactsToAssign();
+        showContactsToAssignEdit();
         showInitialsOfAssigned();
-        changeCheckboxColor(i);
+        updateSelectedContacts();
       }
+    }
+  }
+  newAssignedContacts = [];
+  saveUserData();
+}
+
+function filterContactsToAssignEdit() {
+  let input = document.getElementById("dropdownInput").value.toLowerCase();
+  let contacts = localUserData.contacts;
+  for (let i = 0; i < contacts.length; i++) {
+    const contact = contacts[i];
+    const contactName = contact.userData.name.toLowerCase();
+    const option = document.getElementById(`edit-single-contact${i}`);
+    if (contactName.includes(input)) {
+      option.classList.remove("d-none");
+    } else {
+      option.classList.add("d-none");
     }
   }
 }
 
-function assignContactsToEdit(task) {
-  let contacts = task.assignedTo;
-  newAssignedContacts = contacts;
+function showContactsToAssignEdit() {
+  let content = document.getElementById("labels");
+  content.innerHTML = "";
+  for (let i = 0; i < localUserData["contacts"].length; i++) {
+    const element = localUserData["contacts"][i];
+    content.innerHTML += `
+      <div id="edit-single-contact${i}" class="edit-single-contact" onclick="getAssignedContactsEdit()">
+        <label for="edit-option${i}" class="label-layout">
+          <input
+            type="checkbox"
+            class="custom-checkbox"
+            id="edit-option${i}"
+            value="${element["userData"]["name"]}"
+            onchange="changeCheckboxColorEdit(${i})"
+          />
+          ${element["userData"]["name"]}
+        </label>
+        <br />
+        ${createContactInitials(element)}
+      </div>`;
+  }
+}
+
+function getAssignedContactsEdit() {
+  newAssignedContacts = [];
+  let options = document.getElementsByClassName("edit-single-contact");
+  for (let i = 0; i < options.length; i++) {
+    const checkbox = options[i].querySelector('input[type="checkbox"]');
+    if (checkbox.checked) {
+      let option = options[i].querySelector("label");
+      let name = option.textContent.trim();
+      newAssignedContacts.push(name);
+    }
+  }
+  showInitialsOfAssigned();
+}
+
+function updateSelectedContacts() {
+  const singleContacts = document.getElementsByClassName("edit-single-contact");
+  for (let i = 0; i < singleContacts.length; i++) {
+    const checkbox = singleContacts[i].querySelector("input[type='checkbox']");
+    const contactName = checkbox.value;
+
+    if (newAssignedContacts.includes(contactName)) {
+      checkbox.checked = true;
+      changeCheckboxColorEdit(i);
+    }
+  }
+}
+
+function changeCheckboxColorEdit(i) {
+  let checkbox = document.getElementById(`edit-option${i}`);
+  let container = document.getElementById(`edit-single-contact${i}`);
+
+  if (checkbox.checked) {
+    container.classList.add("checked-assigned-to");
+  } else {
+    container.classList.remove("checked-assigned-to");
+  }
 }
 
 function showSubtasksToEdit(task) {
