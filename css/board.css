@@ -537,3 +537,13 @@ progress::-webkit-progress-bar {
 .is-done:hover {
   content: url(/assets/img/icons/board/cf-checked-hover.svg);
 }
+
+#overlay-edit-card {
+  z-index: 1;
+  position: absolute;
+  top: 15vh;
+}
+
+.gap-05rem {
+  gap: 0.5rem !important;
+}
