@@ -9,22 +9,22 @@ let maxId = 0;
 
 let newTask = [];
 
-let lowBtn = document.getElementById('low-btn');
-let mediumBtn = document.getElementById('medium-btn');
-let urgentBtn = document.getElementById('urgent-btn');
+let lowBtn = document.getElementById("low-btn");
+let mediumBtn = document.getElementById("medium-btn");
+let urgentBtn = document.getElementById("urgent-btn");
 
-let imgLow = document.getElementById('img-low');
-let imgMedium = document.getElementById('img-medium');
-let imgUrgent = document.getElementById('img-urgent');
+let imgLow = document.getElementById("img-low");
+let imgMedium = document.getElementById("img-medium");
+let imgUrgent = document.getElementById("img-urgent");
 
 /**
  * Renders the page by initializing it, loading user data, and showing contacts to assign.
  * This is an async function that handles the overall page rendering flow.
  */
 async function renderPage() {
-	initPage();
-	await loadUserData();
-	showContactsToAssign();
+  initPage();
+  await loadUserData();
+  showContactsToAssign();
 }
 
 /**
@@ -33,17 +33,17 @@ async function renderPage() {
  * @param {string} prio - The priority level - "low", "medium" or "urgent".
  */
 function setPriority(prio) {
-	currentPriority = prio;
-	resetPrioButtons();
-	if (currentPriority == 'low') {
-		prioLow();
-	}
-	if (currentPriority == 'medium') {
-		prioMedium();
-	}
-	if (currentPriority == 'urgent') {
-		prioUrgent();
-	}
+  currentPriority = prio;
+  resetPrioButtons();
+  if (currentPriority == "low") {
+    prioLow();
+  }
+  if (currentPriority == "medium") {
+    prioMedium();
+  }
+  if (currentPriority == "urgent") {
+    prioUrgent();
+  }
 }
 
 /**
@@ -51,17 +51,17 @@ function setPriority(prio) {
  * Removes any priority-related styling classes and resets the button icons.
  */
 function resetPrioButtons() {
-	lowBtn.classList.remove('bg-low', 'bg-white', 'font-black', 'font-white');
-	mediumBtn.classList.remove('bg-medium', 'bg-white', 'font-black');
-	urgentBtn.classList.remove(
-		'bg-urgent',
-		'bg-white',
-		'font-black',
-		'font-white'
-	);
-	imgLow.src = './assets/img/icons/add-task/low.svg';
-	imgMedium.src = './assets/img/icons/add-task/medium-white.svg';
-	imgUrgent.src = './assets/img/icons/add-task/urgent.svg';
+  lowBtn.classList.remove("bg-low", "bg-white", "font-black", "font-white");
+  mediumBtn.classList.remove("bg-medium", "bg-white", "font-black");
+  urgentBtn.classList.remove(
+    "bg-urgent",
+    "bg-white",
+    "font-black",
+    "font-white"
+  );
+  imgLow.src = "./assets/img/icons/add-task/low.svg";
+  imgMedium.src = "./assets/img/icons/add-task/medium-white.svg";
+  imgUrgent.src = "./assets/img/icons/add-task/urgent.svg";
 }
 
 /**
@@ -71,11 +71,11 @@ function resetPrioButtons() {
  * - Changes the button icons to match the priority.
  */
 function prioLow() {
-	lowBtn.classList.add('bg-low', 'font-white');
-	mediumBtn.classList.add('bg-white', 'font-black');
-	urgentBtn.classList.add('bg-white', 'font-black');
-	imgLow.src = './assets/img/icons/add-task/low-white.svg';
-	imgMedium.src = './assets/img/icons/add-task/medium-orange.svg';
+  lowBtn.classList.add("bg-low", "font-white");
+  mediumBtn.classList.add("bg-white", "font-black");
+  urgentBtn.classList.add("bg-white", "font-black");
+  imgLow.src = "./assets/img/icons/add-task/low-white.svg";
+  imgMedium.src = "./assets/img/icons/add-task/medium-orange.svg";
 }
 
 /**
@@ -85,10 +85,10 @@ function prioLow() {
  * - Changes the medium priority button icon to match the priority.
  */
 function prioMedium() {
-	lowBtn.classList.add('bg-white', 'font-black');
-	mediumBtn.classList.add('bg-medium', 'font-white');
-	urgentBtn.classList.add('bg-white', 'font-black');
-	imgMedium.src = './assets/img/icons/add-task/medium-white.svg';
+  lowBtn.classList.add("bg-white", "font-black");
+  mediumBtn.classList.add("bg-medium", "font-white");
+  urgentBtn.classList.add("bg-white", "font-black");
+  imgMedium.src = "./assets/img/icons/add-task/medium-white.svg";
 }
 
 /**
@@ -98,11 +98,11 @@ function prioMedium() {
  * - Changes the urgent priority button icon to match the priority.
  */
 function prioUrgent() {
-	lowBtn.classList.add('bg-white', 'font-black');
-	mediumBtn.classList.add('bg-white', 'font-black');
-	urgentBtn.classList.add('bg-urgent', 'font-white');
-	imgUrgent.src = './assets/img/icons/add-task/urgent-white.svg';
-	imgMedium.src = './assets/img/icons/add-task/medium-orange.svg';
+  lowBtn.classList.add("bg-white", "font-black");
+  mediumBtn.classList.add("bg-white", "font-black");
+  urgentBtn.classList.add("bg-urgent", "font-white");
+  imgUrgent.src = "./assets/img/icons/add-task/urgent-white.svg";
+  imgMedium.src = "./assets/img/icons/add-task/medium-orange.svg";
 }
 
 /**
@@ -110,16 +110,16 @@ function prioUrgent() {
  * by changing its display style and rotating the arrow image.
  */
 function openAndCloseDropDownToAssign() {
-	const dropdownContent = document.getElementById('dropdownContent');
-	const img = document.getElementById('arrowImg');
+  const dropdownContent = document.getElementById("dropdownContent");
+  const img = document.getElementById("arrowImg");
 
-	if (dropdownContent.style.display !== 'block') {
-		dropdownContent.style.display = 'block';
-		img.style.transform = 'rotate(180deg)';
-	} else {
-		dropdownContent.style.display = 'none';
-		img.style.transform = 'rotate(0deg)';
-	}
+  if (dropdownContent.style.display !== "block") {
+    dropdownContent.style.display = "block";
+    img.style.transform = "rotate(180deg)";
+  } else {
+    dropdownContent.style.display = "none";
+    img.style.transform = "rotate(0deg)";
+  }
 }
 
 /**
@@ -128,15 +128,15 @@ function openAndCloseDropDownToAssign() {
  * Only performs this action if dropdown is currently closed.
  */
 function onlyOpenDropDownToAssign() {
-	const dropdownContent = document.getElementById('dropdownContent');
-	const img = document.getElementById('arrowImg');
+  const dropdownContent = document.getElementById("dropdownContent");
+  const img = document.getElementById("arrowImg");
 
-	if (dropdownContent.style.display !== 'block') {
-		dropdownContent.style.display = 'block';
-		img.style.transform = 'rotate(180deg)';
-	} else {
-		return;
-	}
+  if (dropdownContent.style.display !== "block") {
+    dropdownContent.style.display = "block";
+    img.style.transform = "rotate(180deg)";
+  } else {
+    return;
+  }
 }
 
 /**
@@ -146,15 +146,15 @@ function onlyOpenDropDownToAssign() {
  * Only performs this action if dropdown is currently open.
  */
 function onlyCloseDropDownToAssign() {
-	const dropdownContent = document.getElementById('dropdownContent');
-	const img = document.getElementById('arrowImg');
+  const dropdownContent = document.getElementById("dropdownContent");
+  const img = document.getElementById("arrowImg");
 
-	if (dropdownContent.style.display !== 'block') {
-		return;
-	} else {
-		dropdownContent.style.display = 'none';
-		img.style.transform = 'rotate(0deg)';
-	}
+  if (dropdownContent.style.display !== "block") {
+    return;
+  } else {
+    dropdownContent.style.display = "none";
+    img.style.transform = "rotate(0deg)";
+  }
 }
 
 /**
@@ -164,26 +164,26 @@ function onlyCloseDropDownToAssign() {
  * Adds click handler to get assigned contacts when checkbox is clicked.
  */
 function showContactsToAssign() {
-	let content = document.getElementById('labels');
-	content.innerHTML = '';
-	for (let i = 0; i < localUserData['contacts'].length; i++) {
-		const element = localUserData['contacts'][i];
-		content.innerHTML += `
+  let content = document.getElementById("labels");
+  content.innerHTML = "";
+  for (let i = 0; i < localUserData["contacts"].length; i++) {
+    const element = localUserData["contacts"][i];
+    content.innerHTML += `
       <div id="single-contact${i}" class="single-contact" onclick="getAssignedContacts()">
         <label for="option${i}" class="label-layout">
           <input
             type="checkbox"
             class="custom-checkbox"
             id="option${i}"
-            value="${element}"
+            value="${element["userData"]["name"]}"
             onchange="changeCheckboxColor(${i})"
           />
-          ${element['userData']['name']}
+          ${element["userData"]["name"]}
         </label>
         <br />
         ${createContactInitials(element)}
       </div>`;
-	}
+  }
 }
 
 /**
@@ -194,38 +194,38 @@ function showContactsToAssign() {
  * If no matches, shows nothing.
  */
 function filterContactsToAssign() {
-	let input = document.getElementById('dropdownInput').value.toLowerCase();
-	let content = document.getElementById('dropdownContent');
-	content.innerHTML = '';
-	let contacts = localUserData.contacts;
-	let matchedContacts = contacts.filter((contact) => {
-		return contact.userData.name.toLowerCase().includes(input);
-	});
-	for (let i = 0; i < matchedContacts.length; i++) {
-		const element = matchedContacts[i];
-		content.innerHTML += `
+  let input = document.getElementById("dropdownInput").value.toLowerCase();
+  let content = document.getElementById("dropdownContent");
+  content.innerHTML = "";
+  let contacts = localUserData.contacts;
+  let matchedContacts = contacts.filter((contact) => {
+    return contact.userData.name.toLowerCase().includes(input);
+  });
+  for (let i = 0; i < matchedContacts.length; i++) {
+    const element = matchedContacts[i];
+    content.innerHTML += `
       <div id="single-contact${i}" class="single-contact" onclick="getAssignedContacts()">
         <label for="option${i}" class="label-layout">
           <input
             type="checkbox"
             class="custom-checkbox"
             id="option${i}"
-            value="${element}"
+            value="${element["userData"]["name"]}"
             onchange="changeCheckboxColor(${i})"
           />
-          ${element['userData']['name']}
+          ${element["userData"]["name"]}
         </label>
         <br />
         ${createContactInitials(element)}
       </div>`;
-	}
-	if (input == '') {
-		content.innerHTML = '<div id="labels"></div>';
-		showContactsToAssign();
-	}
-	if (matchedContacts == 0) {
-		return;
-	}
+  }
+  if (input == "") {
+    content.innerHTML = '<div id="labels"></div>';
+    showContactsToAssign();
+  }
+  if (matchedContacts == 0) {
+    return;
+  }
 }
 
 /**
@@ -234,14 +234,14 @@ function filterContactsToAssign() {
  * the contact visually when it is assigned to the task.
  */
 function changeCheckboxColor(i) {
-	let checkbox = document.getElementById(`option${i}`);
-	let container = document.getElementById(`single-contact${i}`);
+  let checkbox = document.getElementById(`option${i}`);
+  let container = document.getElementById(`single-contact${i}`);
 
-	if (checkbox.checked) {
-		container.classList.add('checked-assigned-to');
-	} else {
-		container.classList.remove('checked-assigned-to');
-	}
+  if (checkbox.checked) {
+    container.classList.add("checked-assigned-to");
+  } else {
+    container.classList.remove("checked-assigned-to");
+  }
 }
 
 /**
@@ -252,12 +252,12 @@ function changeCheckboxColor(i) {
  * @returns {string} The HTML markup for the initials circle
  */
 function createContactInitials(element) {
-	const initials = element.userData.name
-		.split(' ')
-		.map((word) => word.charAt(0))
-		.join('');
+  const initials = element.userData.name
+    .split(" ")
+    .map((word) => word.charAt(0))
+    .join("");
 
-	return `
+  return `
       <div 
       class="initialsCyrcle"
           style="background-color: ${element.color}">
@@ -271,10 +271,10 @@ function createContactInitials(element) {
  * updating the UI to show the new subtask, and clearing the input field.
  */
 function createSubtask() {
-	let input = document.getElementById('input-of-subtask');
-	newSubtasks.unshift(input.value);
-	showCreatedSubtask();
-	input.value = '';
+  let input = document.getElementById("input-of-subtask");
+  newSubtasks.unshift(input.value);
+  showCreatedSubtask();
+  input.value = "";
 }
 
 /**
@@ -284,12 +284,12 @@ function createSubtask() {
  * to the subtasks container element.
  */
 function showCreatedSubtask() {
-	let content = document.getElementById('show-subtasks-container');
-	content.innerHTML = '';
-	for (let i = 0; i < newSubtasks.length; i++) {
-		const element = newSubtasks[i];
-		let listItemId = `subtask-${i}`;
-		content.innerHTML += `
+  let content = document.getElementById("show-subtasks-container");
+  content.innerHTML = "";
+  for (let i = 0; i < newSubtasks.length; i++) {
+    const element = newSubtasks[i];
+    let listItemId = `subtask-${i}`;
+    content.innerHTML += `
       <div class="subtask-list-container">
         <li id="${listItemId}"><input readonly type="text" value="${element}"></li>
          
@@ -300,7 +300,7 @@ function showCreatedSubtask() {
         
       </div>
     `;
-	}
+  }
 }
 
 /**
@@ -311,15 +311,15 @@ function showCreatedSubtask() {
  * to update the subtask text.
  */
 function correctSubtask(index) {
-	let inputField = document
-		.getElementById(`subtask-${index}`)
-		.querySelector('input');
-	inputField.removeAttribute('readonly');
+  let inputField = document
+    .getElementById(`subtask-${index}`)
+    .querySelector("input");
+  inputField.removeAttribute("readonly");
 
-	let editImg = document.getElementById(`edit-button${index}`);
-	editImg.src = 'assets/img/icons/add-task/done.svg';
-	editImg.alt = 'done';
-	editImg.setAttribute('onclick', `changeSubtaskInArray(${index})`);
+  let editImg = document.getElementById(`edit-button${index}`);
+  editImg.src = "assets/img/icons/add-task/done.svg";
+  editImg.alt = "done";
+  editImg.setAttribute("onclick", `changeSubtaskInArray(${index})`);
 }
 
 /**
@@ -330,12 +330,12 @@ function correctSubtask(index) {
  * Updates the UI display of the subtasks using showCreatedSubtask().
  */
 function changeSubtaskInArray(index) {
-	let inputField = document
-		.getElementById(`subtask-${index}`)
-		.querySelector('input');
-	deleteSubtask(index);
-	newSubtasks.unshift(inputField.value);
-	showCreatedSubtask();
+  let inputField = document
+    .getElementById(`subtask-${index}`)
+    .querySelector("input");
+  deleteSubtask(index);
+  newSubtasks.unshift(inputField.value);
+  showCreatedSubtask();
 }
 
 /**
@@ -346,13 +346,13 @@ function changeSubtaskInArray(index) {
  * Updates the UI display of the subtasks using showCreatedSubtask().
  */
 function changeSubtaskInArray(index) {
-	let inputField = document
-		.getElementById(`subtask-${index}`)
-		.querySelector('input');
-	let newInputValue = inputField.value;
-	newSubtasks.splice(index, 1);
-	newSubtasks.splice(index, 0, newInputValue);
-	showCreatedSubtask();
+  let inputField = document
+    .getElementById(`subtask-${index}`)
+    .querySelector("input");
+  let newInputValue = inputField.value;
+  newSubtasks.splice(index, 1);
+  newSubtasks.splice(index, 0, newInputValue);
+  showCreatedSubtask();
 }
 
 /**
@@ -360,8 +360,8 @@ function changeSubtaskInArray(index) {
  * Updates the UI display of the subtasks using showCreatedSubtask().
  */
 function deleteSubtask(index) {
-	newSubtasks.splice(index, 1);
-	showCreatedSubtask();
+  newSubtasks.splice(index, 1);
+  showCreatedSubtask();
 }
 
 /**
@@ -369,8 +369,8 @@ function deleteSubtask(index) {
  * Stores the extracted due date value in the newDueDate variable.
  */
 function getDueDate() {
-	let dueDateValue = document.getElementById('due-date-value').value;
-	newDueDate = dueDateValue;
+  let dueDateValue = document.getElementById("due-date-value").value;
+  newDueDate = dueDateValue;
 }
 
 /**
@@ -378,8 +378,8 @@ function getDueDate() {
  * Stores the extracted title value in the newTitle variable.
  */
 function getTitle() {
-	let titleValue = document.getElementById('title-value').value;
-	newTitle = titleValue;
+  let titleValue = document.getElementById("title-value").value;
+  newTitle = titleValue;
 }
 
 /**
@@ -387,8 +387,8 @@ function getTitle() {
  * Stores the extracted description value in the newDescription variable.
  */
 function getDescription() {
-	let descriptionValue = document.getElementById('description').value;
-	newDescription = descriptionValue;
+  let descriptionValue = document.getElementById("description").value;
+  newDescription = descriptionValue;
 }
 
 /**
@@ -396,12 +396,12 @@ function getDescription() {
  * Stores the selected category value (1 for user story, 2 for bug) in the newCategory variable.
  */
 function getCategory() {
-	let categorySelected = document.getElementById('category');
-	if (categorySelected.value === 'user-story') {
-		newCategory = 1;
-	} else {
-		newCategory = 2;
-	}
+  let categorySelected = document.getElementById("category");
+  if (categorySelected.value === "user-story") {
+    newCategory = 1;
+  } else {
+    newCategory = 2;
+  }
 }
 
 /**
@@ -410,17 +410,17 @@ function getCategory() {
  * Calls showInitialsOfAssigned() to update display.
  */
 function getAssignedContacts() {
-	newAssignedContacts = [];
-	let options = document.getElementsByClassName('single-contact');
-	for (let i = 0; i < options.length; i++) {
-		const checkbox = options[i].querySelector('input[type="checkbox"]');
-		if (checkbox.checked) {
-			let option = options[i].querySelector('label');
-			let name = option.textContent.trim();
-			newAssignedContacts.push(name);
-		}
-	}
-	showInitialsOfAssigned();
+  newAssignedContacts = [];
+  let options = document.getElementsByClassName("single-contact");
+  for (let i = 0; i < options.length; i++) {
+    const checkbox = options[i].querySelector('input[type="checkbox"]');
+    if (checkbox.checked) {
+      let option = options[i].querySelector("label");
+      let name = option.textContent.trim();
+      newAssignedContacts.push(name);
+    }
+  }
+  showInitialsOfAssigned();
 }
 
 /**
@@ -430,28 +430,28 @@ function getAssignedContacts() {
  * from the local user data.
  */
 function showInitialsOfAssigned() {
-	let content = document.getElementById('initialsOfAssigned');
-	content.innerHTML = '';
-	for (let i = 0; i < newAssignedContacts.length; i++) {
-		const assignedContact = newAssignedContacts[i];
-		const initials = assignedContact
-			.split(' ')
-			.map((word) => word.charAt(0))
-			.join('');
-		let user = localUserData.contacts.find(
-			(user) => user.userData.name === assignedContact
-		);
-		if (user) {
-			let color = user.color;
-			content.innerHTML += `
+  let content = document.getElementById("initialsOfAssigned");
+  content.innerHTML = "";
+  for (let i = 0; i < newAssignedContacts.length; i++) {
+    const assignedContact = newAssignedContacts[i];
+    const initials = assignedContact
+      .split(" ")
+      .map((word) => word.charAt(0))
+      .join("");
+    let user = localUserData.contacts.find(
+      (user) => user.userData.name === assignedContact
+    );
+    if (user) {
+      let color = user.color;
+      content.innerHTML += `
         <div 
         class="initialsCyrcle"
             style="background-color: ${color}">
             ${initials}
       </div>
       `;
-		}
-	}
+    }
+  }
 }
 
 /**
@@ -460,24 +460,24 @@ function showInitialsOfAssigned() {
  * and global state.
  */
 function clearForm() {
-	resetInputs();
-	resetTextarea();
-	resetSelects();
-	resetSubtasks();
-	resetAssignedContacts();
-	showContactsToAssign();
-	openAndCloseDropDownToAssign();
-	onlyCloseDropDownToAssign();
-	resetPrioButtons();
-	resetGlobal();
+  resetInputs();
+  resetTextarea();
+  resetSelects();
+  resetSubtasks();
+  resetAssignedContacts();
+  showContactsToAssign();
+  openAndCloseDropDownToAssign();
+  onlyCloseDropDownToAssign();
+  resetPrioButtons();
+  resetGlobal();
 }
 
 /**
  * Resets the subtasks section by clearing the HTML.
  */
 function resetSubtasks() {
-	let subtask = document.getElementById('show-subtasks-container');
-	subtask.innerHTML = '';
+  let subtask = document.getElementById("show-subtasks-container");
+  subtask.innerHTML = "";
 }
 
 /**
@@ -485,10 +485,10 @@ function resetSubtasks() {
  * their selectedIndex property to -1.
  */
 function resetSelects() {
-	let selects = document.querySelectorAll('select');
-	selects.forEach(function (select) {
-		select.selectedIndex = -1;
-	});
+  let selects = document.querySelectorAll("select");
+  selects.forEach(function (select) {
+    select.selectedIndex = -1;
+  });
 }
 
 /**
@@ -496,8 +496,8 @@ function resetSelects() {
  * by setting its value to an empty string.
  */
 function resetTextarea() {
-	let textarea = document.getElementById('description');
-	textarea.value = '';
+  let textarea = document.getElementById("description");
+  textarea.value = "";
 }
 
 /**
@@ -505,10 +505,10 @@ function resetTextarea() {
  * their value property to an empty string.
  */
 function resetInputs() {
-	let inputs = document.querySelectorAll('input');
-	inputs.forEach(function (input) {
-		input.value = '';
-	});
+  let inputs = document.querySelectorAll("input");
+  inputs.forEach(function (input) {
+    input.value = "";
+  });
 }
 
 /**
@@ -517,29 +517,29 @@ function resetInputs() {
  * array.
  */
 function resetAssignedContacts() {
-	assignedContacts = [];
-	let options = document.getElementsByClassName('single-contact');
-	for (let i = 0; i < options.length; i++) {
-		const checkbox = options[i].querySelector('input[type="checkbox"]');
-		if (checkbox.checked) {
-			let option = options[i].querySelector('label');
-			option.checked = false;
-		}
-	}
-	showInitialsOfAssigned();
+  assignedContacts = [];
+  let options = document.getElementsByClassName("single-contact");
+  for (let i = 0; i < options.length; i++) {
+    const checkbox = options[i].querySelector('input[type="checkbox"]');
+    if (checkbox.checked) {
+      let option = options[i].querySelector("label");
+      option.checked = false;
+    }
+  }
+  showInitialsOfAssigned();
 }
 
 /**
  * Resets all global state variables to their initial values.
  */
 function resetGlobal() {
-	newTitle;
-	newDescription;
-	newAssignedContacts = [];
-	newDueDate;
-	currentPriority;
-	newCategory;
-	newSubtasks = [];
+  newTitle;
+  newDescription;
+  newAssignedContacts = [];
+  newDueDate;
+  currentPriority;
+  newCategory;
+  newSubtasks = [];
 }
 
 /**
@@ -548,14 +548,14 @@ function resetGlobal() {
  * indicate there are missing fields.
  */
 function checkIfFieldsAreFilled() {
-	let button = document.querySelector('.submit-btn');
-	saveInputs();
-	if (newTitle && newDueDate && newCategory !== '') {
-		saveNewTask();
-		button.removeAttribute('disabled');
-	} else {
-		return; // hier muss statt return dieses rote Feld auftauchen, in dem steht, was genau ausgefüllt werden muss
-	}
+  let button = document.querySelector(".submit-btn");
+  saveInputs();
+  if (newTitle && newDueDate && newCategory !== "") {
+    saveNewTask();
+    button.removeAttribute("disabled");
+  } else {
+    return; // hier muss statt return dieses rote Feld auftauchen, in dem steht, was genau ausgefüllt werden muss
+  }
 }
 
 /**
@@ -564,10 +564,10 @@ function checkIfFieldsAreFilled() {
  * saving a new task.
  */
 function saveInputs() {
-	getTitle();
-	getDescription();
-	getCategory();
-	getDueDate();
+  getTitle();
+  getDescription();
+  getCategory();
+  getDueDate();
 }
 
 /**
@@ -576,22 +576,22 @@ function saveInputs() {
  * Clears the form fields after saving.
  */
 function saveNewTask() {
-	let subtasksArray = [];
-	newSubtasks.forEach((subtask) => {
-		subtasksArray.push({ name: subtask, done: false });
-	});
-	newTask = {
-		assignedTo: newAssignedContacts,
-		category: newCategory,
-		description: newDescription,
-		dueDate: newDueDate,
-		id: maxId,
-		priority: currentPriority,
-		status: 'toDo',
-		subtasks: subtasksArray,
-		title: newTitle,
-	};
-	clearForm();
+  let subtasksArray = [];
+  newSubtasks.forEach((subtask) => {
+    subtasksArray.push({ name: subtask, done: false });
+  });
+  newTask = {
+    assignedTo: newAssignedContacts,
+    category: newCategory,
+    description: newDescription,
+    dueDate: newDueDate,
+    id: maxId,
+    priority: currentPriority,
+    status: "toDo",
+    subtasks: subtasksArray,
+    title: newTitle,
+  };
+  clearForm();
 }
 
 /**
@@ -600,13 +600,25 @@ function saveNewTask() {
  * and increments it by 1.
  */
 function generateNewIdForTask() {
-	for (let i = 0; i < localUserData.users.length; i++) {
-		const user = localUserData.users[i];
-		for (let j = 0; j < user.tasks.length; j++) {
-			const task = user.tasks[j];
-			if (task.id > maxId) {
-				maxId = task.id;
-			}
-		}
-	}
+  for (let i = 0; i < localUserData.users.length; i++) {
+    const user = localUserData.users[i];
+    for (let j = 0; j < user.tasks.length; j++) {
+      const task = user.tasks[j];
+      if (task.id > maxId) {
+        maxId = task.id;
+      }
+    }
+  }
+}
+
+function showConfirmation() {
+  let overlay = document.getElementById("add-task-overlay-task-created");
+  overlay.classList.remove("box-slide-out", "d-none");
+  overlay.classList.add("box-slide-in");
+  setTimeout(() => {
+    overlay.classList.remove("box-slide-in");
+    setTimeout(() => {
+      overlay.classList.add("box-slide-out", "d-none");
+    }, 3000);
+  }, 0);
 }

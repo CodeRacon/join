@@ -354,7 +354,8 @@ select:focus {
   display: block;
 }
 
-.single-contact {
+.single-contact,
+.edit-single-contact {
   display: flex;
   flex-direction: row-reverse;
   justify-content: flex-end;
@@ -475,4 +476,53 @@ img {
   display: flex;
   gap: 0.5rem;
   padding: 0 0 1rem 0;
+  flex-wrap: wrap;
+}
+
+#add-task-overlay-task-created {
+  padding: 1.5rem;
+  background-color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 1.3rem;
+  width: fit-content;
+}
+
+#add-task-overlay-task-created span {
+  color: white;
+}
+
+#add-task-overlay-task-created img {
+  filter: brightness(1.5);
+  cursor: unset;
+}
+
+.box-slide-in {
+  animation: boxSlideIn 0.325s ease-in forwards;
+}
+
+.box-slide-out {
+  animation: boxSlideOut 0.325s ease-in forwards;
+}
+
+@keyframes boxSlideIn {
+  from {
+    transform: translate(100%, 80%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-2%, 0%);
+    opacity: 1;
+  }
+}
+
+@keyframes boxSlideOut {
+  from {
+    transform: translate(-2%, 0%);
+    opacity: 1;
+  }
+  to {
+    transform: translate(100%, 80%);
+    opacity: 0;
+  }
 }
