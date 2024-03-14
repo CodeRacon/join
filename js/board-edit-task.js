@@ -1,6 +1,10 @@
-let lowBtnEdit = document.getElementById("low-btn-edit");
-let mediumBtnEdit = document.getElementById("medium-btn-edit");
-let urgentBtnEdit = document.getElementById("urgent-btn-edit");
+let lowBtnEdit;
+let mediumBtnEdit;
+let urgentBtnEdit;
+
+let imgLowEdit;
+let imgMediumEdit;
+let imgUrgentEdit;
 
 function editTask(card) {
   let taskCard = document.getElementById("overlay-task-card");
@@ -57,11 +61,11 @@ function editTask(card) {
                       <button
                         id="urgent-btn-edit"
                         class="prio-box input-borders"
-                        onclick="setPriority('urgent')"
+                        onclick="changePriorityEdit('urgent')"
                       >
                         Urgent
                         <img
-                          id="img-urgent"
+                          id="img-urgent-edit"
                           src="./assets/img/icons/add-task/urgent.svg"
                           alt="urgent symbol"
                         />
@@ -69,11 +73,11 @@ function editTask(card) {
                       <button
                         id="medium-btn-edit"
                         class="prio-box input-borders"
-                        onclick="setPriority('medium')"
+                        onclick="changePriorityEdit('medium')"
                       >
                         Medium
                         <img
-                          id="img-medium"
+                          id="img-medium-edit"
                           src="./assets/img/icons/add-task/medium-white.svg"
                           alt="medium symbol"
                         />
@@ -81,11 +85,11 @@ function editTask(card) {
                       <button
                         id="low-btn-edit"
                         class="prio-box input-borders"
-                        onclick="setPriority('low')"
+                        onclick="changePriorityEdit('low')"
                       >
                         Low
                         <img
-                          id="img-low"
+                          id="img-low-edit"
                           src="./assets/img/icons/add-task/low.svg"
                           alt="low symbol"
                         />
@@ -142,37 +146,61 @@ function editTask(card) {
         showContactsToAssignEdit();
         showInitialsOfAssigned();
         updateSelectedContacts();
-        getSelectedPriotityEdit(task);
+        initializeButtons();
+        initializeImgs();
+        setActualPriorityEdit(task);
       }
     }
   }
   newAssignedContacts = [];
 }
 
-function getSelectedPriotityEdit(task) {
-  let card = actualCard;
-  let cardPrio = card.tasks;
+function initializeButtons() {
+  lowBtnEdit = document.getElementById("low-btn-edit");
+  mediumBtnEdit = document.getElementById("medium-btn-edit");
+  urgentBtnEdit = document.getElementById("urgent-btn-edit");
+}
+
+function initializeImgs() {
+  imgLowEdit = document.getElementById("img-low-edit");
+  imgMediumEdit = document.getElementById("img-medium-edit");
+  imgUrgentEdit = document.getElementById("img-urgent-edit");
+}
+
+function setActualPriorityEdit(task) {
   let selectedPrio = task.priority;
   if (selectedPrio === 1) {
     currentPriority = "low";
+    resetPrioButtonsEdit();
     prioLowEdit();
   }
   if (selectedPrio === 2) {
     currentPriority = "medium";
+    resetPrioButtonsEdit();
     prioMediumEdit();
   }
   if (selectedPrio === 3) {
     currentPriority = "high";
+    resetPrioButtonsEdit();
     prioUrgentEdit();
   }
 }
 
-// let imgLow = document.getElementById("img-low");
-// let imgMedium = document.getElementById("img-medium");
-// let imgUrgent = document.getElementById("img-urgent");
-// Edit;
+function changePriorityEdit(prio) {
+  currentPriority = prio;
+  resetPrioButtonsEdit();
+  if (currentPriority == "low") {
+    prioLowEdit();
+  }
+  if (currentPriority == "medium") {
+    prioMediumEdit();
+  }
+  if (currentPriority == "urgent") {
+    prioUrgentEdit();
+  }
+}
 
-function resetPrioButtons() {
+function resetPrioButtonsEdit() {
   lowBtnEdit.classList.remove("bg-low", "bg-white", "font-black", "font-white");
   mediumBtnEdit.classList.remove("bg-medium", "bg-white", "font-black");
   urgentBtnEdit.classList.remove(
@@ -181,32 +209,32 @@ function resetPrioButtons() {
     "font-black",
     "font-white"
   );
-  imgLow.src = "./assets/img/icons/add-task/low.svg";
-  imgMedium.src = "./assets/img/icons/add-task/medium-white.svg";
-  imgUrgent.src = "./assets/img/icons/add-task/urgent.svg";
+  imgLowEdit.src = "./assets/img/icons/add-task/low.svg";
+  imgMediumEdit.src = "./assets/img/icons/add-task/medium-white.svg";
+  imgUrgentEdit.src = "./assets/img/icons/add-task/urgent.svg";
 }
 
 function prioLowEdit() {
   lowBtnEdit.classList.add("bg-low", "font-white");
   mediumBtnEdit.classList.add("bg-white", "font-black");
   urgentBtnEdit.classList.add("bg-white", "font-black");
-  imgLow.src = "./assets/img/icons/add-task/low-white.svg";
-  imgMedium.src = "./assets/img/icons/add-task/medium-orange.svg";
+  imgLowEdit.src = "./assets/img/icons/add-task/low-white.svg";
+  imgMediumEdit.src = "./assets/img/icons/add-task/medium-orange.svg";
 }
 
 function prioMediumEdit() {
   lowBtnEdit.classList.add("bg-white", "font-black");
   mediumBtnEdit.classList.add("bg-medium", "font-white");
   urgentBtnEdit.classList.add("bg-white", "font-black");
-  imgMedium.src = "./assets/img/icons/add-task/medium-white.svg";
+  imgMediumEdit.src = "./assets/img/icons/add-task/medium-white.svg";
 }
 
 function prioUrgentEdit() {
   lowBtnEdit.classList.add("bg-white", "font-black");
   mediumBtnEdit.classList.add("bg-white", "font-black");
   urgentBtnEdit.classList.add("bg-urgent", "font-white");
-  imgUrgent.src = "./assets/img/icons/add-task/urgent-white.svg";
-  imgMedium.src = "./assets/img/icons/add-task/medium-orange.svg";
+  imgUrgentEdit.src = "./assets/img/icons/add-task/urgent-white.svg";
+  imgMediumEdit.src = "./assets/img/icons/add-task/medium-orange.svg";
 }
 
 function filterContactsToAssignEdit() {
