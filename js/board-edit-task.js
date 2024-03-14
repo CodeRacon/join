@@ -142,17 +142,21 @@ function editTask(card) {
           
           `;
         newAssignedContacts = task.assignedTo;
-        showSubtasksToEdit(task);
-        showContactsToAssignEdit();
-        showInitialsOfAssigned();
-        updateSelectedContacts();
-        initializeButtons();
-        initializeImgs();
-        setActualPriorityEdit(task);
+        renderEditTaskCardFunctions(task);
       }
     }
   }
   newAssignedContacts = [];
+}
+
+function renderEditTaskCardFunctions(task) {
+  showSubtasksToEdit(task);
+  showContactsToAssignEdit();
+  showInitialsOfAssigned();
+  updateSelectedContacts();
+  initializeButtons();
+  initializeImgs();
+  setActualPriorityEdit(task);
 }
 
 function initializeButtons() {
@@ -328,5 +332,6 @@ function showSubtasksToEdit(task) {
           
         </div>
       `;
+    newSubtasks.push(subtask.name);
   }
 }
