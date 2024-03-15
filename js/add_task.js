@@ -272,9 +272,13 @@ function createContactInitials(element) {
  */
 function createSubtask() {
   let input = document.getElementById("input-of-subtask");
-  newSubtasks.unshift(input.value);
-  showCreatedSubtask();
-  input.value = "";
+  if (input.value == "") {
+    return;
+  } else {
+    newSubtasks.unshift(input.value);
+    showCreatedSubtask();
+    input.value = "";
+  }
 }
 
 /**

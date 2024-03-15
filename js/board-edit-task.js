@@ -20,7 +20,8 @@ function editTask(card) {
       const task = actualCard.tasks[j];
       if (taskId == card) {
         newOverlay.innerHTML = ` 
-                  <div class="main-cotainer single-task-card gap-05rem">
+                  <div class="main-cotainer single-task-card ">
+                  <div class="scroll-bar-edit gap-05rem">
                     <span>Title</span>
                     <input
                       id="title-value"
@@ -138,6 +139,20 @@ function editTask(card) {
                       />
                     </div>
                     <div id="show-subtasks-container"></div>
+                    </div>
+                    <div class="ok-btn-container">
+                    <button
+              class="btn-borders btn-span-img-ctn btn-create submit-btn"
+            
+            >
+              <span class="create-text">Ok</span>
+              <img
+                src="./assets/img/icons/add-task/check.svg"
+                alt="close symbol"
+              />
+            </button>
+            </div>
+         
                   </div>
           
           `;
@@ -157,6 +172,12 @@ function renderEditTaskCardFunctions(task) {
   initializeButtons();
   initializeImgs();
   setActualPriorityEdit(task);
+  saveCategory(task);
+}
+
+function saveCategory(task) {
+  let categoryOfEdited = task.category;
+  newCategory = categoryOfEdited;
 }
 
 function initializeButtons() {
@@ -205,13 +226,25 @@ function changePriorityEdit(prio) {
 }
 
 function resetPrioButtonsEdit() {
-  lowBtnEdit.classList.remove("bg-low", "bg-white", "font-black", "font-white");
-  mediumBtnEdit.classList.remove("bg-medium", "bg-white", "font-black");
+  lowBtnEdit.classList.remove(
+    "bg-low",
+    "bg-white",
+    "font-black",
+    "font-white",
+    "gap-05rem"
+  );
+  mediumBtnEdit.classList.remove(
+    "bg-medium",
+    "bg-white",
+    "font-black",
+    "gap-05rem"
+  );
   urgentBtnEdit.classList.remove(
     "bg-urgent",
     "bg-white",
     "font-black",
-    "font-white"
+    "font-white",
+    "gap-05rem"
   );
   imgLowEdit.src = "./assets/img/icons/add-task/low.svg";
   imgMediumEdit.src = "./assets/img/icons/add-task/medium-white.svg";
@@ -219,7 +252,7 @@ function resetPrioButtonsEdit() {
 }
 
 function prioLowEdit() {
-  lowBtnEdit.classList.add("bg-low", "font-white");
+  lowBtnEdit.classList.add("bg-low", "font-white", "gap-05rem");
   mediumBtnEdit.classList.add("bg-white", "font-black");
   urgentBtnEdit.classList.add("bg-white", "font-black");
   imgLowEdit.src = "./assets/img/icons/add-task/low-white.svg";
@@ -236,7 +269,7 @@ function prioMediumEdit() {
 function prioUrgentEdit() {
   lowBtnEdit.classList.add("bg-white", "font-black");
   mediumBtnEdit.classList.add("bg-white", "font-black");
-  urgentBtnEdit.classList.add("bg-urgent", "font-white");
+  urgentBtnEdit.classList.add("bg-urgent", "font-white", "gap-05rem");
   imgUrgentEdit.src = "./assets/img/icons/add-task/urgent-white.svg";
   imgMediumEdit.src = "./assets/img/icons/add-task/medium-orange.svg";
 }
@@ -334,4 +367,32 @@ function showSubtasksToEdit(task) {
       `;
     newSubtasks.push(subtask.name);
   }
+}
+
+function getEditedAssignedContacts() {
+  newAssignedContacts = [];
+  let options = document.getElementsByClassName("edit-single-contact");
+  for (let i = 0; i < options.length; i++) {
+    const checkbox = options[i].querySelector('input[type="checkbox"]');
+    if (checkbox.checked) {
+      let option = options[i].querySelector("label");
+      let name = option.textContent.trim();
+      newAssignedContacts.push(name);
+    }
+  }
+}
+
+function saveEditedInputs() {
+  getTitle();
+  getDescription();
+  getDueDate();
+  getEditedAssignedContacts();
+}
+
+function exchangeEditedTask() {
+  // ok-button im html eintragen um diese funktion zu verknüpfen.
+  saveEditedInputs(); // danach prüfen, ob savenewtask() funktioniert oder ob andere funktion geschrieben werden muss
+  saveNewTask();
+  //clearForm();
+  //resetGlobal();
 }
