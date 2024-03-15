@@ -787,7 +787,7 @@ p.error-message {
 .btn-bar button:first-of-type {
 	border: 1px solid var(--primary);
 	background-color: #fff;
-	color: var(--Version-2-main-color, #2a3647);
+	color: var(--primary);
 }
 
 .btn-bar button:last-of-type {
