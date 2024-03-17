@@ -519,24 +519,6 @@ li > input {
 	line-height: 120%;
 }
 
-#add-task-overlay-task-created {
-	padding: 1.5rem;
-	background-color: var(--primary);
-	display: flex;
-	align-items: center;
-	gap: 1.3rem;
-	width: fit-content;
-}
-
-#add-task-overlay-task-created span {
-	color: white;
-}
-
-#add-task-overlay-task-created img {
-	filter: brightness(1.5);
-	cursor: unset;
-}
-
 /* ################### Buttons at bottom ################### */
 
 .btn-container {
@@ -602,6 +584,34 @@ li > input {
 
 /* ################### Animation & Transition ################### */
 
+#add-task-content {
+	position: relative;
+}
+
+#add-task-overlay-task-created {
+	position: absolute;
+	z-index: 999;
+	top: 50%;
+	left: 50%;
+	transform: translate(+100%, -50%);
+	display: flex;
+	align-items: center;
+	gap: 1.3rem;
+	width: fit-content;
+	padding: 1.5rem;
+	border-radius: 1.25rem;
+	background-color: var(--primary);
+}
+
+#add-task-overlay-task-created span {
+	color: white;
+}
+
+#add-task-overlay-task-created img {
+	filter: brightness(1.5);
+	cursor: unset;
+}
+
 .box-slide-in {
 	animation: boxSlideIn 0.325s ease-in forwards;
 }
@@ -612,22 +622,24 @@ li > input {
 
 @keyframes boxSlideIn {
 	from {
-		transform: translate(100%, 80%);
+		transform: translate(-50%, +100%);
+
 		opacity: 0;
 	}
 	to {
-		transform: translate(-2%, 0%);
+		transform: translate(-50%, -50%);
 		opacity: 1;
 	}
 }
 
 @keyframes boxSlideOut {
 	from {
-		transform: translate(-2%, 0%);
+		transform: translate(-50%, -50%);
 		opacity: 1;
 	}
 	to {
-		transform: translate(100%, 80%);
+		transform: translate(-50%, +100%);
+
 		opacity: 0;
 	}
 }
@@ -763,10 +775,6 @@ li > input {
 
 	.prio-box {
 		padding: 0.5rem;
-	}
-
-	#add-task-content {
-		position: relative;
 	}
 
 	.lower-container {
