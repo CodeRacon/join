@@ -25,6 +25,7 @@ async function renderPage() {
   initPage();
   await loadUserData();
   showContactsToAssign();
+  clearForm();
 }
 
 /**
@@ -51,14 +52,10 @@ function setPriority(prio) {
  * Removes any priority-related styling classes and resets the button icons.
  */
 function resetPrioButtons() {
-  lowBtn.classList.remove("bg-low", "bg-white", "font-black", "font-white");
-  mediumBtn.classList.remove("bg-medium", "bg-white", "font-black");
-  urgentBtn.classList.remove(
-    "bg-urgent",
-    "bg-white",
-    "font-black",
-    "font-white"
-  );
+  lowBtn.classList.value = "prio-box prio-unset";
+  mediumBtn.classList.value = "prio-box prio-set";
+  urgentBtn.classList.value = "prio-box prio-unset";
+
   imgLow.src = "./assets/img/icons/add-task/low.svg";
   imgMedium.src = "./assets/img/icons/add-task/medium-white.svg";
   imgUrgent.src = "./assets/img/icons/add-task/urgent.svg";
@@ -71,9 +68,10 @@ function resetPrioButtons() {
  * - Changes the button icons to match the priority.
  */
 function prioLow() {
-  lowBtn.classList.add("bg-low", "font-white");
-  mediumBtn.classList.add("bg-white", "font-black");
-  urgentBtn.classList.add("bg-white", "font-black");
+  lowBtn.classList.value = "prio-box prio-set font-white bg-low";
+  mediumBtn.classList.value = "prio-box prio-unset bg-white font-black";
+  urgentBtn.classList.value = "prio-box prio-unset bg-white font-black";
+
   imgLow.src = "./assets/img/icons/add-task/low-white.svg";
   imgMedium.src = "./assets/img/icons/add-task/medium-orange.svg";
 }
@@ -85,9 +83,10 @@ function prioLow() {
  * - Changes the medium priority button icon to match the priority.
  */
 function prioMedium() {
-  lowBtn.classList.add("bg-white", "font-black");
-  mediumBtn.classList.add("bg-medium", "font-white");
-  urgentBtn.classList.add("bg-white", "font-black");
+  lowBtn.classList.value = "prio-box prio-unset bg-white font-black ";
+  mediumBtn.classList.value = "prio-box prio-set bg-medium font-white";
+  urgentBtn.classList.value = "prio-box prio-unset bg-white font-black";
+
   imgMedium.src = "./assets/img/icons/add-task/medium-white.svg";
 }
 
@@ -98,9 +97,10 @@ function prioMedium() {
  * - Changes the urgent priority button icon to match the priority.
  */
 function prioUrgent() {
-  lowBtn.classList.add("bg-white", "font-black");
-  mediumBtn.classList.add("bg-white", "font-black");
-  urgentBtn.classList.add("bg-urgent", "font-white");
+  lowBtn.classList.value = "prio-box prio-unset bg-white font-black ";
+  mediumBtn.classList.value = "prio-box prio-unset bg-white font-black";
+  urgentBtn.classList.value = "prio-box prio-set bg-urgent font-white";
+
   imgUrgent.src = "./assets/img/icons/add-task/urgent-white.svg";
   imgMedium.src = "./assets/img/icons/add-task/medium-orange.svg";
 }
@@ -111,13 +111,17 @@ function prioUrgent() {
  */
 function openAndCloseDropDownToAssign() {
   const dropdownContent = document.getElementById("dropdownContent");
+  const assignedTo = document.getElementById("assigned-to");
   const img = document.getElementById("arrowImg");
-
   if (dropdownContent.style.display !== "block") {
     dropdownContent.style.display = "block";
+    dropdownContent.classList.add("onfocus");
+    assignedTo.classList.add("onfocus");
     img.style.transform = "rotate(180deg)";
   } else {
     dropdownContent.style.display = "none";
+    dropdownContent.classList.remove("onfocus");
+    assignedTo.classList.remove("onfocus");
     img.style.transform = "rotate(0deg)";
   }
 }
@@ -130,9 +134,13 @@ function openAndCloseDropDownToAssign() {
 function onlyOpenDropDownToAssign() {
   const dropdownContent = document.getElementById("dropdownContent");
   const img = document.getElementById("arrowImg");
+  const assignedTo = document.getElementById("assigned-to");
 
   if (dropdownContent.style.display !== "block") {
     dropdownContent.style.display = "block";
+    dropdownContent.classList.add("onfocus");
+    assignedTo.classList.add("onfocus");
+
     img.style.transform = "rotate(180deg)";
   } else {
     return;
@@ -148,11 +156,14 @@ function onlyOpenDropDownToAssign() {
 function onlyCloseDropDownToAssign() {
   const dropdownContent = document.getElementById("dropdownContent");
   const img = document.getElementById("arrowImg");
+  const assignedTo = document.getElementById("assigned-to");
 
   if (dropdownContent.style.display !== "block") {
     return;
   } else {
     dropdownContent.style.display = "none";
+    dropdownContent.classList.remove("onfocus");
+    assignedTo.classList.remove("onfocus");
     img.style.transform = "rotate(0deg)";
   }
 }
@@ -571,10 +582,22 @@ function saveInputs() {
 }
 
 /**
- * Saves a new task object to the tasks array
- * after populating it with the data from the form fields.
- * Clears the form fields after saving.
+ * Generates a new unique ID to be used for the next task that is created.
+ * Iterates through all users and their tasks to find the current maximum ID,
+ * and increments it by 1.
  */
+function generateNewIdForTask() {
+  for (let i = 0; i < localUserData.users.length; i++) {
+    const user = localUserData.users[i];
+    for (let j = 0; j < user.tasks.length; j++) {
+      const task = user.tasks[j];
+      if (task.id > maxId) {
+        maxId = task.id;
+      }
+    }
+  }
+}
+
 function saveNewTask() {
   let subtasksArray = [];
   newSubtasks.forEach((subtask) => {
@@ -591,24 +614,20 @@ function saveNewTask() {
     subtasks: subtasksArray,
     title: newTitle,
   };
+  showConfirmation();
   clearForm();
+  pushTaskToArray();
+  maxId = 0;
 }
 
-/**
- * Generates a new unique ID to be used for the next task that is created.
- * Iterates through all users and their tasks to find the current maximum ID,
- * and increments it by 1.
- */
-function generateNewIdForTask() {
-  for (let i = 0; i < localUserData.users.length; i++) {
-    const user = localUserData.users[i];
-    for (let j = 0; j < user.tasks.length; j++) {
-      const task = user.tasks[j];
-      if (task.id > maxId) {
-        maxId = task.id;
-      }
-    }
-  }
+function pushTaskToArray() {
+  let loggedInUser = localUserData.users.findIndex(
+    (user) => user.isLoggedIn == true
+  );
+  let array = localUserData.users[loggedInUser].tasks;
+  array.push(newTask);
+  saveUserData();
+  newTask = [];
 }
 
 function showConfirmation() {

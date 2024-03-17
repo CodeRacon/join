@@ -39,7 +39,7 @@ async function loadUserData() {
   if(savedData) {
     localUserData = JSON.parse(savedData);
   }
-  
+  console.log(localUserData[0])
 }
 
 /**

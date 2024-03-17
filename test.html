@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body onload="init(), loadUsers(), moinme()">
+<body onload="init(), loadUsers()">
+    <div onclick="heyo()">moun</div>
     <a id="dope"  href="miu.html">hey</a>
     <p onclick="mmmano()">komplett</p>
     <script src="./js/storage.js"></script>
@@ -13,12 +14,16 @@
     <script src="./js/assets.js"></script>
     <script src="./js/dataHandling.js"></script>
     <script src="./js/signUp.js"></script>
-    <script src="./js/cool.js"></script>
     <script>
-        // wahrscheinlich muss TestStorage Data noch geladen werden
-        function moinme(){
-            console.log(TestStorage[7].user);
+        
+        async function heyo(){
+          loadUserData();
+          localUserData[0].user.color = 'hrxy';
+          saveUserData();
         }
+
     </script>
+  
+    
 </body>
 </html>

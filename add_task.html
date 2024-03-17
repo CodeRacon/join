@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/fonts.css" />
     <link rel="stylesheet" href="css/root.css" />
     <script defer src="js/storage.js"></script>
-    <script defer src="js/board.js"></script>
+    <!-- <script defer src="js/board.js"></script> -->
     <script defer src="js/assets.js"></script>
     <script defer src="js/add_task.js"></script>
     <script defer src="js/main.js"></script>
@@ -53,53 +53,64 @@
         <!-- Main-Cotainer für alle Felder -->
         <div class="main-cotainer">
           <!-- container left -->
-          <div class="frame219">
-            <span>Title<span class="asterisk">*</span></span>
-            <input
-              id="title-value"
-              name="title"
-              type="text"
-              placeholder="Enter a title"
-              class="field-width-height input-borders title"
-              required
-            />
-            <!-- description-->
-            <span>Description</span>
-            <textarea
-              name="description-text"
-              id="description"
-              class="field-width-height description-height input-borders description"
-              placeholder="Enter a Description"
-              cols="30"
-              rows="10"
-            ></textarea>
-            <!-- assign to -->
-            <label for="assign-select"><span>Assigned to</span> </label>
-            <div
-              class="field-width-height borders input-borders assigned-to"
-              onclick="openAndCloseDropDownToAssign()"
-            >
+          <div class="left-column">
+            <!-- title-->
+            <div class="title-cont">
+              <span>Title<span class="asterisk">*</span></span>
               <input
-                name="select-contact"
+                id="title-value"
+                class="field-width-height input-borders title--input"
+                name="title"
                 type="text"
-                class="border-none"
-                id="dropdownInput"
-                placeholder="Select contacts to assign"
-                onkeyup="filterContactsToAssign(), onlyOpenDropDownToAssign()"
-              />
-              <img
-                id="arrowImg"
-                src="./assets/img/icons/add-task/arrow-down.svg"
-                alt="Arrow down icon"
+                placeholder="Enter a title"
+                required
               />
             </div>
-            <div
-              class="dropdown-content btn-borders dropdown-content-style"
-              id="dropdownContent"
-            >
-              <div id="labels"></div>
+
+            <!-- description-->
+            <div class="description-cont">
+              <span>Description</span>
+              <textarea
+                name="description-text"
+                id="description"
+                class="field-width-height input-borders description"
+                placeholder="Enter a Description"
+                cols="30"
+                rows="10"
+              >
+              </textarea>
             </div>
-            <div id="initialsOfAssigned"></div>
+
+            <!-- assign to -->
+            <div class="assign-to-cont">
+              <span>Assigned to</span>
+              <div
+                id="assigned-to"
+                class="field-width-height input-borders assigned-to"
+                onclick="openAndCloseDropDownToAssign()"
+              >
+                <input
+                  name="select-contact"
+                  type="text"
+                  class="border-none"
+                  id="dropdownInput"
+                  placeholder="Select contacts to assign"
+                  onkeyup="filterContactsToAssign(), onlyOpenDropDownToAssign()"
+                />
+                <img
+                  id="arrowImg"
+                  src="/assets/img/icons/add-task/arrow-down.svg"
+                  alt="Arrow down icon"
+                />
+              </div>
+              <div
+                class="dropdown-content btn-borders dropdown-content-style"
+                id="dropdownContent"
+              >
+                <div id="labels"></div>
+              </div>
+              <div id="initialsOfAssigned"></div>
+            </div>
           </div>
           <!-- seperator -->
           <div class="svg-separator">
@@ -109,94 +120,107 @@
             />
           </div>
           <!-- container right -->
-          <div class="frame39">
+          <div class="right-column">
             <!-- Date -->
-            <span>Due Date<span class="asterisk">*</span></span>
-            <div class="field-width-height">
-              <input
-                id="due-date-value"
-                name="date"
-                type="date"
-                placeholder="dd/mm/yyy"
-                class="field-width-height input-borders due-date"
-                required
-              />
+            <div class="date-cont">
+              <span>Due Date<span class="asterisk">*</span> </span>
+              <div class="field-width-height">
+                <input
+                  id="due-date-value"
+                  class="field-width-height input-borders due-date"
+                  name="date"
+                  type="text"
+                  placeholder="yyyy/mm/dd"
+                  required
+                  onfocus="(this.type='date')"
+                  onblur="(this.type='text')"
+                />
+              </div>
             </div>
+
             <!--Prio-->
-            <span>Prio</span>
-            <div class="priority">
-              <button
-                id="urgent-btn"
-                class="prio-box input-borders"
-                onclick="setPriority('urgent')"
-              >
-                Urgent
-                <img
-                  id="img-urgent"
-                  src="./assets/img/icons/add-task/urgent.svg"
-                  alt="urgent symbol"
-                />
-              </button>
-              <button
-                id="medium-btn"
-                class="prio-box input-borders"
-                onclick="setPriority('medium')"
-              >
-                Medium
-                <img
-                  id="img-medium"
-                  src="./assets/img/icons/add-task/medium-white.svg"
-                  alt="medium symbol"
-                />
-              </button>
-              <button
-                id="low-btn"
-                class="prio-box input-borders"
-                onclick="setPriority('low')"
-              >
-                Low
-                <img
-                  id="img-low"
-                  src="./assets/img/icons/add-task/low.svg"
-                  alt="low symbol"
-                />
-              </button>
+            <div class="prio-cont">
+              <span>Prio</span>
+              <div class="priority">
+                <button
+                  id="urgent-btn"
+                  class="prio-box"
+                  onclick="setPriority('urgent')"
+                >
+                  Urgent
+                  <img
+                    id="img-urgent"
+                    src="./assets/img/icons/add-task/urgent.svg"
+                    alt="urgent symbol"
+                  />
+                </button>
+                <button
+                  id="medium-btn"
+                  class="prio-box prio-set"
+                  onclick="setPriority('medium')"
+                >
+                  Medium
+                  <img
+                    id="img-medium"
+                    src="./assets/img/icons/add-task/medium-white.svg"
+                    alt="medium symbol"
+                  />
+                </button>
+                <button
+                  id="low-btn"
+                  class="prio-box"
+                  onclick="setPriority('low')"
+                >
+                  Low
+                  <img
+                    id="img-low"
+                    src="./assets/img/icons/add-task/low.svg"
+                    alt="low symbol"
+                  />
+                </button>
+              </div>
             </div>
+
             <!-- Category -->
-            <label for="category-select" onclick="getCategory()"
-              ><span>Category<span class="asterisk">*</span></span></label
-            >
-            <select
-              name="category"
-              id="category"
-              class="field-width-height input-borders category"
-              required
-            >
-              <option value="option-text" disabled selected>
-                Select task category
-              </option>
-              <option value="user-story">User Story</option>
-              <option value="technical-task">Technical Task</option>
-            </select>
-            <!-- Subtasks -->
-            <span>Subtasks</span>
-            <div class="field-width-height input-borders subtasks">
-              <input
-                id="input-of-subtask"
-                type="text"
-                placeholder="Add new subtasks"
-                class="border-none"
-              />
-              <img
-                onclick="createSubtask()"
-                src="./assets/img/icons/add-task/plus.svg"
-                alt="plus symbol"
-              />
+            <div class="category-cont">
+              <span>Category<span class="asterisk">*</span></span>
+              <select
+                onclick="getCategory()"
+                name="category"
+                id="category"
+                class="field-width-height input-borders category"
+                required
+              >
+                <option selected value="option-text" disabled>
+                  Select task category
+                </option>
+                <option value="user-story">User Story</option>
+                <option value="technical-task">Technical Task</option>
+              </select>
             </div>
-            <div id="show-subtasks-container"></div>
+
+            <!-- Subtasks -->
+            <div class="subtask-cont">
+              <span>Subtasks</span>
+              <div class="field-width-height input-borders subtasks">
+                <input
+                  id="input-of-subtask"
+                  type="text"
+                  placeholder="Add new subtasks"
+                  class="border-none"
+                />
+                <img
+                  onclick="createSubtask()"
+                  src="./assets/img/icons/add-task/plus.svg"
+                  alt="plus symbol"
+                />
+              </div>
+              <div id="show-subtasks-container"></div>
+            </div>
           </div>
         </div>
-        <!-- butons and required info -->
+
+        <!-- buttons and required info -->
         <div class="lower-container">
           <span><span class="asterisk">*</span>This field is required</span>
           <div class="btn-container">
@@ -206,7 +230,7 @@
             >
               <span class="clear-text">Clear</span>
               <img
-                src="./assets/img/icons/add-task/close.svg"
+                src="/assets/img/icons/general/other/cancel.svg"
                 alt="close symbol"
               />
             </button>

@@ -1,6 +1,7 @@
 let separateIndedNum = 0;
 loadUserszr();
 
+
 localUserData = []; // wird beim ersten Mal in den LocalStorage gepackt und beim zweiten aufruf werden die Server daten in den LocalStorage gepackt
 let TestStorage = [];
 
@@ -29,51 +30,91 @@ async function init(){
 async function ppt(){
     await loadUserData();
     await loadUsers();
+    console.log(startData);
     let combinedUser = {
         user: startData.users[num],
         contacts: startData.contacts
     }
     await checkIfArrayExistInServer(combinedUser);
+    secondaryArray(startData);
+}
+
+
+function secondaryArray(startData){
+    alert('hey')
+  console.log(startData);
+  loadamountds();
+  console.log(TestStorage);
+  for (let i = 0; i < startData.length; i++) {
+    if (TestStorage[i].hasOwnProperty('users')) {
+
+            localUserData.push(TestStorage[i]);
+            saveUserData();
+            // in dieser funktion muss noch der save für localUserData eingebaut werden
+        
+    }
+    else{
+        return;
+    }
+  }
 }
 
 
 async function checkIfArrayExistInServer(combinedUser) {
-    await loadUserData();
-    
-   
-    
+     loadamountds();
     localUserData.push(combinedUser);
-    saveUserData();
-    console.log(localUserData[0]);
+     saveUserData();
     // Wenn combined User im Server vorhanden ist, wird ppt garnicht erst ausgeführt
 }
 
-function beforeUnloadHandler(event) {
-    if(event.persisted){
 
-        return;
-    }
-    if (document.readyState === 'complete') {
-        for (let i = 0; i < TestStorage.length; i++) {
-           if (TestStorage[i].user.hasOwnProperty('registerData')) {
-            TestStorage[i] = localUserData[4];
-            localUserData[0] = TestStorage[i];
+/*let pageLeave = false;  Könnte villeicht funktionieren
+
+window.onbeforeunload = function() {
+  if (pageLeave == false) {
+    pageLeave = true;
+    localStorage.removeItem('changedData');
+    return 'Sind Sie sicher, dass Sie diese Seite verlassen möchten? Ihre Änderungen werden nicht gespeichert.';
+  }
+}; */
+
+
+
+window.onbeforeunload = async function() {
+    // newarray.push('changedData') == Option1
+    await youlo();
+    localStorage.removeItem('changedData');
+};
+
+
+
+async function youlo(){
+    await loadUserData();
+    loadamountds();
+    // newarray.push('changedData') == Option2 -> und muss ind die if anweisung statt localUserData rein
+    for (let i = 0; i < TestStorage.length; i++) { 
+     if (TestStorage[i].hasOwnProperty('user')) {
+          if (TestStorage[i].user.registerData.Data.name ==  localUserData[0].user.registerData.Data.name) {
+            alert('yolow');
+            TestStorage[i] = localUserData[0];
             saveTestArray();
-             return;
-           } // else teil
-            // sorgt dafür das changeData nicht removed wird musst dich darum sorgen
-        }
-        // unter mir besser in den else teik
-        TestStorage.push(localUserData[4]);
-        saveTestArray();
-        localStorage.removeItem('changedData');
-        return;
-    }
+            localUserData[0] = TestStorage[i];
+            saveUserData();
+            // delete newarray from storage here
+            return;
+          }                 
+        }  
+     }
+     TestStorage.push(localUserData[0]);
+     saveTestArray();   
+     return;
+    
 }
 
 
-
 // Hinzufügen des Event-Listeners
+
+
 
 window.addEventListener('beforeunload', beforeUnloadHandler);
 // Funktion zum Entfernen des Event-Listeners
@@ -122,7 +163,6 @@ function higherNumber() {
                 }  
             }
             console.log(numForLinkLocation);
-            // Hier oioipo aufrufen
             oioipo(lunk[numForLinkLocation], nn, ths); // Beachte die Korrektur des Index
         });
     });
