@@ -145,7 +145,7 @@ function editTask(card) {
             />
           </div>
           <div
-            class="dropdown-content btn-borders dropdown-content-style"
+            class="dropdown-content dropdown-content-small btn-borders dropdown-content-style"
             id="dropdownContent"
           >
             <div id="labels"></div>
@@ -504,6 +504,10 @@ function saveEditedInputs() {
   getEditedAssignedContacts();
 }
 
+/**
+ * Saves the edited task details to a new task object, shows a confirmation
+ * message, adds the new task to the tasks array, resets the task ID counter.
+ */
 function saveEditedTask() {
   newTask = {
     assignedTo: newAssignedContacts,
@@ -522,7 +526,7 @@ function saveEditedTask() {
 }
 
 function deleteTaskAfterEditing() {
-  actualCard.splice(0);
+  // hier muss die alte task noch gelöscht werden!!
 }
 
 /**
@@ -533,6 +537,6 @@ function exchangeEditedTask() {
   saveEditedInputs();
   generateNewIdForTask();
   saveEditedTask();
-  //clearForm();
+  clearForm();
   //resetGlobal();
 }
