@@ -1,7 +1,6 @@
 let separateIndedNum = 0;
 loadUserszr();
 
-
 localUserData = []; // wird beim ersten Mal in den LocalStorage gepackt und beim zweiten aufruf werden die Server daten in den LocalStorage gepackt
 let TestStorage = [];
 
@@ -19,6 +18,7 @@ function saveTestArray(){
         localStorage.setItem('Anzahlomp', dd);
 }
 
+
 //test bzw ein neuer Variablen name muss mit einem neuen key in den remote storage
 async function init(){
     loadIndexNum();
@@ -30,42 +30,29 @@ async function init(){
 async function ppt(){
     await loadUserData();
     await loadUsers();
-    console.log(startData);
     let combinedUser = {
         user: startData.users[num],
         contacts: startData.contacts
     }
     await checkIfArrayExistInServer(combinedUser);
-    secondaryArray(startData);
-}
-
-
-function secondaryArray(startData){
-    alert('hey')
-  console.log(startData);
-  loadamountds();
-  console.log(TestStorage);
-  for (let i = 0; i < startData.length; i++) {
-    if (TestStorage[i].hasOwnProperty('users')) {
-
-            localUserData.push(TestStorage[i]);
-            saveUserData();
-            // in dieser funktion muss noch der save für localUserData eingebaut werden
-        
-    }
-    else{
-        return;
-    }
-  }
 }
 
 
 async function checkIfArrayExistInServer(combinedUser) {
+    
      loadamountds();
+   if (localUserData > 0) {
+    localUserData[0] = combinedUser;
+    saveUserData();
+   }
+   else{
     localUserData.push(combinedUser);
      saveUserData();
+   }
     // Wenn combined User im Server vorhanden ist, wird ppt garnicht erst ausgeführt
 }
+
+
 
 
 /*let pageLeave = false;  Könnte villeicht funktionieren
@@ -79,19 +66,37 @@ window.onbeforeunload = function() {
 }; */
 
 
+console.log(startData);
+
+async function letMeCook(){
+    await loadUsers(); 
+    console.log(startData);
+    console.log(TestStorage[1]);
+    if (TestStorage.length > 0) {
+        for (let i = 0; i < TestStorage.length; i++) {
+            if (TestStorage[i].user.registerData.Data.name == startData.users[num].registerData.Data.name) {
+                alert('oh mnow');
+                localUserData[0] = TestStorage[i];
+                saveUserData();
+            }
+        }
+    }
+}
+
+     letMeCook();
+
 
 window.onbeforeunload = async function() {
-    // newarray.push('changedData') == Option1
+    
     await youlo();
     localStorage.removeItem('changedData');
+   
 };
-
 
 
 async function youlo(){
     await loadUserData();
     loadamountds();
-    // newarray.push('changedData') == Option2 -> und muss ind die if anweisung statt localUserData rein
     for (let i = 0; i < TestStorage.length; i++) { 
      if (TestStorage[i].hasOwnProperty('user')) {
           if (TestStorage[i].user.registerData.Data.name ==  localUserData[0].user.registerData.Data.name) {
@@ -100,23 +105,23 @@ async function youlo(){
             saveTestArray();
             localUserData[0] = TestStorage[i];
             saveUserData();
-            // delete newarray from storage here
             return;
-          }                 
-        }  
+          }            
+        }
+        
      }
+     // unter mir besser in den else teik
      TestStorage.push(localUserData[0]);
-     saveTestArray();   
+     saveTestArray();
+     
      return;
     
 }
-
-
 // Hinzufügen des Event-Listeners
 
 
 
-window.addEventListener('beforeunload', beforeUnloadHandler);
+
 // Funktion zum Entfernen des Event-Listeners
 function removeBeforeUnloadListener() {
     window.removeEventListener('beforeunload', beforeUnloadHandler);
@@ -163,6 +168,7 @@ function higherNumber() {
                 }  
             }
             console.log(numForLinkLocation);
+            // Hier oioipo aufrufen
             oioipo(lunk[numForLinkLocation], nn, ths); // Beachte die Korrektur des Index
         });
     });
