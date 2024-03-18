@@ -603,6 +603,14 @@ function generateNewIdForTask() {
   }
 }
 
+/**
+ * Saves a newly created task object to the user's task list array.
+ * Generates a subtasks array from the entered subtasks.
+ * Creates a new task object with the entered info and generated ID.
+ * Shows a confirmation message, clears the form fields,
+ * pushes the new task to the user's task array,
+ * and resets the max ID counter.
+ */
 function saveNewTask() {
   let subtasksArray = [];
   newSubtasks.forEach((subtask) => {
@@ -625,6 +633,11 @@ function saveNewTask() {
   maxId = 0;
 }
 
+/**
+ * Pushes the newly created task object onto the
+ * tasks array for the currently logged in user.
+ * Also saves the updated user data.
+ */
 function pushTaskToArray() {
   let loggedInUser = localUserData.users.findIndex(
     (user) => user.isLoggedIn == true
@@ -635,6 +648,10 @@ function pushTaskToArray() {
   newTask = [];
 }
 
+/**
+ * Shows a confirmation overlay indicating the task was created.
+ * The overlay slides in, waits 3 seconds, and slides out.
+ */
 function showConfirmation() {
   let overlay = document.getElementById("add-task-overlay-task-created");
   overlay.classList.remove("box-slide-out", "d-none");
