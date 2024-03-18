@@ -3,12 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/media_queries.css" />
-    <link rel="stylesheet" href="css/add_task.css" />
-    <link rel="stylesheet" href="css/mandatory.css" />
-    <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/fonts.css" />
     <link rel="stylesheet" href="css/root.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/media_queries.css" />
+    <link rel="stylesheet" href="css/add_task.css" />
     <script defer src="js/storage.js"></script>
     <!-- <script defer src="js/board.js"></script> -->
     <script defer src="js/assets.js"></script>
@@ -40,7 +39,7 @@
       <!-- Overlay confirmation: task-created -->
       <div
         id="add-task-overlay-task-created"
-        class="box-slide-out d-none input-borders"
+        class="task-created box-slide-out d-none"
       >
         <span>Task added to board</span>
         <img
@@ -49,7 +48,8 @@
         />
       </div>
       <div id="add-task-content">
-        <h1>Add Task</h1>
+        <div class="heading"><h1>Add Task</h1></div>
+
         <!-- Main-Cotainer für alle Felder -->
         <div class="main-cotainer">
           <!-- container left -->
@@ -183,15 +183,16 @@
 
             <!-- Category -->
             <div class="category-cont">
-              <span>Category<span class="asterisk">*</span></span>
+              <label for="category-select"
+                ><span>Category<span class="asterisk">*</span></span></label
+              >
               <select
-                onclick="getCategory()"
                 name="category"
                 id="category"
                 class="field-width-height input-borders category"
                 required
               >
-                <option selected value="option-text" disabled>
+                <option value="option-text" selected disabled>
                   Select task category
                 </option>
                 <option value="user-story">User Story</option>

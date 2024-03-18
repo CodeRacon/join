@@ -27,6 +27,7 @@ async function updateHTML() {
   updateTaskColorAndCategory();
   updatePriority();
   showContactsToAssign();
+  clearForm();
 }
 
 /**
@@ -566,6 +567,7 @@ function openAddTaskOverlay() {
  * and ensuring the overlay is not hidden with 'd-none' after closing.
  */
 function closeAddTaskOverlay() {
+  clearForm();
   let overlay = document.getElementById("add-task-content-overlay");
   overlay.classList.remove("box-slide-in", "d-none");
   setTimeout(() => {
