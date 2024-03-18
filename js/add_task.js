@@ -5,6 +5,7 @@ let newDueDate;
 let currentPriority = 2;
 let newCategory;
 let newSubtasks = [];
+let newStatus;
 let maxId = 0;
 
 let newTask = [];
@@ -283,9 +284,13 @@ function createContactInitials(element) {
  */
 function createSubtask() {
   let input = document.getElementById("input-of-subtask");
-  newSubtasks.unshift(input.value);
-  showCreatedSubtask();
-  input.value = "";
+  if (input.value == "") {
+    return;
+  } else {
+    newSubtasks.unshift(input.value);
+    showCreatedSubtask();
+    input.value = "";
+  }
 }
 
 /**
@@ -498,7 +503,7 @@ function resetSubtasks() {
 function resetSelects() {
   let selects = document.querySelectorAll("select");
   selects.forEach(function (select) {
-    select.selectedIndex = -1;
+    select.selectedIndex = 0;
   });
 }
 
