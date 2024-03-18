@@ -37,14 +37,7 @@ let hexColors = [
 startData = {
 	users: [
 		{
-			isRegistered: true,
-			isLoggedIn: false,
-			userData: {
-				name: 'Mike Skinner',
-				phone: '(758) 519-1073',
-				email: 'm.skinner89@gmail.com',
-				password: 'pw1234',
-			},
+			
 
 			color: '#659c2b',
 			tasks: [
@@ -81,14 +74,7 @@ startData = {
 		},
 
 		{
-			isRegistered: true,
-			isLoggedIn: true,
-			userData: {
-				name: 'Kamilla Morgentau',
-				phone: '(741) 762-6527',
-				email: 'k.morgentau@gmail.com',
-				password: 'pw1234',
-			},
+			
 			color: '#b83c3c',
 			tasks: [
 				{
@@ -141,14 +127,6 @@ startData = {
 			],
 		},
 		{
-			isRegistered: true,
-			isLoggedIn: false,
-			userData: {
-				name: 'Gerd Förster',
-				phone: '(606) 200-4805',
-				email: 'g.foerster86@gmail.com',
-				password: 'pw1234',
-			},
 			color: '#00BEE8',
 			tasks: [
 				{
@@ -201,13 +179,7 @@ startData = {
 			],
 		},
 		{
-			isRegistered: true,
-			isLoggedIn: false,
-			userData: {
-				name: 'Bernd Steinemann',
-				phone: '(606) 659-4325',
-				email: 'steinemann83@mail.com',
-			},
+			
 			color: '#2dab6c',
 			tasks: [
 				{
@@ -259,13 +231,7 @@ startData = {
 			],
 		},
 		{
-			isRegistered: true,
-			isLoggedIn: false,
-			userData: {
-				name: 'Sophia Kostas',
-				phone: '(264) 911-2395',
-				email: 's.kostas84@mail.com',
-			},
+			
 			color: '#6E52FF',
 			tasks: [
 				{
