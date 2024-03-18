@@ -97,7 +97,7 @@ function editTask(card) {
                 </button>
                 <button
                   id="medium-btn-edit"
-                  class="prio-box prio-set"
+                  class="prio-box prio-unset"
                   onclick="changePriorityEdit('medium')"
                 >
                   Medium
@@ -172,7 +172,7 @@ function editTask(card) {
               <div id="show-subtasks-container"></div>
             </div>
           </div>
-          <div class="ok-btn-cont btn-span-img-ctn">
+          <div class="ok-btn-cont btn-span-img-ctn" onclick="exchangeEditedTask()">
             <button class=" btn-borders btn-create">
               OK <img src="/assets/img/icons/add-task/check.svg" alt="check" />
             </button>
@@ -504,14 +504,35 @@ function saveEditedInputs() {
   getEditedAssignedContacts();
 }
 
+function saveEditedTask() {
+  newTask = {
+    assignedTo: newAssignedContacts,
+    category: newCategory,
+    description: newDescription,
+    dueDate: newDueDate,
+    id: maxId,
+    priority: currentPriority,
+    status: newStatus,
+    subtasks: newSubtasks,
+    title: newTitle,
+  };
+  showConfirmation();
+  pushTaskToArray();
+  maxId = 0;
+}
+
+function deleteTaskAfterEditing() {
+  actualCard.splice(0);
+}
+
 /**
  * Saves edited task inputs, creates new edited task, clears form, and resets globals.
  * Called when user clicks ok button after editing a task.
  */
 function exchangeEditedTask() {
-  // ok-button im html eintragen um diese funktion zu verknüpfen.
-  saveEditedInputs(); // danach prüfen, ob savenewtask() funktioniert oder ob andere funktion geschrieben werden muss
-  saveNewTask();
+  saveEditedInputs();
+  generateNewIdForTask();
+  saveEditedTask();
   //clearForm();
   //resetGlobal();
 }
