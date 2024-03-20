@@ -531,7 +531,6 @@ li > input {
 
 .btn-span-img-ctn {
   display: flex;
-  padding: 1rem;
   justify-content: center;
   align-items: center;
   gap: 0.25rem;

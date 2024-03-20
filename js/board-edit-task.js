@@ -6,6 +6,8 @@ let imgLowEdit;
 let imgMediumEdit;
 let imgUrgentEdit;
 
+let indexOfTaskBeforeEdit;
+
 /**
  * Edits an existing task card with new details.
  *
@@ -23,10 +25,10 @@ function editTask(card) {
   newOverlay.classList.remove("d-none");
   newOverlay.innerHTML = "";
   for (let i = 0; i < localUserData.users.length; i++) {
-    actualCard = localUserData.users[i];
-    for (let j = 0; j < actualCard.tasks.length; j++) {
-      const taskId = actualCard.tasks[j].id;
-      const task = actualCard.tasks[j];
+    let actualTask = localUserData.users[i];
+    for (let j = 0; j < actualTask.tasks.length; j++) {
+      const taskId = actualTask.tasks[j].id;
+      const task = actualTask.tasks[j];
       if (taskId == card) {
         newOverlay.innerHTML = ` 
         <div class="main-cotainer single-task-card">
@@ -172,9 +174,9 @@ function editTask(card) {
               <div id="show-subtasks-container"></div>
             </div>
           </div>
-          <div class="ok-btn-cont btn-span-img-ctn" onclick="exchangeEditedTask()">
-            <button class=" btn-borders btn-create">
-              OK <img src="/assets/img/icons/add-task/check.svg" alt="check" />
+          <div class="ok-btn-cont btn-span-img-ctn">
+            <button class=" btn-borders btn-create"  onclick="exchangeEditedTask()">
+              OK <img src="./assets/img/icons/add-task/check.svg" alt="check" />
             </button>
           </div>
         </div>
@@ -509,20 +511,25 @@ function saveEditedInputs() {
  * message, adds the new task to the tasks array, resets the task ID counter.
  */
 function saveEditedTask() {
-  newTask = {
-    assignedTo: newAssignedContacts,
-    category: newCategory,
-    description: newDescription,
-    dueDate: newDueDate,
-    id: maxId,
-    priority: currentPriority,
-    status: newStatus,
-    subtasks: newSubtasks,
-    title: newTitle,
-  };
-  showConfirmation();
-  pushTaskToArray();
-  maxId = 0;
+  actualCard.title = newTitle;
+  actualCard.description = newDescription;
+  actualCard.dueDate = newDueDate;
+  actualCard.priority = currentPriority;
+  actualCard.assignedTo = newAssignedContacts;
+  actualCard.subtasks = newSubtasks;
+  exchangeTaskInArray();
+}
+
+function findIndexBeforeEdit() {
+  localUserData["tasks"].forEach(function (task, index) {
+    if (task.id == actualCard.id) {
+      indexOfTaskBeforeEdit = index;
+    }
+  });
+}
+
+function exchangeTaskInArray() {
+  loadUserData.tasks.splice(indexOfTaskBeforeEdit, 1, actualCard);
 }
 
 function deleteTaskAfterEditing() {
@@ -534,9 +541,10 @@ function deleteTaskAfterEditing() {
  * Called when user clicks ok button after editing a task.
  */
 function exchangeEditedTask() {
+  findIndexBeforeEdit();
   saveEditedInputs();
-  generateNewIdForTask();
   saveEditedTask();
-  clearForm();
+  console.log(actualCard);
+  // clearForm();
   //resetGlobal();
 }
