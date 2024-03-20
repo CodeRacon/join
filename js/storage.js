@@ -1,15 +1,15 @@
-const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
-const STORAGE_TOKEN = 'OLCMKPDCPKF9TQULRK3MARG5U8JK2GGGL5588K0M';
+const STORAGE_URL = "https://remote-storage.developerakademie.org/item";
+const STORAGE_TOKEN = "OLCMKPDCPKF9TQULRK3MARG5U8JK2GGGL5588K0M";
 
 async function setItem(key, value) {
   const payload = { key, value, token: STORAGE_TOKEN };
   try {
     return fetch(STORAGE_URL, {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify(payload),
     }).then((res) => res.json());
   } catch {
-    console.log('Could not set Item');
+    console.log("Could not set Item");
   }
 }
 
@@ -35,18 +35,19 @@ let localUserData = [];
  * Parses the loaded data as JSON before assigning to localUserData.
  */
 async function loadUserData() {
-  let savedData = localStorage.getItem('changedData');
-  if(savedData) {
+  const savedData = localStorage.getItem("changedData");
+  if (!savedData) {
+    localUserData = JSON.parse(await getItem("startData"));
+  } else {
     localUserData = JSON.parse(savedData);
   }
-  console.log(localUserData[0])
 }
 
 /**
  * Saves the edited local user data to local storage.
  */
 function saveUserData() {
-  localStorage.setItem('changedData', JSON.stringify(localUserData));
+  localStorage.setItem("changedData", JSON.stringify(localUserData));
 
-  console.log('Saved changed data');
+  console.log("Saved changed data");
 }
