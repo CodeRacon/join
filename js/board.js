@@ -240,6 +240,7 @@ function showInitials(element) {
  */
 function generateProgressBar(element) {
   let container = document.getElementById(`progress${element["id"]}`);
+  container.innerHTML = "";
   let subtasks = element["subtasks"];
   if (!element.hasOwnProperty("subtasks")) {
     return;
@@ -376,7 +377,7 @@ function openTaskCardOverlay(element) {
           <span>Assigned To:</span> 
             <div id="singleAssignedCircle${card.id}" class="assigned-to-of-single-task">${card.assignedTo}</div>
           </div>
-          <div class="subtasks-of-single-task" id="progress${card.id}"></div>
+          <div class="subtasks-of-single-task" id="subtasks${card.id}"></div>
           <div class="delete-edit-container">
           <img onclick="deleteTask(${card.id})" src="assets/img/icons/board/delete-bin.svg" alt="delete">
           <hr>
@@ -488,7 +489,7 @@ function showInitialsForSingleCard() {
  * Handles toggling the checkbox when clicked and updating styles.
  */
 function showSubtasks() {
-  let content = document.getElementById(`progress${actualCard.id}`);
+  let content = document.getElementById(`subtasks${actualCard.id}`);
   content.innerHTML = "";
   content.innerHTML = `<span>Subtasks</span>`;
   for (let index = 0; index < actualCard.subtasks.length; index++) {
@@ -523,6 +524,7 @@ function closeTaskCardOverlay() {
   overlay.classList.remove("d-none");
   overlay.innerHTML = "";
   actualCard = [];
+  updateHTML();
 }
 
 /**

@@ -189,6 +189,13 @@ function editTask(card) {
   newAssignedContacts = [];
 }
 
+function closeEditTaskCard() {
+  let taskCard = document.getElementById("overlay-task-card");
+  taskCard.classList.add("d-none");
+  let editCard = document.getElementById("overlay-edit-card");
+  editCard.classList.add("d-none");
+}
+
 /**
  * Renders the edit task card by calling functions to:
  * - Show existing subtasks for editing
@@ -472,7 +479,7 @@ function showSubtasksToEdit(task) {
           
         </div>
       `;
-    newSubtasks.push(subtask.name);
+    newSubtasks.push(subtask);
   }
 }
 
@@ -511,29 +518,31 @@ function saveEditedInputs() {
  * message, adds the new task to the tasks array, resets the task ID counter.
  */
 function saveEditedTask() {
+  let subtasksArray = [];
+  newSubtasks.forEach((subtask) => {
+    subtasksArray.push(subtask);
+  });
   actualCard.title = newTitle;
   actualCard.description = newDescription;
   actualCard.dueDate = newDueDate;
   actualCard.priority = currentPriority;
   actualCard.assignedTo = newAssignedContacts;
-  actualCard.subtasks = newSubtasks;
-  exchangeTaskInArray();
-}
-
-function findIndexBeforeEdit() {
-  localUserData["tasks"].forEach(function (task, index) {
-    if (task.id == actualCard.id) {
-      indexOfTaskBeforeEdit = index;
-    }
-  });
+  actualCard.subtasks = subtasksArray;
 }
 
 function exchangeTaskInArray() {
-  loadUserData.tasks.splice(indexOfTaskBeforeEdit, 1, actualCard);
-}
-
-function deleteTaskAfterEditing() {
-  // hier muss die alte task noch gelöscht werden!!
+  for (let i = 0; i < localUserData.users.length; i++) {
+    const user = localUserData.users[i];
+    for (let j = 0; j < user.tasks.length; j++) {
+      let element = user.tasks[j];
+      if (element.id == actualCard.id) {
+        user.tasks.splice(j, 1, actualCard);
+        break;
+      }
+    }
+  }
+  actualCard;
+  saveUserData();
 }
 
 /**
@@ -541,10 +550,11 @@ function deleteTaskAfterEditing() {
  * Called when user clicks ok button after editing a task.
  */
 function exchangeEditedTask() {
-  findIndexBeforeEdit();
   saveEditedInputs();
   saveEditedTask();
-  console.log(actualCard);
+  exchangeTaskInArray();
   // clearForm();
   //resetGlobal();
+  closeEditTaskCard();
+  updateHTML();
 }
