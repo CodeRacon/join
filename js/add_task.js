@@ -287,7 +287,7 @@ function createSubtask() {
   if (input.value == "") {
     return;
   } else {
-    newSubtasks.unshift(input.value);
+    newSubtasks.unshift({ name: input.value, done: false });
     showCreatedSubtask();
     input.value = "";
   }
@@ -303,7 +303,7 @@ function showCreatedSubtask() {
   let content = document.getElementById("show-subtasks-container");
   content.innerHTML = "";
   for (let i = 0; i < newSubtasks.length; i++) {
-    const element = newSubtasks[i];
+    const element = newSubtasks[i].name;
     let listItemId = `subtask-${i}`;
     content.innerHTML += `
       <div class="subtask-list-container">
@@ -349,8 +349,12 @@ function changeSubtaskInArray(index) {
   let inputField = document
     .getElementById(`subtask-${index}`)
     .querySelector("input");
+  let updatedSubtask = {
+    name: inputField.value,
+    done: newSubtasks[index].done,
+  };
   deleteSubtask(index);
-  newSubtasks.unshift(inputField.value);
+  newSubtasks.unshift(updatedSubtask);
   showCreatedSubtask();
 }
 
@@ -365,9 +369,12 @@ function changeSubtaskInArray(index) {
   let inputField = document
     .getElementById(`subtask-${index}`)
     .querySelector("input");
-  let newInputValue = inputField.value;
+  let updatedSubtask = {
+    name: inputField.value,
+    done: newSubtasks[index].done,
+  };
   newSubtasks.splice(index, 1);
-  newSubtasks.splice(index, 0, newInputValue);
+  newSubtasks.splice(index, 0, updatedSubtask);
   showCreatedSubtask();
 }
 
@@ -566,6 +573,7 @@ function resetGlobal() {
 function checkIfFieldsAreFilled() {
   let button = document.querySelector(".submit-btn");
   saveInputs();
+  generateNewIdForTask();
   if (newTitle && newDueDate && newCategory !== "") {
     saveNewTask();
     button.removeAttribute("disabled");
@@ -601,6 +609,7 @@ function generateNewIdForTask() {
       }
     }
   }
+  maxId++;
 }
 
 /**
@@ -614,7 +623,7 @@ function generateNewIdForTask() {
 function saveNewTask() {
   let subtasksArray = [];
   newSubtasks.forEach((subtask) => {
-    subtasksArray.push({ name: subtask, done: false });
+    subtasksArray.push(subtask);
   });
   newTask = {
     assignedTo: newAssignedContacts,
