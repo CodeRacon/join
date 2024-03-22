@@ -180,11 +180,20 @@ function updateTaskColorAndCategory() {
 function updatePriority() {
   let prioBoxes = document.getElementsByClassName("priority-of-task");
   Array.from(prioBoxes).forEach((prioBox) => {
-    if (prioBox.innerText.trim() == 1) {
+    if (
+      prioBox.innerText.trim() == 1 ||
+      prioBox.innerText.trim().toLowerCase() == "low"
+    ) {
       prioBox.innerHTML = `<img src="${low}" alt="Low Priority">`;
-    } else if (prioBox.innerText.trim() == "2") {
+    } else if (
+      prioBox.innerText.trim() == "2" ||
+      prioBox.innerText.trim().toLowerCase() == "medium"
+    ) {
       prioBox.innerHTML = `<img src="${medium}" alt="Low Priority">`;
-    } else if (prioBox.innerText.trim() == "3") {
+    } else if (
+      prioBox.innerText.trim() == "3" ||
+      prioBox.innerText.trim().toLowerCase() == "urgent"
+    ) {
       prioBox.innerHTML = `<img src="${high}" alt="Low Priority">`;
     }
   });
@@ -208,7 +217,7 @@ function showInitials(element) {
       .split(" ")
       .map((word) => word.charAt(0))
       .join("");
-    let user = localUserData["users"].find(
+    let user = localUserData["contacts"].find(
       (user) => user.userData.name === name
     );
     let color = user ? user.color : "#d98973";
@@ -410,15 +419,24 @@ function taskColorAndCategoryForSingleCard() {
 function updatePriorityForSingleTask() {
   let prioBox = document.getElementsByClassName("priority-of-single-task");
   Array.from(prioBox).forEach((prioBox) => {
-    if (prioBox.innerText.trim() == 1) {
+    if (
+      prioBox.innerText.trim() == "1" ||
+      prioBox.innerText.trim().toLowerCase() == "low"
+    ) {
       prioBox.innerHTML = `<span>Priority:
       </span><div class="priority-and-icon"><span>Low</span><img src="${low}" alt="low Priority">
       </div>`;
-    } else if (prioBox.innerText.trim() == "2") {
+    } else if (
+      prioBox.innerText.trim() == "2" ||
+      prioBox.innerText.trim().toLowerCase() == "medium"
+    ) {
       prioBox.innerHTML = `<span>Priority:
       </span><div class="priority-and-icon"><span>Medium</span><img src="${medium}" alt="medium Priority">
       </div>`;
-    } else if (prioBox.innerText.trim() == "3") {
+    } else if (
+      prioBox.innerText.trim() == "3" ||
+      prioBox.innerText.trim().toLowerCase() == "urgent"
+    ) {
       prioBox.innerHTML = `<span>Priority:
       </span><div class="priority-and-icon"><span>High</span><img src="${high}" alt="high Priority">
       </div>`;
