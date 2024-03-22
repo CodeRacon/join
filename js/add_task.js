@@ -631,6 +631,9 @@ function saveNewTask() {
   clearForm();
   pushTaskToArray();
   maxId = 0;
+  setTimeout(function () {
+    window.location.href = "board.html";
+  }, 3500);
 }
 
 /**
