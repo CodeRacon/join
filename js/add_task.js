@@ -566,6 +566,7 @@ function resetGlobal() {
 function checkIfFieldsAreFilled() {
   let button = document.querySelector(".submit-btn");
   saveInputs();
+  generateNewIdForTask();
   if (newTitle && newDueDate && newCategory !== "") {
     saveNewTask();
     button.removeAttribute("disabled");
@@ -601,6 +602,7 @@ function generateNewIdForTask() {
       }
     }
   }
+  maxId++;
 }
 
 /**
