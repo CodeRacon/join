@@ -1,4 +1,10 @@
-- selected site wird nicht angezeigt durch dunkleren balken                                       ---check
+- selected site wird nicht angezeigt durch dunkleren balken                              ---check
+- aufgabe wurde erstellt - weiterleitung zum board                                       ---check
+- urgent und low beim aufgabe erstellen werden nicht als symbol angezeigt                ---check
+
+
+
+- suchfunktion für tasks
 
 - subtasks in der edit task karte wird beim anklicken nicht blau umrandet - fokus 
 - subtasks blaue umrandung beim anklicken bei add task und bei board/add task
@@ -12,15 +18,10 @@
 
 
 
+________________________________________________________________________________________________________
 
 FIRST DEADLINE: Montag nacht alles pushen - 25.03.24
 
 - join checkliste durchgucken - Dienstag - 26.03.24     ---beachten
 
 - Mittwoch - 27.03.24 - 11 Uhr 
-
-
-
-
-
-(user logged in und  registered wieder in ursprungszustand)
