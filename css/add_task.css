@@ -708,7 +708,7 @@ input::-moz-calendar-picker-indicator {
 			clamp(2rem, 30.189vw + -15.358rem, 6rem);
 	}
 
-	.main-cotainer {
+	.main-container {
 		flex-direction: column;
 	}
 
