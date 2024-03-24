@@ -347,15 +347,18 @@ input::-moz-calendar-picker-indicator {
 	padding: 1rem 0.625rem 1rem 1rem;
 }
 
+#dropdownContent::-webkit-scrollbar-track {
+	border: none;
+	background-color: transparent;
+}
+
 #dropdownContent::-webkit-scrollbar {
-	width: 0.4rem;
-	background: none;
-	border-radius: 0.2rem;
+	width: 0.25rem;
 }
 
 #dropdownContent::-webkit-scrollbar-thumb {
-	background: #888;
-	border-radius: 4px;
+	background-color: var(--qm-grey);
+	border-radius: 5px;
 }
 
 .label-layout {
