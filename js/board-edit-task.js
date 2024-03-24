@@ -33,7 +33,13 @@ function editTask(card) {
 				newOverlay.innerHTML = /*html*/ `
 			<div class="overlay-wrapper">
         <div class="single-task-card">
-
+					<div class="close-edit-task-btn">
+						<img
+							src="./assets/img/icons/board/close.svg"
+							alt="close"
+							onclick="closeEditTaskCard()" />
+					</div>
+					
           <div class="title-cont">
               <span>Title<span class="asterisk">*</span></span>
               <input
@@ -191,10 +197,10 @@ function editTask(card) {
 }
 
 function closeEditTaskCard() {
-  let taskCard = document.getElementById("overlay-task-card");
-  taskCard.classList.add("d-none");
-  let editCard = document.getElementById("overlay-edit-card");
-  editCard.classList.add("d-none");
+	let taskCard = document.getElementById('overlay-task-card');
+	taskCard.classList.add('d-none');
+	let editCard = document.getElementById('overlay-edit-card');
+	editCard.classList.add('d-none');
 }
 
 /**
