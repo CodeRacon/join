@@ -401,7 +401,7 @@ function openTaskCardOverlay(element) {
           </div>
           <div 
             class="subtasks-of-single-task" 
-            id="progress${card.id}">
+            id="subtasks${card.id}">
           </div>
           <div class="delete-edit-container">
             <img onclick="deleteTask(${card.id})" src="assets/img/icons/board/delete-bin.svg" alt="delete">
@@ -516,7 +516,7 @@ function showInitialsForSingleCard() {
  * Handles toggling the checkbox when clicked and updating styles.
  */
 function showSubtasks() {
-  let content = document.getElementById(`progress${actualCard.id}`);
+  let content = document.getElementById(`subtasks${actualCard.id}`);
   content.innerHTML = "";
   content.innerHTML = `<span>Subtasks</span>`;
   for (let index = 0; index < actualCard.subtasks.length; index++) {
@@ -551,6 +551,7 @@ function closeTaskCardOverlay() {
   overlay.classList.remove("d-none");
   overlay.innerHTML = "";
   actualCard = [];
+  updateHTML();
 }
 
 /**
