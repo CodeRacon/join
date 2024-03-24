@@ -100,7 +100,7 @@ select {
 }
 
 .find-task-input {
-	font-size: small !important;
+	font-size: 1.25rem;
 }
 
 input[type='checkbox'] {
@@ -202,9 +202,10 @@ input::-moz-calendar-picker-indicator {
 .right-column {
 	display: flex;
 	width: 50%;
+	height: fit-content;
 	flex-direction: column;
 	align-items: flex-start;
-	gap: 2rem;
+	gap: 0.5rem;
 }
 
 .title-cont,
@@ -239,15 +240,20 @@ input::-moz-calendar-picker-indicator {
 	flex-direction: column;
 	width: 100%;
 	max-height: calc(85vh - 2rem);
+	height: 100%;
 	padding: 1rem 1.25rem 0 2rem;
 	margin-right: 0.5rem;
 	overflow-y: auto;
 }
 
+#add-task-content-overlay .overlay-wrapper {
+	height: 100%;
+	padding: 0rem 1.75rem 1rem 2rem;
+}
+
 .overlay-wrapper::-webkit-scrollbar-track {
 	border: none;
 	background-color: transparent;
-	margin-right: 0.5rem;
 }
 .overlay-wrapper::-webkit-scrollbar {
 	width: 0.25rem;
@@ -258,13 +264,14 @@ input::-moz-calendar-picker-indicator {
 }
 
 #add-task-content-overlay {
-	width: calc(100% - 20rem);
-	position: absolute;
+	width: 80vw;
+	height: fit-content;
+	position: fixed;
 	z-index: 999;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	padding: 2rem;
+	padding: 2rem 0.25rem 2rem 0;
 	border-radius: var(--big-br);
 	background: var(--white);
 	box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
@@ -272,14 +279,14 @@ input::-moz-calendar-picker-indicator {
 
 #overlay-task-card,
 #overlay-edit-card {
-	position: absolute;
+	position: fixed;
 	z-index: 999;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	display: flex;
 	flex-direction: column;
-	padding: 1rem 0;
+	padding: 1.5rem 0;
 	justify-content: center;
 	align-items: center;
 	height: 85vh;
@@ -298,7 +305,7 @@ input::-moz-calendar-picker-indicator {
 } */
 
 .close-btn img:hover {
-	content: url(/assets/img/icons/add-task/close_hover.svg);
+	content: url('/assets/img/icons/add-task/close_hover.svg');
 }
 
 .headline-overlay {
@@ -306,6 +313,19 @@ input::-moz-calendar-picker-indicator {
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-start;
+}
+
+.headline-overlay img:hover {
+	content: url('/assets/img/icons/add-task/close_hover.svg');
+}
+
+.close-edit-task-btn {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.close-edit-task-btn img:hover {
+	content: url('/assets/img/icons/add-task/close_hover.svg');
 }
 
 /* ################### Title ################### */
@@ -695,6 +715,10 @@ input::-moz-calendar-picker-indicator {
 .btn-create,
 .btn-add-task {
 	background-color: var(--primary);
+}
+
+.btn-add-task {
+	padding: 0.7 5rem 1rem;
 }
 
 .btn-create:hover,
