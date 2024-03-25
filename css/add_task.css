@@ -160,7 +160,7 @@ input::-moz-calendar-picker-indicator {
 .main-container {
 	display: flex;
 	gap: clamp(1rem, 7.843vw + -4.059rem, 3rem);
-	margin-bottom: 5rem;
+	margin-bottom: 4rem;
 }
 
 .border-none {
@@ -271,11 +271,11 @@ input::-moz-calendar-picker-indicator {
 .edit-single-contact {
 	display: flex;
 	flex-direction: row-reverse;
-	justify-content: flex-end;
+	justify-content: space-between;
 	width: 100%;
 	align-items: center;
 	gap: 0.5rem;
-	padding: 0.5rem 0rem 0.5rem 1rem;
+	padding: 0.5rem 1rem;
 	font-size: 1.25rem;
 	margin-bottom: 2px;
 	cursor: pointer;
@@ -369,9 +369,13 @@ input::-moz-calendar-picker-indicator {
 	width: 80%;
 }
 
+#arrowImg:hover {
+	background-color: #eaeaea;
+	border-radius: 50%;
+}
+
 .custom-checkbox {
-	/* appearance: none; */
-	opacity: 0;
+	appearance: none;
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	width: 24px;
@@ -486,8 +490,29 @@ input::-moz-calendar-picker-indicator {
 
 /* ################### Subtasks ################### */
 
-.subtasks:focus-within {
+.subtasks.active {
 	border: var(--form-active-border);
+}
+
+.subtask-input-spacer {
+	padding: 0 0.25rem;
+}
+
+.subtasks img:hover {
+	background-color: #eaeaea;
+	border-radius: 50%;
+}
+
+.subtasks img:nth-of-type(n + 2) {
+	display: none;
+}
+
+.subtasks.active img:nth-of-type(n + 2) {
+	display: block;
+}
+
+.subtasks.active img:first-of-type {
+	display: none;
 }
 
 #show-subtasks-container {
@@ -496,6 +521,22 @@ input::-moz-calendar-picker-indicator {
 	gap: 0.75rem;
 	padding-top: 0.25rem;
 	width: 100%;
+	height: 7rem;
+	overflow-y: auto;
+}
+
+#show-subtasks-container::-webkit-scrollbar-track {
+	border: none;
+	background-color: transparent;
+}
+
+#show-subtasks-container::-webkit-scrollbar {
+	width: 0.25rem;
+}
+
+#show-subtasks-container::-webkit-scrollbar-thumb {
+	background-color: var(--qm-grey);
+	border-radius: 5px;
 }
 
 #input-of-subtask {
@@ -506,10 +547,15 @@ input::-moz-calendar-picker-indicator {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	width: 100%;
+	width: calc(100% - 0.25rem);
 	gap: 1rem;
-	padding: 0.4rem 1rem;
+	padding: 0.4rem 0.75rem 0.4rem 1rem;
 	border-bottom: transparent 1px solid;
+}
+
+.subtask-list-container:hover {
+	border-radius: 0.5rem;
+	background-color: #eaeaea;
 }
 
 .subtask-list-item {
@@ -527,6 +573,10 @@ input::-moz-calendar-picker-indicator {
 	line-height: 120%;
 	cursor: default;
 	margin-left: -0.5rem;
+}
+
+.subtask-list-item.subtask-edit-mode + .edit-delete-container {
+	flex-direction: row-reverse;
 }
 
 .subtask-list-container:has(.subtask-list-item.subtask-edit-mode) {

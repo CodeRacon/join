@@ -187,13 +187,31 @@
 							<div class="field-width-height input-borders subtasks">
 								<input
 									id="input-of-subtask"
+									class="border-none"
 									type="text"
 									placeholder="Add new subtasks"
-									class="border-none" />
+									onfocus="showSubtaskInput()" />
+
+								<img
+									onclick="showSubtaskInput()"
+									src="./assets/img/icons/add-task/plus.svg"
+									alt="plus"
+									class="add-subtask-btn" />
+								<img
+									onclick="clearSubtaskInput()"
+									src="./assets/img/icons/add-task/close.svg"
+									alt="cancel" />
+
+								<img
+									class="subtask-input-spacer"
+									src="./assets/img/icons/add-task/edit-btn-spacer.svg"
+									alt="spacer" />
+
 								<img
 									onclick="createSubtask()"
-									src="./assets/img/icons/add-task/plus.svg"
-									alt="plus symbol" />
+									class="accept-subtask-btn"
+									src="./assets/img/icons/add-task/done.svg"
+									alt="done" />
 							</div>
 							<div id="show-subtasks-container"></div>
 						</div>
