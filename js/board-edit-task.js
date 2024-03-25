@@ -30,10 +30,16 @@ function editTask(card) {
       const taskId = actualTask.tasks[j].id;
       const task = actualTask.tasks[j];
       if (taskId == card) {
-        newOverlay.innerHTML = ` 
-        <div class="main-cotainer single-task-card">
-        <div class="scroll-bar-edit gap-05rem">
-
+        newOverlay.innerHTML = /*html*/ `
+			<div class="overlay-wrapper">
+        <div class="single-task-card">
+					<div class="close-edit-task-btn">
+						<img
+							src="./assets/img/icons/board/close.svg"
+							alt="close"
+							onclick="closeEditTaskCard()" />
+					</div>
+					
           <div class="title-cont">
               <span>Title<span class="asterisk">*</span></span>
               <input
@@ -160,13 +166,13 @@ function editTask(card) {
               <span>Subtasks</span>
               <div class="field-width-height-small input-borders subtasks">
                 <input
-                  id="input-of-subtask"
+                  id="input-of-subtask-in-edit"
                   type="text"
                   placeholder="Add new subtasks"
                   class="border-none"
                 />
                 <img
-                  onclick="createSubtask()"
+                  onclick="createSubtaskInEdit()"
                   src="./assets/img/icons/add-task/plus.svg"
                   alt="plus symbol"
                 />
@@ -174,19 +180,27 @@ function editTask(card) {
               <div id="show-subtasks-container"></div>
             </div>
           </div>
-          <div class="ok-btn-cont btn-span-img-ctn">
-            <button class=" btn-borders btn-create"  onclick="exchangeEditedTask()">
-              OK <img src="./assets/img/icons/add-task/check.svg" alt="check" />
-            </button>
-          </div>
         </div>
-          `;
+				<div class="ok-btn-cont btn-span-img-ctn">
+					<button class=" btn-borders btn-create"  onclick="exchangeEditedTask()">
+						OK <img src="./assets/img/icons/add-task/check.svg" alt="check" />
+					</button>
+				</div>
+           
+        `;
         newAssignedContacts = task.assignedTo;
         renderEditTaskCardFunctions(task);
       }
     }
   }
   newAssignedContacts = [];
+}
+
+function closeEditTaskCard() {
+	let taskCard = document.getElementById('overlay-task-card');
+	taskCard.classList.add('d-none');
+	let editCard = document.getElementById('overlay-edit-card');
+	editCard.classList.add('d-none');
 }
 
 /**
@@ -452,6 +466,17 @@ function changeCheckboxColorEdit(i) {
   }
 }
 
+function createSubtaskInEdit() {
+  let input = document.getElementById("input-of-subtask-in-edit");
+  if (input.value == "") {
+    return;
+  } else {
+    newSubtasks.unshift({ name: input.value, done: false });
+    showCreatedSubtask();
+    input.value = "";
+  }
+}
+
 /**
  * Iterates through the subtasks array of the provided task
  * and adds the subtask name to the subtasksContainer innerHTML.
@@ -464,15 +489,15 @@ function showSubtasksToEdit(task) {
     let listItemId = `subtask-${index}`;
     subtasksContainer.innerHTML += `
         <div class="subtask-list-container">
-          <li id="${listItemId}"><input readonly type="text" value="${subtask.name}"></li>
+          <li id="${listItemId}" class="subtask-list-item"><input readonly type="text" value="${subtask.name}"></li>
               <div class="edit-delete-container">
                 <img id="edit-button${index}" onclick="correctSubtask(${index})" src="assets/img/icons/add-task/edit.svg" alt="edit">
+                <img src="assets/img/icons/add-task/edit-btn-spacer.svg" alt="spacer">
                 <img onclick="deleteSubtask(${index})" src="assets/img/icons/add-task/delete.svg" alt="delete">
               </div>
-          
         </div>
       `;
-    newSubtasks.push(subtask.name);
+    newSubtasks.push(subtask);
   }
 }
 
@@ -511,29 +536,32 @@ function saveEditedInputs() {
  * message, adds the new task to the tasks array, resets the task ID counter.
  */
 function saveEditedTask() {
+  let subtasksArray = [];
+  newSubtasks.forEach((subtask) => {
+    subtasksArray.push(subtask);
+  });
   actualCard.title = newTitle;
   actualCard.description = newDescription;
   actualCard.dueDate = newDueDate;
   actualCard.priority = currentPriority;
   actualCard.assignedTo = newAssignedContacts;
-  actualCard.subtasks = newSubtasks;
-  exchangeTaskInArray();
-}
-
-function findIndexBeforeEdit() {
-  localUserData["tasks"].forEach(function (task, index) {
-    if (task.id == actualCard.id) {
-      indexOfTaskBeforeEdit = index;
-    }
-  });
+  actualCard.subtasks = subtasksArray;
 }
 
 function exchangeTaskInArray() {
-  loadUserData.tasks.splice(indexOfTaskBeforeEdit, 1, actualCard);
-}
-
-function deleteTaskAfterEditing() {
-  // hier muss die alte task noch gelöscht werden!!
+  for (let i = 0; i < localUserData.users.length; i++) {
+    const user = localUserData.users[i];
+    for (let j = 0; j < user.tasks.length; j++) {
+      let element = user.tasks[j];
+      if (element.id == actualCard.id) {
+        user.tasks.splice(j, 1, actualCard);
+        break;
+      }
+    }
+  }
+  actualCard;
+  saveUserData();
+  updateHTML();
 }
 
 /**
@@ -541,10 +569,11 @@ function deleteTaskAfterEditing() {
  * Called when user clicks ok button after editing a task.
  */
 function exchangeEditedTask() {
-  findIndexBeforeEdit();
   saveEditedInputs();
   saveEditedTask();
-  console.log(actualCard);
-  // clearForm();
-  //resetGlobal();
+  exchangeTaskInArray();
+  clearForm();
+  resetGlobal();
+  closeEditTaskCard();
+  updateHTML();
 }

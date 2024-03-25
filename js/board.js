@@ -240,8 +240,9 @@ function showInitials(element) {
  */
 function generateProgressBar(element) {
   let container = document.getElementById(`progress${element["id"]}`);
+  container.innerHTML = "";
   let subtasks = element["subtasks"];
-  if (!element.hasOwnProperty("subtasks")) {
+  if (!element.hasOwnProperty("subtasks") || subtasks.length == 0) {
     return;
   } else {
     let doneSubtasks = subtasks.filter((subtask) => subtask.done).length;
@@ -362,27 +363,54 @@ function openTaskCardOverlay(element) {
 
     if (cardIndex !== -1) {
       actualCard = card;
-      overlay.innerHTML = `<div draggable="false" 
-        id="${card.id}" class="single-task-card">
-        <div class="header-of-task-card">
-        <div class="category-of-single-task">${card.category}</div>
-        <img onclick="closeTaskCardOverlay()" src="assets/img/icons/board/close.svg" alt="close">
-        </div>
-          <div class="title-of-single-task">${card.title}</div>
-          <div class="description-of-single-task"><span>${card.description}</span></div>
-          <div class="due-date-of-single-task gap-one-rem"><span>Due Date:</span><span>${card.dueDate}</span></div>
-          <div class="priority-of-single-task gap-one-rem">${card.priority}</div>
+      overlay.innerHTML = /*html*/ `
+      <div class="overlay-wrapper">
+        <div 
+          id="${card.id}" 
+          class="single-task-card"
+          draggable="false" >
+      
+          <div class="header-of-task-card">
+            <div class="category-of-single-task ">${card.category}</div>
+            <div class="close-btn">            
+              <img onclick="closeTaskCardOverlay()" src="assets/img/icons/board/close.svg" alt="close">
+            </div>
+          </div>
+
+          <div class="title-of-single-task">
+            ${card.title}
+          </div>
+
+          <div class="description-of-single-task">
+            <span>${card.description}</span>
+          </div>
+          <div class="due-date-of-single-task gap-one-rem">
+            <span>Due Date:</span>
+            <span>${card.dueDate}</span>
+          </div>
+          <div class="priority-of-single-task gap-one-rem">
+            ${card.priority}
+          </div>
           <div class="assigned-and-priority-single-container">
-          <span>Assigned To:</span> 
-            <div id="singleAssignedCircle${card.id}" class="assigned-to-of-single-task">${card.assignedTo}</div>
+            <span>Assigned To:</span> 
+            <div 
+              id="singleAssignedCircle${card.id}" 
+              class="assigned-to-of-single-task">
+              ${card.assignedTo}
+            </div>
           </div>
-          <div class="subtasks-of-single-task" id="progress${card.id}"></div>
+          <div 
+            class="subtasks-of-single-task" 
+            id="subtasks${card.id}">
+          </div>
           <div class="delete-edit-container">
-          <img onclick="deleteTask(${card.id})" src="assets/img/icons/board/delete-bin.svg" alt="delete">
-          <hr>
-          <img onclick="editTask(${card.id})" src="assets/img/icons/board/edit-pen.svg" alt="edit">
+            <img onclick="deleteTask(${card.id})" src="assets/img/icons/board/delete-bin.svg" alt="delete">
+            <hr>
+            <img onclick="editTask(${card.id})" src="assets/img/icons/board/edit-pen.svg" alt="edit">
           </div>
-        </div>`;
+        </div>
+      </div>
+      `;
     } else {
       return;
     }
@@ -488,7 +516,7 @@ function showInitialsForSingleCard() {
  * Handles toggling the checkbox when clicked and updating styles.
  */
 function showSubtasks() {
-  let content = document.getElementById(`progress${actualCard.id}`);
+  let content = document.getElementById(`subtasks${actualCard.id}`);
   content.innerHTML = "";
   content.innerHTML = `<span>Subtasks</span>`;
   for (let index = 0; index < actualCard.subtasks.length; index++) {
@@ -523,6 +551,7 @@ function closeTaskCardOverlay() {
   overlay.classList.remove("d-none");
   overlay.innerHTML = "";
   actualCard = [];
+  updateHTML();
 }
 
 /**
