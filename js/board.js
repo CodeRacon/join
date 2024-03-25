@@ -52,10 +52,9 @@ function updateToDos() {
         showInitials(element);
         generateProgressBar(element);
       }
-    } else if (toDo.length == 0) {
-      content.innerHTML = generateEmptyHTML("to do");
     }
   }
+  checkIfEmpty("toDo", "to do");
 }
 
 /**
@@ -82,10 +81,9 @@ function updateInProgress() {
         showInitials(element);
         generateProgressBar(element);
       }
-    } else if (inProgress.length == 0) {
-      content.innerHTML = generateEmptyHTML("in progress");
     }
   }
+  checkIfEmpty("inProgress", "in Progress");
 }
 
 /**
@@ -100,7 +98,6 @@ function updateInProgress() {
 function updateAwaitFeedback() {
   let content = document.getElementById("awaitFeedback");
   content.innerHTML = "";
-
   for (let i = 0; i < localUserData["users"].length; i++) {
     const element = localUserData["users"][i];
     if (element.hasOwnProperty("tasks")) {
@@ -113,10 +110,9 @@ function updateAwaitFeedback() {
         showInitials(element);
         generateProgressBar(element);
       }
-    } else if (awaitFeedback.length == 0) {
-      content.innerHTML = generateEmptyHTML("await Feedback");
     }
   }
+  checkIfEmpty("awaitFeedback", "await feedback");
 }
 
 /**
@@ -141,9 +137,22 @@ function updateDone() {
         showInitials(element);
         generateProgressBar(element);
       }
-    } else if (closed.length == 0) {
-      content.innerHTML = generateEmptyHTML("are closed");
     }
+  }
+  checkIfEmpty("closed", "Done");
+}
+
+/**
+ * Checks if the provided element has no content.
+ * If empty, generates and inserts empty state HTML.
+ *
+ * @param {string} id - The ID of the DOM element to check.
+ * @param {string} text - The text to display in the empty state.
+ */
+function checkIfEmpty(id, text) {
+  let content = document.getElementById(id);
+  if (content.innerHTML === "") {
+    content.innerHTML = generateEmptyHTML(text);
   }
 }
 
@@ -257,9 +266,14 @@ function generateProgressBar(element) {
   }
 }
 
-// funktioniert noch nicht, muss angepasst werden!!! //
+/**
+ * Generates an empty HTML element with draggable and styling.
+ *
+ * @param {string} text - Text to display inside the empty element.
+ * @returns {string} The generated HTML element as a string.
+ */
 function generateEmptyHTML(text) {
-  return `<div draggable="true" class="empty-task drag-and-drop-container-border">No tasks ${text}</div>`;
+  return `<div draggable="false" class="empty-task drag-and-drop-container-border">No tasks ${text}</div>`;
 }
 
 /**
