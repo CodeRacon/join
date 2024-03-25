@@ -21,6 +21,7 @@ function saveTestArray(){
 
 //test bzw ein neuer Variablen name muss mit einem neuen key in den remote storage
 async function init(){
+    
     loadIndexNum();
     await loadUserData();
     ppt();
@@ -41,14 +42,9 @@ async function ppt(){
 async function checkIfArrayExistInServer(combinedUser) {
     
      loadamountds();
-   if (localUserData > 0) {
-    localUserData[0] = combinedUser;
-    saveUserData();
-   }
-   else{
+    // hier das ganze im server speichern usw
     localUserData.push(combinedUser);
      saveUserData();
-   }
     // Wenn combined User im Server vorhanden ist, wird ppt garnicht erst ausgeführt
 }
 
@@ -74,9 +70,9 @@ async function letMeCook(){
     console.log(TestStorage[1]);
     if (TestStorage.length > 0) {
         for (let i = 0; i < TestStorage.length; i++) {
-            if (TestStorage[i].user.registerData.Data.name == startData.users[num].registerData.Data.name) {
+            if (TestStorage[i].user.userData.name == startData.users[num].userData.name) {
                 alert('oh mnow');
-                localUserData[0] = TestStorage[i];
+                localUserData[0] = TestStorage[0];
                 saveUserData();
             }
         }
@@ -94,12 +90,14 @@ window.onbeforeunload = async function() {
 };
 
 
+
+
 async function youlo(){
     await loadUserData();
     loadamountds();
     for (let i = 0; i < TestStorage.length; i++) { 
      if (TestStorage[i].hasOwnProperty('user')) {
-          if (TestStorage[i].user.registerData.Data.name ==  localUserData[0].user.registerData.Data.name) {
+          if (TestStorage[i].user.userData.name ==  localUserData[0].user.userData.name) {
             alert('yolow');
             TestStorage[i] = localUserData[0];
             saveTestArray();

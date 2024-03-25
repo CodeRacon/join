@@ -12,11 +12,14 @@ async function init() {
 
 
 
+
 function checkExistence() {
+    loadUsers();
+    console.log(startData);
     let mail = document.getElementById('login-email').value;
     let password = document.getElementById('login-password').value;
     if (checkIfValueIsLegit(mail, password) == true) {
-        window.open("test.html");
+        window.open("test.html");   
     } else if(checkIfValueIsLegit(mail, password) == false){
         alert('dasd');
     }
@@ -24,11 +27,11 @@ function checkExistence() {
 
 function checkIfValueIsLegit(mail, password) {
     for (let i = 0; i < startData.users.length; i++) {
-        if (startData.users[i].hasOwnProperty('registerData')) {
-            if (startData.users[i].registerData.Data['email'] == mail && startData.users[i].registerData.Data['password'] == password) {
+        if (startData.users[i].hasOwnProperty('userData')) {
+            if (startData.users[i].userData['email'] == mail && startData.users[i].userData['password'] == password) {
                 num = i;
-                if(startData.users[i].registerData['isLoggedIn'] == false){
-                startData.users[i].registerData['isLoggedIn'] = true;
+                if(startData.users[i]['isLoggedIn'] == false){
+                startData.users[i]['isLoggedIn'] = true;
                 storeStartData();
                 }
                 // Vom Server in den LocalStorage muss von hier beginnen aber nur isLoggedIn True ist und dan mit einer fors schleife überprüft wird ob der name in dem true zugeordnet ist auch in dem anderedd   
@@ -70,6 +73,26 @@ function getBack() {
 function switchToSignUp() {
     switchTemplates = 1;
     saveSwitchInServer();
+    document.getElementById('anyt').innerHTML = `
+    <form onsubmit="createAccount(); return false">
+    <div>
+        <input required id="name" required type="text" placeholder="Name">
+    </div>
+    <div>
+        <input required id="mail" required type="email" placeholder="Email">
+    </div>
+    <div>
+        <input required id="paswort" type="password" placeholder="Password">
+    </div>
+    <div>
+        <input id="repeatPassword" required type="password" placeholder="Confirm Password">
+    </div>
+    <p style="color: red;" class="dn">Please make sure your passwords match</p>
+    <button onclick="toogleNum()">Click button</button>
+    <button>Do It</button>
+</form>
+<button onclick="getto()"></button>
+    `;
     if(switchTemplates == 1){
     return 2;
     }
@@ -122,3 +145,18 @@ function getto(){
 
 // Rufe init() auf, um den Datenabruf zu starten
 
+// irgendwo hier eine funktion die dafür sorgt das GuestUser auf den ursprünglichen Stand zurückgesetzt wird und in dem issloged in auf true gesetzt wird
+function guestLogin(){
+    loadUsers();
+    loadUserData();
+    console.log(localUserData);
+    console.log(startData.Guest[0].isLoggedIn);
+    startData.Guest[0].isLoggedIn = true;
+    storeStartData();
+    localUserData[0] = startData.Guest[0];
+    for (let index = 0; index < array.length; index++) {
+        const element = array[index];
+        
+    }
+    window.open("test.html");
+}

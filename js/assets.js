@@ -207,6 +207,7 @@ startData = {
 				name: 'Bernd Steinemann',
 				phone: '(606) 659-4325',
 				email: 'steinemann83@mail.com',
+				password: 'pw1234'
 			},
 			color: '#2dab6c',
 			tasks: [
@@ -265,6 +266,7 @@ startData = {
 				name: 'Sophia Kostas',
 				phone: '(264) 911-2395',
 				email: 's.kostas84@mail.com',
+				password: 'pw1234'
 			},
 			color: '#6E52FF',
 			tasks: [
@@ -312,7 +314,21 @@ startData = {
 				},
 			],
 		},
+		{
+			isRegistered: true,
+			isLoggedIn: false,
+			userData: {
+				name: 'Guest'
+			},
+
+			color: '#659c2b',
+			tasks: [
+			
+			],
+		}	
 	],
+
+	
 
 	contacts: [
 		{

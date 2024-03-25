@@ -1,6 +1,8 @@
 // SignUp
 // einfach load und storeStartData wegmachen wenn du den urprünglichen wert willst
 loadUsers();
+let heyo = [];
+
 
 let cancelFunction = 0;
 let nameOfInputsId = ['name','mail','paswort'];
@@ -14,17 +16,17 @@ async function createAccount(){
         paswort.style.borderColor = 'red';
         passwordRepeat.style.borderColor = 'red';
     }
-    else if(passwordRepeat != paswort.value){
+     else if(passwordRepeat != paswort.value){
         alert('friendo');
     }
     else if (cancelFunction == 1) {
         alert('sunshine');
         return 1;
     }
-    return checkExistenceOfAccount(name, email, paswort) == true ? 1: await pushIntoArray(name, email, paswort);
+    return await pushIntoArray(name, email, paswort);
 }
 
-function checkExistenceOfAccount(name, email, paswort){
+/*function checkExistenceOfAccount(name, email, paswort){
     for (let i = 0; i < startData.users.length; i++) {
         if (startData.users[i].hasOwnProperty('registerData')){
         if (startData.users[i].registerData.Data['name'] == name.value || startData.users[i].registerData.Data['email'] == email.value ||  startData.users[i].registerData.Data['password'] == paswort.value) {
@@ -35,7 +37,7 @@ function checkExistenceOfAccount(name, email, paswort){
             return false;
         }
     }
-}
+}*/
 
 function generatePhoneNumber() {
     var phoneNumber = "";
@@ -49,30 +51,42 @@ function generatePhoneNumber() {
            phoneNumber.substring(6, 10);
 }
 
+function hexColorGenerator(){
+    return '#'+(Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0');
+}
 // Beispielaufruf
 var randomPhoneNumber = generatePhoneNumber();
 console.log(randomPhoneNumber);
 
 async function pushIntoArray(name, email, paswort){
-    let newData = {
-        isRegistered: true,
-        isLoggedIn: false,   // loged in true wenn sich der benutzer das erste mal einloggt und das bleibt auch so damit wenn zb der user eigelogt ist das man dan auf die copy mit zb has property zugreifen kann
-        timeStamp: Date.now(),
-        Data: { 
-        "name": name.value,
-        "phoneNumber": generatePhoneNumber(),
-        "email": email.value,
-        "password":paswort.value 
-        }
-    }; 
+    let newData = 
+        {
+			isRegistered: true,
+			isLoggedIn: false,
+			userData: {
+				name: name.value,
+				phone: generatePhoneNumber(),
+				email: email.value,
+                password: paswort.value
+			},
+			color: hexColorGenerator(),
+			tasks: [
+				
+			],
+		};
+    
    
      for (let i = 0; i < startData.users.length; i++) {
-        if (!startData.users[i].hasOwnProperty('registerData')) {
-            startData.users[i].registerData = newData;
-            await storeStartData();
-            return 1;
+        if (startData.users[i].hasOwnProperty('userData')) {
+            if (startData.users[i].userData['name'] == newData.userData['name']) {
+             alert('forget'); 
+             return 1;  
+            }
         }
-     }  
+     } 
+   startData.users.push(newData);
+    storeStartData();
+     
 }
 
 

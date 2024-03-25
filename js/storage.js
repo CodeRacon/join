@@ -37,11 +37,9 @@ let isGuestUser = true;
  */
 async function loadUserData() {
 	const savedData = localStorage.getItem('changedData');
-	if (!savedData) {
-		localUserData = JSON.parse(await getItem('startData'));
-	} else {
+	if (savedData) {
 		localUserData = JSON.parse(savedData);
-	}
+	} // hey startData darf hier nie laden asynchrone funktion 
 }
 
 /**
