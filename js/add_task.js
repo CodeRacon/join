@@ -282,22 +282,48 @@ function createContactInitials(element) {
     `;
 }
 
+function selectOrClearCategory() {
+  let input = document.getElementById("category");
+  const img = document.getElementById("arrowImgCategory");
+  if (input.value == "") {
+    openAndCloseDropDownCategory();
+  } else {
+    input.value = "";
+    openAndCloseDropDownCategory();
+  }
+}
+
 function openAndCloseDropDownCategory() {
   let dropdown = document.getElementById("dropdownContentCategory");
-  const dropdownContent = document.getElementById("dropdownContent");
-  const assignedTo = document.getElementById("assigned-to");
-  const img = document.getElementById("arrowImg");
-  if (dropdownContent.style.display !== "block") {
-    dropdownContent.style.display = "block";
-    dropdownContent.classList.add("onfocus");
-    assignedTo.classList.add("onfocus");
+  let container = document.getElementById("category-div");
+  const img = document.getElementById("arrowImgCategory");
+  if (dropdown.style.display !== "block") {
+    dropdown.style.display = "block";
+    dropdown.classList.add("onfocus");
+    container.classList.add("onfocus");
     img.style.transform = "rotate(180deg)";
   } else {
-    dropdownContent.style.display = "none";
-    dropdownContent.classList.remove("onfocus");
-    assignedTo.classList.remove("onfocus");
+    dropdown.style.display = "none";
+    dropdown.classList.remove("onfocus");
+    container.classList.remove("onfocus");
     img.style.transform = "rotate(0deg)";
   }
+}
+function selectCategory(category) {
+  let dropdown = document.getElementById("dropdownContentCategory");
+  let input = document.getElementById("category");
+  const img = document.getElementById("arrowImgCategory");
+  let container = document.getElementById("category-div");
+  if (category == "user-story") {
+    input.value = "User Story";
+    dropdown.style.display = "none";
+  } else {
+    input.value = "Technical Task";
+    dropdown.style.display = "none";
+  }
+
+  container.classList.remove("onfocus");
+  img.style.transform = "rotate(0deg)";
 }
 
 function showSubtaskInput() {
@@ -461,10 +487,14 @@ function getDescription() {
  */
 function getCategory() {
   let categorySelected = document.getElementById("category");
+  if (categorySelected.value === "") {
+    newCategory = "";
+  }
   if (categorySelected.value === "user-story") {
     newCategory = 1;
-  } else {
-    newCategory = 2;
+  }
+  if (categorySelected.value === "technical-task") {
+    newCategory = 1;
   }
 }
 

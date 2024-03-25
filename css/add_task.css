@@ -93,7 +93,8 @@ h1 {
 
 input,
 textarea,
-select {
+select,
+.category-option {
   font-size: 1.25rem;
   font-family: "Inter";
 }
@@ -338,16 +339,6 @@ input::-moz-calendar-picker-indicator {
   overflow-y: auto;
 }
 
-#dropdownContentCategory {
-  display: none;
-  background-color: white;
-  width: var(--f-width);
-  min-height: 6rem;
-  border-top: none;
-  margin-top: -1rem;
-  overflow-y: none;
-}
-
 .dropdown-content-style {
   border-color: var(--border-color);
   border-bottom-left-radius: 0.5rem;
@@ -496,6 +487,46 @@ input::-moz-calendar-picker-indicator {
   color: #000 !important;
   font-size: 1.25rem !important;
   font-weight: 400 !important;
+}
+
+/* ################### Category ################### */
+
+#dropdownContentCategory {
+  display: none;
+  background-color: white;
+  width: var(--f-width);
+  height: fit-content;
+  border-top: none;
+  margin-top: -1rem;
+}
+
+#category {
+  width: 100%;
+}
+
+.onfocus {
+  border: var(--form-active-border) !important;
+  border-bottom: unset !important;
+}
+
+#category::placeholder {
+  color: var(--black, #000);
+}
+
+#labels-for-category {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.category-option {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.category-option:hover {
+  background-color: #eaeaea;
+  border-radius: 0.625rem;
 }
 
 /* ################### Subtasks ################### */

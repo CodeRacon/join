@@ -185,32 +185,44 @@
             <div class="category-cont">
               <span>Category<span class="asterisk">*</span></span>
               <div
-                id="assigned-to"
+                id="category-div"
                 class="field-width-height input-borders category"
               >
                 <input
-                  name="select-contact"
+                  name="select-category"
                   type="text"
                   class="border-none"
                   id="category"
-                  placeholder="Select contacts to assign"
+                  placeholder="Select task category"
                   readonly
-                  onclick="openAndCloseDropDownCategory()"
+                  onclick="selectOrClearCategory()"
                 />
                 <img
-                  id="arrowImg"
+                  id="arrowImgCategory"
                   src="/assets/img/icons/add-task/arrow-down.svg"
                   alt="Arrow down icon"
-                  onclick="openAndCloseDropDownCategory()"
+                  onclick="selectOrClearCategory()"
                 />
               </div>
               <div
                 class="dropdown-content btn-borders dropdown-content-style"
                 id="dropdownContentCategory"
               >
-                <div id="labels">
-                  <option value="user-story">User Story</option>
-                  <option value="technical-task">Technical Task</option>
+                <div id="labels-for-category">
+                  <option
+                    onclick="selectCategory('user-story')"
+                    class="category-option"
+                    value="user-story"
+                  >
+                    User Story
+                  </option>
+                  <option
+                    onclick="selectCategory('technical-task')"
+                    class="category-option"
+                    value="technical-task"
+                  >
+                    Technical Task
+                  </option>
                 </div>
               </div>
             </div>
