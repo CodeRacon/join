@@ -352,6 +352,15 @@ function removeHighlight(id) {
   document.getElementById(id).classList.remove("drag-area-highlight");
 }
 
+// :::::::::::::::::::::: Search - Function  :::::::::::::::::::::://
+
+/**
+ * Filters the tasks to find only those whose title or description
+ * match the search input value (case insensitive).
+ * Pushes any matched tasks into the matchedTasks array.
+ * Renders the matched tasks and updates the UI.
+ * If search input is empty, re-renders the full task list.
+ */
 function filterMatchedTasks() {
   let input = document.getElementById("find-task").value.toLowerCase();
   let matchedTasks = [];
@@ -366,8 +375,17 @@ function filterMatchedTasks() {
     });
   });
   renderMatchedTasks(matchedTasks);
+  if (input == "") {
+    updateHTML();
+  }
 }
 
+/**
+ * Renders the matched tasks into their respective containers
+ * based on task status.
+ * Clears existing task elements from the containers first.
+ * @param {Array} matchedTasks - Array of tasks matched by search filter
+ */
 function renderMatchedTasks(matchedTasks) {
   let toDoContainer = document.getElementById("toDo");
   let inProgressContainer = document.getElementById("inProgress");
@@ -377,41 +395,106 @@ function renderMatchedTasks(matchedTasks) {
   inProgressContainer.innerHTML = "";
   awaitFeedbackContainer.innerHTML = "";
   doneContainer.innerHTML = "";
+
   matchedTasks.forEach((task) => {
     if (task.status == "toDo") {
-      toDoContainer.innerHTML += generateTaskCard(task);
-      let names = task.assignedTo;
-      updateTaskColorAndCategory();
-      updatePriority();
-      // showContactsToAssign();
-      // createContactInitialsForFiltered(names); // hier noch in Z. 398 weiter machen
+      renderMatch(task, toDoContainer);
     } else if (task.status == "inProgress") {
-      inProgressContainer.innerHTML += generateTaskCard(task);
+      renderMatch(task, inProgressContainer);
     } else if (task.status == "awaitFeedback") {
-      awaitFeedbackContainer.innerHTML += generateTaskCard(task);
+      renderMatch(task, awaitFeedbackContainer);
     } else if (task.status == "done") {
-      doneContainer.innerHTML += generateTaskCard(task);
+      renderMatch(task, doneContainer);
     }
   });
+  checkForEmptyContainers();
 }
 
-function createContactInitialsForFiltered(names) {
-  // hier weiter machen, muss noch forEach benutzt werden!!
-  let element = localUserData.contacts.find(
-    (user) => user.userData.name === names
-  );
-  const initials = element
-    .split(" ")
-    .map((word) => word.charAt(0))
-    .join("");
+/**
+ * Renders a matched task into the provided container.
+ * Looks up assigned users and renders their filtered cards.
+ *
+ * @param {Object} task - Task object to render
+ * @param {Element} container - DOM element to render task card into
+ */
+function renderMatch(task, container) {
+  let names = task.assignedTo;
+  container.innerHTML += generateTaskCard(task);
+  renderFilteredCards(names, task);
+}
 
-  return `
+/**
+ * Renders filtered user cards for the assigned users of a task.
+ * Updates task color, category, priority, shows contacts to assign,
+ * and creates contact initials for the filtered users.
+ *
+ * @param {Array} names - Array of user names assigned to the task
+ * @param {Object} task - Task object
+ */
+function renderFilteredCards(names, task) {
+  updateTaskColorAndCategory();
+  updatePriority();
+  showContactsToAssign();
+  createContactInitialsForFiltered(names, task);
+}
+
+/**
+ * Renders filtered user initials for the assigned users of a task.
+ * Creates initials circles with background color and initials
+ * for each assigned user that is filtered.
+ *
+ * @param {Array} names - Array of user names assigned to the task
+ * @param {Object} task - Task object
+ */
+function createContactInitialsForFiltered(names, task) {
+  let container = document.getElementById(`assignedCircle${task.id}`);
+  container.innerHTML = "";
+  names.forEach((name) => {
+    let user = localUserData.contacts.find(
+      (contact) => contact.userData.name === name
+    );
+    const initials = name
+      .split(" ")
+      .map((word) => word.charAt(0))
+      .join("");
+
+    container.innerHTML += `
       <div 
-      class="initialsCyrcle"
-          style="background-color: ${element.color}">
+      class="initialsCircleOfTasks"
+          style="background-color: ${user.color}">
           ${initials}
     </div>
     `;
+  });
+}
+
+/**
+ * Checks if any of the task container elements are empty
+ * and generates empty state HTML if so.
+ *
+ * @param {Element} toDoContainer - The container element for To Do tasks
+ * @param {Element} inProgressContainer - The container for In Progress tasks
+ * @param {Element} awaitFeedbackContainer - The container for Awaiting Feedback tasks
+ * @param {Element} doneContainer - The container for Closed/Done tasks
+ */
+function checkForEmptyContainers() {
+  let toDoContainer = document.getElementById("toDo");
+  let inProgressContainer = document.getElementById("inProgress");
+  let awaitFeedbackContainer = document.getElementById("awaitFeedback");
+  let doneContainer = document.getElementById("closed");
+
+  if (toDoContainer.childElementCount == 0) {
+    toDoContainer.innerHTML = generateEmptyHTML("to do");
+  }
+  if (inProgressContainer.childElementCount == 0) {
+    inProgressContainer.innerHTML = generateEmptyHTML("in progress");
+  }
+  if (awaitFeedbackContainer.childElementCount == 0) {
+    awaitFeedbackContainer.innerHTML = generateEmptyHTML("awaiting feedback");
+  }
+  if (doneContainer.childElementCount == 0) {
+    doneContainer.innerHTML = generateEmptyHTML("closed");
+  }
 }
 
 // :::::::::::::::::::::: Task - Card - PopUp :::::::::::::::::::::://
@@ -627,7 +710,7 @@ function closeTaskCardOverlay() {
   overlay.classList.remove("d-none");
   overlay.innerHTML = "";
   actualCard = [];
-  updateHTML();
+  // updateHTML();
 }
 
 /**
