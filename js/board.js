@@ -83,7 +83,7 @@ function updateInProgress() {
       }
     }
   }
-  checkIfEmpty("inProgress", "in Progress");
+  checkIfEmpty("inProgress", "in progress");
 }
 
 /**
@@ -139,7 +139,7 @@ function updateDone() {
       }
     }
   }
-  checkIfEmpty("closed", "Done");
+  checkIfEmpty("closed", "done");
 }
 
 /**
@@ -350,6 +350,68 @@ function highlight(id) {
  */
 function removeHighlight(id) {
   document.getElementById(id).classList.remove("drag-area-highlight");
+}
+
+function filterMatchedTasks() {
+  let input = document.getElementById("find-task").value.toLowerCase();
+  let matchedTasks = [];
+  localUserData.users.forEach((user) => {
+    user.tasks.forEach((task) => {
+      if (
+        task.title.toLowerCase().includes(input) ||
+        task.description.toLowerCase().includes(input)
+      ) {
+        matchedTasks.push(task);
+      }
+    });
+  });
+  renderMatchedTasks(matchedTasks);
+}
+
+function renderMatchedTasks(matchedTasks) {
+  let toDoContainer = document.getElementById("toDo");
+  let inProgressContainer = document.getElementById("inProgress");
+  let awaitFeedbackContainer = document.getElementById("awaitFeedback");
+  let doneContainer = document.getElementById("closed");
+  toDoContainer.innerHTML = "";
+  inProgressContainer.innerHTML = "";
+  awaitFeedbackContainer.innerHTML = "";
+  doneContainer.innerHTML = "";
+  matchedTasks.forEach((task) => {
+    if (task.status == "toDo") {
+      toDoContainer.innerHTML += generateTaskCard(task);
+      let names = task.assignedTo;
+      updateTaskColorAndCategory();
+      updatePriority();
+      // showContactsToAssign();
+      // createContactInitialsForFiltered(names); // hier noch in Z. 398 weiter machen
+    } else if (task.status == "inProgress") {
+      inProgressContainer.innerHTML += generateTaskCard(task);
+    } else if (task.status == "awaitFeedback") {
+      awaitFeedbackContainer.innerHTML += generateTaskCard(task);
+    } else if (task.status == "done") {
+      doneContainer.innerHTML += generateTaskCard(task);
+    }
+  });
+}
+
+function createContactInitialsForFiltered(names) {
+  // hier weiter machen, muss noch forEach benutzt werden!!
+  let element = localUserData.contacts.find(
+    (user) => user.userData.name === names
+  );
+  const initials = element
+    .split(" ")
+    .map((word) => word.charAt(0))
+    .join("");
+
+  return `
+      <div 
+      class="initialsCyrcle"
+          style="background-color: ${element.color}">
+          ${initials}
+    </div>
+    `;
 }
 
 // :::::::::::::::::::::: Task - Card - PopUp :::::::::::::::::::::://

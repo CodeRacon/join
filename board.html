@@ -50,9 +50,11 @@
         <div class="input-and-button-container">
           <div class="input-find-task input-borders">
             <input
+              id="find-task"
               type="text"
               class="border-none input-padding find-task-input"
               placeholder="Find Task"
+              onkeyup="filterMatchedTasks()"
             />
             <button class="border-none btn-find-task">
               <img
