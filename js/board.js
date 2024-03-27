@@ -1,14 +1,14 @@
 let taskColor = {
-  userStory: "#0038FF", // category 1
-  technicalTask: "#1FD7C1", //category 2
+	userStory: '#0038FF', // category 1
+	technicalTask: '#1FD7C1', //category 2
 };
 
-let low = "assets/img/icons/add-task/low.svg";
-let medium = "assets/img/icons/add-task/medium-orange.svg";
-let high = "assets/img/icons/add-task/urgent.svg";
+let low = 'assets/img/icons/add-task/low.svg';
+let medium = 'assets/img/icons/add-task/medium-orange.svg';
+let high = 'assets/img/icons/add-task/urgent.svg';
 
-let taskDone = "assets/img/icons/board/cf_checked.svg";
-let taskNotDone = "assets/img/icons/board/cf_unchecked.svg";
+let taskDone = 'assets/img/icons/board/cf_checked.svg';
+let taskNotDone = 'assets/img/icons/board/cf_unchecked.svg';
 
 let currentDraggedElement;
 
@@ -19,15 +19,15 @@ let actualCard;
  * Calls various helper functions to update different sections.
  */
 async function updateHTML() {
-  await loadUserData();
-  updateToDos();
-  updateInProgress();
-  updateAwaitFeedback();
-  updateDone();
-  updateTaskColorAndCategory();
-  updatePriority();
-  showContactsToAssign();
-  clearForm();
+	await loadUserData();
+	updateToDos();
+	updateInProgress();
+	updateAwaitFeedback();
+	updateDone();
+	updateTaskColorAndCategory();
+	updatePriority();
+	showContactsToAssign();
+	clearForm();
 }
 
 /**
@@ -40,22 +40,22 @@ async function updateHTML() {
  * If no "toDo" tasks exist for a user, generates empty state HTML.
  */
 function updateToDos() {
-  let content = document.getElementById("toDo");
-  content.innerHTML = "";
-  for (let i = 0; i < localUserData["users"].length; i++) {
-    const element = localUserData["users"][i];
-    if (element.hasOwnProperty("tasks")) {
-      let toDo = element["tasks"].filter((todo) => todo["status"] == "toDo");
-      for (let index = 0; index < toDo.length; index++) {
-        const element = toDo[index];
-        content.innerHTML += generateTaskCard(element);
-        showInitials(element);
-        generateProgressBar(element);
-      }
-    } else if (toDo.length == 0) {
-      content.innerHTML = generateEmptyHTML("to do");
-    }
-  }
+	let source = 'toDo';
+	let content = document.getElementById('toDo');
+	content.innerHTML = '';
+	for (let i = 0; i < localUserData['users'].length; i++) {
+		const element = localUserData['users'][i];
+		if (element.hasOwnProperty('tasks')) {
+			let toDo = element['tasks'].filter((todo) => todo['status'] == 'toDo');
+			for (let index = 0; index < toDo.length; index++) {
+				const element = toDo[index];
+				content.innerHTML += generateTaskCard(element, source);
+				showInitials(element);
+				generateProgressBar(element);
+			}
+		}
+	}
+	checkIfEmpty('toDo', 'to do');
 }
 
 /**
@@ -68,24 +68,24 @@ function updateToDos() {
  * If no "inProgress" tasks exist for a user, generates empty state HTML.
  */
 function updateInProgress() {
-  let content = document.getElementById("inProgress");
-  content.innerHTML = "";
-  for (let i = 0; i < localUserData["users"].length; i++) {
-    const element = localUserData["users"][i];
-    if (element.hasOwnProperty("tasks")) {
-      let inProgress = element["tasks"].filter(
-        (task) => task["status"] == "inProgress"
-      );
-      for (let index = 0; index < inProgress.length; index++) {
-        const element = inProgress[index];
-        content.innerHTML += generateTaskCard(element);
-        showInitials(element);
-        generateProgressBar(element);
-      }
-    } else if (inProgress.length == 0) {
-      content.innerHTML = generateEmptyHTML("in progress");
-    }
-  }
+	let source = 'inProgress';
+	let content = document.getElementById('inProgress');
+	content.innerHTML = '';
+	for (let i = 0; i < localUserData['users'].length; i++) {
+		const element = localUserData['users'][i];
+		if (element.hasOwnProperty('tasks')) {
+			let inProgress = element['tasks'].filter(
+				(task) => task['status'] == 'inProgress'
+			);
+			for (let index = 0; index < inProgress.length; index++) {
+				const element = inProgress[index];
+				content.innerHTML += generateTaskCard(element, source);
+				showInitials(element);
+				generateProgressBar(element);
+			}
+		}
+	}
+	checkIfEmpty('inProgress', 'in progress');
 }
 
 /**
@@ -98,25 +98,24 @@ function updateInProgress() {
  * If no "awaitFeedback" tasks exist for a user, generates empty state HTML.
  */
 function updateAwaitFeedback() {
-  let content = document.getElementById("awaitFeedback");
-  content.innerHTML = "";
-
-  for (let i = 0; i < localUserData["users"].length; i++) {
-    const element = localUserData["users"][i];
-    if (element.hasOwnProperty("tasks")) {
-      let awaitFeedback = element["tasks"].filter(
-        (task) => task["status"] == "awaitFeedback"
-      );
-      for (let index = 0; index < awaitFeedback.length; index++) {
-        const element = awaitFeedback[index];
-        content.innerHTML += generateTaskCard(element);
-        showInitials(element);
-        generateProgressBar(element);
-      }
-    } else if (awaitFeedback.length == 0) {
-      content.innerHTML = generateEmptyHTML("await Feedback");
-    }
-  }
+	let source = 'awaitFeedback';
+	let content = document.getElementById('awaitFeedback');
+	content.innerHTML = '';
+	for (let i = 0; i < localUserData['users'].length; i++) {
+		const element = localUserData['users'][i];
+		if (element.hasOwnProperty('tasks')) {
+			let awaitFeedback = element['tasks'].filter(
+				(task) => task['status'] == 'awaitFeedback'
+			);
+			for (let index = 0; index < awaitFeedback.length; index++) {
+				const element = awaitFeedback[index];
+				content.innerHTML += generateTaskCard(element, source);
+				showInitials(element);
+				generateProgressBar(element);
+			}
+		}
+	}
+	checkIfEmpty('awaitFeedback', 'await feedback');
 }
 
 /**
@@ -129,22 +128,37 @@ function updateAwaitFeedback() {
  * If no "done" tasks exist for a user, generates empty state HTML.
  */
 function updateDone() {
-  let content = document.getElementById("closed");
-  content.innerHTML = "";
-  for (let i = 0; i < localUserData["users"].length; i++) {
-    const element = localUserData["users"][i];
-    if (element.hasOwnProperty("tasks")) {
-      let closed = element["tasks"].filter((task) => task["status"] == "done");
-      for (let index = 0; index < closed.length; index++) {
-        const element = closed[index];
-        content.innerHTML += generateTaskCard(element);
-        showInitials(element);
-        generateProgressBar(element);
-      }
-    } else if (closed.length == 0) {
-      content.innerHTML = generateEmptyHTML("are closed");
-    }
-  }
+	let content = document.getElementById('closed');
+	let source = 'done';
+
+	content.innerHTML = '';
+	for (let i = 0; i < localUserData['users'].length; i++) {
+		const element = localUserData['users'][i];
+		if (element.hasOwnProperty('tasks')) {
+			let closed = element['tasks'].filter((task) => task['status'] == 'done');
+			for (let index = 0; index < closed.length; index++) {
+				const element = closed[index];
+				content.innerHTML += generateTaskCard(element, source);
+				showInitials(element);
+				generateProgressBar(element);
+			}
+		}
+	}
+	checkIfEmpty('closed', 'done');
+}
+
+/**
+ * Checks if the provided element has no content.
+ * If empty, generates and inserts empty state HTML.
+ *
+ * @param {string} id - The ID of the DOM element to check.
+ * @param {string} text - The text to display in the empty state.
+ */
+function checkIfEmpty(id, text) {
+	let content = document.getElementById(id);
+	if (content.innerHTML === '') {
+		content.innerHTML = generateEmptyHTML(text);
+	}
 }
 
 /**
@@ -156,16 +170,16 @@ function updateDone() {
  * to show category name.
  */
 function updateTaskColorAndCategory() {
-  let elements = document.getElementsByClassName("category-of-task");
-  Array.from(elements).forEach((element) => {
-    if (element.innerText.trim() == 1) {
-      element.classList.add("user-story-task-color");
-      element.innerHTML = "User Story";
-    } else {
-      element.classList.add("technical-task-color");
-      element.innerHTML = "Technical Task";
-    }
-  });
+	let elements = document.getElementsByClassName('category-of-task');
+	Array.from(elements).forEach((element) => {
+		if (element.innerText.trim() == 1) {
+			element.classList.add('user-story-task-color');
+			element.innerHTML = 'User Story';
+		} else {
+			element.classList.add('technical-task-color');
+			element.innerHTML = 'Technical Task';
+		}
+	});
 }
 
 /**
@@ -178,25 +192,25 @@ function updateTaskColorAndCategory() {
  * to show correct priority icon image.
  */
 function updatePriority() {
-  let prioBoxes = document.getElementsByClassName("priority-of-task");
-  Array.from(prioBoxes).forEach((prioBox) => {
-    if (
-      prioBox.innerText.trim() == 1 ||
-      prioBox.innerText.trim().toLowerCase() == "low"
-    ) {
-      prioBox.innerHTML = `<img src="${low}" alt="Low Priority">`;
-    } else if (
-      prioBox.innerText.trim() == "2" ||
-      prioBox.innerText.trim().toLowerCase() == "medium"
-    ) {
-      prioBox.innerHTML = `<img src="${medium}" alt="Low Priority">`;
-    } else if (
-      prioBox.innerText.trim() == "3" ||
-      prioBox.innerText.trim().toLowerCase() == "urgent"
-    ) {
-      prioBox.innerHTML = `<img src="${high}" alt="Low Priority">`;
-    }
-  });
+	let prioBoxes = document.getElementsByClassName('priority-of-task');
+	Array.from(prioBoxes).forEach((prioBox) => {
+		if (
+			prioBox.innerText.trim() == 1 ||
+			prioBox.innerText.trim().toLowerCase() == 'low'
+		) {
+			prioBox.innerHTML = `<img src="${low}" alt="Low Priority">`;
+		} else if (
+			prioBox.innerText.trim() == '2' ||
+			prioBox.innerText.trim().toLowerCase() == 'medium'
+		) {
+			prioBox.innerHTML = `<img src="${medium}" alt="Low Priority">`;
+		} else if (
+			prioBox.innerText.trim() == '3' ||
+			prioBox.innerText.trim().toLowerCase() == 'urgent'
+		) {
+			prioBox.innerHTML = `<img src="${high}" alt="Low Priority">`;
+		}
+	});
 }
 
 /**
@@ -209,26 +223,26 @@ function updatePriority() {
  * element.
  */
 function showInitials(element) {
-  let allInitials = element.assignedTo;
-  let container = document.getElementById(`assignedCircle${element["id"]}`);
-  container.innerHTML = "";
-  allInitials.forEach((name) => {
-    const initial = name
-      .split(" ")
-      .map((word) => word.charAt(0))
-      .join("");
-    let user = localUserData["contacts"].find(
-      (user) => user.userData.name === name
-    );
-    let color = user ? user.color : "#d98973";
-    container.innerHTML += `
+	let allInitials = element.assignedTo;
+	let container = document.getElementById(`assignedCircle${element['id']}`);
+	container.innerHTML = '';
+	allInitials.forEach((name) => {
+		const initial = name
+			.split(' ')
+			.map((word) => word.charAt(0))
+			.join('');
+		let user = localUserData['contacts'].find(
+			(user) => user.userData.name === name
+		);
+		let color = user ? user.color : '#d98973';
+		container.innerHTML += `
     <div
     class="initialsCircleOfTasks"
         style="background-color: ${color}">
         ${initial}
   </div>
 `;
-  });
+	});
 }
 
 /**
@@ -239,50 +253,144 @@ function showInitials(element) {
  * with appropriate value, and text indicating number of subtasks completed vs total.
  */
 function generateProgressBar(element) {
-  let container = document.getElementById(`progress${element["id"]}`);
-  container.innerHTML = "";
-  let subtasks = element["subtasks"];
-  if (!element.hasOwnProperty("subtasks") || subtasks.length == 0) {
-    return;
-  } else {
-    let doneSubtasks = subtasks.filter((subtask) => subtask.done).length;
-    let progress = (doneSubtasks / subtasks.length) * 100;
+	let container = document.getElementById(`progress${element['id']}`);
+	container.innerHTML = '';
+	let subtasks = element['subtasks'];
+	if (!element.hasOwnProperty('subtasks') || subtasks.length == 0) {
+		return;
+	} else {
+		let doneSubtasks = subtasks.filter((subtask) => subtask.done).length;
+		let progress = (doneSubtasks / subtasks.length) * 100;
 
-    container.innerHTML = `<progress value="${progress}" max="100" class="progress-bar"></progress>
+		container.innerHTML = `<progress value="${progress}" max="100" class="progress-bar"></progress>
           <div class="amount-of-subtasks-container">
         <div>
         ${doneSubtasks}/${subtasks.length} Subtasks
        </div>
       </div>`;
-  }
-}
-
-// funktioniert noch nicht, muss angepasst werden!!! //
-function generateEmptyHTML(text) {
-  return `<div draggable="true" class="empty-task drag-and-drop-container-border">No tasks ${text}</div>`;
+	}
 }
 
 /**
- * Generates HTML for a task card element.
+ * Generates an empty HTML element with draggable and styling.
  *
- * Accepts a task object and returns a string containing HTML to display a draggable,
- * clickable card for that task. Includes task category, title, description, progress bar,
- * assigned user initials, and priority.
+ * @param {string} text - Text to display inside the empty element.
+ * @returns {string} The generated HTML element as a string.
  */
-function generateTaskCard(element) {
-  return `
-  <div draggable="true" 
-    ondragstart="startDragging(${element["id"]})" 
-    id="${element["id"]}" class="task-card" onclick="openTaskCardOverlay(${element["id"]})">
-      <div class="category-of-task">${element["category"]}</div>
-      <div class="title-of-task">${element["title"]}</div>
-      <div class="description-of-task">${element["description"]}</div>
-      <div class="subtasks-of-task" id="progress${element["id"]}"></div>
+function generateEmptyHTML(text) {
+	return `<div draggable="false" class="empty-task drag-and-drop-container-border">No tasks ${text}</div>`;
+}
+
+/**
+ * Generates the HTML for a task card element.
+ *
+ * Returns an HTML string for a draggable task card element, including:
+ * - Move button
+ * - Move menu
+ * - Category, title, description from element
+ * - Progress bar from subtasks
+ * - Assigned to and priority
+ */
+function generateTaskCard(element, source) {
+	const taskID = element['id'];
+	const moveBtnContent = renderMoveBtn(taskID);
+	const moveMenuContent = renderMoveMenu(source, taskID);
+	return /*html*/ `   
+	<div 
+    draggable="true" 
+    ondragstart="startDragging(${element['id']})" 
+    id="${element['id']}"   
+    class="task-card" 
+    onclick="openTaskCardOverlay(${element['id']}) ">
+      ${moveBtnContent}
+			<div class="move-menu d-none qm-off" id="move-menu-${taskID}">
+				${moveMenuContent}	
+			</div>      
+      <div class="category-of-task">
+				${element['category']}
+      </div>
+      <div class="title-of-task">${element['title']}</div>
+      <div class="description-of-task">${element['description']}</div>
+      <div class="subtasks-of-task" id="progress${element['id']}"></div>
       <div class="assigned-and-priority-container">
-      <div id="assignedCircle${element["id"]}" class="assigned-to-of-task">${element["assignedTo"]}</div>
-      <div class="priority-of-task">${element["priority"]}</div>
+      <div id="assignedCircle${element['id']}" class="assigned-to-of-task">${element['assignedTo']}</div>
+      <div class="priority-of-task">${element['priority']}</div>
   </div>
    `;
+}
+
+/**
+ * Renders the move button HTML for a task.
+ *
+ * Generates a clickable div containing an icon to toggle the move menu
+ * for a specific task, identified by its taskID.
+ */
+function renderMoveBtn(taskID) {
+	return /*html*/ `
+    <div onclick="toggleMoveBtnMenu(event, '${taskID}')" class="mobile-move-btn " id="mobile-move-btn-${taskID}">
+      <img 
+				id="btn-icon-${taskID}" 
+				class="menu-closed"
+				src="/assets/img/icons/contacts/more_vert.svg" 
+				alt="" >
+    </div>
+  `;
+}
+
+/**
+ * Renders the move menu dropdown for a task
+ *
+ * Generates the HTML for the dropdown menu shown when moving a task.
+ * Filters the possible destinations based on the current source board,
+ * and maps them to dropdown items calling the moveTask function.
+ *
+ * @param {string} source - The current board the task is in
+ * @param {string} taskID - The ID of the task
+ * @returns {string} The generated dropdown HTML
+ */
+function renderMoveMenu(source, taskID) {
+	const destinations = [
+		{ label: 'To do', value: 'toDo' },
+		{ label: 'In progress', value: 'inProgress' },
+		{ label: 'Await feedback', value: 'awaitFeedback' },
+		{ label: 'Done', value: 'done' },
+	].filter((dest) => dest.value !== source);
+	const dropdownItems = destinations
+		.map(
+			(dest) => /*html*/ `
+        <div 
+          class="move-menu-item" 
+          onclick="event.stopPropagation(); movePerMenu('${taskID}', '${dest.value}')">
+          ${dest.label}
+        </div>`
+		)
+		.join('');
+	return dropdownItems;
+}
+
+/**
+ * Toggles the move menu dropdown for a task
+ *
+ * Shows or hides the move menu dropdown based on its current visibility state.
+ * Handles updating the icon and menu classes.
+ */
+function toggleMoveBtnMenu(event, taskID) {
+	event.stopPropagation();
+	const moveMenu = document.getElementById(`move-menu-${taskID}`);
+	const btnIcon = document.getElementById(`btn-icon-${taskID}`);
+	if (moveMenu.classList.contains('d-none')) {
+		moveMenu.classList.replace('qm-off', 'qm-on');
+		setTimeout(() => {
+			btnIcon.classList.replace('menu-closed', 'menu-open');
+			moveMenu.classList.toggle('d-none');
+		}, 125);
+	} else {
+		btnIcon.classList.replace('menu-open', 'menu-closed');
+		moveMenu.classList.replace('qm-on', 'qm-off');
+		setTimeout(() => {
+			moveMenu.classList.toggle('d-none');
+		}, 125);
+	}
 }
 
 /**
@@ -290,36 +398,63 @@ function generateTaskCard(element) {
  * This allows tracking the id of the element currently being dragged.
  */
 function startDragging(id) {
-  currentDraggedElement = id;
+	currentDraggedElement = id;
 }
 
 /**
  * Prevents the default dragover event to allow dropping.
  */
 function allowDrop(event) {
-  event.preventDefault();
+	event.preventDefault();
 }
 
 /**
- * Moves the task with the given ID to the specified status.
- * Iterates through all users' tasks to find the task with the matching ID,
- * then updates its status property to the provided status.
- * Saves the updated user data and re-renders the UI.
+ * Moves a dragged task element to the given status by updating its status property.
+ *
+ * Loops through the local user data to find the task with matching ID, then updates
+ * its status property. Saves the updated user data and re-renders the HTML.
+ *
+ * @param {string} status - The status to set the task to, e.g. "todo", "in-progress", "done"
  */
-function moveTo(status) {
-  let id = currentDraggedElement;
-  gotIt = false;
-  for (let i = 0; i < localUserData["users"].length && gotIt == false; i++) {
-    let element = localUserData["users"][i]["tasks"];
-    for (let j = 0; j < element.length; j++) {
-      if (element[j].id === id) {
-        localUserData["users"][i]["tasks"][j].status = status;
-        gotIt = true;
-      }
-    }
-  }
-  saveUserData();
-  updateHTML();
+function movePerDrag(status) {
+	let id = currentDraggedElement;
+	gotIt = false;
+	for (let i = 0; i < localUserData['users'].length && gotIt == false; i++) {
+		let element = localUserData['users'][i]['tasks'];
+		for (let j = 0; j < element.length; j++) {
+			if (element[j].id === id) {
+				localUserData['users'][i]['tasks'][j].status = status;
+				gotIt = true;
+			}
+		}
+	}
+	saveUserData();
+	updateHTML();
+}
+
+/**
+ * Moves a task with the given ID to the specified destination status.
+ * Iterates through all users' tasks to find the matching task ID, then
+ * updates its status property. Saves the updated user data and re-renders
+ * the UI.
+ *
+ * @param {number} taskID - The ID of the task to move
+ * @param {string} destination - The status to set the task to
+ */
+function movePerMenu(taskID, destination) {
+	taskID = parseInt(taskID);
+	let gotIt = false;
+	for (let i = 0; i < localUserData['users'].length && !gotIt; i++) {
+		let tasks = localUserData['users'][i]['tasks'];
+		for (let j = 0; j < tasks.length; j++) {
+			if (tasks[j].id === taskID) {
+				localUserData['users'][i]['tasks'][j].status = destination;
+				gotIt = true;
+			}
+		}
+	}
+	saveUserData();
+	updateHTML();
 }
 
 /**
@@ -327,7 +462,7 @@ function moveTo(status) {
  * This highlights the element as a drag target area.
  */
 function highlight(id) {
-  document.getElementById(id).classList.add("drag-area-highlight");
+	document.getElementById(id).classList.add('drag-area-highlight');
 }
 
 /**
@@ -335,7 +470,107 @@ function highlight(id) {
  * This removes the highlight indicating it as a drag target area.
  */
 function removeHighlight(id) {
-  document.getElementById(id).classList.remove("drag-area-highlight");
+	document.getElementById(id).classList.remove('drag-area-highlight');
+}
+
+// :::::::::::::::::::::: Search - Function  :::::::::::::::::::::://
+
+/**
+ * Filters the tasks to find only those whose title or description
+ * match the search input value (case insensitive).
+ * Pushes any matched tasks into the matchedTasks array.
+ * Renders the matched tasks and updates the UI.
+ * If search input is empty, re-renders the full task list.
+ */
+function filterMatchedTasks() {
+	let input = document.getElementById('find-task').value.toLowerCase();
+	let matchedTasks = [];
+	localUserData.users.forEach((user) => {
+		user.tasks.forEach((task) => {
+			if (
+				task.title.toLowerCase().includes(input) ||
+				task.description.toLowerCase().includes(input)
+			) {
+				matchedTasks.push(task);
+			}
+		});
+	});
+	renderMatchedTasks(matchedTasks);
+}
+
+function renderMatchedTasks(matchedTasks) {
+	let toDoContainer = document.getElementById('toDo');
+	let inProgressContainer = document.getElementById('inProgress');
+	let awaitFeedbackContainer = document.getElementById('awaitFeedback');
+	let doneContainer = document.getElementById('closed');
+	toDoContainer.innerHTML = '';
+	inProgressContainer.innerHTML = '';
+	awaitFeedbackContainer.innerHTML = '';
+	doneContainer.innerHTML = '';
+	matchedTasks.forEach((task) => {
+		if (task.status == 'toDo') {
+			toDoContainer.innerHTML += generateTaskCard(task);
+			let names = task.assignedTo;
+			updateTaskColorAndCategory();
+			updatePriority();
+			// showContactsToAssign();
+			// createContactInitialsForFiltered(names); // hier noch in Z. 398 weiter machen
+		} else if (task.status == 'inProgress') {
+			inProgressContainer.innerHTML += generateTaskCard(task);
+		} else if (task.status == 'awaitFeedback') {
+			awaitFeedbackContainer.innerHTML += generateTaskCard(task);
+		} else if (task.status == 'done') {
+			doneContainer.innerHTML += generateTaskCard(task);
+		}
+	});
+}
+
+function createContactInitialsForFiltered(names) {
+	// hier weiter machen, muss noch forEach benutzt werden!!
+	let element = localUserData.contacts.find(
+		(user) => user.userData.name === names
+	);
+	const initials = element
+		.split(' ')
+		.map((word) => word.charAt(0))
+		.join('');
+
+	return `
+      <div 
+      class="initialsCircleOfTasks"
+          style="background-color: ${user.color}">
+          ${initials}
+    </div>
+    `;
+}
+
+/**
+ * Checks if any of the task container elements are empty
+ * and generates empty state HTML if so.
+ *
+ * @param {Element} toDoContainer - The container element for To Do tasks
+ * @param {Element} inProgressContainer - The container for In Progress tasks
+ * @param {Element} awaitFeedbackContainer - The container for Awaiting Feedback tasks
+ * @param {Element} doneContainer - The container for Closed/Done tasks
+ */
+function checkForEmptyContainers() {
+	let toDoContainer = document.getElementById('toDo');
+	let inProgressContainer = document.getElementById('inProgress');
+	let awaitFeedbackContainer = document.getElementById('awaitFeedback');
+	let doneContainer = document.getElementById('closed');
+
+	if (toDoContainer.childElementCount == 0) {
+		toDoContainer.innerHTML = generateEmptyHTML('to do');
+	}
+	if (inProgressContainer.childElementCount == 0) {
+		inProgressContainer.innerHTML = generateEmptyHTML('in progress');
+	}
+	if (awaitFeedbackContainer.childElementCount == 0) {
+		awaitFeedbackContainer.innerHTML = generateEmptyHTML('awaiting feedback');
+	}
+	if (doneContainer.childElementCount == 0) {
+		doneContainer.innerHTML = generateEmptyHTML('closed');
+	}
 }
 
 // :::::::::::::::::::::: Task - Card - PopUp :::::::::::::::::::::://
@@ -350,20 +585,18 @@ function removeHighlight(id) {
  * @param {string} element - The ID of the task card to show details for
  */
 function openTaskCardOverlay(element) {
-  let overlay = document.getElementById("overlay-task-card");
-  overlay.classList.remove("box-slide-out", "d-none");
-  setTimeout(() => {
-    overlay.classList.add("box-slide-in");
-  }, 0);
-  overlay.classList.remove("d-none");
-
-  localUserData.users.forEach((user) => {
-    let cardIndex = user.tasks.findIndex((task) => task.id === element);
-    let card = user.tasks[cardIndex];
-
-    if (cardIndex !== -1) {
-      actualCard = card;
-      overlay.innerHTML = /*html*/ `
+	let overlay = document.getElementById('overlay-task-card');
+	overlay.classList.remove('box-slide-out', 'd-none');
+	setTimeout(() => {
+		overlay.classList.add('box-slide-in');
+	}, 0);
+	overlay.classList.remove('d-none');
+	localUserData.users.forEach((user) => {
+		let cardIndex = user.tasks.findIndex((task) => task.id === element);
+		let card = user.tasks[cardIndex];
+		if (cardIndex !== -1) {
+			actualCard = card;
+			overlay.innerHTML = /*html*/ `
       <div class="overlay-wrapper">
         <div 
           id="${card.id}" 
@@ -411,14 +644,14 @@ function openTaskCardOverlay(element) {
         </div>
       </div>
       `;
-    } else {
-      return;
-    }
-  });
-  taskColorAndCategoryForSingleCard();
-  updatePriorityForSingleTask();
-  showInitialsForSingleCard();
-  showSubtasks();
+		} else {
+			return;
+		}
+	});
+	taskColorAndCategoryForSingleCard();
+	updatePriorityForSingleTask();
+	showInitialsForSingleCard();
+	showSubtasks();
 }
 
 /**
@@ -426,16 +659,16 @@ function openTaskCardOverlay(element) {
  * overlay task card to indicate the category type.
  */
 function taskColorAndCategoryForSingleCard() {
-  let element = document.getElementsByClassName("category-of-single-task");
-  Array.from(element).forEach((element) => {
-    if (element.innerText.trim() == 1) {
-      element.classList.add("user-story-task-color");
-      element.innerHTML = "User Story";
-    } else {
-      element.classList.add("technical-task-color");
-      element.innerHTML = "Technical Task";
-    }
-  });
+	let element = document.getElementsByClassName('category-of-single-task');
+	Array.from(element).forEach((element) => {
+		if (element.innerText.trim() == 1) {
+			element.classList.add('user-story-task-color');
+			element.innerHTML = 'User Story';
+		} else {
+			element.classList.add('technical-task-color');
+			element.innerHTML = 'Technical Task';
+		}
+	});
 }
 
 /**
@@ -445,31 +678,31 @@ function taskColorAndCategoryForSingleCard() {
  * @param {HTMLElement[]} prioBox - Array of priority elements
  */
 function updatePriorityForSingleTask() {
-  let prioBox = document.getElementsByClassName("priority-of-single-task");
-  Array.from(prioBox).forEach((prioBox) => {
-    if (
-      prioBox.innerText.trim() == "1" ||
-      prioBox.innerText.trim().toLowerCase() == "low"
-    ) {
-      prioBox.innerHTML = `<span>Priority:
+	let prioBox = document.getElementsByClassName('priority-of-single-task');
+	Array.from(prioBox).forEach((prioBox) => {
+		if (
+			prioBox.innerText.trim() == '1' ||
+			prioBox.innerText.trim().toLowerCase() == 'low'
+		) {
+			prioBox.innerHTML = `<span>Priority:
       </span><div class="priority-and-icon"><span>Low</span><img src="${low}" alt="low Priority">
       </div>`;
-    } else if (
-      prioBox.innerText.trim() == "2" ||
-      prioBox.innerText.trim().toLowerCase() == "medium"
-    ) {
-      prioBox.innerHTML = `<span>Priority:
+		} else if (
+			prioBox.innerText.trim() == '2' ||
+			prioBox.innerText.trim().toLowerCase() == 'medium'
+		) {
+			prioBox.innerHTML = `<span>Priority:
       </span><div class="priority-and-icon"><span>Medium</span><img src="${medium}" alt="medium Priority">
       </div>`;
-    } else if (
-      prioBox.innerText.trim() == "3" ||
-      prioBox.innerText.trim().toLowerCase() == "urgent"
-    ) {
-      prioBox.innerHTML = `<span>Priority:
+		} else if (
+			prioBox.innerText.trim() == '3' ||
+			prioBox.innerText.trim().toLowerCase() == 'urgent'
+		) {
+			prioBox.innerHTML = `<span>Priority:
       </span><div class="priority-and-icon"><span>High</span><img src="${high}" alt="high Priority">
       </div>`;
-    }
-  });
+		}
+	});
 }
 
 /**
@@ -482,21 +715,21 @@ function updatePriorityForSingleTask() {
  * the initials styled with the color and the full name.
  */
 function showInitialsForSingleCard() {
-  let allInitials = actualCard.assignedTo;
-  let container = document.getElementById(
-    `singleAssignedCircle${actualCard["id"]}`
-  );
-  container.innerHTML = "";
-  allInitials.forEach((name) => {
-    const initial = name
-      .split(" ")
-      .map((word) => word.charAt(0))
-      .join("");
-    let user = localUserData["users"].find(
-      (user) => user.userData.name === name
-    );
-    let color = user ? user.color : "#d98973";
-    container.innerHTML += `
+	let allInitials = actualCard.assignedTo;
+	let container = document.getElementById(
+		`singleAssignedCircle${actualCard['id']}`
+	);
+	container.innerHTML = '';
+	allInitials.forEach((name) => {
+		const initial = name
+			.split(' ')
+			.map((word) => word.charAt(0))
+			.join('');
+		let user = localUserData['users'].find(
+			(user) => user.userData.name === name
+		);
+		let color = user ? user.color : '#d98973';
+		container.innerHTML += `
     <div class="name-and-initial-container">
     <div
     class="initialsCircleOfSingleTasks"
@@ -506,7 +739,7 @@ function showInitialsForSingleCard() {
   <span>${name}</span>
   </div>
 `;
-  });
+	});
 }
 
 /**
@@ -516,25 +749,25 @@ function showInitialsForSingleCard() {
  * Handles toggling the checkbox when clicked and updating styles.
  */
 function showSubtasks() {
-  let content = document.getElementById(`subtasks${actualCard.id}`);
-  content.innerHTML = "";
-  content.innerHTML = `<span>Subtasks</span>`;
-  for (let index = 0; index < actualCard.subtasks.length; index++) {
-    let element = actualCard.subtasks[index]["name"];
-    content.innerHTML += `<div class="subtask-container">
+	let content = document.getElementById(`subtasks${actualCard.id}`);
+	content.innerHTML = '';
+	content.innerHTML = `<span>Subtasks</span>`;
+	for (let index = 0; index < actualCard.subtasks.length; index++) {
+		let element = actualCard.subtasks[index]['name'];
+		content.innerHTML += `<div class="subtask-container">
     <img class="img-checked-true-false" alt="checked" onclick="changeSubtaskToDoneOrNot(${index})">
     ${element}
     </div>`;
-    let status = actualCard.subtasks[index]["done"];
-    let img = document.getElementsByClassName("img-checked-true-false")[index];
-    if (status === true) {
-      img.src = taskDone;
-      img.classList.add("is-done");
-    } else {
-      img.src = taskNotDone;
-      img.classList.add("not-done");
-    }
-  }
+		let status = actualCard.subtasks[index]['done'];
+		let img = document.getElementsByClassName('img-checked-true-false')[index];
+		if (status === true) {
+			img.src = taskDone;
+			img.classList.add('is-done');
+		} else {
+			img.src = taskNotDone;
+			img.classList.add('not-done');
+		}
+	}
 }
 
 /**
@@ -543,15 +776,15 @@ function showSubtasks() {
  * then adds the closed class. Also empties the inner HTML.
  */
 function closeTaskCardOverlay() {
-  let overlay = document.getElementById("overlay-task-card");
-  overlay.classList.remove("box-slide-in", "d-none");
-  setTimeout(() => {
-    overlay.classList.add("box-slide-out");
-  }, 0);
-  overlay.classList.remove("d-none");
-  overlay.innerHTML = "";
-  actualCard = [];
-  updateHTML();
+	let overlay = document.getElementById('overlay-task-card');
+	overlay.classList.remove('box-slide-in', 'd-none');
+	setTimeout(() => {
+		overlay.classList.add('box-slide-out');
+	}, 0);
+	overlay.classList.remove('d-none');
+	overlay.innerHTML = '';
+	actualCard = [];
+	updateHTML();
 }
 
 /**
@@ -562,16 +795,16 @@ function closeTaskCardOverlay() {
  * task card overlay, and updates the HTML to reflect the change.
  */
 function deleteTask(card) {
-  for (let i = 0; i < localUserData.users.length; i++) {
-    for (let j = 0; j < localUserData.users[i].tasks.length; j++) {
-      if (localUserData.users[i].tasks[j].id === card) {
-        localUserData.users[i].tasks.splice(j, 1);
-      }
-    }
-  }
-  saveUserData();
-  closeTaskCardOverlay();
-  updateHTML();
+	for (let i = 0; i < localUserData.users.length; i++) {
+		for (let j = 0; j < localUserData.users[i].tasks.length; j++) {
+			if (localUserData.users[i].tasks[j].id === card) {
+				localUserData.users[i].tasks.splice(j, 1);
+			}
+		}
+	}
+	saveUserData();
+	closeTaskCardOverlay();
+	updateHTML();
 }
 
 /**
@@ -581,15 +814,15 @@ function deleteTask(card) {
  * re-renders the subtasks section of the task card.
  */
 function changeSubtaskToDoneOrNot(index) {
-  let subtask = actualCard.subtasks[index];
-  if (subtask.done === false) {
-    subtask.done = true;
-  } else {
-    subtask.done = false;
-  }
-  localUserData.users.indexOf(actualCard);
-  saveUserData();
-  showSubtasks();
+	let subtask = actualCard.subtasks[index];
+	if (subtask.done === false) {
+		subtask.done = true;
+	} else {
+		subtask.done = false;
+	}
+	localUserData.users.indexOf(actualCard);
+	saveUserData();
+	showSubtasks();
 }
 
 // :::::::::::::::::::::: Add - Task - PopUp :::::::::::::::::::::://
@@ -600,12 +833,12 @@ function changeSubtaskToDoneOrNot(index) {
  * to make it visible. Adds the 'box-slide-in' class to animate it opening.
  */
 function openAddTaskOverlay() {
-  let overlay = document.getElementById("add-task-content-overlay");
-  overlay.classList.remove("box-slide-out", "d-none");
-  setTimeout(() => {
-    overlay.classList.add("box-slide-in");
-  }, 0);
-  overlay.classList.remove("d-none");
+	let overlay = document.getElementById('add-task-content-overlay');
+	overlay.classList.remove('box-slide-out', 'd-none');
+	setTimeout(() => {
+		overlay.classList.add('box-slide-in');
+	}, 0);
+	overlay.classList.remove('d-none');
 }
 
 /**
@@ -614,11 +847,11 @@ function openAddTaskOverlay() {
  * and ensuring the overlay is not hidden with 'd-none' after closing.
  */
 function closeAddTaskOverlay() {
-  clearForm();
-  let overlay = document.getElementById("add-task-content-overlay");
-  overlay.classList.remove("box-slide-in", "d-none");
-  setTimeout(() => {
-    overlay.classList.add("box-slide-out");
-  }, 0);
-  overlay.classList.remove("d-none");
+	clearForm();
+	let overlay = document.getElementById('add-task-content-overlay');
+	overlay.classList.remove('box-slide-in', 'd-none');
+	setTimeout(() => {
+		overlay.classList.add('box-slide-out');
+	}, 0);
+	overlay.classList.remove('d-none');
 }

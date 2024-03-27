@@ -49,9 +49,11 @@
 				<div class="input-and-button-container">
 					<div class="input-find-task input-borders">
 						<input
+							id="find-task"
 							type="text"
 							class="border-none input-padding find-task-input"
-							placeholder="Find Task" />
+							placeholder="Find Task"
+							onkeyup="filterMatchedTasks()" />
 						<button class="border-none btn-find-task">
 							<img
 								src="./assets/img/icons/board/seperator.svg"
@@ -216,21 +218,44 @@
 							</div>
 
 							<!-- Category -->
+
 							<div class="category-cont">
-								<label for="category-select"
-									><span>Category<span class="asterisk">*</span></span></label
-								>
-								<select
-									name="category"
-									id="category"
-									class="field-width-height-small input-borders category"
-									required>
-									<option value="option-text" disabled selected>
-										Select task category
-									</option>
-									<option value="user-story">User Story</option>
-									<option value="technical-task">Technical Task</option>
-								</select>
+								<span>Category<span class="asterisk">*</span></span>
+								<div
+									id="category-div"
+									class="field-width-height-small input-borders category">
+									<input
+										name="select-category"
+										type="text"
+										class="border-none"
+										id="category"
+										placeholder="Select task category"
+										readonly
+										onclick="selectOrClearCategory()" />
+									<img
+										id="arrowImgCategory"
+										src="/assets/img/icons/add-task/arrow-down.svg"
+										alt="Arrow down icon"
+										onclick="selectOrClearCategory()" />
+								</div>
+								<div
+									class="dropdown-content btn-borders dropdown-content-style"
+									id="dropdownContentCategory">
+									<div id="labels-for-category">
+										<option
+											onclick="selectCategory('user-story')"
+											class="category-option"
+											value="user-story">
+											User Story
+										</option>
+										<option
+											onclick="selectCategory('technical-task')"
+											class="category-option"
+											value="technical-task">
+											Technical Task
+										</option>
+									</div>
+								</div>
 							</div>
 
 							<!-- Subtasks -->
@@ -306,7 +331,7 @@
 					<div
 						class="drag-area"
 						id="toDo"
-						ondrop="moveTo('toDo'), removeHighlight('toDo')"
+						ondrop="movePerDrag('toDo'), removeHighlight('toDo')"
 						ondragover="allowDrop(event), highlight('toDo')"
 						ondragleave="removeHighlight('toDo')"></div>
 				</div>
@@ -321,7 +346,7 @@
 					<div
 						class="drag-area"
 						id="inProgress"
-						ondrop="moveTo('inProgress'), removeHighlight('inProgress')"
+						ondrop="movePerDrag('inProgress'), removeHighlight('inProgress')"
 						ondragover="allowDrop(event), highlight('inProgress')"
 						ondragleave="removeHighlight('inProgress')"></div>
 				</div>
@@ -336,7 +361,7 @@
 					<div
 						class="drag-area"
 						id="awaitFeedback"
-						ondrop="moveTo('awaitFeedback'), removeHighlight('awaitFeedback')"
+						ondrop="movePerDrag('awaitFeedback'), removeHighlight('awaitFeedback')"
 						ondragover="allowDrop(event), highlight('awaitFeedback')"
 						ondragleave="removeHighlight('awaitFeedback')"></div>
 				</div>
@@ -350,7 +375,7 @@
 					<div
 						class="drag-area"
 						id="closed"
-						ondrop="moveTo('done'), removeHighlight('closed')"
+						ondrop="movePerDrag('done'), removeHighlight('closed')"
 						ondragover="allowDrop(event), highlight('closed')"
 						ondragleave="removeHighlight('closed')"></div>
 				</div>
