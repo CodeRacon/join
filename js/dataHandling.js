@@ -72,7 +72,7 @@ async function letMeCook(){
         for (let i = 0; i < TestStorage.length; i++) {
             if (TestStorage[i].user.userData.name == startData.users[num].userData.name) {
                 alert('oh mnow');
-                localUserData[0] = TestStorage[0];
+                localUserData[0] = TestStorage[i];
                 saveUserData();
             }
         }
@@ -104,6 +104,9 @@ async function youlo(){
             localUserData[0] = TestStorage[i];
             saveUserData();
             return;
+            // if Guest User is Logged in true
+            // false setzen
+            // Guest von startData pushen
           }            
         }
         
