@@ -138,6 +138,14 @@ button.btn-find-task img:last-of-type:hover {
   border: var(--form-active-border);
 }
 
+input:focus,
+textarea:focus,
+select:focus,
+.subtasks:focus {
+  outline: none;
+  border: var(--form-active-border);
+}
+
 /* .board-task-container {
 	display: flex;
 	width: 100%;
@@ -309,6 +317,13 @@ div[draggable="true"] {
   width: fit-content;
   color: #000;
   font-size: 0.75rem;
+  font-weight: 400;
+}
+
+.amount-of-others {
+  color: #a8adb9;
+  font-size: 1rem;
+  padding-left: 0.5rem;
   font-weight: 400;
 }
 

@@ -51,6 +51,7 @@ function updateToDos() {
         content.innerHTML += generateTaskCard(element);
         showInitials(element);
         generateProgressBar(element);
+        showMaxThreeCircles(element);
       }
     }
   }
@@ -80,6 +81,7 @@ function updateInProgress() {
         content.innerHTML += generateTaskCard(element);
         showInitials(element);
         generateProgressBar(element);
+        showMaxThreeCircles(element);
       }
     }
   }
@@ -109,10 +111,23 @@ function updateAwaitFeedback() {
         content.innerHTML += generateTaskCard(element);
         showInitials(element);
         generateProgressBar(element);
+        showMaxThreeCircles(element);
       }
     }
   }
   checkIfEmpty("awaitFeedback", "await feedback");
+}
+
+function showMaxThreeCircles(element) {
+  let container = document.getElementById(`assignedCircle${element.id}`);
+  let childs = container.children;
+  let moreAssigned = childs.length - 3;
+  for (let i = 3; i < childs.length; i++) {
+    childs[i].style.display = "none";
+  }
+  if (childs.length > 3) {
+    container.innerHTML += `<div class="amount-of-others"> +${moreAssigned}</div>`;
+  }
 }
 
 /**
@@ -651,10 +666,10 @@ function showInitialsForSingleCard() {
       .split(" ")
       .map((word) => word.charAt(0))
       .join("");
-    let user = localUserData["users"].find(
+    let user = localUserData["contacts"].find(
       (user) => user.userData.name === name
     );
-    let color = user ? user.color : "#d98973";
+    let color = user ? user.color : "#A8A8A8";
     container.innerHTML += `
     <div class="name-and-initial-container">
     <div
