@@ -289,7 +289,8 @@ input::-moz-calendar-picker-indicator {
 	padding: 1.5rem 0;
 	justify-content: center;
 	align-items: center;
-	height: 85vh;
+	height: fit-content;
+	max-height: 85vh;
 	width: 30rem;
 	border-radius: 1.5rem;
 	background: var(--white, #fff);
@@ -849,7 +850,7 @@ input::-moz-calendar-picker-indicator {
 	animation: boxSlideOut 0.325s ease-in forwards;
 }
 
-@keyframes boxSlideIn {
+/* @keyframes boxSlideIn {
 	from {
 		transform: translate(100%, 80%);
 
@@ -870,7 +871,7 @@ input::-moz-calendar-picker-indicator {
 		transform: translate(100%, 80%);
 		opacity: 0;
 	}
-}
+} */
 
 /* ####################### */
 /* -----MEDIA-QUERIES----- */
