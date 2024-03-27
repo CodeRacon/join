@@ -176,6 +176,7 @@ button.btn-find-task img:last-of-type:hover {
 	justify-content: space-between;
 	gap: 0.5rem;
 	padding: 0 0.5rem 1rem 0.5rem;
+	flex-grow: none;
 }
 
 .to-do-container,
@@ -185,8 +186,8 @@ button.btn-find-task img:last-of-type:hover {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	min-height: 16rem;
-	height: 100%;
+	flex-grow: 1;
+	flex-basis: 16rem;
 }
 
 ::placeholder {
@@ -203,13 +204,26 @@ img {
 	width: 100%;
 	height: 100%;
 	min-height: 16rem;
-
 	padding: 0.5rem;
 	display: flex;
 	align-items: stretch;
 	flex-direction: column;
 	text-align: left;
 	gap: 1rem;
+	flex-grow: 1;
+}
+
+.dragged {
+	animation: tilt 0.175s ease forwards;
+}
+
+@keyframes tilt {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(5deg);
+	}
 }
 
 .drag-area::-webkit-scrollbar-track {
@@ -245,6 +259,7 @@ img {
 	border-radius: 1.5rem;
 	background: var(--white, #fff);
 	box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
+	cursor: pointer;
 }
 
 .mobile-move-btn {
@@ -321,8 +336,9 @@ img {
 
 .drag-and-drop-container {
 	display: flex;
-	align-items: flex-start;
+	align-items: stretch;
 	gap: 1rem;
+	height: 100%;
 }
 
 div[draggable='true'] {
@@ -337,9 +353,10 @@ div[draggable='true'] {
 	border: 1px dashed var(--no-task-bg);
 	border-radius: 0.625rem;
 	background: #e7e7e7;
-	box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+	box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.125);
 	justify-content: center;
-	padding: 0.5rem;
+	padding: 1.25rem 0.5rem;
+	cursor: default;
 }
 
 .category-of-task {
@@ -430,7 +447,7 @@ div[draggable='true'] {
 
 @keyframes boxSlideIn {
 	from {
-		transform: translate(+100%, -50%);
+		transform: translate(+150%, -50%);
 		opacity: 0;
 	}
 	to {
@@ -445,7 +462,7 @@ div[draggable='true'] {
 		opacity: 1;
 	}
 	to {
-		transform: translate(+100%, -50%);
+		transform: translate(+150%, -50%);
 		opacity: 0;
 	}
 }
@@ -734,6 +751,12 @@ progress::-webkit-progress-bar {
 		width: 18rem;
 		height: 16rem;
 		justify-content: space-between;
+	}
+
+	.empty-task {
+		width: 18rem;
+		height: 16rem;
+		border-radius: 1.5rem;
 	}
 
 	.mobile-move-btn {
