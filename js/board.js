@@ -14,6 +14,8 @@ let currentDraggedElement;
 
 let actualCard;
 
+window.addEventListener('resize', updateHTML);
+
 /**
  * Updates the HTML DOM to reflect the latest state of tasks.
  * Calls various helper functions to update different sections.
@@ -28,6 +30,14 @@ async function updateHTML() {
 	updatePriority();
 	showContactsToAssign();
 	clearForm();
+}
+
+function disableDragOption() {
+	const allTaskCards = document.querySelectorAll('.task-card');
+
+	for (let i = 0; i < allTaskCards.length; i++) {
+		allTaskCards[i].setAttribute('draggable', 'false');
+	}
 }
 
 /**
@@ -281,6 +291,10 @@ function generateEmptyHTML(text) {
 	return `<div draggable="false" class="empty-task drag-and-drop-container-border">No tasks ${text}</div>`;
 }
 
+function isDraggable() {
+	return window.innerWidth > 1152;
+}
+
 /**
  * Generates the HTML for a task card element.
  *
@@ -297,13 +311,14 @@ function generateTaskCard(element, source) {
 	const moveMenuContent = renderMoveMenu(source, taskID);
 	return /*html*/ `   
 	<div 
-    draggable="true" 
+    draggable="${isDraggable()}" 
     ondragstart="startDragging(${element['id']})" 
+    ondragend="stopDragging(${element['id']})" 
     id="${element['id']}"   
     class="task-card" 
     onclick="openTaskCardOverlay(${element['id']}) ">
       ${moveBtnContent}
-			<div class="move-menu d-none qm-off" id="move-menu-${taskID}">
+			<div class="move-menu d-none qm-off" id="move-menu-${taskID}" menuOpen="false">
 				${moveMenuContent}	
 			</div>      
       <div class="category-of-task">
@@ -313,7 +328,9 @@ function generateTaskCard(element, source) {
       <div class="description-of-task">${element['description']}</div>
       <div class="subtasks-of-task" id="progress${element['id']}"></div>
       <div class="assigned-and-priority-container">
-      <div id="assignedCircle${element['id']}" class="assigned-to-of-task">${element['assignedTo']}</div>
+      <div id="assignedCircle${element['id']}" class="assigned-to-of-task">${
+		element['assignedTo']
+	}</div>
       <div class="priority-of-task">${element['priority']}</div>
   </div>
    `;
@@ -327,7 +344,7 @@ function generateTaskCard(element, source) {
  */
 function renderMoveBtn(taskID) {
 	return /*html*/ `
-    <div onclick="toggleMoveBtnMenu(event, '${taskID}')" class="mobile-move-btn " id="mobile-move-btn-${taskID}">
+    <div onclick="toggleMoveBtnMenu(event, '${taskID}')" class="mobile-move-btn " id="mobile-move-btn-${taskID}" >
       <img 
 				id="btn-icon-${taskID}" 
 				class="menu-closed"
@@ -371,13 +388,15 @@ function renderMoveMenu(source, taskID) {
 /**
  * Toggles the move menu dropdown for a task
  *
- * Shows or hides the move menu dropdown based on its current visibility state.
- * Handles updating the icon and menu classes.
+ * Shows or hides the move menu dropdown for the task with the given ID.
+ * Handles resetting any other open menus and buttons.
  */
 function toggleMoveBtnMenu(event, taskID) {
 	event.stopPropagation();
 	const moveMenu = document.getElementById(`move-menu-${taskID}`);
 	const btnIcon = document.getElementById(`btn-icon-${taskID}`);
+	resetNonSelectedMenus(`move-menu-${taskID}`);
+	resetNonSelectedBtns(`btn-icon-${taskID}`);
 	if (moveMenu.classList.contains('d-none')) {
 		moveMenu.classList.replace('qm-off', 'qm-on');
 		setTimeout(() => {
@@ -394,11 +413,51 @@ function toggleMoveBtnMenu(event, taskID) {
 }
 
 /**
+ * Resets the class names on all move menus except the selected one
+ * to hide them.
+ *
+ * @param {string} selectedMenuId - The ID of the menu to not reset
+ */
+function resetNonSelectedMenus(selectedMenuId) {
+	const allMoveMenus = document.querySelectorAll('.move-menu');
+	allMoveMenus.forEach((menu) => {
+		if (menu.id !== selectedMenuId) {
+			menu.classList.add('d-none');
+			menu.classList.remove('qm-on');
+			menu.classList.add('qm-off');
+		}
+	});
+}
+
+/**
+ * Resets the "menu-open" and "menu-closed" classes on all button icons except the selected one.
+ *
+ * @param {string} selectedBtnId - The ID of the selected button
+ */
+function resetNonSelectedBtns(selectedBtnId) {
+	const allBtnIcons = document.querySelectorAll('.mobile-move-btn img');
+	allBtnIcons.forEach((icon) => {
+		if (icon.id !== selectedBtnId) {
+			icon.classList.remove('menu-open');
+			icon.classList.add('menu-closed');
+		}
+	});
+}
+
+/**
  * Sets the global currentDraggedElement variable to the provided id.
  * This allows tracking the id of the element currently being dragged.
  */
 function startDragging(id) {
 	currentDraggedElement = id;
+	const draggedTask = document.getElementById(id);
+	draggedTask.classList.add('dragged');
+}
+
+function stopDragging(id) {
+	currentDraggedElement = id;
+	const draggedTask = document.getElementById(id);
+	draggedTask.classList.remove('dragged');
 }
 
 /**
@@ -725,11 +784,11 @@ function showInitialsForSingleCard() {
 			.split(' ')
 			.map((word) => word.charAt(0))
 			.join('');
-		let user = localUserData['users'].find(
+		let user = localUserData['contacts'].find(
 			(user) => user.userData.name === name
 		);
-		let color = user ? user.color : '#d98973';
-		container.innerHTML += `
+		let color = user ? user.color : '#A8A8A8';
+		container.innerHTML += /*html*/ `			
     <div class="name-and-initial-container">
     <div
     class="initialsCircleOfSingleTasks"
@@ -738,7 +797,7 @@ function showInitialsForSingleCard() {
   </div>
   <span>${name}</span>
   </div>
-`;
+		`;
 	});
 }
 
