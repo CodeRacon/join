@@ -118,18 +118,6 @@ function updateAwaitFeedback() {
   checkIfEmpty("awaitFeedback", "await feedback");
 }
 
-function showMaxThreeCircles(element) {
-  let container = document.getElementById(`assignedCircle${element.id}`);
-  let childs = container.children;
-  let moreAssigned = childs.length - 3;
-  for (let i = 3; i < childs.length; i++) {
-    childs[i].style.display = "none";
-  }
-  if (childs.length > 3) {
-    container.innerHTML += `<div class="amount-of-others"> +${moreAssigned}</div>`;
-  }
-}
-
 /**
  * Updates the "closed" section of the DOM
  * to show the tasks with a "done" status for each user.
@@ -168,6 +156,23 @@ function checkIfEmpty(id, text) {
   let content = document.getElementById(id);
   if (content.innerHTML === "") {
     content.innerHTML = generateEmptyHTML(text);
+  }
+}
+
+/**
+ * Shows a maximum of 3 assigned user circles for a task.
+ * If more than 3 users are assigned, hides the extra assigned
+ * users and shows a "+X" indicator with the number hidden.
+ */
+function showMaxThreeCircles(element) {
+  let container = document.getElementById(`assignedCircle${element.id}`);
+  let childs = container.children;
+  let moreAssigned = childs.length - 3;
+  for (let i = 3; i < childs.length; i++) {
+    childs[i].style.display = "none";
+  }
+  if (childs.length > 3) {
+    container.innerHTML += `<div class="amount-of-others"> +${moreAssigned}</div>`;
   }
 }
 
@@ -451,6 +456,7 @@ function renderFilteredCards(names, task) {
   updatePriority();
   showContactsToAssign();
   createContactInitialsForFiltered(names, task);
+  showMaxThreeCircles(task);
 }
 
 /**
