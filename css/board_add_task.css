@@ -132,6 +132,7 @@ img {
 }
 
 span {
+	display: inline-flex;
 	color: var(--primary);
 	font-size: 1rem;
 	font-weight: 400;
@@ -158,10 +159,16 @@ input::-moz-calendar-picker-indicator {
 	background: transparent;
 }
 
-.main-container {
+.svg-separator-small img {
+	padding: 0rem;
+	cursor: default;
+	height: 82.5%;
+}
+
+.main-container-small {
 	display: flex;
-	gap: clamp(1rem, 7.843vw + -4.059rem, 3rem);
-	margin-bottom: 5rem;
+	gap: 1.25rem;
+	margin-bottom: 2rem;
 	width: 100%;
 }
 
@@ -201,11 +208,11 @@ input::-moz-calendar-picker-indicator {
 .left-column,
 .right-column {
 	display: flex;
-	width: 50%;
+	width: 100%;
 	height: fit-content;
 	flex-direction: column;
 	align-items: flex-start;
-	gap: 0.5rem;
+	gap: 1.6rem;
 }
 
 .title-cont,
@@ -219,7 +226,6 @@ input::-moz-calendar-picker-indicator {
 	flex-direction: column;
 	width: 100%;
 	gap: 0.5rem;
-	margin-bottom: var(--margin-bottom-xs);
 }
 
 .select-contact,
@@ -277,6 +283,10 @@ input::-moz-calendar-picker-indicator {
 	box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
 }
 
+#add-task-content-overlay .dropdown-content {
+	height: 7.75rem;
+}
+
 #overlay-task-card,
 #overlay-edit-card {
 	position: fixed;
@@ -297,13 +307,9 @@ input::-moz-calendar-picker-indicator {
 	box-shadow: var(--btn-shdw-td);
 }
 
-/* #overlay-edit-card {
-	position: absolute;
-	z-index: 999;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-} */
+#overlay-edit-card .dropdown-content {
+	height: 7.75rem;
+}
 
 .close-btn img:hover {
 	content: url('/assets/img/icons/add-task/close_hover.svg');
@@ -382,7 +388,8 @@ input::-moz-calendar-picker-indicator {
 	cursor: pointer;
 }
 
-.single-contact:hover {
+.single-contact:hover,
+.edit-single-contact:hover {
 	background-color: #eaeaea;
 	border-radius: 0.625rem;
 }
@@ -433,7 +440,7 @@ input::-moz-calendar-picker-indicator {
 	display: none;
 	background-color: white;
 	width: var(--f-width);
-	min-height: 9rem;
+	height: 9rem;
 	border-top: none;
 	margin-top: -2rem;
 	overflow-y: auto;
@@ -524,7 +531,7 @@ input::-moz-calendar-picker-indicator {
 .priority {
 	display: flex;
 	width: 100%;
-	justify-content: flex-start;
+	justify-content: space-between;
 	align-items: center;
 	gap: 1rem;
 }
@@ -553,7 +560,7 @@ input::-moz-calendar-picker-indicator {
 	gap: 0.5rem;
 	flex: 1 0 auto;
 	width: fit-content;
-	height: 3.5rem;
+	height: 2.8rem;
 	padding: 1rem;
 	color: #000;
 	font-size: 1rem;
@@ -817,29 +824,6 @@ input::-moz-calendar-picker-indicator {
 	margin: 0.7rem;
 }
 
-/* ################### Scrollbar ################### */
-
-/* .scroll-bar-edit {
-	display: flex;
-	flex-direction: column;
-	overflow-y: scroll;
-	padding-right: 0.8rem;
-	height: 65.5vh;
-} */
-
-/* .scroll-bar-edit::-webkit-scrollbar-track {
-	border: none;
-	background-color: transparent;
-}
-.scroll-bar-edit::-webkit-scrollbar {
-	width: 0.25rem;
-	margin-right: 0.5rem;
-}
-.scroll-bar-edit::-webkit-scrollbar-thumb {
-	background-color: var(--qm-grey);
-	border-radius: 5px;
-} */
-
 /* ################### Animation & Transition ################### */
 
 .box-slide-in {
@@ -850,55 +834,6 @@ input::-moz-calendar-picker-indicator {
 	animation: boxSlideOut 0.325s ease-in forwards;
 }
 
-/* @keyframes boxSlideIn {
-	from {
-		transform: translate(100%, 80%);
-
-		opacity: 0;
-	}
-	to {
-		transform: translate(-2%, 0%);
-		opacity: 1;
-	}
-}
-
-@keyframes boxSlideOut {
-	from {
-		transform: translate(-2%, 0%);
-		opacity: 1;
-	}
-	to {
-		transform: translate(100%, 80%);
-		opacity: 0;
-	}
-} */
-
 /* ####################### */
 /* -----MEDIA-QUERIES----- */
 /* ####################### */
-
-@media ((width <= 1160px)) {
-	.priority {
-		display: flex;
-		width: 60%;
-		justify-content: flex-start;
-		align-items: center;
-		gap: 1rem;
-	}
-	.prio-box {
-		display: flex;
-		flex-shrink: 0;
-		align-items: center;
-		justify-content: center;
-		gap: 0.5rem;
-		flex: 1 0 auto;
-		width: fit-content;
-		height: 3.5rem;
-		color: #000;
-		font-size: 1.25rem;
-		font-weight: 400;
-		border-radius: 0.625rem;
-		border: unset;
-		transition: all ease-in-out 0.125s;
-	}
-}
