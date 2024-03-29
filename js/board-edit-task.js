@@ -19,18 +19,18 @@ let indexOfTaskBeforeEdit;
  * @param {string} card - The ID of the task card to edit
  */
 function editTask(card) {
-  let taskCard = document.getElementById("overlay-task-card");
-  taskCard.classList.add("d-none");
-  let newOverlay = document.getElementById("overlay-edit-card");
-  newOverlay.classList.remove("d-none");
-  newOverlay.innerHTML = "";
-  for (let i = 0; i < localUserData.users.length; i++) {
-    let actualTask = localUserData.users[i];
-    for (let j = 0; j < actualTask.tasks.length; j++) {
-      const taskId = actualTask.tasks[j].id;
-      const task = actualTask.tasks[j];
-      if (taskId == card) {
-        newOverlay.innerHTML = /*html*/ `
+	let taskCard = document.getElementById('overlay-task-card');
+	taskCard.classList.add('d-none');
+	let newOverlay = document.getElementById('overlay-edit-card');
+	newOverlay.classList.remove('d-none');
+	newOverlay.innerHTML = '';
+	for (let i = 0; i < localUserData.users.length; i++) {
+		let actualTask = localUserData.users[i];
+		for (let j = 0; j < actualTask.tasks.length; j++) {
+			const taskId = actualTask.tasks[j].id;
+			const task = actualTask.tasks[j];
+			if (taskId == card) {
+				newOverlay.innerHTML = /*html*/ `
 			<div class="overlay-wrapper">
         <div class="single-task-card">
 					<div class="close-edit-task-btn">
@@ -47,6 +47,7 @@ function editTask(card) {
                 class="field-width-height input-borders title--input"
                 name="title"
                 type="text"
+								maxlength="40"
                 value="${task.title}"
                 class="field-width-height-small input-borders title"
                 placeholder="Enter a title"
@@ -63,6 +64,7 @@ function editTask(card) {
                 id="description"
                 class="field-width-height-small description-height input-borders description"
                 placeholder="Enter a Description"
+								maxlength="140"
                 cols="30"
                 rows="10"
               >${task.description}</textarea
@@ -133,11 +135,11 @@ function editTask(card) {
 
           <!-- assign to -->
           <div class="assign-to-cont">
-          <label for="assign-select"><span>Assigned to</span> </label>
+          <span>Assigned to</span>
           <div
+            id="assigned-to"
             class="field-width-height borders input-borders assigned-to"
-            onclick="openAndCloseDropDownToAssign()"
-          >
+            onclick="openAndCloseDropDownToAssign()">
             <input
               name="select-contact"
               type="text"
@@ -166,16 +168,31 @@ function editTask(card) {
               <span>Subtasks</span>
               <div class="field-width-height-small input-borders subtasks">
                 <input
-                  id="input-of-subtask-in-edit"
+                  id="input-of-subtask"
+                  class="border-none"
                   type="text"
                   placeholder="Add new subtasks"
-                  class="border-none"
-                />
+                  onfocus="showSubtaskInput()"/>
                 <img
-                  onclick="createSubtaskInEdit()"
-                  src="./assets/img/icons/add-task/plus.svg"
-                  alt="plus symbol"
-                />
+									onclick="showSubtaskInput()"
+									src="./assets/img/icons/add-task/plus.svg"
+									alt="plus"
+									class="add-subtask-btn" />
+								<img
+									onclick="clearSubtaskInput()"
+									src="./assets/img/icons/add-task/close.svg"
+									alt="cancel" />
+
+								<img
+									class="subtask-input-spacer"
+									src="./assets/img/icons/add-task/edit-btn-spacer.svg"
+									alt="spacer" />
+
+								<img
+									onclick="createSubtask()"
+									class="accept-subtask-btn"
+									src="./assets/img/icons/add-task/done.svg"
+									alt="done" />
               </div>
               <div id="show-subtasks-container"></div>
             </div>
@@ -188,19 +205,19 @@ function editTask(card) {
 				</div>
            
         `;
-        newAssignedContacts = task.assignedTo;
-        renderEditTaskCardFunctions(task);
-      }
-    }
-  }
-  newAssignedContacts = [];
+				newAssignedContacts = task.assignedTo;
+				renderEditTaskCardFunctions(task);
+			}
+		}
+	}
+	newAssignedContacts = [];
 }
 
 function closeEditTaskCard() {
-  let taskCard = document.getElementById("overlay-task-card");
-  taskCard.classList.add("d-none");
-  let editCard = document.getElementById("overlay-edit-card");
-  editCard.classList.add("d-none");
+	let taskCard = document.getElementById('overlay-task-card');
+	taskCard.classList.add('d-none');
+	let editCard = document.getElementById('overlay-edit-card');
+	editCard.classList.add('d-none');
 }
 
 /**
@@ -215,14 +232,14 @@ function closeEditTaskCard() {
  * - Save category
  */
 function renderEditTaskCardFunctions(task) {
-  showSubtasksToEdit(task);
-  showContactsToAssignEdit();
-  showInitialsOfAssigned();
-  updateSelectedContacts();
-  initializeButtons();
-  initializeImgs();
-  setActualPriorityEdit(task);
-  saveCategory(task);
+	showSubtasksToEdit(task);
+	showContactsToAssignEdit();
+	showInitialsOfAssigned();
+	updateSelectedContacts();
+	initializeButtons();
+	initializeImgs();
+	setActualPriorityEdit(task);
+	saveCategory(task);
 }
 
 /**
@@ -231,17 +248,17 @@ function renderEditTaskCardFunctions(task) {
  * @param {Object} task - The task object being edited.
  */
 function saveCategory(task) {
-  let categoryOfEdited = task.category;
-  newCategory = categoryOfEdited;
+	let categoryOfEdited = task.category;
+	newCategory = categoryOfEdited;
 }
 
 /**
  * Initializes the low, medium, and urgent priority buttons on the edit task modal.
  */
 function initializeButtons() {
-  lowBtnEdit = document.getElementById("low-btn-edit");
-  mediumBtnEdit = document.getElementById("medium-btn-edit");
-  urgentBtnEdit = document.getElementById("urgent-btn-edit");
+	lowBtnEdit = document.getElementById('low-btn-edit');
+	mediumBtnEdit = document.getElementById('medium-btn-edit');
+	urgentBtnEdit = document.getElementById('urgent-btn-edit');
 }
 
 /**
@@ -249,9 +266,9 @@ function initializeButtons() {
  * Gets references to the image elements with IDs img-low-edit, img-medium-edit, and img-urgent-edit.
  */
 function initializeImgs() {
-  imgLowEdit = document.getElementById("img-low-edit");
-  imgMediumEdit = document.getElementById("img-medium-edit");
-  imgUrgentEdit = document.getElementById("img-urgent-edit");
+	imgLowEdit = document.getElementById('img-low-edit');
+	imgMediumEdit = document.getElementById('img-medium-edit');
+	imgUrgentEdit = document.getElementById('img-urgent-edit');
 }
 
 /**
@@ -260,22 +277,22 @@ function initializeImgs() {
  * functions to set the correct priority button states.
  */
 function setActualPriorityEdit(task) {
-  let selectedPrio = task.priority;
-  if (selectedPrio === 1) {
-    currentPriority = "low";
-    resetPrioButtonsEdit();
-    prioLowEdit();
-  }
-  if (selectedPrio === 2) {
-    currentPriority = "medium";
-    resetPrioButtonsEdit();
-    prioMediumEdit();
-  }
-  if (selectedPrio === 3) {
-    currentPriority = "high";
-    resetPrioButtonsEdit();
-    prioUrgentEdit();
-  }
+	let selectedPrio = task.priority;
+	if (selectedPrio === 1) {
+		currentPriority = 'low';
+		resetPrioButtonsEdit();
+		prioLowEdit();
+	}
+	if (selectedPrio === 2) {
+		currentPriority = 'medium';
+		resetPrioButtonsEdit();
+		prioMediumEdit();
+	}
+	if (selectedPrio === 3) {
+		currentPriority = 'high';
+		resetPrioButtonsEdit();
+		prioUrgentEdit();
+	}
 }
 
 /**
@@ -287,17 +304,17 @@ function setActualPriorityEdit(task) {
  * Checks prio parameter and calls correct priority button functions.
  */
 function changePriorityEdit(prio) {
-  currentPriority = prio;
-  resetPrioButtonsEdit();
-  if (currentPriority == "low") {
-    prioLowEdit();
-  }
-  if (currentPriority == "medium") {
-    prioMediumEdit();
-  }
-  if (currentPriority == "urgent") {
-    prioUrgentEdit();
-  }
+	currentPriority = prio;
+	resetPrioButtonsEdit();
+	if (currentPriority == 'low') {
+		prioLowEdit();
+	}
+	if (currentPriority == 'medium') {
+		prioMediumEdit();
+	}
+	if (currentPriority == 'urgent') {
+		prioUrgentEdit();
+	}
 }
 
 /**
@@ -305,29 +322,13 @@ function changePriorityEdit(prio) {
  * in the edit task modal to their default state.
  */
 function resetPrioButtonsEdit() {
-  lowBtnEdit.classList.remove(
-    "bg-low",
-    "bg-white",
-    "font-black",
-    "font-white",
-    "gap-05rem"
-  );
-  mediumBtnEdit.classList.remove(
-    "bg-medium",
-    "bg-white",
-    "font-black",
-    "gap-05rem"
-  );
-  urgentBtnEdit.classList.remove(
-    "bg-urgent",
-    "bg-white",
-    "font-black",
-    "font-white",
-    "gap-05rem"
-  );
-  imgLowEdit.src = "./assets/img/icons/add-task/low.svg";
-  imgMediumEdit.src = "./assets/img/icons/add-task/medium-white.svg";
-  imgUrgentEdit.src = "./assets/img/icons/add-task/urgent.svg";
+	lowBtnEdit.classList.value = 'prio-box prio-unset';
+	mediumBtnEdit.classList.value = 'prio-box prio-set';
+	urgentBtnEdit.classList.value = 'prio-box prio-unset';
+
+	imgLowEdit.src = './assets/img/icons/add-task/low.svg';
+	imgMediumEdit.src = './assets/img/icons/add-task/medium-white.svg';
+	imgUrgentEdit.src = './assets/img/icons/add-task/urgent.svg';
 }
 
 /**
@@ -335,11 +336,12 @@ function resetPrioButtonsEdit() {
  * Updates styling of priority buttons and icons.
  */
 function prioLowEdit() {
-  lowBtnEdit.classList.add("bg-low", "font-white", "gap-05rem");
-  mediumBtnEdit.classList.add("bg-white", "font-black");
-  urgentBtnEdit.classList.add("bg-white", "font-black");
-  imgLowEdit.src = "./assets/img/icons/add-task/low-white.svg";
-  imgMediumEdit.src = "./assets/img/icons/add-task/medium-orange.svg";
+	lowBtnEdit.classList.value = 'prio-box prio-set font-white bg-low';
+	mediumBtnEdit.classList.value = 'prio-box prio-unset bg-white font-black';
+	urgentBtnEdit.classList.value = 'prio-box prio-unset bg-white font-black';
+
+	imgLowEdit.src = './assets/img/icons/add-task/low-white.svg';
+	imgMediumEdit.src = './assets/img/icons/add-task/medium-orange.svg';
 }
 
 /**
@@ -347,10 +349,11 @@ function prioLowEdit() {
  * Updates styling of priority buttons and icon.
  */
 function prioMediumEdit() {
-  lowBtnEdit.classList.add("bg-white", "font-black");
-  mediumBtnEdit.classList.add("bg-medium", "font-white");
-  urgentBtnEdit.classList.add("bg-white", "font-black");
-  imgMediumEdit.src = "./assets/img/icons/add-task/medium-white.svg";
+	lowBtnEdit.classList.value = 'prio-box prio-unset bg-white font-black ';
+	mediumBtnEdit.classList.value = 'prio-box prio-set bg-medium font-white';
+	urgentBtnEdit.classList.value = 'prio-box prio-unset bg-white font-black';
+
+	imgMediumEdit.src = './assets/img/icons/add-task/medium-white.svg';
 }
 
 /**
@@ -358,11 +361,12 @@ function prioMediumEdit() {
  * Updates styling of priority buttons and icon.
  */
 function prioUrgentEdit() {
-  lowBtnEdit.classList.add("bg-white", "font-black");
-  mediumBtnEdit.classList.add("bg-white", "font-black");
-  urgentBtnEdit.classList.add("bg-urgent", "font-white", "gap-05rem");
-  imgUrgentEdit.src = "./assets/img/icons/add-task/urgent-white.svg";
-  imgMediumEdit.src = "./assets/img/icons/add-task/medium-orange.svg";
+	lowBtnEdit.classList.value = 'prio-box prio-unset bg-white font-black ';
+	mediumBtnEdit.classList.value = 'prio-box prio-unset bg-white font-black';
+	urgentBtnEdit.classList.value = 'prio-box prio-set bg-urgent font-white';
+
+	imgUrgentEdit.src = './assets/img/icons/add-task/urgent-white.svg';
+	imgMediumEdit.src = './assets/img/icons/add-task/medium-orange.svg';
 }
 
 /**
@@ -371,18 +375,18 @@ function prioUrgentEdit() {
  * text entered in the dropdown input.
  */
 function filterContactsToAssignEdit() {
-  let input = document.getElementById("dropdownInput").value.toLowerCase();
-  let contacts = localUserData.contacts;
-  for (let i = 0; i < contacts.length; i++) {
-    const contact = contacts[i];
-    const contactName = contact.userData.name.toLowerCase();
-    const option = document.getElementById(`edit-single-contact${i}`);
-    if (contactName.includes(input)) {
-      option.classList.remove("d-none");
-    } else {
-      option.classList.add("d-none");
-    }
-  }
+	let input = document.getElementById('dropdownInput').value.toLowerCase();
+	let contacts = localUserData.contacts;
+	for (let i = 0; i < contacts.length; i++) {
+		const contact = contacts[i];
+		const contactName = contact.userData.name.toLowerCase();
+		const option = document.getElementById(`edit-single-contact${i}`);
+		if (contactName.includes(input)) {
+			option.classList.remove('d-none');
+		} else {
+			option.classList.add('d-none');
+		}
+	}
 }
 
 /**
@@ -391,26 +395,26 @@ function filterContactsToAssignEdit() {
  * initials for each contact.
  */
 function showContactsToAssignEdit() {
-  let content = document.getElementById("labels");
-  content.innerHTML = "";
-  for (let i = 0; i < localUserData["contacts"].length; i++) {
-    const element = localUserData["contacts"][i];
-    content.innerHTML += `
+	let content = document.getElementById('labels');
+	content.innerHTML = '';
+	for (let i = 0; i < localUserData['contacts'].length; i++) {
+		const element = localUserData['contacts'][i];
+		content.innerHTML += `
         <div id="edit-single-contact${i}" class="edit-single-contact" onclick="getAssignedContactsEdit()">
           <label for="edit-option${i}" class="label-layout">
             <input
               type="checkbox"
               class="custom-checkbox"
               id="edit-option${i}"
-              value="${element["userData"]["name"]}"
+              value="${element['userData']['name']}"
               onchange="changeCheckboxColorEdit(${i})"
             />
-            ${element["userData"]["name"]}
+            ${element['userData']['name']}
           </label>
           <br />
           ${createContactInitials(element)}
         </div>`;
-  }
+	}
 }
 
 /**
@@ -419,17 +423,17 @@ function showContactsToAssignEdit() {
  * Calls showInitialsOfAssigned().
  */
 function getAssignedContactsEdit() {
-  newAssignedContacts = [];
-  let options = document.getElementsByClassName("edit-single-contact");
-  for (let i = 0; i < options.length; i++) {
-    const checkbox = options[i].querySelector('input[type="checkbox"]');
-    if (checkbox.checked) {
-      let option = options[i].querySelector("label");
-      let name = option.textContent.trim();
-      newAssignedContacts.push(name);
-    }
-  }
-  showInitialsOfAssigned();
+	newAssignedContacts = [];
+	let options = document.getElementsByClassName('edit-single-contact');
+	for (let i = 0; i < options.length; i++) {
+		const checkbox = options[i].querySelector('input[type="checkbox"]');
+		if (checkbox.checked) {
+			let option = options[i].querySelector('label');
+			let name = option.textContent.trim();
+			newAssignedContacts.push(name);
+		}
+	}
+	showInitialsOfAssigned();
 }
 
 /**
@@ -437,16 +441,16 @@ function getAssignedContactsEdit() {
  * to match the contacts assigned to the task.
  */
 function updateSelectedContacts() {
-  const singleContacts = document.getElementsByClassName("edit-single-contact");
-  for (let i = 0; i < singleContacts.length; i++) {
-    const checkbox = singleContacts[i].querySelector("input[type='checkbox']");
-    const contactName = checkbox.value;
+	const singleContacts = document.getElementsByClassName('edit-single-contact');
+	for (let i = 0; i < singleContacts.length; i++) {
+		const checkbox = singleContacts[i].querySelector("input[type='checkbox']");
+		const contactName = checkbox.value;
 
-    if (newAssignedContacts.includes(contactName)) {
-      checkbox.checked = true;
-      changeCheckboxColorEdit(i);
-    }
-  }
+		if (newAssignedContacts.includes(contactName)) {
+			checkbox.checked = true;
+			changeCheckboxColorEdit(i);
+		}
+	}
 }
 
 /**
@@ -456,25 +460,25 @@ function updateSelectedContacts() {
  * @param {number} i - The index of the contact in the contacts array
  */
 function changeCheckboxColorEdit(i) {
-  let checkbox = document.getElementById(`edit-option${i}`);
-  let container = document.getElementById(`edit-single-contact${i}`);
+	let checkbox = document.getElementById(`edit-option${i}`);
+	let container = document.getElementById(`edit-single-contact${i}`);
 
-  if (checkbox.checked) {
-    container.classList.add("checked-assigned-to");
-  } else {
-    container.classList.remove("checked-assigned-to");
-  }
+	if (checkbox.checked) {
+		container.classList.add('checked-assigned-to');
+	} else {
+		container.classList.remove('checked-assigned-to');
+	}
 }
 
 function createSubtaskInEdit() {
-  let input = document.getElementById("input-of-subtask-in-edit");
-  if (input.value == "") {
-    return;
-  } else {
-    newSubtasks.unshift({ name: input.value, done: false });
-    showCreatedSubtask();
-    input.value = "";
-  }
+	let input = document.getElementById('input-of-subtask-in-edit');
+	if (input.value == '') {
+		return;
+	} else {
+		newSubtasks.unshift({ name: input.value, done: false });
+		showCreatedSubtask();
+		input.value = '';
+	}
 }
 
 /**
@@ -483,11 +487,11 @@ function createSubtaskInEdit() {
  * Also pushes each subtask name to the newSubtasks array.
  */
 function showSubtasksToEdit(task) {
-  let subtasksContainer = document.getElementById("show-subtasks-container");
-  for (let index = 0; index < task.subtasks.length; index++) {
-    const subtask = task.subtasks[index];
-    let listItemId = `subtask-${index}`;
-    subtasksContainer.innerHTML += `
+	let subtasksContainer = document.getElementById('show-subtasks-container');
+	for (let index = 0; index < task.subtasks.length; index++) {
+		const subtask = task.subtasks[index];
+		let listItemId = `subtask-${index}`;
+		subtasksContainer.innerHTML += `
         <div class="subtask-list-container">
           <li id="${listItemId}" class="subtask-list-item"><input readonly type="text" value="${subtask.name}"></li>
               <div class="edit-delete-container">
@@ -497,8 +501,8 @@ function showSubtasksToEdit(task) {
               </div>
         </div>
       `;
-    newSubtasks.push(subtask);
-  }
+		newSubtasks.push(subtask);
+	}
 }
 
 /**
@@ -508,16 +512,16 @@ function showSubtasksToEdit(task) {
  * newAssignedContacts array.
  */
 function getEditedAssignedContacts() {
-  newAssignedContacts = [];
-  let options = document.getElementsByClassName("edit-single-contact");
-  for (let i = 0; i < options.length; i++) {
-    const checkbox = options[i].querySelector('input[type="checkbox"]');
-    if (checkbox.checked) {
-      let option = options[i].querySelector("label");
-      let name = option.textContent.trim();
-      newAssignedContacts.push(name);
-    }
-  }
+	newAssignedContacts = [];
+	let options = document.getElementsByClassName('edit-single-contact');
+	for (let i = 0; i < options.length; i++) {
+		const checkbox = options[i].querySelector('input[type="checkbox"]');
+		if (checkbox.checked) {
+			let option = options[i].querySelector('label');
+			let name = option.textContent.trim();
+			newAssignedContacts.push(name);
+		}
+	}
 }
 
 /**
@@ -525,10 +529,10 @@ function getEditedAssignedContacts() {
  * Gets the updated values from the DOM and saves them to the appropriate variables.
  */
 function saveEditedInputs() {
-  getTitle();
-  getDescription();
-  getDueDate();
-  getEditedAssignedContacts();
+	getTitle();
+	getDescription();
+	getDueDate();
+	getEditedAssignedContacts();
 }
 
 /**
@@ -536,32 +540,32 @@ function saveEditedInputs() {
  * message, adds the new task to the tasks array, resets the task ID counter.
  */
 function saveEditedTask() {
-  let subtasksArray = [];
-  newSubtasks.forEach((subtask) => {
-    subtasksArray.push(subtask);
-  });
-  actualCard.title = newTitle;
-  actualCard.description = newDescription;
-  actualCard.dueDate = newDueDate;
-  actualCard.priority = currentPriority;
-  actualCard.assignedTo = newAssignedContacts;
-  actualCard.subtasks = subtasksArray;
+	let subtasksArray = [];
+	newSubtasks.forEach((subtask) => {
+		subtasksArray.push(subtask);
+	});
+	actualCard.title = newTitle;
+	actualCard.description = newDescription;
+	actualCard.dueDate = newDueDate;
+	actualCard.priority = currentPriority;
+	actualCard.assignedTo = newAssignedContacts;
+	actualCard.subtasks = subtasksArray;
 }
 
 function exchangeTaskInArray() {
-  for (let i = 0; i < localUserData.users.length; i++) {
-    const user = localUserData.users[i];
-    for (let j = 0; j < user.tasks.length; j++) {
-      let element = user.tasks[j];
-      if (element.id == actualCard.id) {
-        user.tasks.splice(j, 1, actualCard);
-        break;
-      }
-    }
-  }
-  actualCard;
-  saveUserData();
-  updateHTML();
+	for (let i = 0; i < localUserData.users.length; i++) {
+		const user = localUserData.users[i];
+		for (let j = 0; j < user.tasks.length; j++) {
+			let element = user.tasks[j];
+			if (element.id == actualCard.id) {
+				user.tasks.splice(j, 1, actualCard);
+				break;
+			}
+		}
+	}
+	actualCard;
+	saveUserData();
+	updateHTML();
 }
 
 /**
@@ -569,11 +573,11 @@ function exchangeTaskInArray() {
  * Called when user clicks ok button after editing a task.
  */
 function exchangeEditedTask() {
-  saveEditedInputs();
-  saveEditedTask();
-  exchangeTaskInArray();
-  clearForm();
-  resetGlobal();
-  closeEditTaskCard();
-  updateHTML();
+	saveEditedInputs();
+	saveEditedTask();
+	exchangeTaskInArray();
+	clearForm();
+	resetGlobal();
+	closeEditTaskCard();
+	updateHTML();
 }
