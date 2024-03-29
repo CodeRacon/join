@@ -172,6 +172,27 @@ function checkIfEmpty(id, text) {
 }
 
 /**
+ * Shows a maximum of 3 assigned user circles for a task.
+ * If more than 3 users are assigned, hides the extra assigned
+ * users and shows a "+X" indicator with the number hidden.
+ */
+function showMaxThreeCircles(element) {
+	let container = document.getElementById(`assignedCircle${element.id}`);
+	let childs = container.children;
+	let moreAssigned = childs.length - 3;
+	for (let i = 3; i < childs.length; i++) {
+		childs[i].style.display = 'none';
+	}
+	if (childs.length > 3) {
+		container.innerHTML += /*html*/ `
+			<div class="amount-of-others"> 
+				+${moreAssigned}
+			</div>
+		`;
+	}
+}
+
+/**
  * Updates the color and text of task category elements
  * based on their category ID.
  *
@@ -244,14 +265,14 @@ function showInitials(element) {
 		let user = localUserData['contacts'].find(
 			(user) => user.userData.name === name
 		);
-		let color = user ? user.color : '#d98973';
-		container.innerHTML += `
-    <div
-    class="initialsCircleOfTasks"
+		let color = user ? user.color : '#808080';
+		container.innerHTML += /*html*/ `
+			<div
+    		class="initialsCircleOfTasks"
         style="background-color: ${color}">
-        ${initial}
-  </div>
-`;
+        	${initial}
+  		</div>
+		`;
 	});
 }
 
@@ -272,12 +293,17 @@ function generateProgressBar(element) {
 		let doneSubtasks = subtasks.filter((subtask) => subtask.done).length;
 		let progress = (doneSubtasks / subtasks.length) * 100;
 
-		container.innerHTML = `<progress value="${progress}" max="100" class="progress-bar"></progress>
-          <div class="amount-of-subtasks-container">
-        <div>
-        ${doneSubtasks}/${subtasks.length} Subtasks
-       </div>
-      </div>`;
+		container.innerHTML = /*html*/ `
+			<progress 
+				value="${progress}" 
+				max="100" 
+				class="progress-bar"></progress>
+      <div class="amount-of-subtasks-container">
+    		<div>
+        	${doneSubtasks}/${subtasks.length} Subtasks
+      	</div>
+      </div>
+		`;
 	}
 }
 
@@ -288,7 +314,13 @@ function generateProgressBar(element) {
  * @returns {string} The generated HTML element as a string.
  */
 function generateEmptyHTML(text) {
-	return `<div draggable="false" class="empty-task drag-and-drop-container-border">No tasks ${text}</div>`;
+	return /*html*/ `
+		<div 
+			draggable="false" 
+			class="empty-task drag-and-drop-container-border">
+				No tasks ${text}
+		</div>
+	`;
 }
 
 function isDraggable() {
@@ -555,8 +587,17 @@ function filterMatchedTasks() {
 		});
 	});
 	renderMatchedTasks(matchedTasks);
+	if (input == '') {
+		updateHTML();
+	}
 }
 
+/**
+ * Renders the matched tasks into their respective containers
+ * based on task status.
+ * Clears existing task elements from the containers first.
+ * @param {Array} matchedTasks - Array of tasks matched by search filter
+ */
 function renderMatchedTasks(matchedTasks) {
 	let toDoContainer = document.getElementById('toDo');
 	let inProgressContainer = document.getElementById('inProgress');
@@ -566,41 +607,78 @@ function renderMatchedTasks(matchedTasks) {
 	inProgressContainer.innerHTML = '';
 	awaitFeedbackContainer.innerHTML = '';
 	doneContainer.innerHTML = '';
+
 	matchedTasks.forEach((task) => {
 		if (task.status == 'toDo') {
-			toDoContainer.innerHTML += generateTaskCard(task);
-			let names = task.assignedTo;
-			updateTaskColorAndCategory();
-			updatePriority();
-			// showContactsToAssign();
-			// createContactInitialsForFiltered(names); // hier noch in Z. 398 weiter machen
+			renderMatch(task, toDoContainer);
 		} else if (task.status == 'inProgress') {
-			inProgressContainer.innerHTML += generateTaskCard(task);
+			renderMatch(task, inProgressContainer);
 		} else if (task.status == 'awaitFeedback') {
-			awaitFeedbackContainer.innerHTML += generateTaskCard(task);
+			renderMatch(task, awaitFeedbackContainer);
 		} else if (task.status == 'done') {
-			doneContainer.innerHTML += generateTaskCard(task);
+			renderMatch(task, doneContainer);
 		}
 	});
+	checkForEmptyContainers();
 }
 
-function createContactInitialsForFiltered(names) {
-	// hier weiter machen, muss noch forEach benutzt werden!!
-	let element = localUserData.contacts.find(
-		(user) => user.userData.name === names
-	);
-	const initials = element
-		.split(' ')
-		.map((word) => word.charAt(0))
-		.join('');
+/**
+ * Renders a matched task into the provided container.
+ * Looks up assigned users and renders their filtered cards.
+ *
+ * @param {Object} task - Task object to render
+ * @param {Element} container - DOM element to render task card into
+ */
+function renderMatch(task, container) {
+	let names = task.assignedTo;
+	container.innerHTML += generateTaskCard(task);
+	renderFilteredCards(names, task);
+}
 
-	return `
-      <div 
-      class="initialsCircleOfTasks"
-          style="background-color: ${user.color}">
+/**
+ * Renders filtered user cards for the assigned users of a task.
+ * Updates task color, category, priority, shows contacts to assign,
+ * and creates contact initials for the filtered users.
+ *
+ * @param {Array} names - Array of user names assigned to the task
+ * @param {Object} task - Task object
+ */
+function renderFilteredCards(names, task) {
+	updateTaskColorAndCategory();
+	updatePriority();
+	showContactsToAssign();
+	createContactInitialsForFiltered(names, task);
+	showMaxThreeCircles(task);
+}
+
+/**
+ * Renders filtered user initials for the assigned users of a task.
+ * Creates initials circles with background color and initials
+ * for each assigned user that is filtered.
+ *
+ * @param {Array} names - Array of user names assigned to the task
+ * @param {Object} task - Task object
+ */
+function createContactInitialsForFiltered(names, task) {
+	let container = document.getElementById(`assignedCircle${task.id}`);
+	container.innerHTML = '';
+	names.forEach((name) => {
+		let user = localUserData.contacts.find(
+			(contact) => contact.userData.name === name
+		);
+		const initials = name
+			.split(' ')
+			.map((word) => word.charAt(0))
+			.join('');
+
+		container.innerHTML += /*html*/ `
+			<div 
+      	class="initialsCircleOfTasks"
+				style="background-color: ${user.color}">
           ${initials}
-    </div>
-    `;
+    	</div>
+		`;
+	});
 }
 
 /**
@@ -665,7 +743,10 @@ function openTaskCardOverlay(element) {
           <div class="header-of-task-card">
             <div class="category-of-single-task ">${card.category}</div>
             <div class="close-btn">            
-              <img onclick="closeTaskCardOverlay()" src="assets/img/icons/board/close.svg" alt="close">
+              <img 
+								onclick="closeTaskCardOverlay()" 
+								src="assets/img/icons/board/close.svg" 
+								alt="close">
             </div>
           </div>
 
@@ -696,9 +777,15 @@ function openTaskCardOverlay(element) {
             id="subtasks${card.id}">
           </div>
           <div class="delete-edit-container">
-            <img onclick="deleteTask(${card.id})" src="assets/img/icons/board/delete-bin.svg" alt="delete">
+            <img 
+							onclick="deleteTask(${card.id})" 
+							src="assets/img/icons/board/delete-bin.svg" 
+							alt="delete">
             <hr>
-            <img onclick="editTask(${card.id})" src="assets/img/icons/board/edit-pen.svg" alt="edit">
+            <img 
+							onclick="editTask(${card.id})" 
+							src="assets/img/icons/board/edit-pen.svg" 
+							alt="edit">
           </div>
         </div>
       </div>
@@ -743,23 +830,35 @@ function updatePriorityForSingleTask() {
 			prioBox.innerText.trim() == '1' ||
 			prioBox.innerText.trim().toLowerCase() == 'low'
 		) {
-			prioBox.innerHTML = `<span>Priority:
-      </span><div class="priority-and-icon"><span>Low</span><img src="${low}" alt="low Priority">
-      </div>`;
+			prioBox.innerHTML = /*html*/ `
+			<span>Priority:</span>
+			<div class="priority-and-icon">
+				<span>Low</span>
+				<img src="${low}" alt="low Priority">
+			</div>	
+			`;
 		} else if (
 			prioBox.innerText.trim() == '2' ||
 			prioBox.innerText.trim().toLowerCase() == 'medium'
 		) {
-			prioBox.innerHTML = `<span>Priority:
-      </span><div class="priority-and-icon"><span>Medium</span><img src="${medium}" alt="medium Priority">
-      </div>`;
+			prioBox.innerHTML = /*html*/ `
+			<span>Priority:</span>
+			<div class="priority-and-icon">
+				<span>Medium</span>
+				<img src="${medium}" alt="medium Priority">
+			</div>
+			`;
 		} else if (
 			prioBox.innerText.trim() == '3' ||
 			prioBox.innerText.trim().toLowerCase() == 'urgent'
 		) {
-			prioBox.innerHTML = `<span>Priority:
-      </span><div class="priority-and-icon"><span>High</span><img src="${high}" alt="high Priority">
-      </div>`;
+			prioBox.innerHTML = /*html*/ `
+			<span>Priority:</span>
+			<div class="priority-and-icon">
+				<span>High</span>
+				<img src="${high}" alt="high Priority">
+      </div>
+			`;
 		}
 	});
 }
@@ -790,13 +889,13 @@ function showInitialsForSingleCard() {
 		let color = user ? user.color : '#A8A8A8';
 		container.innerHTML += /*html*/ `			
     <div class="name-and-initial-container">
-    <div
-    class="initialsCircleOfSingleTasks"
-        style="background-color: ${color}">
-        ${initial}    
-  </div>
-  <span>${name}</span>
-  </div>
+    	<div
+    		class="initialsCircleOfSingleTasks"
+      	style="background-color: ${color}">
+        	${initial}    
+  		</div>
+  		<span>${name}</span>
+  	</div>
 		`;
 	});
 }
@@ -813,10 +912,15 @@ function showSubtasks() {
 	content.innerHTML = `<span>Subtasks</span>`;
 	for (let index = 0; index < actualCard.subtasks.length; index++) {
 		let element = actualCard.subtasks[index]['name'];
-		content.innerHTML += `<div class="subtask-container">
-    <img class="img-checked-true-false" alt="checked" onclick="changeSubtaskToDoneOrNot(${index})">
-    ${element}
-    </div>`;
+		content.innerHTML += /*html*/ `
+			<div class="subtask-container">
+    		<img 
+					class="img-checked-true-false" 
+					alt="checked" 
+					onclick="changeSubtaskToDoneOrNot(${index})">
+    		${element}
+    	</div>
+		`;
 		let status = actualCard.subtasks[index]['done'];
 		let img = document.getElementsByClassName('img-checked-true-false')[index];
 		if (status === true) {
