@@ -724,6 +724,11 @@ function checkForEmptyContainers() {
   }
 }
 
+/**
+ * Swaps the magnifying glass image for a close image
+ * and sets it to call clearInput() when clicked.
+ * Also adds the hover-close class.
+ */
 function exchaneImgInput() {
   let img = document.getElementById("magnifying-glass");
   img.src = "assets/img/icons/add-task/close.svg";
@@ -731,6 +736,9 @@ function exchaneImgInput() {
   img.classList.add("hover-close");
 }
 
+/**
+ * Clears the task search input field and resets the search icon.
+ */
 function clearInput() {
   let input = document.getElementById("find-task");
   let img = document.getElementById("magnifying-glass");
