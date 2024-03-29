@@ -271,7 +271,10 @@ input::-moz-calendar-picker-indicator {
 
 #add-task-content-overlay {
 	width: 67.5vw;
+	max-width: calc(1440px * 0.85);
 	height: fit-content;
+	max-height: calc(100% - 2rem);
+
 	position: fixed;
 	z-index: 999;
 	top: 50%;
@@ -300,7 +303,7 @@ input::-moz-calendar-picker-indicator {
 	justify-content: center;
 	align-items: center;
 	height: fit-content;
-	max-height: 85vh;
+	max-height: calc(100% - 2rem);
 	width: 30rem;
 	border-radius: 1.5rem;
 	background: var(--white, #fff);

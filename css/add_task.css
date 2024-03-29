@@ -939,8 +939,8 @@ input::-moz-calendar-picker-indicator {
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-end;
-		align-items: flex-start;
-		gap: 1.25rem;
+		align-items: center;
+		gap: 1rem;
 		width: calc(100vw - 2rem);
 	}
 
