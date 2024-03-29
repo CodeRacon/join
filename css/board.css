@@ -27,6 +27,8 @@
 	/* qm = questio-mark */
 	--qm-grey: #a8a8a8;
 
+	--border-color: #d1d1d1;
+
 	--icon-grey: #cdcdcd;
 	--no-task-bg: #a8a8a8;
 	--form-active-border: 1px solid #29abe2;
@@ -191,8 +193,8 @@ button.btn-find-task img:last-of-type:hover {
 }
 
 ::placeholder {
-	color: var(--Style, #d1d1d1);
-	font-size: 1.1rem;
+	color: var(--border-color);
+	font-size: 1rem;
 	font-weight: 400;
 }
 
@@ -374,6 +376,7 @@ div[draggable='true'] {
 	color: var(--primary, #2a3647);
 	font-size: 1rem;
 	font-weight: 700;
+	overflow-wrap: break-word;
 }
 
 .description-of-task {
@@ -471,17 +474,6 @@ div[draggable='true'] {
 	width: var(--f-width);
 }
 
-.main-container-small {
-	display: flex;
-	margin-bottom: 0;
-}
-
-.svg-separator-small img {
-	padding: 0 1.5rem;
-	cursor: default;
-	height: 82.5%;
-}
-
 .prio-box-small {
 	display: flex;
 	align-items: center;
@@ -551,6 +543,7 @@ progress::-webkit-progress-bar {
 	color: var(--primary, #2a3647);
 	font-size: 2.5rem;
 	font-weight: 700;
+	overflow-wrap: break-word;
 }
 
 .assigned-and-priority-single-container {
@@ -721,10 +714,6 @@ progress::-webkit-progress-bar {
 		padding: 0 0 0 1.25rem;
 	}
 
-	#toDo {
-		height: fit-content;
-	}
-
 	.drag-area {
 		flex-direction: row;
 		align-items: center;
@@ -751,6 +740,7 @@ progress::-webkit-progress-bar {
 		width: 18rem;
 		height: 16rem;
 		justify-content: space-between;
+		gap: 0.5rem;
 	}
 
 	.empty-task {
@@ -766,6 +756,18 @@ progress::-webkit-progress-bar {
 	.description-of-task {
 		max-height: 2.4rem;
 		overflow-y: hidden;
+	}
+
+	#add-task-content-overlay {
+		width: 32rem;
+	}
+
+	#add-task-content-overlay .main-container-small {
+		flex-direction: column;
+	}
+
+	.svg-separator-small {
+		display: none;
 	}
 }
 
