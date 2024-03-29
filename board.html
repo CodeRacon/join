@@ -53,6 +53,7 @@
 							type="text"
 							class="border-none input-padding find-task-input"
 							placeholder="Find Task"
+							autocomplete="off"
 							onkeyup="filterMatchedTasks()" />
 						<button class="border-none btn-find-task">
 							<img
@@ -146,6 +147,7 @@
 										onkeyup="filterContactsToAssign()" />
 									<img
 										id="arrowImg"
+										class="dropdown-icon"
 										src="./assets/img/icons/add-task/arrow-down.svg"
 										alt="Arrow down icon" />
 								</div>
@@ -236,6 +238,7 @@
 										onclick="selectOrClearCategory()" />
 									<img
 										id="arrowImgCategory"
+										class="dropdown-icon"
 										src="/assets/img/icons/add-task/arrow-down.svg"
 										alt="Arrow down icon"
 										onclick="selectOrClearCategory()" />
