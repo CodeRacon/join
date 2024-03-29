@@ -1,43 +1,43 @@
 let taskColor = {
-	userStory: '#0038FF', // category 1
-	technicalTask: '#1FD7C1', //category 2
+  userStory: "#0038FF", // category 1
+  technicalTask: "#1FD7C1", //category 2
 };
 
-let low = 'assets/img/icons/add-task/low.svg';
-let medium = 'assets/img/icons/add-task/medium-orange.svg';
-let high = 'assets/img/icons/add-task/urgent.svg';
+let low = "assets/img/icons/add-task/low.svg";
+let medium = "assets/img/icons/add-task/medium-orange.svg";
+let high = "assets/img/icons/add-task/urgent.svg";
 
-let taskDone = 'assets/img/icons/board/cf_checked.svg';
-let taskNotDone = 'assets/img/icons/board/cf_unchecked.svg';
+let taskDone = "assets/img/icons/board/cf_checked.svg";
+let taskNotDone = "assets/img/icons/board/cf_unchecked.svg";
 
 let currentDraggedElement;
 
 let actualCard;
 
-window.addEventListener('resize', updateHTML);
+window.addEventListener("resize", updateHTML);
 
 /**
  * Updates the HTML DOM to reflect the latest state of tasks.
  * Calls various helper functions to update different sections.
  */
 async function updateHTML() {
-	await loadUserData();
-	updateToDos();
-	updateInProgress();
-	updateAwaitFeedback();
-	updateDone();
-	updateTaskColorAndCategory();
-	updatePriority();
-	showContactsToAssign();
-	clearForm();
+  await loadUserData();
+  updateToDos();
+  updateInProgress();
+  updateAwaitFeedback();
+  updateDone();
+  updateTaskColorAndCategory();
+  updatePriority();
+  showContactsToAssign();
+  clearForm();
 }
 
 function disableDragOption() {
-	const allTaskCards = document.querySelectorAll('.task-card');
+  const allTaskCards = document.querySelectorAll(".task-card");
 
-	for (let i = 0; i < allTaskCards.length; i++) {
-		allTaskCards[i].setAttribute('draggable', 'false');
-	}
+  for (let i = 0; i < allTaskCards.length; i++) {
+    allTaskCards[i].setAttribute("draggable", "false");
+  }
 }
 
 /**
@@ -50,22 +50,21 @@ function disableDragOption() {
  * If no "toDo" tasks exist for a user, generates empty state HTML.
  */
 function updateToDos() {
-	let source = 'toDo';
-	let content = document.getElementById('toDo');
-	content.innerHTML = '';
-	for (let i = 0; i < localUserData['users'].length; i++) {
-		const element = localUserData['users'][i];
-		if (element.hasOwnProperty('tasks')) {
-			let toDo = element['tasks'].filter((todo) => todo['status'] == 'toDo');
-			for (let index = 0; index < toDo.length; index++) {
-				const element = toDo[index];
-				content.innerHTML += generateTaskCard(element, source);
-				showInitials(element);
-				generateProgressBar(element);
-			}
-		}
-	}
-	checkIfEmpty('toDo', 'to do');
+  let source = "toDo";
+  let content = document.getElementById("toDo");
+  content.innerHTML = "";
+  for (let i = 0; i < localUserData["users"].length; i++) {
+    const element = localUserData["users"][i];
+    if (element.hasOwnProperty("tasks")) {
+      let toDo = element["tasks"].filter((todo) => todo["status"] == "toDo");
+      for (let index = 0; index < toDo.length; index++) {
+        const element = toDo[index];
+        content.innerHTML += generateTaskCard(element, source);
+        renderInitialsProgressBarMaxThree(element);
+      }
+    }
+  }
+  checkIfEmpty("toDo", "to do");
 }
 
 /**
@@ -78,24 +77,23 @@ function updateToDos() {
  * If no "inProgress" tasks exist for a user, generates empty state HTML.
  */
 function updateInProgress() {
-	let source = 'inProgress';
-	let content = document.getElementById('inProgress');
-	content.innerHTML = '';
-	for (let i = 0; i < localUserData['users'].length; i++) {
-		const element = localUserData['users'][i];
-		if (element.hasOwnProperty('tasks')) {
-			let inProgress = element['tasks'].filter(
-				(task) => task['status'] == 'inProgress'
-			);
-			for (let index = 0; index < inProgress.length; index++) {
-				const element = inProgress[index];
-				content.innerHTML += generateTaskCard(element, source);
-				showInitials(element);
-				generateProgressBar(element);
-			}
-		}
-	}
-	checkIfEmpty('inProgress', 'in progress');
+  let source = "inProgress";
+  let content = document.getElementById("inProgress");
+  content.innerHTML = "";
+  for (let i = 0; i < localUserData["users"].length; i++) {
+    const element = localUserData["users"][i];
+    if (element.hasOwnProperty("tasks")) {
+      let inProgress = element["tasks"].filter(
+        (task) => task["status"] == "inProgress"
+      );
+      for (let index = 0; index < inProgress.length; index++) {
+        const element = inProgress[index];
+        content.innerHTML += generateTaskCard(element, source);
+        renderInitialsProgressBarMaxThree(element);
+      }
+    }
+  }
+  checkIfEmpty("inProgress", "in progress");
 }
 
 /**
@@ -108,24 +106,23 @@ function updateInProgress() {
  * If no "awaitFeedback" tasks exist for a user, generates empty state HTML.
  */
 function updateAwaitFeedback() {
-	let source = 'awaitFeedback';
-	let content = document.getElementById('awaitFeedback');
-	content.innerHTML = '';
-	for (let i = 0; i < localUserData['users'].length; i++) {
-		const element = localUserData['users'][i];
-		if (element.hasOwnProperty('tasks')) {
-			let awaitFeedback = element['tasks'].filter(
-				(task) => task['status'] == 'awaitFeedback'
-			);
-			for (let index = 0; index < awaitFeedback.length; index++) {
-				const element = awaitFeedback[index];
-				content.innerHTML += generateTaskCard(element, source);
-				showInitials(element);
-				generateProgressBar(element);
-			}
-		}
-	}
-	checkIfEmpty('awaitFeedback', 'await feedback');
+  let source = "awaitFeedback";
+  let content = document.getElementById("awaitFeedback");
+  content.innerHTML = "";
+  for (let i = 0; i < localUserData["users"].length; i++) {
+    const element = localUserData["users"][i];
+    if (element.hasOwnProperty("tasks")) {
+      let awaitFeedback = element["tasks"].filter(
+        (task) => task["status"] == "awaitFeedback"
+      );
+      for (let index = 0; index < awaitFeedback.length; index++) {
+        const element = awaitFeedback[index];
+        content.innerHTML += generateTaskCard(element, source);
+        renderInitialsProgressBarMaxThree(element);
+      }
+    }
+  }
+  checkIfEmpty("awaitFeedback", "await feedback");
 }
 
 /**
@@ -138,23 +135,28 @@ function updateAwaitFeedback() {
  * If no "done" tasks exist for a user, generates empty state HTML.
  */
 function updateDone() {
-	let content = document.getElementById('closed');
-	let source = 'done';
+  let content = document.getElementById("closed");
+  let source = "done";
 
-	content.innerHTML = '';
-	for (let i = 0; i < localUserData['users'].length; i++) {
-		const element = localUserData['users'][i];
-		if (element.hasOwnProperty('tasks')) {
-			let closed = element['tasks'].filter((task) => task['status'] == 'done');
-			for (let index = 0; index < closed.length; index++) {
-				const element = closed[index];
-				content.innerHTML += generateTaskCard(element, source);
-				showInitials(element);
-				generateProgressBar(element);
-			}
-		}
-	}
-	checkIfEmpty('closed', 'done');
+  content.innerHTML = "";
+  for (let i = 0; i < localUserData["users"].length; i++) {
+    const element = localUserData["users"][i];
+    if (element.hasOwnProperty("tasks")) {
+      let closed = element["tasks"].filter((task) => task["status"] == "done");
+      for (let index = 0; index < closed.length; index++) {
+        const element = closed[index];
+        content.innerHTML += generateTaskCard(element, source);
+        renderInitialsProgressBarMaxThree(element);
+      }
+    }
+  }
+  checkIfEmpty("closed", "done");
+}
+
+function renderInitialsProgressBarMaxThree(element) {
+  showInitials(element);
+  generateProgressBar(element);
+  showMaxThreeCircles(element);
 }
 
 /**
@@ -165,10 +167,10 @@ function updateDone() {
  * @param {string} text - The text to display in the empty state.
  */
 function checkIfEmpty(id, text) {
-	let content = document.getElementById(id);
-	if (content.innerHTML === '') {
-		content.innerHTML = generateEmptyHTML(text);
-	}
+  let content = document.getElementById(id);
+  if (content.innerHTML === "") {
+    content.innerHTML = generateEmptyHTML(text);
+  }
 }
 
 /**
@@ -177,19 +179,19 @@ function checkIfEmpty(id, text) {
  * users and shows a "+X" indicator with the number hidden.
  */
 function showMaxThreeCircles(element) {
-	let container = document.getElementById(`assignedCircle${element.id}`);
-	let childs = container.children;
-	let moreAssigned = childs.length - 3;
-	for (let i = 3; i < childs.length; i++) {
-		childs[i].style.display = 'none';
-	}
-	if (childs.length > 3) {
-		container.innerHTML += /*html*/ `
+  let container = document.getElementById(`assignedCircle${element.id}`);
+  let childs = container.children;
+  let moreAssigned = childs.length - 3;
+  for (let i = 3; i < childs.length; i++) {
+    childs[i].style.display = "none";
+  }
+  if (childs.length > 3) {
+    container.innerHTML += /*html*/ `
 			<div class="amount-of-others"> 
 				+${moreAssigned}
 			</div>
 		`;
-	}
+  }
 }
 
 /**
@@ -201,16 +203,16 @@ function showMaxThreeCircles(element) {
  * to show category name.
  */
 function updateTaskColorAndCategory() {
-	let elements = document.getElementsByClassName('category-of-task');
-	Array.from(elements).forEach((element) => {
-		if (element.innerText.trim() == 1) {
-			element.classList.add('user-story-task-color');
-			element.innerHTML = 'User Story';
-		} else {
-			element.classList.add('technical-task-color');
-			element.innerHTML = 'Technical Task';
-		}
-	});
+  let elements = document.getElementsByClassName("category-of-task");
+  Array.from(elements).forEach((element) => {
+    if (element.innerText.trim() == 1) {
+      element.classList.add("user-story-task-color");
+      element.innerHTML = "User Story";
+    } else {
+      element.classList.add("technical-task-color");
+      element.innerHTML = "Technical Task";
+    }
+  });
 }
 
 /**
@@ -223,25 +225,25 @@ function updateTaskColorAndCategory() {
  * to show correct priority icon image.
  */
 function updatePriority() {
-	let prioBoxes = document.getElementsByClassName('priority-of-task');
-	Array.from(prioBoxes).forEach((prioBox) => {
-		if (
-			prioBox.innerText.trim() == 1 ||
-			prioBox.innerText.trim().toLowerCase() == 'low'
-		) {
-			prioBox.innerHTML = `<img src="${low}" alt="Low Priority">`;
-		} else if (
-			prioBox.innerText.trim() == '2' ||
-			prioBox.innerText.trim().toLowerCase() == 'medium'
-		) {
-			prioBox.innerHTML = `<img src="${medium}" alt="Low Priority">`;
-		} else if (
-			prioBox.innerText.trim() == '3' ||
-			prioBox.innerText.trim().toLowerCase() == 'urgent'
-		) {
-			prioBox.innerHTML = `<img src="${high}" alt="Low Priority">`;
-		}
-	});
+  let prioBoxes = document.getElementsByClassName("priority-of-task");
+  Array.from(prioBoxes).forEach((prioBox) => {
+    if (
+      prioBox.innerText.trim() == 1 ||
+      prioBox.innerText.trim().toLowerCase() == "low"
+    ) {
+      prioBox.innerHTML = `<img src="${low}" alt="Low Priority">`;
+    } else if (
+      prioBox.innerText.trim() == "2" ||
+      prioBox.innerText.trim().toLowerCase() == "medium"
+    ) {
+      prioBox.innerHTML = `<img src="${medium}" alt="Low Priority">`;
+    } else if (
+      prioBox.innerText.trim() == "3" ||
+      prioBox.innerText.trim().toLowerCase() == "urgent"
+    ) {
+      prioBox.innerHTML = `<img src="${high}" alt="Low Priority">`;
+    }
+  });
 }
 
 /**
@@ -254,26 +256,26 @@ function updatePriority() {
  * element.
  */
 function showInitials(element) {
-	let allInitials = element.assignedTo;
-	let container = document.getElementById(`assignedCircle${element['id']}`);
-	container.innerHTML = '';
-	allInitials.forEach((name) => {
-		const initial = name
-			.split(' ')
-			.map((word) => word.charAt(0))
-			.join('');
-		let user = localUserData['contacts'].find(
-			(user) => user.userData.name === name
-		);
-		let color = user ? user.color : '#808080';
-		container.innerHTML += /*html*/ `
+  let allInitials = element.assignedTo;
+  let container = document.getElementById(`assignedCircle${element["id"]}`);
+  container.innerHTML = "";
+  allInitials.forEach((name) => {
+    const initial = name
+      .split(" ")
+      .map((word) => word.charAt(0))
+      .join("");
+    let user = localUserData["contacts"].find(
+      (user) => user.userData.name === name
+    );
+    let color = user ? user.color : "#808080";
+    container.innerHTML += /*html*/ `
 			<div
     		class="initialsCircleOfTasks"
         style="background-color: ${color}">
         	${initial}
   		</div>
 		`;
-	});
+  });
 }
 
 /**
@@ -284,16 +286,16 @@ function showInitials(element) {
  * with appropriate value, and text indicating number of subtasks completed vs total.
  */
 function generateProgressBar(element) {
-	let container = document.getElementById(`progress${element['id']}`);
-	container.innerHTML = '';
-	let subtasks = element['subtasks'];
-	if (!element.hasOwnProperty('subtasks') || subtasks.length == 0) {
-		return;
-	} else {
-		let doneSubtasks = subtasks.filter((subtask) => subtask.done).length;
-		let progress = (doneSubtasks / subtasks.length) * 100;
+  let container = document.getElementById(`progress${element["id"]}`);
+  container.innerHTML = "";
+  let subtasks = element["subtasks"];
+  if (!element.hasOwnProperty("subtasks") || subtasks.length == 0) {
+    return;
+  } else {
+    let doneSubtasks = subtasks.filter((subtask) => subtask.done).length;
+    let progress = (doneSubtasks / subtasks.length) * 100;
 
-		container.innerHTML = /*html*/ `
+    container.innerHTML = /*html*/ `
 			<progress 
 				value="${progress}" 
 				max="100" 
@@ -304,7 +306,7 @@ function generateProgressBar(element) {
       	</div>
       </div>
 		`;
-	}
+  }
 }
 
 /**
@@ -314,7 +316,7 @@ function generateProgressBar(element) {
  * @returns {string} The generated HTML element as a string.
  */
 function generateEmptyHTML(text) {
-	return /*html*/ `
+  return /*html*/ `
 		<div 
 			draggable="false" 
 			class="empty-task drag-and-drop-container-border">
@@ -324,7 +326,7 @@ function generateEmptyHTML(text) {
 }
 
 function isDraggable() {
-	return window.innerWidth > 1152;
+  return window.innerWidth > 1152;
 }
 
 /**
@@ -338,32 +340,32 @@ function isDraggable() {
  * - Assigned to and priority
  */
 function generateTaskCard(element, source) {
-	const taskID = element['id'];
-	const moveBtnContent = renderMoveBtn(taskID);
-	const moveMenuContent = renderMoveMenu(source, taskID);
-	return /*html*/ `   
+  const taskID = element["id"];
+  const moveBtnContent = renderMoveBtn(taskID);
+  const moveMenuContent = renderMoveMenu(source, taskID);
+  return /*html*/ `   
 	<div 
     draggable="${isDraggable()}" 
-    ondragstart="startDragging(${element['id']})" 
-    ondragend="stopDragging(${element['id']})" 
-    id="${element['id']}"   
+    ondragstart="startDragging(${element["id"]})" 
+    ondragend="stopDragging(${element["id"]})" 
+    id="${element["id"]}"   
     class="task-card" 
-    onclick="openTaskCardOverlay(${element['id']}) ">
+    onclick="openTaskCardOverlay(${element["id"]}) ">
       ${moveBtnContent}
 			<div class="move-menu d-none qm-off" id="move-menu-${taskID}" menuOpen="false">
 				${moveMenuContent}	
 			</div>      
       <div class="category-of-task">
-				${element['category']}
+				${element["category"]}
       </div>
-      <div class="title-of-task">${element['title']}</div>
-      <div class="description-of-task">${element['description']}</div>
-      <div class="subtasks-of-task" id="progress${element['id']}"></div>
+      <div class="title-of-task">${element["title"]}</div>
+      <div class="description-of-task">${element["description"]}</div>
+      <div class="subtasks-of-task" id="progress${element["id"]}"></div>
       <div class="assigned-and-priority-container">
-      <div id="assignedCircle${element['id']}" class="assigned-to-of-task">${
-		element['assignedTo']
-	}</div>
-      <div class="priority-of-task">${element['priority']}</div>
+      <div id="assignedCircle${element["id"]}" class="assigned-to-of-task">${
+    element["assignedTo"]
+  }</div>
+      <div class="priority-of-task">${element["priority"]}</div>
   </div>
    `;
 }
@@ -375,7 +377,7 @@ function generateTaskCard(element, source) {
  * for a specific task, identified by its taskID.
  */
 function renderMoveBtn(taskID) {
-	return /*html*/ `
+  return /*html*/ `
     <div onclick="toggleMoveBtnMenu(event, '${taskID}')" class="mobile-move-btn " id="mobile-move-btn-${taskID}" >
       <img 
 				id="btn-icon-${taskID}" 
@@ -398,23 +400,23 @@ function renderMoveBtn(taskID) {
  * @returns {string} The generated dropdown HTML
  */
 function renderMoveMenu(source, taskID) {
-	const destinations = [
-		{ label: 'To do', value: 'toDo' },
-		{ label: 'In progress', value: 'inProgress' },
-		{ label: 'Await feedback', value: 'awaitFeedback' },
-		{ label: 'Done', value: 'done' },
-	].filter((dest) => dest.value !== source);
-	const dropdownItems = destinations
-		.map(
-			(dest) => /*html*/ `
+  const destinations = [
+    { label: "To do", value: "toDo" },
+    { label: "In progress", value: "inProgress" },
+    { label: "Await feedback", value: "awaitFeedback" },
+    { label: "Done", value: "done" },
+  ].filter((dest) => dest.value !== source);
+  const dropdownItems = destinations
+    .map(
+      (dest) => /*html*/ `
         <div 
           class="move-menu-item" 
           onclick="event.stopPropagation(); movePerMenu('${taskID}', '${dest.value}')">
           ${dest.label}
         </div>`
-		)
-		.join('');
-	return dropdownItems;
+    )
+    .join("");
+  return dropdownItems;
 }
 
 /**
@@ -424,24 +426,24 @@ function renderMoveMenu(source, taskID) {
  * Handles resetting any other open menus and buttons.
  */
 function toggleMoveBtnMenu(event, taskID) {
-	event.stopPropagation();
-	const moveMenu = document.getElementById(`move-menu-${taskID}`);
-	const btnIcon = document.getElementById(`btn-icon-${taskID}`);
-	resetNonSelectedMenus(`move-menu-${taskID}`);
-	resetNonSelectedBtns(`btn-icon-${taskID}`);
-	if (moveMenu.classList.contains('d-none')) {
-		moveMenu.classList.replace('qm-off', 'qm-on');
-		setTimeout(() => {
-			btnIcon.classList.replace('menu-closed', 'menu-open');
-			moveMenu.classList.toggle('d-none');
-		}, 125);
-	} else {
-		btnIcon.classList.replace('menu-open', 'menu-closed');
-		moveMenu.classList.replace('qm-on', 'qm-off');
-		setTimeout(() => {
-			moveMenu.classList.toggle('d-none');
-		}, 125);
-	}
+  event.stopPropagation();
+  const moveMenu = document.getElementById(`move-menu-${taskID}`);
+  const btnIcon = document.getElementById(`btn-icon-${taskID}`);
+  resetNonSelectedMenus(`move-menu-${taskID}`);
+  resetNonSelectedBtns(`btn-icon-${taskID}`);
+  if (moveMenu.classList.contains("d-none")) {
+    moveMenu.classList.replace("qm-off", "qm-on");
+    setTimeout(() => {
+      btnIcon.classList.replace("menu-closed", "menu-open");
+      moveMenu.classList.toggle("d-none");
+    }, 125);
+  } else {
+    btnIcon.classList.replace("menu-open", "menu-closed");
+    moveMenu.classList.replace("qm-on", "qm-off");
+    setTimeout(() => {
+      moveMenu.classList.toggle("d-none");
+    }, 125);
+  }
 }
 
 /**
@@ -451,14 +453,14 @@ function toggleMoveBtnMenu(event, taskID) {
  * @param {string} selectedMenuId - The ID of the menu to not reset
  */
 function resetNonSelectedMenus(selectedMenuId) {
-	const allMoveMenus = document.querySelectorAll('.move-menu');
-	allMoveMenus.forEach((menu) => {
-		if (menu.id !== selectedMenuId) {
-			menu.classList.add('d-none');
-			menu.classList.remove('qm-on');
-			menu.classList.add('qm-off');
-		}
-	});
+  const allMoveMenus = document.querySelectorAll(".move-menu");
+  allMoveMenus.forEach((menu) => {
+    if (menu.id !== selectedMenuId) {
+      menu.classList.add("d-none");
+      menu.classList.remove("qm-on");
+      menu.classList.add("qm-off");
+    }
+  });
 }
 
 /**
@@ -467,13 +469,13 @@ function resetNonSelectedMenus(selectedMenuId) {
  * @param {string} selectedBtnId - The ID of the selected button
  */
 function resetNonSelectedBtns(selectedBtnId) {
-	const allBtnIcons = document.querySelectorAll('.mobile-move-btn img');
-	allBtnIcons.forEach((icon) => {
-		if (icon.id !== selectedBtnId) {
-			icon.classList.remove('menu-open');
-			icon.classList.add('menu-closed');
-		}
-	});
+  const allBtnIcons = document.querySelectorAll(".mobile-move-btn img");
+  allBtnIcons.forEach((icon) => {
+    if (icon.id !== selectedBtnId) {
+      icon.classList.remove("menu-open");
+      icon.classList.add("menu-closed");
+    }
+  });
 }
 
 /**
@@ -481,22 +483,22 @@ function resetNonSelectedBtns(selectedBtnId) {
  * This allows tracking the id of the element currently being dragged.
  */
 function startDragging(id) {
-	currentDraggedElement = id;
-	const draggedTask = document.getElementById(id);
-	draggedTask.classList.add('dragged');
+  currentDraggedElement = id;
+  const draggedTask = document.getElementById(id);
+  draggedTask.classList.add("dragged");
 }
 
 function stopDragging(id) {
-	currentDraggedElement = id;
-	const draggedTask = document.getElementById(id);
-	draggedTask.classList.remove('dragged');
+  currentDraggedElement = id;
+  const draggedTask = document.getElementById(id);
+  draggedTask.classList.remove("dragged");
 }
 
 /**
  * Prevents the default dragover event to allow dropping.
  */
 function allowDrop(event) {
-	event.preventDefault();
+  event.preventDefault();
 }
 
 /**
@@ -508,19 +510,19 @@ function allowDrop(event) {
  * @param {string} status - The status to set the task to, e.g. "todo", "in-progress", "done"
  */
 function movePerDrag(status) {
-	let id = currentDraggedElement;
-	gotIt = false;
-	for (let i = 0; i < localUserData['users'].length && gotIt == false; i++) {
-		let element = localUserData['users'][i]['tasks'];
-		for (let j = 0; j < element.length; j++) {
-			if (element[j].id === id) {
-				localUserData['users'][i]['tasks'][j].status = status;
-				gotIt = true;
-			}
-		}
-	}
-	saveUserData();
-	updateHTML();
+  let id = currentDraggedElement;
+  gotIt = false;
+  for (let i = 0; i < localUserData["users"].length && gotIt == false; i++) {
+    let element = localUserData["users"][i]["tasks"];
+    for (let j = 0; j < element.length; j++) {
+      if (element[j].id === id) {
+        localUserData["users"][i]["tasks"][j].status = status;
+        gotIt = true;
+      }
+    }
+  }
+  saveUserData();
+  updateHTML();
 }
 
 /**
@@ -533,19 +535,19 @@ function movePerDrag(status) {
  * @param {string} destination - The status to set the task to
  */
 function movePerMenu(taskID, destination) {
-	taskID = parseInt(taskID);
-	let gotIt = false;
-	for (let i = 0; i < localUserData['users'].length && !gotIt; i++) {
-		let tasks = localUserData['users'][i]['tasks'];
-		for (let j = 0; j < tasks.length; j++) {
-			if (tasks[j].id === taskID) {
-				localUserData['users'][i]['tasks'][j].status = destination;
-				gotIt = true;
-			}
-		}
-	}
-	saveUserData();
-	updateHTML();
+  taskID = parseInt(taskID);
+  let gotIt = false;
+  for (let i = 0; i < localUserData["users"].length && !gotIt; i++) {
+    let tasks = localUserData["users"][i]["tasks"];
+    for (let j = 0; j < tasks.length; j++) {
+      if (tasks[j].id === taskID) {
+        localUserData["users"][i]["tasks"][j].status = destination;
+        gotIt = true;
+      }
+    }
+  }
+  saveUserData();
+  updateHTML();
 }
 
 /**
@@ -553,7 +555,7 @@ function movePerMenu(taskID, destination) {
  * This highlights the element as a drag target area.
  */
 function highlight(id) {
-	document.getElementById(id).classList.add('drag-area-highlight');
+  document.getElementById(id).classList.add("drag-area-highlight");
 }
 
 /**
@@ -561,7 +563,7 @@ function highlight(id) {
  * This removes the highlight indicating it as a drag target area.
  */
 function removeHighlight(id) {
-	document.getElementById(id).classList.remove('drag-area-highlight');
+  document.getElementById(id).classList.remove("drag-area-highlight");
 }
 
 // :::::::::::::::::::::: Search - Function  :::::::::::::::::::::://
@@ -574,22 +576,22 @@ function removeHighlight(id) {
  * If search input is empty, re-renders the full task list.
  */
 function filterMatchedTasks() {
-	let input = document.getElementById('find-task').value.toLowerCase();
-	let matchedTasks = [];
-	localUserData.users.forEach((user) => {
-		user.tasks.forEach((task) => {
-			if (
-				task.title.toLowerCase().includes(input) ||
-				task.description.toLowerCase().includes(input)
-			) {
-				matchedTasks.push(task);
-			}
-		});
-	});
-	renderMatchedTasks(matchedTasks);
-	if (input == '') {
-		updateHTML();
-	}
+  let input = document.getElementById("find-task").value.toLowerCase();
+  let matchedTasks = [];
+  localUserData.users.forEach((user) => {
+    user.tasks.forEach((task) => {
+      if (
+        task.title.toLowerCase().includes(input) ||
+        task.description.toLowerCase().includes(input)
+      ) {
+        matchedTasks.push(task);
+      }
+    });
+  });
+  renderMatchedTasks(matchedTasks);
+  if (input == "") {
+    updateHTML();
+  }
 }
 
 /**
@@ -599,27 +601,27 @@ function filterMatchedTasks() {
  * @param {Array} matchedTasks - Array of tasks matched by search filter
  */
 function renderMatchedTasks(matchedTasks) {
-	let toDoContainer = document.getElementById('toDo');
-	let inProgressContainer = document.getElementById('inProgress');
-	let awaitFeedbackContainer = document.getElementById('awaitFeedback');
-	let doneContainer = document.getElementById('closed');
-	toDoContainer.innerHTML = '';
-	inProgressContainer.innerHTML = '';
-	awaitFeedbackContainer.innerHTML = '';
-	doneContainer.innerHTML = '';
+  let toDoContainer = document.getElementById("toDo");
+  let inProgressContainer = document.getElementById("inProgress");
+  let awaitFeedbackContainer = document.getElementById("awaitFeedback");
+  let doneContainer = document.getElementById("closed");
+  toDoContainer.innerHTML = "";
+  inProgressContainer.innerHTML = "";
+  awaitFeedbackContainer.innerHTML = "";
+  doneContainer.innerHTML = "";
 
-	matchedTasks.forEach((task) => {
-		if (task.status == 'toDo') {
-			renderMatch(task, toDoContainer);
-		} else if (task.status == 'inProgress') {
-			renderMatch(task, inProgressContainer);
-		} else if (task.status == 'awaitFeedback') {
-			renderMatch(task, awaitFeedbackContainer);
-		} else if (task.status == 'done') {
-			renderMatch(task, doneContainer);
-		}
-	});
-	checkForEmptyContainers();
+  matchedTasks.forEach((task) => {
+    if (task.status == "toDo") {
+      renderMatch(task, toDoContainer);
+    } else if (task.status == "inProgress") {
+      renderMatch(task, inProgressContainer);
+    } else if (task.status == "awaitFeedback") {
+      renderMatch(task, awaitFeedbackContainer);
+    } else if (task.status == "done") {
+      renderMatch(task, doneContainer);
+    }
+  });
+  checkForEmptyContainers();
 }
 
 /**
@@ -630,9 +632,9 @@ function renderMatchedTasks(matchedTasks) {
  * @param {Element} container - DOM element to render task card into
  */
 function renderMatch(task, container) {
-	let names = task.assignedTo;
-	container.innerHTML += generateTaskCard(task);
-	renderFilteredCards(names, task);
+  let names = task.assignedTo;
+  container.innerHTML += generateTaskCard(task);
+  renderFilteredCards(names, task);
 }
 
 /**
@@ -644,11 +646,11 @@ function renderMatch(task, container) {
  * @param {Object} task - Task object
  */
 function renderFilteredCards(names, task) {
-	updateTaskColorAndCategory();
-	updatePriority();
-	showContactsToAssign();
-	createContactInitialsForFiltered(names, task);
-	showMaxThreeCircles(task);
+  updateTaskColorAndCategory();
+  updatePriority();
+  showContactsToAssign();
+  createContactInitialsForFiltered(names, task);
+  showMaxThreeCircles(task);
 }
 
 /**
@@ -660,25 +662,25 @@ function renderFilteredCards(names, task) {
  * @param {Object} task - Task object
  */
 function createContactInitialsForFiltered(names, task) {
-	let container = document.getElementById(`assignedCircle${task.id}`);
-	container.innerHTML = '';
-	names.forEach((name) => {
-		let user = localUserData.contacts.find(
-			(contact) => contact.userData.name === name
-		);
-		const initials = name
-			.split(' ')
-			.map((word) => word.charAt(0))
-			.join('');
+  let container = document.getElementById(`assignedCircle${task.id}`);
+  container.innerHTML = "";
+  names.forEach((name) => {
+    let user = localUserData.contacts.find(
+      (contact) => contact.userData.name === name
+    );
+    const initials = name
+      .split(" ")
+      .map((word) => word.charAt(0))
+      .join("");
 
-		container.innerHTML += /*html*/ `
+    container.innerHTML += /*html*/ `
 			<div 
       	class="initialsCircleOfTasks"
 				style="background-color: ${user.color}">
           ${initials}
     	</div>
 		`;
-	});
+  });
 }
 
 /**
@@ -691,23 +693,23 @@ function createContactInitialsForFiltered(names, task) {
  * @param {Element} doneContainer - The container for Closed/Done tasks
  */
 function checkForEmptyContainers() {
-	let toDoContainer = document.getElementById('toDo');
-	let inProgressContainer = document.getElementById('inProgress');
-	let awaitFeedbackContainer = document.getElementById('awaitFeedback');
-	let doneContainer = document.getElementById('closed');
+  let toDoContainer = document.getElementById("toDo");
+  let inProgressContainer = document.getElementById("inProgress");
+  let awaitFeedbackContainer = document.getElementById("awaitFeedback");
+  let doneContainer = document.getElementById("closed");
 
-	if (toDoContainer.childElementCount == 0) {
-		toDoContainer.innerHTML = generateEmptyHTML('to do');
-	}
-	if (inProgressContainer.childElementCount == 0) {
-		inProgressContainer.innerHTML = generateEmptyHTML('in progress');
-	}
-	if (awaitFeedbackContainer.childElementCount == 0) {
-		awaitFeedbackContainer.innerHTML = generateEmptyHTML('awaiting feedback');
-	}
-	if (doneContainer.childElementCount == 0) {
-		doneContainer.innerHTML = generateEmptyHTML('closed');
-	}
+  if (toDoContainer.childElementCount == 0) {
+    toDoContainer.innerHTML = generateEmptyHTML("to do");
+  }
+  if (inProgressContainer.childElementCount == 0) {
+    inProgressContainer.innerHTML = generateEmptyHTML("in progress");
+  }
+  if (awaitFeedbackContainer.childElementCount == 0) {
+    awaitFeedbackContainer.innerHTML = generateEmptyHTML("awaiting feedback");
+  }
+  if (doneContainer.childElementCount == 0) {
+    doneContainer.innerHTML = generateEmptyHTML("closed");
+  }
 }
 
 // :::::::::::::::::::::: Task - Card - PopUp :::::::::::::::::::::://
@@ -722,18 +724,18 @@ function checkForEmptyContainers() {
  * @param {string} element - The ID of the task card to show details for
  */
 function openTaskCardOverlay(element) {
-	let overlay = document.getElementById('overlay-task-card');
-	overlay.classList.remove('box-slide-out', 'd-none');
-	setTimeout(() => {
-		overlay.classList.add('box-slide-in');
-	}, 0);
-	overlay.classList.remove('d-none');
-	localUserData.users.forEach((user) => {
-		let cardIndex = user.tasks.findIndex((task) => task.id === element);
-		let card = user.tasks[cardIndex];
-		if (cardIndex !== -1) {
-			actualCard = card;
-			overlay.innerHTML = /*html*/ `
+  let overlay = document.getElementById("overlay-task-card");
+  overlay.classList.remove("box-slide-out", "d-none");
+  setTimeout(() => {
+    overlay.classList.add("box-slide-in");
+  }, 0);
+  overlay.classList.remove("d-none");
+  localUserData.users.forEach((user) => {
+    let cardIndex = user.tasks.findIndex((task) => task.id === element);
+    let card = user.tasks[cardIndex];
+    if (cardIndex !== -1) {
+      actualCard = card;
+      overlay.innerHTML = /*html*/ `
       <div class="overlay-wrapper">
         <div 
           id="${card.id}" 
@@ -790,14 +792,14 @@ function openTaskCardOverlay(element) {
         </div>
       </div>
       `;
-		} else {
-			return;
-		}
-	});
-	taskColorAndCategoryForSingleCard();
-	updatePriorityForSingleTask();
-	showInitialsForSingleCard();
-	showSubtasks();
+    } else {
+      return;
+    }
+  });
+  taskColorAndCategoryForSingleCard();
+  updatePriorityForSingleTask();
+  showInitialsForSingleCard();
+  showSubtasks();
 }
 
 /**
@@ -805,16 +807,16 @@ function openTaskCardOverlay(element) {
  * overlay task card to indicate the category type.
  */
 function taskColorAndCategoryForSingleCard() {
-	let element = document.getElementsByClassName('category-of-single-task');
-	Array.from(element).forEach((element) => {
-		if (element.innerText.trim() == 1) {
-			element.classList.add('user-story-task-color');
-			element.innerHTML = 'User Story';
-		} else {
-			element.classList.add('technical-task-color');
-			element.innerHTML = 'Technical Task';
-		}
-	});
+  let element = document.getElementsByClassName("category-of-single-task");
+  Array.from(element).forEach((element) => {
+    if (element.innerText.trim() == 1) {
+      element.classList.add("user-story-task-color");
+      element.innerHTML = "User Story";
+    } else {
+      element.classList.add("technical-task-color");
+      element.innerHTML = "Technical Task";
+    }
+  });
 }
 
 /**
@@ -824,43 +826,43 @@ function taskColorAndCategoryForSingleCard() {
  * @param {HTMLElement[]} prioBox - Array of priority elements
  */
 function updatePriorityForSingleTask() {
-	let prioBox = document.getElementsByClassName('priority-of-single-task');
-	Array.from(prioBox).forEach((prioBox) => {
-		if (
-			prioBox.innerText.trim() == '1' ||
-			prioBox.innerText.trim().toLowerCase() == 'low'
-		) {
-			prioBox.innerHTML = /*html*/ `
+  let prioBox = document.getElementsByClassName("priority-of-single-task");
+  Array.from(prioBox).forEach((prioBox) => {
+    if (
+      prioBox.innerText.trim() == "1" ||
+      prioBox.innerText.trim().toLowerCase() == "low"
+    ) {
+      prioBox.innerHTML = /*html*/ `
 			<span>Priority:</span>
 			<div class="priority-and-icon">
 				<span>Low</span>
 				<img src="${low}" alt="low Priority">
 			</div>	
 			`;
-		} else if (
-			prioBox.innerText.trim() == '2' ||
-			prioBox.innerText.trim().toLowerCase() == 'medium'
-		) {
-			prioBox.innerHTML = /*html*/ `
+    } else if (
+      prioBox.innerText.trim() == "2" ||
+      prioBox.innerText.trim().toLowerCase() == "medium"
+    ) {
+      prioBox.innerHTML = /*html*/ `
 			<span>Priority:</span>
 			<div class="priority-and-icon">
 				<span>Medium</span>
 				<img src="${medium}" alt="medium Priority">
 			</div>
 			`;
-		} else if (
-			prioBox.innerText.trim() == '3' ||
-			prioBox.innerText.trim().toLowerCase() == 'urgent'
-		) {
-			prioBox.innerHTML = /*html*/ `
+    } else if (
+      prioBox.innerText.trim() == "3" ||
+      prioBox.innerText.trim().toLowerCase() == "urgent"
+    ) {
+      prioBox.innerHTML = /*html*/ `
 			<span>Priority:</span>
 			<div class="priority-and-icon">
 				<span>High</span>
 				<img src="${high}" alt="high Priority">
       </div>
 			`;
-		}
-	});
+    }
+  });
 }
 
 /**
@@ -873,21 +875,21 @@ function updatePriorityForSingleTask() {
  * the initials styled with the color and the full name.
  */
 function showInitialsForSingleCard() {
-	let allInitials = actualCard.assignedTo;
-	let container = document.getElementById(
-		`singleAssignedCircle${actualCard['id']}`
-	);
-	container.innerHTML = '';
-	allInitials.forEach((name) => {
-		const initial = name
-			.split(' ')
-			.map((word) => word.charAt(0))
-			.join('');
-		let user = localUserData['contacts'].find(
-			(user) => user.userData.name === name
-		);
-		let color = user ? user.color : '#A8A8A8';
-		container.innerHTML += /*html*/ `			
+  let allInitials = actualCard.assignedTo;
+  let container = document.getElementById(
+    `singleAssignedCircle${actualCard["id"]}`
+  );
+  container.innerHTML = "";
+  allInitials.forEach((name) => {
+    const initial = name
+      .split(" ")
+      .map((word) => word.charAt(0))
+      .join("");
+    let user = localUserData["contacts"].find(
+      (user) => user.userData.name === name
+    );
+    let color = user ? user.color : "#A8A8A8";
+    container.innerHTML += /*html*/ `			
     <div class="name-and-initial-container">
     	<div
     		class="initialsCircleOfSingleTasks"
@@ -897,7 +899,7 @@ function showInitialsForSingleCard() {
   		<span>${name}</span>
   	</div>
 		`;
-	});
+  });
 }
 
 /**
@@ -907,12 +909,12 @@ function showInitialsForSingleCard() {
  * Handles toggling the checkbox when clicked and updating styles.
  */
 function showSubtasks() {
-	let content = document.getElementById(`subtasks${actualCard.id}`);
-	content.innerHTML = '';
-	content.innerHTML = `<span>Subtasks</span>`;
-	for (let index = 0; index < actualCard.subtasks.length; index++) {
-		let element = actualCard.subtasks[index]['name'];
-		content.innerHTML += /*html*/ `
+  let content = document.getElementById(`subtasks${actualCard.id}`);
+  content.innerHTML = "";
+  content.innerHTML = `<span>Subtasks</span>`;
+  for (let index = 0; index < actualCard.subtasks.length; index++) {
+    let element = actualCard.subtasks[index]["name"];
+    content.innerHTML += /*html*/ `
 			<div class="subtask-container">
     		<img 
 					class="img-checked-true-false" 
@@ -921,16 +923,16 @@ function showSubtasks() {
     		${element}
     	</div>
 		`;
-		let status = actualCard.subtasks[index]['done'];
-		let img = document.getElementsByClassName('img-checked-true-false')[index];
-		if (status === true) {
-			img.src = taskDone;
-			img.classList.add('is-done');
-		} else {
-			img.src = taskNotDone;
-			img.classList.add('not-done');
-		}
-	}
+    let status = actualCard.subtasks[index]["done"];
+    let img = document.getElementsByClassName("img-checked-true-false")[index];
+    if (status === true) {
+      img.src = taskDone;
+      img.classList.add("is-done");
+    } else {
+      img.src = taskNotDone;
+      img.classList.add("not-done");
+    }
+  }
 }
 
 /**
@@ -939,15 +941,15 @@ function showSubtasks() {
  * then adds the closed class. Also empties the inner HTML.
  */
 function closeTaskCardOverlay() {
-	let overlay = document.getElementById('overlay-task-card');
-	overlay.classList.remove('box-slide-in', 'd-none');
-	setTimeout(() => {
-		overlay.classList.add('box-slide-out');
-	}, 0);
-	overlay.classList.remove('d-none');
-	overlay.innerHTML = '';
-	actualCard = [];
-	updateHTML();
+  let overlay = document.getElementById("overlay-task-card");
+  overlay.classList.remove("box-slide-in", "d-none");
+  setTimeout(() => {
+    overlay.classList.add("box-slide-out");
+  }, 0);
+  overlay.classList.remove("d-none");
+  overlay.innerHTML = "";
+  actualCard = [];
+  updateHTML();
 }
 
 /**
@@ -958,16 +960,16 @@ function closeTaskCardOverlay() {
  * task card overlay, and updates the HTML to reflect the change.
  */
 function deleteTask(card) {
-	for (let i = 0; i < localUserData.users.length; i++) {
-		for (let j = 0; j < localUserData.users[i].tasks.length; j++) {
-			if (localUserData.users[i].tasks[j].id === card) {
-				localUserData.users[i].tasks.splice(j, 1);
-			}
-		}
-	}
-	saveUserData();
-	closeTaskCardOverlay();
-	updateHTML();
+  for (let i = 0; i < localUserData.users.length; i++) {
+    for (let j = 0; j < localUserData.users[i].tasks.length; j++) {
+      if (localUserData.users[i].tasks[j].id === card) {
+        localUserData.users[i].tasks.splice(j, 1);
+      }
+    }
+  }
+  saveUserData();
+  closeTaskCardOverlay();
+  updateHTML();
 }
 
 /**
@@ -977,15 +979,15 @@ function deleteTask(card) {
  * re-renders the subtasks section of the task card.
  */
 function changeSubtaskToDoneOrNot(index) {
-	let subtask = actualCard.subtasks[index];
-	if (subtask.done === false) {
-		subtask.done = true;
-	} else {
-		subtask.done = false;
-	}
-	localUserData.users.indexOf(actualCard);
-	saveUserData();
-	showSubtasks();
+  let subtask = actualCard.subtasks[index];
+  if (subtask.done === false) {
+    subtask.done = true;
+  } else {
+    subtask.done = false;
+  }
+  localUserData.users.indexOf(actualCard);
+  saveUserData();
+  showSubtasks();
 }
 
 // :::::::::::::::::::::: Add - Task - PopUp :::::::::::::::::::::://
@@ -996,12 +998,12 @@ function changeSubtaskToDoneOrNot(index) {
  * to make it visible. Adds the 'box-slide-in' class to animate it opening.
  */
 function openAddTaskOverlay() {
-	let overlay = document.getElementById('add-task-content-overlay');
-	overlay.classList.remove('box-slide-out', 'd-none');
-	setTimeout(() => {
-		overlay.classList.add('box-slide-in');
-	}, 0);
-	overlay.classList.remove('d-none');
+  let overlay = document.getElementById("add-task-content-overlay");
+  overlay.classList.remove("box-slide-out", "d-none");
+  setTimeout(() => {
+    overlay.classList.add("box-slide-in");
+  }, 0);
+  overlay.classList.remove("d-none");
 }
 
 /**
@@ -1010,11 +1012,11 @@ function openAddTaskOverlay() {
  * and ensuring the overlay is not hidden with 'd-none' after closing.
  */
 function closeAddTaskOverlay() {
-	clearForm();
-	let overlay = document.getElementById('add-task-content-overlay');
-	overlay.classList.remove('box-slide-in', 'd-none');
-	setTimeout(() => {
-		overlay.classList.add('box-slide-out');
-	}, 0);
-	overlay.classList.remove('d-none');
+  clearForm();
+  let overlay = document.getElementById("add-task-content-overlay");
+  overlay.classList.remove("box-slide-in", "d-none");
+  setTimeout(() => {
+    overlay.classList.add("box-slide-out");
+  }, 0);
+  overlay.classList.remove("d-none");
 }
