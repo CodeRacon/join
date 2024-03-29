@@ -58,7 +58,7 @@
 								class="field-width-height input-borders title--input"
 								name="title"
 								type="text"
-								maxlength="140"
+								maxlength="40"
 								placeholder="Enter a title"
 								required />
 						</div>
@@ -71,6 +71,7 @@
 								id="description"
 								class="field-width-height input-borders description"
 								placeholder="Enter a Description"
+								maxlength="140"
 								cols="30"
 								rows="10">
 							</textarea>
@@ -92,6 +93,7 @@
 									onkeyup="filterContactsToAssign(), onlyOpenDropDownToAssign()" />
 								<img
 									id="arrowImg"
+									class="dropdown-icon"
 									src="/assets/img/icons/add-task/arrow-down.svg"
 									alt="Arrow down icon" />
 							</div>
@@ -181,6 +183,7 @@
 									onclick="selectOrClearCategory()" />
 								<img
 									id="arrowImgCategory"
+									class="dropdown-icon"
 									src="/assets/img/icons/add-task/arrow-down.svg"
 									alt="Arrow down icon"
 									onclick="selectOrClearCategory()" />
