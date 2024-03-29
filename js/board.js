@@ -325,6 +325,11 @@ function generateEmptyHTML(text) {
 	`;
 }
 
+/**
+ * Checks if drag and drop is enabled based on window width.
+ *
+ * @returns {boolean} True if window width is greater than 1152px.
+ */
 function isDraggable() {
   return window.innerWidth > 1152;
 }
@@ -488,6 +493,13 @@ function startDragging(id) {
   draggedTask.classList.add("dragged");
 }
 
+/**
+ * Unsets the global currentDraggedElement variable and removes
+ * the "dragged" class from the DOM element with the provided id.
+ * This is called when dragging ends to reset the element.
+ *
+ * @param {string} id - The id of the DOM element that was being dragged
+ */
 function stopDragging(id) {
   currentDraggedElement = id;
   const draggedTask = document.getElementById(id);
@@ -576,7 +588,7 @@ function removeHighlight(id) {
  * If search input is empty, re-renders the full task list.
  */
 function filterMatchedTasks() {
-  let input = document.getElementById("find-task").value.toLowerCase();
+  let input = document.getElementById("find-task").value.toLowerCase().trim();
   let matchedTasks = [];
   localUserData.users.forEach((user) => {
     user.tasks.forEach((task) => {
@@ -710,6 +722,23 @@ function checkForEmptyContainers() {
   if (doneContainer.childElementCount == 0) {
     doneContainer.innerHTML = generateEmptyHTML("closed");
   }
+}
+
+function exchaneImgInput() {
+  let img = document.getElementById("magnifying-glass");
+  img.src = "assets/img/icons/add-task/close.svg";
+  img.setAttribute("onclick", "clearInput()");
+  img.classList.add("hover-close");
+}
+
+function clearInput() {
+  let input = document.getElementById("find-task");
+  let img = document.getElementById("magnifying-glass");
+  img.src = "assets/img/icons/board/search-icon.svg";
+  img.removeAttribute("onclick", "clearInput()");
+  img.classList.remove("hover-close");
+  updateHTML();
+  input.value = "";
 }
 
 // :::::::::::::::::::::: Task - Card - PopUp :::::::::::::::::::::://
