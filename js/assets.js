@@ -58,7 +58,7 @@ startData = {
 					priority: 2,
 					subtasks: [
 						{ name: 're-design Mockup', done: false },
-						{ name: 'update incredient calculator', done: true },
+						{ name: 'update incredient calculator', done: false },
 					],
 					dueDate: '2024-04-22',
 				},
