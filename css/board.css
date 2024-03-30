@@ -92,6 +92,10 @@ section.board-section {
 	padding: 6.85rem 4rem 4rem 4rem;
 }
 
+.invalid {
+	border: var(--form-fail-border) !important;
+}
+
 .headline-container {
 	display: flex;
 	justify-content: space-between;
@@ -632,6 +636,16 @@ progress::-webkit-progress-bar {
 .onfocus {
 	border: var(--form-active-border) !important;
 	border-bottom: unset !important;
+}
+
+.onfocus.invalid {
+	border: var(--form-fail-border) !important;
+	border-bottom: unset !important;
+}
+
+.dropdown-content.onfocus.invalid {
+	border: var(--form-fail-border) !important;
+	border-top: unset !important;
 }
 
 #category::placeholder {

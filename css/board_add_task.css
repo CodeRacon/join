@@ -269,6 +269,26 @@ input::-moz-calendar-picker-indicator {
 	border-radius: 5px;
 }
 
+#add-task-overlay-task-created {
+	position: absolute;
+	z-index: 999;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	align-items: center;
+	gap: 1.3rem;
+	width: fit-content;
+	min-width: 16rem;
+	padding: 1rem 1.25rem;
+	border-radius: 1.25rem;
+	background-color: var(--primary);
+}
+
+#add-task-overlay-task-created span {
+	color: white;
+}
+
 #add-task-content-overlay {
 	width: 67.5vw;
 	max-width: calc(1440px * 0.85);

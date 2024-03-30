@@ -162,7 +162,7 @@ input::-moz-calendar-picker-indicator {
 .main-container {
 	display: flex;
 	gap: clamp(1rem, 7.843vw + -4.059rem, 3rem);
-	margin-bottom: 4rem;
+	margin-bottom: 2rem;
 }
 
 .border-none {
@@ -196,6 +196,10 @@ input::-moz-calendar-picker-indicator {
 
 .asterisk {
 	color: var(--form-fail-txt-col);
+}
+
+.invalid {
+	border: var(--form-fail-border) !important;
 }
 
 .left-column,
@@ -266,6 +270,11 @@ input::-moz-calendar-picker-indicator {
 
 .dropdown-content.onfocus {
 	border: var(--form-active-border) !important;
+	border-top: unset !important;
+}
+
+.dropdown-content.onfocus.invalid {
+	border: var(--form-fail-border) !important;
 	border-top: unset !important;
 }
 
@@ -510,6 +519,11 @@ input::-moz-calendar-picker-indicator {
 	border-bottom: unset !important;
 }
 
+.onfocus.invalid {
+	border: var(--form-fail-border) !important;
+	border-bottom: unset !important;
+}
+
 #category::placeholder {
 	color: var(--black, #000);
 }
@@ -723,7 +737,8 @@ input::-moz-calendar-picker-indicator {
 	align-items: center;
 	gap: 1.3rem;
 	width: fit-content;
-	padding: 1.5rem;
+	min-width: 16rem;
+	padding: 1rem 1.25rem;
 	border-radius: 1.25rem;
 	background-color: var(--primary);
 }
