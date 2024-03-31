@@ -729,7 +729,7 @@ function checkForEmptyContainers() {
  * and sets it to call clearInput() when clicked.
  * Also adds the hover-close class.
  */
-function exchaneImgInput() {
+function exchangeImgInput() {
   let img = document.getElementById("magnifying-glass");
   img.src = "assets/img/icons/add-task/close.svg";
   img.setAttribute("onclick", "clearInputAndResetImg()");
