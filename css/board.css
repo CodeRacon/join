@@ -237,6 +237,10 @@ select:focus,
 	flex-grow: none;
 }
 
+.status--add-btn:hover {
+	content: url('/assets/img/icons/board/add-hover.svg');
+}
+
 .to-do-container,
 .in-progress-container,
 .await-feedback-container,
