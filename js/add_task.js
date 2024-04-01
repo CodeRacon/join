@@ -564,6 +564,7 @@ function clearForm() {
   onlyCloseDropDownToAssign();
   resetPrioButtons();
   resetGlobal();
+  resetAddTaskErrorFeedback();
 }
 
 /**
@@ -637,22 +638,6 @@ function resetGlobal() {
 }
 
 /**
- * Checks if the required fields for adding a new task are filled out.
- * If so, saves the new task. If not, returns without saving to
- * indicate there are missing fields.
- */
-function checkIfFieldsAreFilled() {
-  let button = document.querySelector(".submit-btn");
-  saveInputs();
-  if (newTitle && newDueDate && newCategory !== "") {
-    saveNewTask();
-    button.removeAttribute("disabled");
-  } else {
-    return; // hier muss statt return dieses rote Feld auftauchen, in dem steht, was genau ausgefüllt werden muss
-  }
-}
-
-/**
  * Saves the user input values from the form fields
  * into the appropriate global variables to be used when
  * saving a new task.
@@ -690,7 +675,7 @@ function generateNewIdForTask() {
  * pushes the new task to the user's task array,
  * and resets the max ID counter.
  */
-function saveNewTask() {
+function saveNewTask(origin) {
   let subtasksArray = [];
   newSubtasks.forEach((subtask) => {
     subtasksArray.push(subtask);
@@ -710,9 +695,13 @@ function saveNewTask() {
   clearForm();
   pushTaskToArray();
   maxId = 0;
-  setTimeout(function () {
-    window.location.href = "board.html";
-  }, 3500);
+  if (origin !== "board") {
+    setTimeout(function () {
+      window.location.href = "board.html";
+    }, 3500);
+  } else {
+    updateHTML();
+  }
 }
 
 /**
@@ -744,4 +733,84 @@ function showConfirmation() {
       overlay.classList.add("box-slide-out", "d-none");
     }, 3000);
   }, 0);
+}
+
+function validateAddTaskForm(event, origin) {
+  const isValidTitle = validateTitle();
+  const isValidDueDate = validateDueDate();
+  const isValidCategory = validateCategory();
+
+  if (isValidTitle && isValidDueDate && isValidCategory) {
+    console.log("Form is valid");
+    saveInputs();
+    saveNewTask(origin);
+    setTimeout(() => {
+      closeAddTaskOverlay();
+    }, 0);
+  } else {
+    console.log("Form is not valid");
+    event.preventDefault();
+    animateHint();
+    return false;
+  }
+}
+
+function animateHint() {
+  const hint = document.getElementById("hint");
+  hint.classList.add("shake");
+  setTimeout(() => {
+    hint.classList.remove("shake");
+  }, 1000);
+}
+
+function validateTitle() {
+  let titleInput = document.getElementById("title-value");
+  let titleValue = titleInput.value.trim();
+  if (titleValue.length > 40 || titleValue === "") {
+    titleInput.classList.add("invalid");
+    return false;
+  } else {
+    titleInput.classList.remove("invalid");
+    return true;
+  }
+}
+
+function validateDueDate() {
+  let dueDateInput = document.getElementById("due-date-value");
+  let dueDateValue = dueDateInput.value.trim();
+  if (dueDateValue === "") {
+    dueDateInput.classList.add("invalid");
+    return false;
+  } else {
+    dueDateInput.classList.remove("invalid");
+    return true;
+  }
+}
+
+function validateCategory() {
+  let categoryCont = document.getElementById("category-div");
+  let dropDownCont = document.getElementById("dropdownContentCategory");
+  let categoryInput = document.getElementById("category");
+  let categoryValue = categoryInput.value.trim();
+  if (categoryValue === "") {
+    categoryCont.classList.add("invalid");
+    dropDownCont.classList.add("invalid");
+    return false;
+  } else {
+    categoryCont.classList.remove("invalid");
+    dropDownCont.classList.remove("invalid");
+    return true;
+  }
+}
+
+function resetAddTaskErrorFeedback() {
+  let titleInput = document.getElementById("title-value");
+  let dueDateInput = document.getElementById("due-date-value");
+  let categoryCont = document.getElementById("category-div");
+  let dropDownCont = document.getElementById("dropdownContentCategory");
+
+  titleInput.classList.remove("invalid");
+  dueDateInput.classList.remove("invalid");
+  categoryCont.classList.remove("invalid");
+  dropDownCont.classList.remove("invalid");
 }

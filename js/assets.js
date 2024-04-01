@@ -58,7 +58,7 @@ startData = {
 					priority: 2,
 					subtasks: [
 						{ name: 're-design Mockup', done: false },
-						{ name: 'update incredient calculator', done: true },
+						{ name: 'update incredient calculator', done: false },
 					],
 					dueDate: '2024-04-22',
 				},
@@ -118,7 +118,7 @@ startData = {
 					priority: 3,
 					subtasks: [
 						{ name: 'Research suitable frameworks', done: true },
-						{ name: 'Set up project with selected framework', done: false },
+						{ name: 'Set up project with selected framework', done: true },
 					],
 					dueDate: '2024-04-02',
 				},
@@ -237,7 +237,7 @@ startData = {
 					priority: 3,
 					subtasks: [
 						{ name: 'Debug JavaScript errors', done: true },
-						{ name: 'Fix CSS layout issues', done: false },
+						{ name: 'Fix CSS layout issues', done: true },
 					],
 					dueDate: '2024-04-06',
 				},
@@ -297,7 +297,7 @@ startData = {
 					priority: 3,
 					subtasks: [
 						{ name: 'Set up performance monitoring tools', done: true },
-						{ name: 'Analyze page load times', done: false },
+						{ name: 'Analyze page load times', done: true },
 					],
 					dueDate: '2024-04-08',
 				},
