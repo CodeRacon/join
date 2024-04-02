@@ -26,6 +26,7 @@ function checkExistence() {
 }
 
 function checkIfValueIsLegit(mail, password) {
+    loadIndexNum()
     for (let i = 0; i < startData.users.length; i++) {
         if (startData.users[i].hasOwnProperty('userData')) {
             if (startData.users[i].userData['email'] == mail && startData.users[i].userData['password'] == password) {
@@ -114,7 +115,11 @@ document.addEventListener("DOMContentLoaded", () => {
     loadTemplate();
     if(switchTemplates == 1){
     document.getElementById('anyt').innerHTML = `
-    <form onsubmit="createAccount(); return false">
+
+    <form class="registerInputBox" onsubmit="createAccount(); return false">
+    <div>
+        <img src="./assets/img/icons/login_signup/arrow-left-line.svg" alt="" srcset="">
+    </div>
     <div>
         <input required id="name" required type="text" placeholder="Name">
     </div>
@@ -147,15 +152,21 @@ function getto(){
 
 // irgendwo hier eine funktion die dafür sorgt das GuestUser auf den ursprünglichen Stand zurückgesetzt wird und in dem issloged in auf true gesetzt wird
 function guestLogin(){
+    loadIndexNum();
     loadUsers();
-    loadUserData();
-    console.log(localUserData);
-    console.log(startData.Guest[0].isLoggedIn);
-    startData.Guest[0].isLoggedIn = true;
-    storeStartData();
-    localUserData[0] = startData.Guest[0];
-    for (let index = 0; index < array.length; index++) {
-        const element = array[index];
+    console.log(startData);
+    for (let i = 0; i < startData.users.length; i++) {
+        if (startData.users[i].hasOwnProperty('userData')){
+            if (startData.users[i].userData.name == 'Guest') {
+                if (startData.users[i].tasks.length > 0) {
+                    startData.users[i].tasks.splice(0);
+                    storeStartData();
+                    num = i;
+                    saveIndexNum();
+                }
+                
+            }
+        }
         
     }
     window.open("test.html");
