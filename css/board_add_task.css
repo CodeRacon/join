@@ -703,7 +703,7 @@ input::-moz-calendar-picker-indicator {
 }
 
 .subtask-list-item input {
-	width: 92.5%;
+	width: 91.5%;
 	border: unset;
 	background-color: transparent;
 	color: #000;
@@ -821,7 +821,7 @@ input::-moz-calendar-picker-indicator {
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
-	padding-right: 1.75rem;
+	padding: 1rem 1.25rem 0 1.25rem;
 }
 
 .ok-btn-cont > button {
