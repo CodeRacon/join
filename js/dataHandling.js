@@ -31,6 +31,15 @@ async function init(){
 async function ppt(){
     await loadUserData();
     await loadUsers();
+    if (startData.users[num].userData.name == 'Guest') {
+        alert('heysxoyxc');
+        let guestUser = {
+            user: startData.users[num],
+            contacts: {}
+        }
+        await checkIfArrayExistInServer(guestUser);
+        return;
+    } 
     let combinedUser = {
         user: startData.users[num],
         contacts: startData.contacts
@@ -66,35 +75,70 @@ console.log(startData);
 
 async function letMeCook(){
     await loadUsers(); 
+    await loadUserData();
     console.log(startData);
     console.log(TestStorage[1]);
     if (TestStorage.length > 0) {
         for (let i = 0; i < TestStorage.length; i++) {
-            if (TestStorage[i].user.userData.name == startData.users[num].userData.name) {
-                alert('oh mnow');
-                localUserData[0] = TestStorage[i];
-                saveUserData();
+            if (TestStorage[i].hasOwnProperty('user')) {
+                if (TestStorage[i].user.userData.name == startData.users[num].userData.name) {
+                    alert('oh mnow');
+                    localUserData[0] = TestStorage[i];
+                    saveUserData();
+                
+                }
+               
             }
+          
         }
     }
 }
 
-     letMeCook();
+letMeCook();      
 
+async function fati(){
+    await loadUsers()
+    loadamountds();
+    loadUserData();
+    if (startData.users[num].tasks.length == 0) {
+      
+            TestStorage[0] = startData.users[num];
+            saveTestArray();
+          
+        saveUserData();
+        
+}
+startData.users[num].tasks.push('full')
+storeStartData();
+    if ( startData.users[num].tasks.length > 0) {
+        startData.users[num].tasks.push('full')
+        storeStartData();
+        saveTestArray();
+        
+     }
+    console.log(localUserData);
+}
+
+fati();
 
 window.onbeforeunload = async function() {
-    
+    await loadUserData();
+    letMeCook();
+    loadamountds();
     await youlo();
+    fati();
+ 
     localStorage.removeItem('changedData');
-   
+     
+ 
+    
 };
-
-
 
 
 async function youlo(){
     await loadUserData();
     loadamountds();
+  
     for (let i = 0; i < TestStorage.length; i++) { 
      if (TestStorage[i].hasOwnProperty('user')) {
           if (TestStorage[i].user.userData.name ==  localUserData[0].user.userData.name) {
@@ -103,19 +147,22 @@ async function youlo(){
             saveTestArray();
             localUserData[0] = TestStorage[i];
             saveUserData();
-            return;
-            // if Guest User is Logged in true
-            // false setzen
-            // Guest von startData pushen
-          }            
+         
+           return;
+          }         
         }
         
      }
-     // unter mir besser in den else teik
+  
+    if (startData.users[num].tasks.length > 0) {
+        
+    }
      TestStorage.push(localUserData[0]);
      saveTestArray();
      
      return;
+     // unter mir besser in den else teik
+    
     
 }
 // Hinzufügen des Event-Listeners
