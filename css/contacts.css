@@ -80,7 +80,7 @@ section.contacts-section h2 {
 	overflow-y: scroll;
 	overflow-x: hidden;
 	gap: 0.5rem;
-	z-index: 111;
+	z-index: 88;
 }
 
 .contact-list p {
