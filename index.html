@@ -1,26 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/media_queries.css" />
-    <link rel="stylesheet" href="css/start.css" />
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/fonts.css" />
-    <link rel="stylesheet" href="css/root.css" />
-    <link rel="stylesheet" href="css/signUp.css">
-    <script defer src="js/main.js"></script>
-    <link rel="icon" type="image/png" href="assets/img/logo/favicon.png" />
-    <title>join - kanban project management tool</title>
-    <script src="./js/assets.js"></script>
-    <script src="js/storage.js"></script>
-    
-    <script src="js/log_In.js"></script>
-    <script src="js/signUp.js"></script>
-    
-  </head>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="css/fonts.css" />
+		<link rel="stylesheet" href="css/root.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/start.css" />
+		<script defer src="js/signUp.js"></script>
+		<script defer src="js/main.js"></script>
+		<link rel="icon" type="image/png" href="assets/img/logo/favicon.png" />
 
-  <!--  
+		<title>join - kanban project management tool</title>
+	</head>
+
+	<!--  
       _____             
    ,'  -. `.       
   /   - _ - \       
@@ -32,38 +26,164 @@
      /    \         
 -->
 
-  <body onbeforeunload="return myFunction()">
-    <div class="start-page">
-      <img
-        class="start-logo"
-        src="/assets/img/logo/start-logo-dark.svg"
-        alt="join logo" />
-        <button onclick="switchToSignUp()"></button>
-      <div id="anyt">
-      <form class="log-in" onsubmit=" checkExistence(); return false">
-        <h1 class="log-in--h1">Log In</h1>
-        <div class="custom-underline"></div>
-        <div class="log-in-inputs">
-          <input id="login-email" type="email" required placeholder="Email" />
-          <input
-            id="login-password"
-            type="password"
-            required
-            placeholder="Password" />
-        </div>
-        <div class="log-in-checkbox">
-          <div class="rem-me--checkbox">
-            <p id="john" style="color: red;" class="dn">Incorect Pasword or Email</p>
-            <div id="checkedOrNot">
-              <img  onclick="checkBox()" class="imgmo" src="assets/img/icons/general/other/unchecked.svg" alt="" srcset="">
-              <p>Remember Me</p>
-            </div>
-          </div>
-        </div>
-        <button>Got You</button>
-      </form>
-      <button onclick="guestLogin()">Guest User</button>
-    </div>
-    </div>
-  </body>
+	<body>
+		<img
+			class="start-logo"
+			src="/assets/img/logo/start-logo-dark.svg"
+			alt="join logo" />
+		<div class="start-overlay"></div>
+		<div id="call-to-signup" class="call-to-signup">
+			<p>Not a Join user?</p>
+			<button onclick="toggleLoginSignup()">Sign up</button>
+		</div>
+		<div id="login-box" class="login-box">
+			<form
+				class="login-form"
+				onsubmit="validateLoginForm(); return false;"
+				novalidate>
+				<div class="login-heading">
+					<h1>Log In</h1>
+					<div class="custom-underline"></div>
+				</div>
+
+				<div class="login-inputs">
+					<div class="input-container">
+						<input
+							id="login-email"
+							type="text"
+							autocomplete="off"
+							placeholder="Email"
+							required />
+						<img src="/assets/img/icons/login_signup/mail.svg" />
+						<p id="email-error-login" class="error-message">
+							This is an error message!
+						</p>
+					</div>
+
+					<div class="input-container">
+						<input
+							id="login-password"
+							type="password"
+							autocomplete="off"
+							placeholder="Password"
+							required />
+						<img src="/assets/img/icons/login_signup/lock.svg" />
+						<p id="password-error-login" class="error-message">
+							This is an error message!
+						</p>
+					</div>
+				</div>
+
+				<div class="login-checkbox">
+					<input
+						type="checkbox"
+						class="custom-checkbox"
+						id="login-checkbox"
+						onchange="" />
+					<p>Remember Me</p>
+				</div>
+				<div class="login-btn-bar">
+					<button type="submit">Log in</button>
+					<button type="button" onclick="">Guest Log in</button>
+				</div>
+			</form>
+		</div>
+
+		<!-- ############################### -->
+
+		<div id="signup-box" class="signup-box d-none">
+			<div class="back-arrow" onclick="toggleLoginSignup()"></div>
+			<form
+				class="signup-form"
+				onsubmit="validateSignupForm(); return false;"
+				novalidate>
+				<div class="signup-heading">
+					<h1>Sign up</h1>
+					<div class="custom-underline"></div>
+				</div>
+
+				<div class="signup-inputs">
+					<div class="input-container">
+						<input
+							id="signup-name"
+							type="text"
+							autocomplete="off"
+							placeholder="Name"
+							required />
+						<img src="/assets/img/icons/contacts/person.svg" />
+						<p id="name-error-signup" class="error-message">
+							This is an error message!
+						</p>
+					</div>
+					<div class="input-container">
+						<input
+							id="signup-email"
+							type="text"
+							autocomplete="off"
+							placeholder="Email"
+							required />
+						<img src="/assets/img/icons/login_signup/mail.svg" />
+						<p id="email-error-signup" class="error-message">
+							This is an error message!
+						</p>
+					</div>
+
+					<div class="input-container">
+						<input
+							id="signup-password"
+							type="password"
+							autocomplete="off"
+							placeholder="Password"
+							required />
+						<img src="/assets/img/icons/login_signup/lock.svg" />
+						<p id="password-error-signup" class="error-message">
+							This is an error message!
+						</p>
+					</div>
+					<div class="input-container">
+						<input
+							id="signup-password-repeat"
+							type="password"
+							autocomplete="off"
+							placeholder="Password"
+							required />
+						<img src="/assets/img/icons/login_signup/lock.svg" />
+						<p id="password-error-signup" class="error-message">
+							This is an error message!
+						</p>
+					</div>
+				</div>
+				<div class="bottom-cont">
+					<div class="signup-checkbox">
+						<input
+							type="checkbox"
+							class="custom-checkbox"
+							id="signup-checkbox"
+							required
+							onchange="" />
+						<p>I accept the&nbsp;</p>
+						<a
+							id="privacy-link"
+							onclick="openExternalLink('/privacy_policy.html')"
+							>Privacy Policy</a
+						>
+					</div>
+
+					<div class="signup-btn-bar">
+						<button type="submit">Sign up</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="bottom-links">
+			<div class="pp-ln">
+				<a id="privacy-link" onclick="openExternalLink('/privacy_policy.html')"
+					>Privacy Policy</a
+				>
+				<a id="legal-link" onclick="openExternalLink('/legal_notice.html')"
+					>Legal Notice</a
+				>
+			</div>
+		</div>
+	</body>
 </html>
