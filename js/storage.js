@@ -1,28 +1,28 @@
-const STORAGE_URL = "https://remote-storage.developerakademie.org/item";
-const STORAGE_TOKEN = "OLCMKPDCPKF9TQULRK3MARG5U8JK2GGGL5588K0M";
+const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
+const STORAGE_TOKEN = 'OLCMKPDCPKF9TQULRK3MARG5U8JK2GGGL5588K0M';
 
 async function setItem(key, value) {
-  const payload = { key, value, token: STORAGE_TOKEN };
-  try {
-    return fetch(STORAGE_URL, {
-      method: "POST",
-      body: JSON.stringify(payload),
-    }).then((res) => res.json());
-  } catch {
-    console.log("Could not set Item");
-  }
+	const payload = { key, value, token: STORAGE_TOKEN };
+	try {
+		return fetch(STORAGE_URL, {
+			method: 'POST',
+			body: JSON.stringify(payload),
+		}).then((res) => res.json());
+	} catch {
+		console.log('Could not set Item');
+	}
 }
 
 async function getItem(key) {
-  const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
-  return fetch(url)
-    .then((res) => res.json())
-    .then((res) => {
-      if (res.data) {
-        return res.data.value;
-      }
-      throw `Could not find data with key "${key}".`;
-    });
+	const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
+	return fetch(url)
+		.then((res) => res.json())
+		.then((res) => {
+			if (res.data) {
+				return res.data.value;
+			}
+			throw `Could not find data with key "${key}".`;
+		});
 }
 
 /**
@@ -37,16 +37,18 @@ let isGuestUser = true;
  */
 async function loadUserData() {
 	const savedData = localStorage.getItem('changedData');
-	if (savedData) {
+	if (!savedData) {
+		localUserData = JSON.parse(await getItem('startData'));
+	} else {
 		localUserData = JSON.parse(savedData);
-	} // hey startData darf hier nie laden asynchrone funktion 
+	}
 }
 
 /**
  * Saves the edited local user data to local storage.
  */
 function saveUserData() {
-  localStorage.setItem("changedData", JSON.stringify(localUserData));
+	localStorage.setItem('changedData', JSON.stringify(localUserData));
 
-  console.log("Saved changed data");
+	console.log('Saved changed data');
 }
