@@ -386,6 +386,35 @@ h1 {
 	border: unset;
 }
 
+.blink {
+	-webkit-animation: blinking 0.6s both;
+	animation: blinking 0.6s both;
+}
+
+@-webkit-keyframes blinking {
+	0%,
+	50%,
+	100% {
+		opacity: 1;
+	}
+	25%,
+	75% {
+		opacity: 0;
+	}
+}
+
+@keyframes blinking {
+	0%,
+	50%,
+	100% {
+		opacity: 1;
+	}
+	25%,
+	75% {
+		opacity: 0;
+	}
+}
+
 .bottom-links {
 	position: absolute;
 	bottom: 1rem;
