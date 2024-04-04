@@ -23,18 +23,22 @@ async function createAccount() {
 	return await pushIntoArray(name, email, paswort);
 }
 
-/*function checkExistenceOfAccount(name, email, paswort){
-    for (let i = 0; i < startData.users.length; i++) {
-        if (startData.users[i].hasOwnProperty('registerData')){
-        if (startData.users[i].registerData.Data['name'] == name.value || startData.users[i].registerData.Data['email'] == email.value ||  startData.users[i].registerData.Data['password'] == paswort.value) {
-            alert('hey');
-            return true;
-        }}
-        else{
-            return false;
-        }
-    }
-}*/
+function checkExistenceOfAccount(name, email, paswort) {
+	for (let i = 0; i < startData.users.length; i++) {
+		if (startData.users[i].hasOwnProperty('registerData')) {
+			if (
+				startData.users[i].registerData.Data['name'] == name.value ||
+				startData.users[i].registerData.Data['email'] == email.value ||
+				startData.users[i].registerData.Data['password'] == paswort.value
+			) {
+				alert('hey');
+				return true;
+			}
+		} else {
+			return false;
+		}
+	}
+}
 
 function generatePhoneNumber() {
 	var phoneNumber = '';
@@ -108,14 +112,181 @@ function toggleLoginSignup() {
 	const signupBox = document.getElementById('signup-box');
 	const loginBox = document.getElementById('login-box');
 	const showSignupBtn = document.getElementById('call-to-signup');
+	signupBox.classList.toggle('d-none');
+	loginBox.classList.toggle('d-none');
+	showSignupBtn.classList.toggle('d-none');
+	resetLoginSignupErrors();
+}
 
-	if (!loginBox.classList.contains('d-none')) {
-		loginBox.classList.add('d-none');
-		showSignupBtn.classList.add('d-none');
-		signupBox.classList.remove('d-none');
-	} else if (loginBox.classList.contains('d-none')) {
-		signupBox.classList.add('d-none');
-		loginBox.classList.remove('d-none');
-		showSignupBtn.classList.remove('d-none');
+function blinkAnimation() {
+	const checkboxCont = document.getElementById('signup-checkbox-cont');
+	checkboxCont.classList.add('blink');
+	setTimeout(() => {
+		checkboxCont.classList.remove('blink');
+	}, 1000);
+}
+
+function validateLoginForm() {
+	const isValidEmail = validateLoginEmail();
+	const isValidPassword = validateLoginPW();
+	if (isValidEmail && isValidPassword) {
+		console.log('Form is valid');
+		// Login-Funktion aufrufen
+	} else {
+		console.log('Form is not valid');
+		return false;
 	}
+}
+
+function validateLoginEmail() {
+	const emailCont = document.getElementById('login-email-cont');
+	const inputEmail = document.getElementById('login-email');
+	const emailError = document.getElementById('email-error-login');
+	if (!inputEmail.value.includes('@') || inputEmail.value.trim() === '') {
+		emailCont.classList.add('invalid');
+		emailError.textContent = '*Please enter a valid email address.';
+		return false;
+	} else {
+		emailCont.classList.remove('invalid');
+		emailError.textContent = '';
+		return true;
+	}
+}
+
+function validateLoginPW() {
+	const pwCont = document.getElementById('login-password-cont');
+	const inputPW = document.getElementById('login-password');
+	const pwError = document.getElementById('pw-error-login');
+	if (inputPW.value.length < 6 || inputPW.value.trim() === '') {
+		pwCont.classList.add('invalid');
+		pwError.textContent = '*Type in at least 6 characters.';
+		return false;
+	} else {
+		pwCont.classList.remove('invalid');
+		pwError.textContent = '';
+		return true;
+	}
+}
+
+function validateSignupForm() {
+	const isValidName = validateSignupName('signup');
+	const isValidEmail = validateSignupEmail('signup');
+	const isValidPW = validateSignupPW();
+	const isValidRepPW = validateSignupRepPW();
+	const isPwMatch = comparePWs();
+	const isChecked = document.getElementById('signup-checkbox').checked;
+
+	if (
+		isValidName &&
+		isValidEmail &&
+		isValidPW &&
+		isValidRepPW &&
+		isPwMatch &&
+		isChecked
+	) {
+		console.log('Form is valid');
+		// Signup-Funktion aufrufen
+	} else if (!isChecked) {
+		blinkAnimation();
+		console.log('Form is not valid');
+		return false;
+	} else {
+		console.log('Form is not valid');
+		return false;
+	}
+}
+
+function validateSignupName() {
+	const nameCont = document.getElementById('signup-name-cont');
+	const inputName = document.getElementById('signup-name');
+	const nameError = document.getElementById('name-error-signup');
+	const validNamePattern = /^[a-zA-Z-]+ [a-zA-Z-]+ ?[a-zA-Z-]+?$/;
+	if (
+		!validNamePattern.test(inputName.value) ||
+		inputName.value.trim() === ''
+	) {
+		nameCont.classList.add('invalid');
+		nameError.textContent = '*Please enter first- and surname.';
+		return false;
+	} else {
+		nameCont.classList.remove('invalid');
+		nameError.textContent = '';
+		return true;
+	}
+}
+
+function validateSignupEmail() {
+	const emailCont = document.getElementById('signup-email-cont');
+	const inputEmail = document.getElementById('signup-email');
+	const emailError = document.getElementById('email-error-signup');
+	if (!inputEmail.value.includes('@') || inputEmail.value.trim() === '') {
+		emailCont.classList.add('invalid');
+		emailError.textContent = '*Please enter a valid email address.';
+		return false;
+	} else {
+		emailCont.classList.remove('invalid');
+		emailError.textContent = '';
+		return true;
+	}
+}
+
+function validateSignupPW() {
+	const pwCont = document.getElementById('signup-pw-cont');
+	const inputPW = document.getElementById('signup-pw');
+	const pwError = document.getElementById('pw-error-signup');
+	if (inputPW.value.length < 6 || inputPW.value.trim() === '') {
+		pwCont.classList.add('invalid');
+		pwError.textContent = '*Type in at least 6 characters.';
+		return false;
+	} else {
+		pwCont.classList.remove('invalid');
+		pwError.textContent = '';
+		return true;
+	}
+}
+
+function validateSignupRepPW() {
+	const pwRepCont = document.getElementById('signup-pwrep-cont');
+	const inputRepPW = document.getElementById('signup-pw-repeat');
+	const pwRepError = document.getElementById('pwrep-error-signup');
+	if (inputRepPW.length < 6 || inputRepPW.value.trim() === '') {
+		pwRepCont.classList.add('invalid');
+		pwRepError.textContent = '*Passwords do not match.';
+		return false;
+	} else {
+		pwRepCont.classList.remove('invalid');
+		pwRepError.textContent = '';
+		return true;
+	}
+}
+
+function comparePWs() {
+	const pw = document.getElementById('signup-pw').value;
+	const pwRep = document.getElementById('signup-pw-repeat').value;
+	const pwRepCont = document.getElementById('signup-pwrep-cont');
+	const pwRepError = document.getElementById('pwrep-error-signup');
+	if (validateSignupPW() && validateSignupRepPW()) {
+		if (pw === pwRep) {
+			return true;
+		} else {
+			pwRepCont.classList.add('invalid');
+			pwRepError.textContent = '*Passwords do not match.';
+			return false;
+		}
+	}
+}
+
+function resetLoginSignupErrors() {
+	const allInputs = document.querySelectorAll(
+		'.login-box .input-container, .signup-box .input-container '
+	);
+	const allErrors = document.querySelectorAll(
+		'.login-box .error-message, .signup-box .error-message '
+	);
+	allInputs.forEach((input) => {
+		input.classList.remove('invalid');
+	});
+	allErrors.forEach((error) => {
+		error.textContent = '';
+	});
 }
