@@ -47,7 +47,7 @@
 				</div>
 
 				<div class="login-inputs">
-					<div class="input-container">
+					<div id="login-email-cont" class="input-container">
 						<input
 							id="login-email"
 							type="text"
@@ -55,22 +55,17 @@
 							placeholder="Email"
 							required />
 						<img src="/assets/img/icons/login_signup/mail.svg" />
-						<p id="email-error-login" class="error-message">
-							This is an error message!
-						</p>
+						<p id="email-error-login" class="error-message"></p>
 					</div>
 
-					<div class="input-container">
+					<div id="login-password-cont" class="input-container">
 						<input
 							id="login-password"
 							type="password"
-							autocomplete="off"
 							placeholder="Password"
 							required />
 						<img src="/assets/img/icons/login_signup/lock.svg" />
-						<p id="password-error-login" class="error-message">
-							This is an error message!
-						</p>
+						<p id="pw-error-login" class="error-message"></p>
 					</div>
 				</div>
 
@@ -84,7 +79,9 @@
 				</div>
 				<div class="login-btn-bar">
 					<button type="submit">Log in</button>
-					<button type="button" onclick="">Guest Log in</button>
+
+					<!-- hier onclick="Funktion um isGuestUser auf TRUE zu setzen!!!" -->
+					<button onclick="" type="button">Guest Log in</button>
 				</div>
 			</form>
 		</div>
@@ -103,7 +100,7 @@
 				</div>
 
 				<div class="signup-inputs">
-					<div class="input-container">
+					<div id="signup-name-cont" class="input-container">
 						<input
 							id="signup-name"
 							type="text"
@@ -111,11 +108,9 @@
 							placeholder="Name"
 							required />
 						<img src="/assets/img/icons/contacts/person.svg" />
-						<p id="name-error-signup" class="error-message">
-							This is an error message!
-						</p>
+						<p id="name-error-signup" class="error-message"></p>
 					</div>
-					<div class="input-container">
+					<div id="signup-email-cont" class="input-container">
 						<input
 							id="signup-email"
 							type="text"
@@ -123,38 +118,30 @@
 							placeholder="Email"
 							required />
 						<img src="/assets/img/icons/login_signup/mail.svg" />
-						<p id="email-error-signup" class="error-message">
-							This is an error message!
-						</p>
+						<p id="email-error-signup" class="error-message"></p>
 					</div>
 
-					<div class="input-container">
+					<div id="signup-pw-cont" class="input-container">
 						<input
-							id="signup-password"
+							id="signup-pw"
 							type="password"
-							autocomplete="off"
 							placeholder="Password"
 							required />
 						<img src="/assets/img/icons/login_signup/lock.svg" />
-						<p id="password-error-signup" class="error-message">
-							This is an error message!
-						</p>
+						<p id="pw-error-signup" class="error-message"></p>
 					</div>
-					<div class="input-container">
+					<div id="signup-pwrep-cont" class="input-container">
 						<input
-							id="signup-password-repeat"
+							id="signup-pw-repeat"
 							type="password"
-							autocomplete="off"
-							placeholder="Password"
+							placeholder="Repeat password"
 							required />
 						<img src="/assets/img/icons/login_signup/lock.svg" />
-						<p id="password-error-signup" class="error-message">
-							This is an error message!
-						</p>
+						<p id="pwrep-error-signup" class="error-message"></p>
 					</div>
 				</div>
 				<div class="bottom-cont">
-					<div class="signup-checkbox">
+					<div id="signup-checkbox-cont" class="signup-checkbox">
 						<input
 							type="checkbox"
 							class="custom-checkbox"
