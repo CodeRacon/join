@@ -1,6 +1,6 @@
 let createdAccounts = [];
 let login_value = [];
-let indedOfLoggedInUser = 0;
+let num = 0;
 let SignUpData = [];
 let logInValue = [];
 let switchTemplates = 0;
@@ -30,7 +30,7 @@ function checkIfValueIsLegit(mail, password) {
     for (let i = 0; i < startData.users.length; i++) {
         if (startData.users[i].hasOwnProperty('userData')) {
             if (startData.users[i].userData['email'] == mail && startData.users[i].userData['password'] == password) {
-                indedOfLoggedInUser = i;
+                num = i;
                 if(startData.users[i]['isLoggedIn'] == false){
                 startData.users[i]['isLoggedIn'] = true;
                 storeStartData();
@@ -54,7 +54,7 @@ function saveIndexNum(){
 function loadIndexNum(){
     let numOfIndex = localStorage.getItem('accesToData');
     if(numOfIndex){
-        indedOfLoggedInUser = JSON.parse(numOfIndex);
+      num = JSON.parse(numOfIndex);
     }
 }
 
@@ -186,7 +186,7 @@ function guestLogin(){
                 if (startData.users[i].tasks.length > 0) {
                     startData.users[i].tasks.splice(0);
                     storeStartData();
-                    indedOfLoggedInUser = i;
+                    num = i;
                     saveIndexNum();
                 }
                 

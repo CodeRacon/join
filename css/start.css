@@ -180,3 +180,124 @@ form.log-in {
   padding-left: 2.44rem;
   margin-top: 0.5rem;
 }
+
+
+/* SignUp Section*/
+
+.dn{
+  display: none !important;
+}
+
+.act{
+  padding: 48px 88px;
+  background-color: aliceblue;
+  width: 598px;
+  height: 630px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+input{
+  width: 29.306vw;
+  padding: 12px 21px;
+  border-radius: 30px;
+}
+
+.registerInputBox{
+  width: 43.75vw;
+  height: 41.52vw;
+  /* top: 197px; */
+  /* left: 421px; */
+  padding: 48px 88px 48px 88px;
+  /* gap: 32px; */
+  border-radius: 30px;
+  opacity: 0px;
+  box-shadow: 0px 0px 14px 3px #0000000A;
+}
+
+#horizontalLine{
+  width: 150px;
+  background-color: #29ABE2;
+  height: 3px;
+}
+
+
+.signUpLogoContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.leftArrowContainer{
+  position: absolute;
+  height: 6%;
+  display: flex;
+  align-items: end;
+}
+
+
+#signUpLogo{
+  margin-bottom: 16px !important;
+}
+
+.signUpLogoContainer{
+  display: flex;
+  flex-direction: column;
+}
+
+.registerInputFieldContainer{
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
+
+.registerInput{
+  display: flex;
+  padding: 12px 21px 12px 21px;
+  border-style: solid;  
+  border-radius: 10px;
+  border-width: 1px;
+  color: #D1D1D1;
+}
+
+.registerInput input{
+  width: 356px;
+  height: 24px;
+  padding: 0 !important;
+  border: none;
+  border-radius: unset;
+  background-color:  #F6F7F8;
+
+}
+
+.registerInput input::placeholder{
+  font-size: 20px;
+  font-weight: 400;
+  width: 56px;
+  height: 24px;
+ z-index: 10;  
+ display: flex;
+ justify-content: center;
+ width: 100%;
+}
+
+.registerInput input:focus{
+  outline: none;
+}
+
+.registerInput img{
+  width: 24px;
+  height: 24px;
+}
+
+/*1440 800*/
+/*    display: flex;
+    padding: 12px 21px 12px 21px;
+    border-style: solid;
+    border-radius: 10px;
+    border-width: 1px;
+    color: #D1D1D1;

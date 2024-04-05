@@ -2,7 +2,6 @@
 function mom(){
     loadIndexNum();
 loadUserData();
-console.log(startData.users[num].color);
+localUserData[0].user.color = 'changed';
 saveUserData();
-console.log(num);
 }

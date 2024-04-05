@@ -1,6 +1,6 @@
 // SignUp
 // einfach load und storeStartData wegmachen wenn du den urprünglichen wert willst
-loadUsers();
+
 let heyo = [];
 
 
