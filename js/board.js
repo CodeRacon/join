@@ -355,7 +355,9 @@ function generateTaskCard(element, source) {
     ondragend="stopDragging(${element["id"]})" 
     id="${element["id"]}"   
     class="task-card" 
-    onclick="openTaskCardOverlay(${element["id"]}) ">
+    onclick="openTaskCardOverlay(${
+      element["id"]
+    }), openAddTaskOverlay('overlay-task-card') ">
       ${moveBtnContent}
 			<div class="move-menu d-none qm-off" id="move-menu-${taskID}" menuOpen="false">
 				${moveMenuContent}	
@@ -793,7 +795,7 @@ function openTaskCardOverlay(element) {
             <div class="category-of-single-task ">${card.category}</div>
             <div class="close-btn">            
               <img 
-								onclick="closeTaskCardOverlay()" 
+								onclick="closeTaskCardOverlay(), backDropOff()" 
 								src="assets/img/icons/board/close.svg" 
 								alt="close">
             </div>
@@ -1017,6 +1019,7 @@ function deleteTask(card) {
   saveUserData();
   closeTaskCardOverlay();
   updateHTML();
+  backDropOff();
 }
 
 /**
@@ -1040,32 +1043,55 @@ function changeSubtaskToDoneOrNot(index) {
 // :::::::::::::::::::::: Add - Task - PopUp :::::::::::::::::::::://
 
 /**
- * Opens the add task dialogue box to add a new task.
- * Removes the 'box-slide-out' and 'd-none' classes from the overlay
- * to make it visible. Adds the 'box-slide-in' class to animate it opening.
+ * Opens the add task overlay/modal by:
+ * - Getting reference to overlay element by ID
+ * - Removing slide out and hidden classes
+ * - Adding slide in class
+ * - Removing hidden class again
+ * - Calling backDropOn() to show modal background
  */
-function openAddTaskOverlay() {
-  let overlay = document.getElementById("add-task-content-overlay");
-  let wrapper = document.getElementById("wrapper");
+function openAddTaskOverlay(id) {
+  let overlay = document.getElementById(id);
   overlay.classList.remove("box-slide-out", "d-none");
   overlay.classList.add("box-slide-in");
-  wrapper.classList.remove("d-none");
-  wrapper.classList.replace("wrapper-off", "wrapper-on");
   overlay.classList.remove("d-none");
+  backDropOn();
 }
 
 /**
- * Closes the add task dialogue box by removing the 'box-slide-in' and 'd-none' classes,
- * adding the 'box-slide-out' class after a timeout to animate it closing,
- * and ensuring the overlay is not hidden with 'd-none' after closing.
+ * Turns on the backdrop by removing the 'd-none' class and replacing
+ * 'wrapper-off' with 'wrapper-on'.
  */
-function closeAddTaskOverlay() {
-  clearForm();
-  let overlay = document.getElementById("add-task-content-overlay");
+function backDropOn() {
   let wrapper = document.getElementById("wrapper");
+  wrapper.classList.remove("d-none");
+  wrapper.classList.replace("wrapper-off", "wrapper-on");
+}
+
+/**
+ * Closes the add task overlay modal by:
+ * - Clearing the form fields
+ * - Getting reference to overlay element by ID
+ * - Removing slide in class and adding slide out class
+ * - Calling backDropOff() to hide modal background
+ */
+function closeAddTaskOverlay(id) {
+  clearForm();
+  closeEditTaskCard();
+  let overlay = document.getElementById(id);
   overlay.classList.remove("box-slide-in", "d-none");
   overlay.classList.add("box-slide-out");
+  overlay.classList.remove("d-none");
+  backDropOff();
+  updateHTML();
+}
+
+/**
+ * Turns off the backdrop by adding the 'd-none' class and replacing
+ * 'wrapper-on' with 'wrapper-off'.
+ */
+function backDropOff() {
+  let wrapper = document.getElementById("wrapper");
   wrapper.classList.add("d-none");
   wrapper.classList.replace("wrapper-on", "wrapper-off");
-  overlay.classList.remove("d-none");
 }
