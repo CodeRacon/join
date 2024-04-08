@@ -3,25 +3,13 @@
 - urgent und low beim aufgabe erstellen werden nicht als symbol angezeigt                ---check
 - subtasks in der edit task karte wird beim anklicken nicht blau umrandet - fokus        ---check
 - subtasks blaue umrandung beim anklicken bei add task und bei board/add task            ---check
-
-
-- suchfunktion für tasks
-
+- form validation  --- für add task                                                      ---check
+- category als dropdown umstellen                                                        ---check
+- suchfunktion für tasks                                                                 ---check
 
 
 - assigned to in der edit task karte wird beim anklicken oben nicht blau umrandet - fokus
 - assigned to (you) muss oben stehen
 
-- form validation  --- für add task 
-
-- category als dropdown umstellen
-
-
-
 ________________________________________________________________________________________________________
-
-FIRST DEADLINE: Montag nacht alles pushen - 25.03.24
-
-- join checkliste durchgucken - Dienstag - 26.03.24     ---beachten
-
-- Mittwoch - 27.03.24 - 11 Uhr 
+ 

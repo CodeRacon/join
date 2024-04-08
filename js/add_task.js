@@ -186,11 +186,17 @@ function getCategory() {
   if (categorySelected.value === "") {
     newCategory = "";
   }
-  if (categorySelected.value === "user-story") {
+  if (
+    categorySelected.value == "user-story" ||
+    categorySelected.value == "User Story"
+  ) {
     newCategory = 1;
   }
-  if (categorySelected.value === "technical-task") {
-    newCategory = 1;
+  if (
+    categorySelected.value == "technical-task" ||
+    categorySelected.value == "Technical Task"
+  ) {
+    newCategory = 2;
   }
 }
 
@@ -275,6 +281,7 @@ function saveInputs() {
   getDescription();
   getCategory();
   getDueDate();
+  generateNewIdForTask();
 }
 
 /**
