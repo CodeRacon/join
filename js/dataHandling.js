@@ -1,22 +1,15 @@
 let separateIndedNum = 0;
 loadUserszr();
+loadUsers();
 
 localUserData = []; // wird beim ersten Mal in den LocalStorage gepackt und beim zweiten aufruf werden die Server daten in den LocalStorage gepackt
-let TestStorage = [];
 
-loadamountds();
 
-function loadamountds(){
-    let dd = localStorage.getItem('Anzahlomp');
-    if(dd){
-      TestStorage = JSON.parse(dd);
-    }
-}
+loadLoggedInData();
+loadIndexNum();
+console.log(num);
 
-function saveTestArray(){
-        let dd = JSON.stringify(TestStorage);
-        localStorage.setItem('Anzahlomp', dd);
-}
+
 
 
 //test bzw ein neuer Variablen name muss mit einem neuen key in den remote storage
@@ -31,47 +24,48 @@ async function init(){
 async function ppt(){
     await loadUserData();
     await loadUsers();
-    if (startData.users[num].userData.name == 'Guest') {
-       
-        let guestUser = {
-            user: startData.users[num],
-            contacts: {}
-        }
-        await checkIfArrayExistInServer(guestUser);
-        return;
-    } 
+
     let combinedUser = {
         user: startData.users[num],
         contacts: startData.contacts
     }
+  
     await checkIfArrayExistInServer(combinedUser);
 }
 
 
-async function checkIfArrayExistInServer(combinedUser) {
-    
-     loadamountds();
-    if (localUserData.length > 0) {
-        for (let i = 0; i < TestStorage.length; i++) {
-            if (TestStorage[i].hasOwnProperty('user')) {
-                if (TestStorage[i].user == localUserData[0].user) {
-                    alert('hey');
-                loadamountds();
-                localUserData[0] = TestStorage[i];
-                saveUserData();       
+async function checkIfArrayExistInServer(combinedUser ) {
+    await loadUsers();
+     loadLoggedInData();
+     
+      localUserData = [];
+        if(localStorage.length > 0){
+            for (let i = 0; i < loggedInData.length; i++) {
+                if (startData.users[num].userData.name == loggedInData[i].user.userData.name) {
+                    alert('ok');
+                    if (startData.users[num].userData.name == 'Guest' && startData.users[num].isLoggedIn == true) {
+                            startData.users[num].isLoggedIn = false;
+                            storeStartData();
+                                alert('hry');
+                                loggedInData[i] = combinedUser;
+                                storeLoggedInData();
+                                localUserData.push(loggedInData[i]);
+                                saveUserData();
+                                return;
+                    }
+                    localUserData.push(loggedInData[i]);
+                    saveUserData();
+                    return;
                 }
-            }  
+                
+            }
         }
-        if (localUserData.length > 1) {
-            localUserData.splice(1, 1);
-            saveUserData();
-        }
-        return;
-    }
-    localUserData.push(combinedUser);
-     saveUserData();
+        localUserData.push(combinedUser);
+         saveUserData();
+    } 
+    
     // Wenn combined User im Server vorhanden ist, wird ppt garnicht erst ausgeführt
-}
+
 
 
 
@@ -91,13 +85,13 @@ async function letMeCook(){
     await loadUsers(); 
     await loadUserData();
     console.log(startData);
-    console.log(TestStorage[1]);
-    if (TestStorage.length > 0) {
-        for (let i = 0; i < TestStorage.length; i++) {
-            if (TestStorage[i].hasOwnProperty('user')) {
-                if (TestStorage[i].user.userData.name == startData.users[num].userData.name) {
+   
+    if (loggedInData.length > 0) {
+        for (let i = 0; i < loggedInData.length; i++) {
+            if (loggedInData[i].hasOwnProperty('user')) {
+                if (loggedInData[i].user.userData.name == startData.users[num].userData.name) {
        
-                    localUserData[0] = TestStorage[i];
+                    localUserData[0] = loggedInData[i];
                     saveUserData();
                 
                 }
@@ -116,25 +110,26 @@ letMeCook();
 window.onbeforeunload = async function() {
     await loadUserData();
     letMeCook();
-    loadamountds();
+    loadLoggedInData();
     await youlo();
     
     localStorage.removeItem('changedData');
+    
     
 };
 
 
 async function youlo(){
     await loadUserData();
-    loadamountds();
+    loadLoggedInData();
   
-    for (let i = 0; i < TestStorage.length; i++) { 
-     if (TestStorage[i].hasOwnProperty('user')) {
-          if (TestStorage[i].user.userData.name ==  localUserData[0].user.userData.name) {
+    for (let i = 0; i < loggedInData.length; i++) { 
+     if (loggedInData[i].hasOwnProperty('user')) {
+          if (loggedInData[i].user.userData.name ==  localUserData[0].user.userData.name) {
     
-            TestStorage[i] = localUserData[0];
-            saveTestArray();
-            localUserData[0] = TestStorage[i];
+            loggedInData[i] = localUserData[0];
+            storeLoggedInData();
+            localUserData[0] = loggedInData[i];
             saveUserData();
          
            return;
@@ -144,8 +139,8 @@ async function youlo(){
      }
   
 
-     TestStorage.push(localUserData[0]);
-     saveTestArray();
+     loggedInData.push(localUserData[0]);
+     storeLoggedInData();
      
      return;
      // unter mir besser in den else teik

@@ -5,6 +5,7 @@ let SignUpData = [];
 let logInValue = [];
 let switchTemplates = 0;
 
+
 async function init() {
     console.log(startData);
     loadTemplate();
@@ -110,56 +111,31 @@ function loadTemplate(){
         switchTemplates = JSON.parse(dd)
        }
 }
-/* 
-display: flex;
-    flex-direction: column;
-    margin-top: 36px;
-*/
 
 document.addEventListener("DOMContentLoaded", () => {
     loadTemplate();
     if(switchTemplates == 1){
-    document.getElementById('anyt').innerHTML =  `
+    document.getElementById('anyt').innerHTML = `
 
     <form class="registerInputBox" onsubmit="createAccount(); return false">
-<div>
-    <div class="mh">
-        <div class="leftArrowContainer">
-            <img src="./assets/img/icons/login_signup/arrow-left-line.svg" alt="" srcset="">
-        </div>
-        <div>
-            <div class="signUpLogoContainer">
-                <h1 id="signUpLogo">Sign Up</h1>
-                <div id="horizontalLine"></div>
-            </div>
-        </div>
+    <div>
+        <img src="./assets/img/icons/login_signup/arrow-left-line.svg" alt="" srcset="">
     </div>
-      <div class='registerInputAndButtonContainer'>
-        <div class="registerInputFieldContainer">
-            <div class="registerInput">
-                <input required id="name" required type="text" placeholder="Name">
-                <img src="assets/img/icons/login_signup/person.svg" alt="" srcset="">
-            </div>
-            <div class="registerInput">
-                <input required id="mail" required type="email" placeholder="Email">
-                <img src="./assets/img/icons/login_signup/mail.svg" alt="" srcset="">
-            </div>
-            <div class="registerInput">
-                <input required id="paswort" type="password" placeholder="Password">
-                <img src="./assets/img/icons/login_signup/lock.svg" alt="" srcset="">
-            </div>
-            <div class="registerInput">
-                <input id="repeatPassword" required type="password" placeholder="Confirm Password">
-                <img src="./assets/img/icons/login_signup/lock.svg" alt="" srcset="">
-            </div>
-        </div>
-        
-        <p style="color: red;" class="dn">Please make sure your passwords match</p>
-        <div>
-            <button onclick="toogleNum()">Click button</button>
-            <button>Do It</button>
-        </div>
+    <div>
+        <input required id="name" required type="text" placeholder="Name">
     </div>
+    <div>
+        <input required id="mail" required type="email" placeholder="Email">
+    </div>
+    <div>
+        <input required id="paswort" type="password" placeholder="Password">
+    </div>
+    <div>
+        <input id="repeatPassword" required type="password" placeholder="Confirm Password">
+    </div>
+    <p style="color: red;" class="dn">Please make sure your passwords match</p>
+    <button onclick="toogleNum()">Click button</button>
+    <button>Do It</button>
 </form>
 <button onclick="getto()"></button>
     `;
@@ -183,12 +159,11 @@ function guestLogin(){
     for (let i = 0; i < startData.users.length; i++) {
         if (startData.users[i].hasOwnProperty('userData')){
             if (startData.users[i].userData.name == 'Guest') {
-                if (startData.users[i].tasks.length > 0) {
-                    startData.users[i].tasks.splice(0);
+                startData.users[i].isLoggedIn = true;
                     storeStartData();
                     num = i;
                     saveIndexNum();
-                }
+                
                 
             }
         }
