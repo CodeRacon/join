@@ -97,7 +97,7 @@ async function validateLoginForm() {
 	if (isValidEmail && isValidPassword) {
 		console.log('Form is valid');
 		await checkExistence();
-		window.location.href = 'index.html';
+		window.location.href = 'summary.html';
 	} else {
 		console.log('Form is not valid');
 		return false;
@@ -303,7 +303,7 @@ async function guestLogin(){
         }
         
     }
-	window.location.href = 'test.html'
+	window.location.href = 'summary.html'
 }
 
 async function checkIfLoginEmailIsInServer(){
