@@ -5,6 +5,7 @@ let SignUpData = [];
 let logInValue = [];
 let switchTemplates = 0;
 
+
 async function init() {
     console.log(startData);
     loadTemplate();
@@ -158,12 +159,11 @@ function guestLogin(){
     for (let i = 0; i < startData.users.length; i++) {
         if (startData.users[i].hasOwnProperty('userData')){
             if (startData.users[i].userData.name == 'Guest') {
-                if (startData.users[i].tasks.length > 0) {
-                    startData.users[i].tasks.splice(0);
+                startData.users[i].isLoggedIn = true;
                     storeStartData();
                     num = i;
                     saveIndexNum();
-                }
+                
                 
             }
         }

@@ -52,3 +52,27 @@ function saveUserData() {
 
 	console.log('Saved changed data');
 }
+
+async function loadUsers() {
+	try {
+		startData = JSON.parse(await getItem('startData'));
+		console.log(startData);
+	} catch (e) {
+		console.error('Loading error:', e);
+	}
+}
+
+let loggedInData = [];
+
+async function loadLoggedInData(){
+    try {
+		loggedInData = JSON.parse(await getItem('loggedInData'));
+		console.log(loggedInData);
+	} catch (e) {
+		console.error('Loading error:', e);
+	}
+}
+
+async function  storeLoggedInData() {
+     await setItem('loggedInData', JSON.stringify(loggedInData));
+}

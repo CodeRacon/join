@@ -7,13 +7,14 @@
 		<link rel="stylesheet" href="css/root.css" />
 		<link rel="stylesheet" href="css/style.css" />
 		<link rel="stylesheet" href="css/start.css" />
+		
+		<script defer src="js/storage.js"></script>
+		<script defer src="js/assets.js"></script>
 		<script defer src="js/signUp.js"></script>
 		<script defer src="js/main.js"></script>
 		<link rel="icon" type="image/png" href="assets/img/logo/favicon.png" />
-
 		<title>join - kanban project management tool</title>
 	</head>
-
 	<!--  
       _____             
    ,'  -. `.       
@@ -25,7 +26,6 @@
       ;._:          
      /    \         
 -->
-
 	<body>
 		<img
 			class="start-logo"
@@ -47,6 +47,7 @@
 				</div>
 
 				<div class="login-inputs">
+					
 					<div id="login-email-cont" class="input-container">
 						<input
 							id="login-email"
@@ -55,9 +56,11 @@
 							placeholder="Email"
 							required />
 						<img src="/assets/img/icons/login_signup/mail.svg" />
+						
 						<p id="email-error-login" class="error-message"></p>
 					</div>
 
+					<!--1-->
 					<div id="login-password-cont" class="input-container">
 						<input
 							id="login-password"
@@ -79,15 +82,12 @@
 				</div>
 				<div class="login-btn-bar">
 					<button type="submit">Log in</button>
-
 					<!-- hier onclick="Funktion um isGuestUser auf TRUE zu setzen!!!" -->
-					<button onclick="" type="button">Guest Log in</button>
+					<button onclick="guestLogin()" type="button">Guest Log in</button>
 				</div>
 			</form>
 		</div>
-
 		<!-- ############################### -->
-
 		<div id="signup-box" class="signup-box d-none">
 			<div class="back-arrow" onclick="toggleLoginSignup()"></div>
 			<form
@@ -108,8 +108,10 @@
 							placeholder="Name"
 							required />
 						<img src="/assets/img/icons/contacts/person.svg" />
+						<!--2-->
 						<p id="name-error-signup" class="error-message"></p>
 					</div>
+			
 					<div id="signup-email-cont" class="input-container">
 						<input
 							id="signup-email"
@@ -118,9 +120,11 @@
 							placeholder="Email"
 							required />
 						<img src="/assets/img/icons/login_signup/mail.svg" />
+					
 						<p id="email-error-signup" class="error-message"></p>
 					</div>
 
+					<!--3-->
 					<div id="signup-pw-cont" class="input-container">
 						<input
 							id="signup-pw"
@@ -130,6 +134,7 @@
 						<img src="/assets/img/icons/login_signup/lock.svg" />
 						<p id="pw-error-signup" class="error-message"></p>
 					</div>
+					<!--4-->
 					<div id="signup-pwrep-cont" class="input-container">
 						<input
 							id="signup-pw-repeat"
@@ -137,6 +142,7 @@
 							placeholder="Repeat password"
 							required />
 						<img src="/assets/img/icons/login_signup/lock.svg" />
+						
 						<p id="pwrep-error-signup" class="error-message"></p>
 					</div>
 				</div>
@@ -155,7 +161,6 @@
 							>Privacy Policy</a
 						>
 					</div>
-
 					<div class="signup-btn-bar">
 						<button type="submit">Sign up</button>
 					</div>
