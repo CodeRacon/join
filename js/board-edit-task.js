@@ -38,7 +38,6 @@ function editTask(card) {
   }
   newAssignedContacts = [];
 }
-
 function closeEditTaskCard() {
   let taskCard = document.getElementById("overlay-task-card");
   taskCard.classList.add("d-none");

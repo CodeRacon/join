@@ -35,13 +35,15 @@ function backDropOn() {
  */
 function closeAddTaskOverlay(id) {
   clearForm();
-  closeEditTaskCard();
-  let overlay = document.getElementById(id);
-  overlay.classList.remove("box-slide-in", "d-none");
-  overlay.classList.add("box-slide-out");
-  overlay.classList.remove("d-none");
-  backDropOff();
-  updateHTML();
+  if (window.location.pathname.endsWith("/board.html")) {
+    closeEditTaskCard();
+    let overlay = document.getElementById(id);
+    overlay.classList.remove("box-slide-in", "d-none");
+    overlay.classList.add("box-slide-out");
+    overlay.classList.remove("d-none");
+    backDropOff();
+    updateHTML();
+  }
 }
 
 /**
