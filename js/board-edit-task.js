@@ -283,7 +283,7 @@ function changeCheckboxColorEdit(i) {
 
 function createSubtaskInEdit() {
   let input = document.getElementById("input-of-subtask-in-edit");
-  if (input.value == "") {
+  if (input.value.trim() == "") {
     return;
   } else {
     newSubtasks.unshift({ name: input.value, done: false });
