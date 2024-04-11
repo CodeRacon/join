@@ -171,6 +171,10 @@ function guestLogin() {
 }
 
 // FUNKTIONEN VON AMALIA 11.04.2024
+/**
+ * Checks if the user has previously saved their email and password in the browser's local storage, and if so, populates the login form with those values and checks the "Remember Me" checkbox.
+ * This function is executed when the page loads, and is used to provide a convenient login experience for returning users.
+ */
 window.onload = function () {
   let storedEmail = localStorage.getItem("rememberMeEmail");
   let storedPassword = localStorage.getItem("rememberMePassword");
@@ -182,6 +186,10 @@ window.onload = function () {
   }
 };
 
+/**
+ * Saves the user's email and password in the browser's local storage if the "Remember Me" checkbox is checked.
+ * If the checkbox is not checked, removes any previously saved email and password from local storage.
+ */
 function saveLoginDetails() {
   let email = document.getElementById("login-email").value.trim();
   let password = document.getElementById("login-password").value.trim();
