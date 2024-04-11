@@ -277,8 +277,8 @@ function priorityHighHTML(high) {
   return `
   <span>Priority:</span>
   <div class="priority-and-icon">
-    <span>Medium</span>
-    <img src="${high}" alt="medium Priority">
+    <span>High</span>
+    <img src="${high}" alt="high Priority">
   </div>
   `;
 }

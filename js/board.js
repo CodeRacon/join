@@ -205,12 +205,12 @@ function updatePriority() {
       prioBox.innerText.trim() == "2" ||
       prioBox.innerText.trim().toLowerCase() == "medium"
     ) {
-      prioBox.innerHTML = `<img src="${medium}" alt="Low Priority">`;
+      prioBox.innerHTML = `<img src="${medium}" alt="Medium Priority">`;
     } else if (
       prioBox.innerText.trim() == "3" ||
       prioBox.innerText.trim().toLowerCase() == "urgent"
     ) {
-      prioBox.innerHTML = `<img src="${high}" alt="Low Priority">`;
+      prioBox.innerHTML = `<img src="${high}" alt="High Priority">`;
     }
   });
 }
