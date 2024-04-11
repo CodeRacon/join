@@ -159,6 +159,7 @@ async function validateSignupForm() {
   ) {
     console.log("Form is valid");
     await createAccount();
+    showSuccessMessage();
   } else if (!isChecked) {
     blinkAnimation();
     console.log("Form is not valid");
@@ -351,4 +352,38 @@ async function checkIfValueIsLegit(mail, password) {
       }
     }
   }
+}
+
+// FUNKTIONEN VON AMALIA 11.04.2024
+
+function showSuccessMessage() {
+  let container = document.getElementById("success-container");
+  let wrapper = document.getElementById("wrapper");
+  container.classList.remove("d-none");
+  wrapper.classList.remove("d-none");
+  setTimeout(() => {
+    container.classList.add("d-none");
+    wrapper.classList.add("d-none");
+    window.location.href = "index.html";
+  }, 1500);
+}
+
+/**
+ * Turns on the backdrop by removing the 'd-none' class and replacing
+ * 'wrapper-off' with 'wrapper-on'.
+ */
+function backDropOn() {
+  let wrapper = document.getElementById("wrapper");
+  wrapper.classList.remove("d-none");
+  wrapper.classList.replace("wrapper-off", "wrapper-on");
+}
+
+/**
+ * Turns off the backdrop by adding the 'd-none' class and replacing
+ * 'wrapper-on' with 'wrapper-off'.
+ */
+function backDropOff() {
+  let wrapper = document.getElementById("wrapper");
+  wrapper.classList.add("d-none");
+  wrapper.classList.replace("wrapper-on", "wrapper-off");
 }
