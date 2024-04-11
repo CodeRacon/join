@@ -4,14 +4,14 @@
  * assignee, and subtasks. Saves edits via exchangeEditedTask().
  */
 function editTaskHTML(task) {
-  return `
+	return /*html*/ `
     <div class="overlay-wrapper">
         <div class="single-task-card">
 					<div class="close-edit-task-btn">
 						<img
 							src="./assets/img/icons/board/close.svg"
 							alt="close"
-							onclick="closeEditTaskCard()" />
+							onclick="closeOverlays()" />
 					</div>
 					
           <div class="title-cont">
@@ -187,21 +187,21 @@ function editTaskHTML(task) {
  * a checkbox input to select each contact for editing.
  */
 function showContactsToEditHTML(i, element) {
-  return `
-<div id="edit-single-contact${i}" class="edit-single-contact" onclick="getAssignedContactsEdit()">
-  <label for="edit-option${i}" class="label-layout">
-    <input
-      type="checkbox"
-      class="custom-checkbox"
-      id="edit-option${i}"
-      value="${element["userData"]["name"]}"
-      onchange="changeCheckboxColorEdit(${i})"
-    />
-    ${element["userData"]["name"]}
-  </label>
-  <br />
-  ${createContactInitials(element)}
-</div>`;
+	return /*html*/ `
+    <div id="edit-single-contact${i}" class="edit-single-contact" onclick="getAssignedContactsEdit()">
+      <label for="edit-option${i}" class="label-layout">
+        <input
+          type="checkbox"
+          class="custom-checkbox"
+          id="edit-option${i}"
+          value="${element['userData']['name']}"
+          onchange="changeCheckboxColorEdit(${i})"
+        />
+        ${element['userData']['name']}
+      </label>
+      <br />
+      ${createContactInitials(element)}
+    </div>`;
 }
 
 /**
@@ -213,14 +213,14 @@ function showContactsToEditHTML(i, element) {
  * @returns {string} The HTML markup for the subtask list item.
  */
 function showSubtasksToEditHTML(listItemId, subtask, index) {
-  return `
-        <div class="subtask-list-container">
-          <li id="${listItemId}" class="subtask-list-item"><input readonly type="text" value="${subtask.name}"></li>
-              <div class="edit-delete-container">
-                <img id="edit-button${index}" onclick="correctSubtask(${index})" src="assets/img/icons/add-task/edit.svg" alt="edit">
-                <img src="assets/img/icons/add-task/edit-btn-spacer.svg" alt="spacer">
-                <img onclick="deleteSubtask(${index})" src="assets/img/icons/add-task/delete.svg" alt="delete">
-              </div>
-        </div>
+	return /*html*/ `
+    <div class="subtask-list-container">
+      <li id="${listItemId}" class="subtask-list-item"><input readonly type="text" value="${subtask.name}"></li>
+          <div class="edit-delete-container">
+            <img id="edit-button${index}" onclick="correctSubtask(${index})" src="assets/img/icons/add-task/edit.svg" alt="edit">
+            <img src="assets/img/icons/add-task/edit-btn-spacer.svg" alt="spacer">
+            <img onclick="deleteSubtask(${index})" src="assets/img/icons/add-task/delete.svg" alt="delete">
+          </div>
+    </div>
       `;
 }
