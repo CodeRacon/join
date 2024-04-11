@@ -7,23 +7,23 @@
  * @returns {boolean} - False if the form is invalid, true if the form is valid.
  */
 function validateAddTaskForm(event, origin) {
-  const isValidTitle = validateTitle();
-  const isValidDueDate = validateDueDate();
-  const isValidCategory = validateCategory();
+	const isValidTitle = validateTitle();
+	const isValidDueDate = validateDueDate();
+	const isValidCategory = validateCategory();
 
-  if (isValidTitle && isValidDueDate && isValidCategory) {
-    console.log("Form is valid");
-    saveInputs();
-    saveNewTask(origin);
-    setTimeout(() => {
-      closeAddTaskOverlay("add-task-content-overlay");
-    }, 0);
-  } else {
-    console.log("Form is not valid");
-    event.preventDefault();
-    animateHint();
-    return false;
-  }
+	if (isValidTitle && isValidDueDate && isValidCategory) {
+		console.log('Form is valid');
+		saveInputs();
+		saveNewTask(origin);
+		setTimeout(() => {
+			closeOverlays();
+		}, 0);
+	} else {
+		console.log('Form is not valid');
+		event.preventDefault();
+		animateHint();
+		return false;
+	}
 }
 
 /**
@@ -31,11 +31,11 @@ function validateAddTaskForm(event, origin) {
  * This is typically used to draw the user's attention to a form field that has an invalid value.
  */
 function animateHint() {
-  const hint = document.getElementById("hint");
-  hint.classList.add("shake");
-  setTimeout(() => {
-    hint.classList.remove("shake");
-  }, 1000);
+	const hint = document.getElementById('hint');
+	hint.classList.add('shake');
+	setTimeout(() => {
+		hint.classList.remove('shake');
+	}, 1000);
 }
 
 /**
@@ -44,15 +44,15 @@ function animateHint() {
  * @returns {boolean} - True if the title is valid, false otherwise.
  */
 function validateTitle() {
-  let titleInput = document.getElementById("title-value");
-  let titleValue = titleInput.value.trim();
-  if (titleValue.length > 40 || titleValue === "") {
-    titleInput.classList.add("invalid");
-    return false;
-  } else {
-    titleInput.classList.remove("invalid");
-    return true;
-  }
+	let titleInput = document.getElementById('title-value');
+	let titleValue = titleInput.value.trim();
+	if (titleValue.length > 40 || titleValue === '') {
+		titleInput.classList.add('invalid');
+		return false;
+	} else {
+		titleInput.classList.remove('invalid');
+		return true;
+	}
 }
 
 /**
@@ -61,15 +61,15 @@ function validateTitle() {
  * @returns {boolean} - True if the due date is valid, false otherwise.
  */
 function validateDueDate() {
-  let dueDateInput = document.getElementById("due-date-value");
-  let dueDateValue = dueDateInput.value.trim();
-  if (dueDateValue === "") {
-    dueDateInput.classList.add("invalid");
-    return false;
-  } else {
-    dueDateInput.classList.remove("invalid");
-    return true;
-  }
+	let dueDateInput = document.getElementById('due-date-value');
+	let dueDateValue = dueDateInput.value.trim();
+	if (dueDateValue === '') {
+		dueDateInput.classList.add('invalid');
+		return false;
+	} else {
+		dueDateInput.classList.remove('invalid');
+		return true;
+	}
 }
 
 /**
@@ -78,19 +78,19 @@ function validateDueDate() {
  * @returns {boolean} - True if the category is valid, false otherwise.
  */
 function validateCategory() {
-  let categoryCont = document.getElementById("category-div");
-  let dropDownCont = document.getElementById("dropdownContentCategory");
-  let categoryInput = document.getElementById("category");
-  let categoryValue = categoryInput.value.trim();
-  if (categoryValue === "") {
-    categoryCont.classList.add("invalid");
-    dropDownCont.classList.add("invalid");
-    return false;
-  } else {
-    categoryCont.classList.remove("invalid");
-    dropDownCont.classList.remove("invalid");
-    return true;
-  }
+	let categoryCont = document.getElementById('category-div');
+	let dropDownCont = document.getElementById('dropdownContentCategory');
+	let categoryInput = document.getElementById('category');
+	let categoryValue = categoryInput.value.trim();
+	if (categoryValue === '') {
+		categoryCont.classList.add('invalid');
+		dropDownCont.classList.add('invalid');
+		return false;
+	} else {
+		categoryCont.classList.remove('invalid');
+		dropDownCont.classList.remove('invalid');
+		return true;
+	}
 }
 
 /**
@@ -99,19 +99,19 @@ function validateCategory() {
  * @returns {boolean} - True if the category is valid, false otherwise.
  */
 function validateCategory() {
-  let categoryCont = document.getElementById("category-div");
-  let dropDownCont = document.getElementById("dropdownContentCategory");
-  let categoryInput = document.getElementById("category");
-  let categoryValue = categoryInput.value.trim();
-  if (categoryValue === "") {
-    categoryCont.classList.add("invalid");
-    dropDownCont.classList.add("invalid");
-    return false;
-  } else {
-    categoryCont.classList.remove("invalid");
-    dropDownCont.classList.remove("invalid");
-    return true;
-  }
+	let categoryCont = document.getElementById('category-div');
+	let dropDownCont = document.getElementById('dropdownContentCategory');
+	let categoryInput = document.getElementById('category');
+	let categoryValue = categoryInput.value.trim();
+	if (categoryValue === '') {
+		categoryCont.classList.add('invalid');
+		dropDownCont.classList.add('invalid');
+		return false;
+	} else {
+		categoryCont.classList.remove('invalid');
+		dropDownCont.classList.remove('invalid');
+		return true;
+	}
 }
 
 /**
@@ -119,13 +119,13 @@ function validateCategory() {
  * This function removes the "invalid" class from the title input, due date input, category container, and dropdown container elements.
  */
 function resetAddTaskErrorFeedback() {
-  let titleInput = document.getElementById("title-value");
-  let dueDateInput = document.getElementById("due-date-value");
-  let categoryCont = document.getElementById("category-div");
-  let dropDownCont = document.getElementById("dropdownContentCategory");
+	let titleInput = document.getElementById('title-value');
+	let dueDateInput = document.getElementById('due-date-value');
+	let categoryCont = document.getElementById('category-div');
+	let dropDownCont = document.getElementById('dropdownContentCategory');
 
-  titleInput.classList.remove("invalid");
-  dueDateInput.classList.remove("invalid");
-  categoryCont.classList.remove("invalid");
-  dropDownCont.classList.remove("invalid");
+	titleInput.classList.remove('invalid');
+	dueDateInput.classList.remove('invalid');
+	categoryCont.classList.remove('invalid');
+	dropDownCont.classList.remove('invalid');
 }
