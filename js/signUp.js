@@ -354,8 +354,13 @@ async function checkIfValueIsLegit(mail, password) {
   }
 }
 
-// FUNKTIONEN VON AMALIA 11.04.2024
+// FUNKTION VON AMALIA 11.04.2024
 
+/**
+ * Displays a success message to the user for 1.5 seconds, then redirects them to the index.html page.
+ *
+ * This function is used to provide visual feedback to the user after a successful operation, such as a successful sign-up or login. It shows a success message container, waits for 1.5 seconds, then hides the container and redirects the user to the index.html page.
+ */
 function showSuccessMessage() {
   let container = document.getElementById("success-container");
   let wrapper = document.getElementById("wrapper");
@@ -366,24 +371,4 @@ function showSuccessMessage() {
     wrapper.classList.add("d-none");
     window.location.href = "index.html";
   }, 1500);
-}
-
-/**
- * Turns on the backdrop by removing the 'd-none' class and replacing
- * 'wrapper-off' with 'wrapper-on'.
- */
-function backDropOn() {
-  let wrapper = document.getElementById("wrapper");
-  wrapper.classList.remove("d-none");
-  wrapper.classList.replace("wrapper-off", "wrapper-on");
-}
-
-/**
- * Turns off the backdrop by adding the 'd-none' class and replacing
- * 'wrapper-on' with 'wrapper-off'.
- */
-function backDropOff() {
-  let wrapper = document.getElementById("wrapper");
-  wrapper.classList.add("d-none");
-  wrapper.classList.replace("wrapper-on", "wrapper-off");
 }
