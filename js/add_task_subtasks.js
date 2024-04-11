@@ -38,7 +38,7 @@ document.addEventListener("click", function (event) {
  */
 function createSubtask() {
   let input = document.getElementById("input-of-subtask");
-  if (input.value == "") {
+  if (input.value.trim() == "") {
     return;
   } else {
     newSubtasks.unshift({ name: input.value, done: false });
