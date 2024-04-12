@@ -29,7 +29,18 @@ async function getItem(key) {
  * local copy of the startData-array template in remoteStorage.
  */
 let localUserData = [];
-let isGuestUser = true;
+let isGuestUser = false;
+
+function loadGuestBoolean(){
+	const savedBoolean = localStorage.getItem('checkIfGuestLogged');
+	if (savedBoolean) {
+		isGuestUser = JSON.parse(savedBoolean);
+	}
+}
+
+function saveGuestBoolean(){
+	localStorage.setItem('checkIfGuestLogged', JSON.stringify(isGuestUser))
+}
 
 /**
  * Loads user data from local storage if it exists, otherwise retrieves default data from remote storage.
@@ -37,11 +48,9 @@ let isGuestUser = true;
  */
 async function loadUserData() {
 	const savedData = localStorage.getItem('changedData');
-	if (!savedData) {
-		localUserData = JSON.parse(await getItem('startData'));
-	} else {
+	if (savedData) {
 		localUserData = JSON.parse(savedData);
-	}
+	} 
 }
 
 /**
@@ -49,30 +58,44 @@ async function loadUserData() {
  */
 function saveUserData() {
 	localStorage.setItem('changedData', JSON.stringify(localUserData));
-
 	console.log('Saved changed data');
 }
 
 async function loadUsers() {
-	try {
-		startData = JSON.parse(await getItem('startData'));
-		console.log(startData);
-	} catch (e) {
-		console.error('Loading error:', e);
-	}
+	startData = JSON.parse(await getItem('startData'));
+	console.log(startData);
 }
 
 let loggedInData = [];
 
-async function loadLoggedInData(){
-    try {
-		loggedInData = JSON.parse(await getItem('loggedInData'));
-		console.log(loggedInData);
-	} catch (e) {
-		console.error('Loading error:', e);
-	}
+async function loadLoggedInData(){ 
+	loggedInData = JSON.parse(await getItem('loggedInData'));
 }
 
 async function  storeLoggedInData() {
      await setItem('loggedInData', JSON.stringify(loggedInData));
+}
+
+let loginData = [];
+
+async function storeLoginData() {
+	await setItem('LogInData', JSON.stringify(loginData));
+}
+/**
+ * Stores the start data in local storage.
+ */
+
+async function loadUsers() {
+	startData = JSON.parse(await getItem('startData'));
+}
+
+function storeStartData() {
+	setItem('startData', JSON.stringify(startData));
+}
+async function getData() {
+	await getItem('startData');
+}
+let spezLogInData = [];
+async function storeSpezLogInData() {
+	await setItem('LogInData', JSON.stringify(spezLogInData));
 }

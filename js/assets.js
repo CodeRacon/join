@@ -1,43 +1,10 @@
 /**tasks: [
  * Array of hex color values used for contacts and task-categories
  */
-let hexColors = [
-	'#b83c3c',
-	'#00BEE8',
-	'#1FD7C1',
-	'#6E52FF',
-	'#9747FF',
-	'#A6C063',
-	'#FC71FF',
-	'#FF4646',
-	'#FF5EB3',
-	'#FF745E',
-	'#FF7A00',
-	'#FFA35E',
-	'#FFBB2B',
-	'#FFC701',
-	'#FFE62B',
-	'#00FF9D',
-	'#00B155',
-	'#85FF00',
-	'#FFD100',
-	'#FFC300',
-	'#FF00E1',
-	'#FF0091',
-	'#0077FF',
-	'#00A6FF',
-	'#FF6A00',
-	'#FF8A00',
-	'#FF0038',
-	'#FF005E',
-	'#006AFF',
-	'#00B8AB',
-];
 
 startData = {
 	users: [
 		{
-			isRegistered: true,
 			isLoggedIn: false,
 			userData: {
 				name: 'Mike Skinner',
@@ -81,7 +48,6 @@ startData = {
 		},
 
 		{
-			isRegistered: true,
 			isLoggedIn: true,
 			userData: {
 				name: 'Kamilla Morgentau',
@@ -141,7 +107,6 @@ startData = {
 			],
 		},
 		{
-			isRegistered: true,
 			isLoggedIn: false,
 			userData: {
 				name: 'Gerd Förster',
@@ -201,7 +166,6 @@ startData = {
 			],
 		},
 		{
-			isRegistered: true,
 			isLoggedIn: false,
 			userData: {
 				name: 'Bernd Steinemann',
@@ -260,7 +224,6 @@ startData = {
 			],
 		},
 		{
-			isRegistered: true,
 			isLoggedIn: false,
 			userData: {
 				name: 'Sophia Kostas',
@@ -316,8 +279,8 @@ startData = {
 			],
 		},
 		{
-			isRegistered: true,
 			isLoggedIn: false,
+			setToOriginallyState: true,
 			userData: {
 				name: 'Guest'
 			},
@@ -483,21 +446,4 @@ startData = {
 	],
 };
 
-let loginData = [];
 
-async function storeLoginData() {
-	await setItem('LogInData', JSON.stringify(loginData));
-}
-/**
- * Stores the start data in local storage.
- */
-function storeStartData() {
-	setItem('startData', JSON.stringify(startData));
-}
-async function getData() {
-	await getItem('startData');
-}
-let spezLogInData = [];
-async function storeSpezLogInData() {
-	await setItem('LogInData', JSON.stringify(spezLogInData));
-}

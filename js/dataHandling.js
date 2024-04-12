@@ -1,27 +1,21 @@
 let separateIndedNum = 0;
-loadUserszr();
+
 loadUsers();
 
 localUserData = []; // wird beim ersten Mal in den LocalStorage gepackt und beim zweiten aufruf werden die Server daten in den LocalStorage gepackt
 
-
 loadLoggedInData();
 loadIndexNum();
-console.log(num);
 
+async function init() {
 
-
-
-//test bzw ein neuer Variablen name muss mit einem neuen key in den remote storage
-async function init(){
-    
     loadIndexNum();
     await loadUserData();
-    ppt();
+    sendCombinedUserToServer();
     await loadUsers();
 }
 
-async function ppt(){
+async function sendCombinedUserToServer() {
     await loadUserData();
     await loadUsers();
 
@@ -29,202 +23,172 @@ async function ppt(){
         user: startData.users[num],
         contacts: startData.contacts
     }
-  
+
     await checkIfArrayExistInServer(combinedUser);
 }
 
 
-async function checkIfArrayExistInServer(combinedUser ) {
+async function checkIfArrayExistInServer(combinedUser) {
     await loadUsers();
-     loadLoggedInData();
-     
-      localUserData = [];
-        if(localStorage.length > 0){
-            for (let i = 0; i < loggedInData.length; i++) {
-                if (startData.users[num].userData.name == loggedInData[i].user.userData.name) {
-                    alert('ok');
-                    if (startData.users[num].userData.name == 'Guest' && startData.users[num].isLoggedIn == true) {
-                            startData.users[num].isLoggedIn = false;
-                            storeStartData();
-                                alert('hry');
-                                loggedInData[i] = combinedUser;
-                                storeLoggedInData();
-                                localUserData.push(loggedInData[i]);
-                                saveUserData();
-                                return;
+    await loadLoggedInData()
+
+    localUserData = [];
+    if (resetExistingGuestAccount(combinedUser) == true) {
+        return;
+    }
+    localUserData.push(combinedUser);
+    deleteSecondElementFromLocalUserData();
+    saveUserData();
+}
+
+
+async function resetExistingGuestAccount(combinedUser) {
+    if (localStorage.length > 0) {
+        for (let i = 0; i < loggedInData.length; i++) {
+            if (startData.users[num].userData.name == loggedInData[i].user.userData.name) {
+
+                if (startData.users[num].userData.name == 'Guest' && startData.users[num].setToOriginallyState == true) {
+                    if (await resetToOriginalyGuestData(i, combinedUser)) {
+                        deleteSecondElementFromLocalUserData();
+                        return true;
                     }
-                    localUserData.push(loggedInData[i]);
-                    saveUserData();
-                    return;
                 }
-                
+                localUserData.push(loggedInData[i]);
+                deleteSecondElementFromLocalUserData();
+                saveUserData();
+                return true;
             }
+
         }
-        localUserData.push(combinedUser);
-         saveUserData();
-    } 
-    
-    // Wenn combined User im Server vorhanden ist, wird ppt garnicht erst ausgeführt
+    }
+}
+
+function deleteSecondElementFromLocalUserData(){
+    loadUserData();
+    if (localUserData.length > 1) {
+        localUserData.splice(1, 1);
+        saveUserData();
+    }
+}
+
+async function resetToOriginalyGuestData(i, combinedUser) {
+    startData.users[num].setToOriginallyState = false;
+    storeStartData();
+    loggedInData[i] = combinedUser;
+    await storeLoggedInData();
+    localUserData.push(loggedInData[i]);
+    saveUserData();
+    return true;
+}
 
 
-
-
-
-/*let pageLeave = false;  Könnte villeicht funktionieren
-
-window.onbeforeunload = function() {
-  if (pageLeave == false) {
-    pageLeave = true;
-    localStorage.removeItem('changedData');
-    return 'Sind Sie sicher, dass Sie diese Seite verlassen möchten? Ihre Änderungen werden nicht gespeichert.';
-  }
-}; */
-
-
-async function letMeCook(){
-    await loadUsers(); 
+async function synchronizeUserDataWithLocalStorage() {
+    await loadUsers();
     await loadUserData();
-    console.log(startData);
-   
     if (loggedInData.length > 0) {
         for (let i = 0; i < loggedInData.length; i++) {
             if (loggedInData[i].hasOwnProperty('user')) {
                 if (loggedInData[i].user.userData.name == startData.users[num].userData.name) {
-       
                     localUserData[0] = loggedInData[i];
                     saveUserData();
-                
                 }
-               
             }
-          
         }
     }
 }
 
-letMeCook();      
+synchronizeUserDataWithLocalStorage();
 
 // ganz oben if true neues guest array und danach false 
 
 
-window.onbeforeunload = async function() {
+window.onbeforeunload = async function () {
     await loadUserData();
-    letMeCook();
+    synchronizeUserDataWithLocalStorage();
     loadLoggedInData();
-    await youlo();
-    
+    await pushFromServerToStorage();
+    deleteSecondElementFromLocalUserData();
     localStorage.removeItem('changedData');
-    
-    
+
+
 };
 
 
-async function youlo(){
+async function pushFromServerToStorage() {
     await loadUserData();
     loadLoggedInData();
-  
-    for (let i = 0; i < loggedInData.length; i++) { 
-     if (loggedInData[i].hasOwnProperty('user')) {
-          if (loggedInData[i].user.userData.name ==  localUserData[0].user.userData.name) {
-    
-            loggedInData[i] = localUserData[0];
-            storeLoggedInData();
-            localUserData[0] = loggedInData[i];
-            saveUserData();
-         
-           return;
-          }         
+    for (let i = 0; i < loggedInData.length; i++) {
+        if (loggedInData[i].hasOwnProperty('user')) {
+            if (loggedInData[i].user.userData.name == localUserData[0].user.userData.name) {
+                loggedInData[i] = localUserData[0];
+                storeLoggedInData();
+                localUserData[0] = loggedInData[i];
+                saveUserData();
+                return;
+            }
         }
-        
-     }
-  
-
-     loggedInData.push(localUserData[0]);
-     storeLoggedInData();
-     
-     return;
-     // unter mir besser in den else teik
-    
-    
+    }
+    loggedInData.push(localUserData[0]);
+    storeLoggedInData();
+    return;
 }
-// Hinzufügen des Event-Listeners
 
-
-
-
-// Funktion zum Entfernen des Event-Listeners
 function removeBeforeUnloadListener() {
     window.removeEventListener('beforeunload', beforeUnloadHandler);
 }
 
-// Funktion zum Wiederhinzufügen des Event-Listeners
 function addBeforeUnloadListener() {
-        window.addEventListener('beforeunload', beforeUnloadHandler);
+    window.addEventListener('beforeunload', beforeUnloadHandler);
 }
 
 let myLink = 0;
 
-
-function linkToNewSite(locateSite, ths, i) {
+function linkToNewSite(locateSite, secHrefArray, i) {
     let myLink = document.getElementById(locateSite);
-    window.location.href = ths[i];
+    window.location.href = secHrefArray[i];
 }
 
-let lunk = [];
+let hrefs = [];
 
 const links = document.querySelectorAll('a');
 
-function dopemope(){
-for (const link of links) {
-    console.log(link.id);
-    lunk.push(link.id);
-}
+function pushAhrefsInArray() {
+    for (const link of links) {
+
+        hrefs.push(link.id);
+    }
 }
 
 let numForLinkLocation;
 
-dopemope();
+pushAhrefsInArray();
 
 function higherNumber() {
     links.forEach((link) => {
-        let ths = [];
+        let secHrefArray = [];
         let nn;
         link.addEventListener('click', (event) => {
-            for (let i = 0; i < lunk.length; i++) {
-                if (lunk[i] == link.id) {
-                    ths.push(link.href);
+            for (let i = 0; i < hrefs.length; i++) {
+                if (hrefs[i] == link.id) {
+                    secHrefArray.push(link.href);
                     numForLinkLocation = i;
                     nn = i;
-                }  
+                }
             }
-            console.log(numForLinkLocation);
             // Hier oioipo aufrufen
-            oioipo(lunk[numForLinkLocation], nn, ths); // Beachte die Korrektur des Index
+            addBeforeunloadEventToNewSite(hrefs[numForLinkLocation], nn, secHrefArray); // Beachte die Korrektur des Index
         });
     });
 }
 
-// ...
 
-// Entferne den vorherigen Aufruf von oioipo hier
-function oioipo(idgrapper, i, ths) {
+
+function addBeforeunloadEventToNewSite(idgrapper, i, secHrefArray) {
     let dynamicLink = document.getElementById(idgrapper);
-        removeBeforeUnloadListener();
-        linkToNewSite(idgrapper,ths, i);
-        addBeforeUnloadListener();
+    removeBeforeUnloadListener();
+    linkToNewSite(idgrapper, secHrefArray, i);
+    addBeforeUnloadListener();
 }
 
-async function loadUserszr(){
-    try {
-        spezLogInData = JSON.parse(await getItem('LogInData'));
-        console.log(spezLogInData);
-    } catch(e){
-        console.error('Loading error:', e);
-    }
-}
 
-// Example: Call oioipo with the ID of the link you want to dynamically handle
 higherNumber();
-
-
-

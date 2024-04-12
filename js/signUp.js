@@ -1,13 +1,11 @@
 loadUsers();
-let heyo = [];
-let cancelFunction = 0;
-let nameOfInputsId = ['name', 'mail', 'paswort'];
+loadLoggedInData();
 let num = 0;
 async function createAccount() {
 	let name = document.getElementById('signup-name');
 	let email = document.getElementById('signup-email');
-	let paswort = document.getElementById('signup-pw');
-	return await pushIntoArray(name, email, paswort);
+	let password = document.getElementById('signup-pw');
+	return await pushIntoArray(name, email, password);
 }
 
 function saveIndexNum(){
@@ -22,15 +20,14 @@ function loadIndexNum(){
     }
 }
 
-function checkExistenceOfAccount(name, email, paswort) {
+function checkExistenceOfAccount(name, email, password) {
 	for (let i = 0; i < startData.users.length; i++) {
 		if (startData.users[i].hasOwnProperty('registerData')) {
 			if (
 				startData.users[i].registerData.Data['name'] == name.value ||
 				startData.users[i].registerData.Data['email'] == email.value ||
-				startData.users[i].registerData.Data['password'] == paswort.value
+				startData.users[i].registerData.Data['password'] == password.value
 			) {
-				alert('hey');
 				return true;
 			}
 		} else {
@@ -43,34 +40,21 @@ function checkExistenceOfAccount(name, email, paswort) {
 // Beispielaufruf
 
 
-async function pushIntoArray(name, email, paswort) {
+async function pushIntoArray(name, email, password) {
 	let newData = {
-		isRegistered: true,
 		isLoggedIn: false,
 		userData: {
 			name: name.value,
 			
 			email: email.value,
-			password: paswort.value,
+			password: password.value,
 		},
-
 		tasks: [],
 	};
 	startData.users.push(newData);
 	storeStartData();
 }
-async function loadUsers() {
-	try {
-		startData = JSON.parse(await getItem('startData'));
-		console.log(startData);
-	} catch (e) {
-		console.error('Loading error:', e);
-	}
-}
-function toogleNum() {
-	cancelFunction = 1;
-}
-// Funktion bei der der agb button angeclickt wird und dan auf 1 kommt wenn dies geschieht kann der button benutzt werden sont nicht
+
 // https://remote-storage.developerakademie.org/item?key=User&token=OLCMKPDCPKF9TQULRK3MARG5U8JK2GGGL5588K0M
 // FUNKTIONEN VON MICHA 04.04.2024
 function toggleLoginSignup() {
@@ -96,7 +80,12 @@ async function validateLoginForm() {
 	const isValidPassword = validateLoginPW();
 	if (isValidEmail && isValidPassword) {
 		console.log('Form is valid');
+		loadGuestBoolean();
+		isGuestUser = false;
+		saveGuestBoolean();
 		await checkExistence();
+		await setLoggedInToFalse();
+		await setLoggedInPersonTrue();
 		window.location.href = 'summary.html';
 	} else {
 		console.log('Form is not valid');
@@ -288,23 +277,28 @@ function resetLoginSignupErrors() {
 	});
 }
 
-async function guestLogin(){
+ async function guestLogin(){
+	await setLoggedInToFalse();
+	await setLoggedInPersonTrue();
+	loadGuestBoolean();
+	isGuestUser = true;
+	saveGuestBoolean();
     loadIndexNum();
-   await loadUsers();
     for (let i = 0; i < startData.users.length; i++) {
         if (startData.users[i].hasOwnProperty('userData')){
             if (startData.users[i].userData.name == 'Guest') {
-               		 startData.users[i].isLoggedIn = true;
+               		 startData.users[i].setToOriginallyState = true;
                     storeStartData();
                     num = i;
                     saveIndexNum();
-                
             }
         }
         
     }
 	window.location.href = 'summary.html'
+	
 }
+
 
 async function checkIfLoginEmailIsInServer(){
 	await loadUsers();
@@ -333,11 +327,10 @@ async function checkIfLoginPasswordIsInServer(){
 
 async function checkExistence() {
     await loadUsers();
-    console.log(startData);
     let mail = document.getElementById('login-email').value;
     let password = document.getElementById('login-password').value;
     if (await checkIfValueIsLegit(mail, password) == true) {
-        window.open("test.html");   
+       return true;
     } 
 }
 
@@ -352,12 +345,39 @@ async function checkIfValueIsLegit(mail, password) {
                 startData.users[i]['isLoggedIn'] = true;
                 storeStartData();
                 }
-                // Vom Server in den LocalStorage muss von hier beginnen aber nur isLoggedIn True ist und dan mit einer fors schleife überprüft wird ob der name in dem true zugeordnet ist auch in dem anderedd   
-                // Beachte die Dokumentation oben was heißt das du beim DataHandling.js villeicht par sachen ändern musst
                 saveIndexNum();
                 return true; 
-                //Wen logged in true ist und es den namen des users enthält wird die kopie genommen.  
-            }   
+			    }   
         }
     }
 }
+
+async function setLoggedInToFalse(){
+	await loadLoggedInData();
+	await loadUsers();
+	for (let i = 0; i < startData.users.length; i++) {
+		startData.users[i].isLoggedIn = false;
+		storeStartData();
+	}
+	for (let i = 0; i < loggedInData.length; i++) {
+		loggedInData[i].isLoggedIn = false;
+		storeLoggedInData();
+	}
+}
+
+async function setLoggedInPersonTrue(){
+	await loadUsers();
+	await loadLoggedInData();
+
+	startData.users[num].isLoggedIn = true;
+	storeStartData();
+	for (let i = 0; i < loggedInData.length; i++) {
+		if (startData.users[num].userData.name == loggedInData[i].user.userData.name) {
+			loggedInData[i].user.isLoggedIn = false;
+			storeLoggedInData();
+			return;
+		}
+	}
+}
+
+// heute austesten;
