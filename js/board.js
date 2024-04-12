@@ -1,30 +1,30 @@
 let taskColor = {
-  userStory: "#0038FF", // category 1
-  technicalTask: "#1FD7C1", //category 2
+	userStory: '#0038FF', // category 1
+	technicalTask: '#1FD7C1', //category 2
 };
-let low = "assets/img/icons/add-task/low.svg";
-let medium = "assets/img/icons/add-task/medium-orange.svg";
-let high = "assets/img/icons/add-task/urgent.svg";
-let taskDone = "assets/img/icons/board/cf_checked.svg";
-let taskNotDone = "assets/img/icons/board/cf_unchecked.svg";
+let low = 'assets/img/icons/add-task/low.svg';
+let medium = 'assets/img/icons/add-task/medium-orange.svg';
+let high = 'assets/img/icons/add-task/urgent.svg';
+let taskDone = 'assets/img/icons/board/cf_checked.svg';
+let taskNotDone = 'assets/img/icons/board/cf_unchecked.svg';
 let currentDraggedElement;
 let actualCard;
-window.addEventListener("resize", updateHTML);
+window.addEventListener('resize', updateHTML);
 
 /**
  * Updates the HTML DOM to reflect the latest state of tasks.
  * Calls various helper functions to update different sections.
  */
 async function updateHTML() {
-  await loadUserData();
-  updateToDos();
-  updateInProgress();
-  updateAwaitFeedback();
-  updateDone();
-  updateTaskColorAndCategory();
-  updatePriority();
-  showContactsToAssign();
-  clearForm();
+	await loadUserData();
+	updateToDos();
+	updateInProgress();
+	updateAwaitFeedback();
+	updateDone();
+	updateTaskColorAndCategory();
+	updatePriority();
+	showContactsToAssign();
+	clearForm();
 }
 
 /**
@@ -37,21 +37,21 @@ async function updateHTML() {
  * If no "toDo" tasks exist for a user, generates empty state HTML.
  */
 function updateToDos() {
-  let source = "toDo";
-  let content = document.getElementById("toDo");
-  content.innerHTML = "";
-  for (let i = 0; i < localUserData["users"].length; i++) {
-    const element = localUserData["users"][i];
-    if (element.hasOwnProperty("tasks")) {
-      let toDo = element["tasks"].filter((todo) => todo["status"] == "toDo");
-      for (let index = 0; index < toDo.length; index++) {
-        const element = toDo[index];
-        content.innerHTML += generateTaskCard(element, source);
-        renderInitialsProgressBarMaxThree(element);
-      }
-    }
-  }
-  checkIfEmpty("toDo", "to do");
+	let source = 'toDo';
+	let content = document.getElementById('toDo');
+	content.innerHTML = '';
+	for (let i = 0; i < localUserData['users'].length; i++) {
+		const element = localUserData['users'][i];
+		if (element.hasOwnProperty('tasks')) {
+			let toDo = element['tasks'].filter((todo) => todo['status'] == 'toDo');
+			for (let index = 0; index < toDo.length; index++) {
+				const element = toDo[index];
+				content.innerHTML += generateTaskCard(element, source);
+				renderInitialsProgressBarMaxThree(element);
+			}
+		}
+	}
+	checkIfEmpty('toDo', 'to do');
 }
 
 /**
@@ -64,23 +64,23 @@ function updateToDos() {
  * If no "inProgress" tasks exist for a user, generates empty state HTML.
  */
 function updateInProgress() {
-  let source = "inProgress";
-  let content = document.getElementById("inProgress");
-  content.innerHTML = "";
-  for (let i = 0; i < localUserData["users"].length; i++) {
-    const element = localUserData["users"][i];
-    if (element.hasOwnProperty("tasks")) {
-      let inProgress = element["tasks"].filter(
-        (task) => task["status"] == "inProgress"
-      );
-      for (let index = 0; index < inProgress.length; index++) {
-        const element = inProgress[index];
-        content.innerHTML += generateTaskCard(element, source);
-        renderInitialsProgressBarMaxThree(element);
-      }
-    }
-  }
-  checkIfEmpty("inProgress", "in progress");
+	let source = 'inProgress';
+	let content = document.getElementById('inProgress');
+	content.innerHTML = '';
+	for (let i = 0; i < localUserData['users'].length; i++) {
+		const element = localUserData['users'][i];
+		if (element.hasOwnProperty('tasks')) {
+			let inProgress = element['tasks'].filter(
+				(task) => task['status'] == 'inProgress'
+			);
+			for (let index = 0; index < inProgress.length; index++) {
+				const element = inProgress[index];
+				content.innerHTML += generateTaskCard(element, source);
+				renderInitialsProgressBarMaxThree(element);
+			}
+		}
+	}
+	checkIfEmpty('inProgress', 'in progress');
 }
 
 /**
@@ -93,23 +93,23 @@ function updateInProgress() {
  * If no "awaitFeedback" tasks exist for a user, generates empty state HTML.
  */
 function updateAwaitFeedback() {
-  let source = "awaitFeedback";
-  let content = document.getElementById("awaitFeedback");
-  content.innerHTML = "";
-  for (let i = 0; i < localUserData["users"].length; i++) {
-    const element = localUserData["users"][i];
-    if (element.hasOwnProperty("tasks")) {
-      let awaitFeedback = element["tasks"].filter(
-        (task) => task["status"] == "awaitFeedback"
-      );
-      for (let index = 0; index < awaitFeedback.length; index++) {
-        const element = awaitFeedback[index];
-        content.innerHTML += generateTaskCard(element, source);
-        renderInitialsProgressBarMaxThree(element);
-      }
-    }
-  }
-  checkIfEmpty("awaitFeedback", "await feedback");
+	let source = 'awaitFeedback';
+	let content = document.getElementById('awaitFeedback');
+	content.innerHTML = '';
+	for (let i = 0; i < localUserData['users'].length; i++) {
+		const element = localUserData['users'][i];
+		if (element.hasOwnProperty('tasks')) {
+			let awaitFeedback = element['tasks'].filter(
+				(task) => task['status'] == 'awaitFeedback'
+			);
+			for (let index = 0; index < awaitFeedback.length; index++) {
+				const element = awaitFeedback[index];
+				content.innerHTML += generateTaskCard(element, source);
+				renderInitialsProgressBarMaxThree(element);
+			}
+		}
+	}
+	checkIfEmpty('awaitFeedback', 'await feedback');
 }
 
 /**
@@ -122,28 +122,28 @@ function updateAwaitFeedback() {
  * If no "done" tasks exist for a user, generates empty state HTML.
  */
 function updateDone() {
-  let content = document.getElementById("closed");
-  let source = "done";
+	let content = document.getElementById('closed');
+	let source = 'done';
 
-  content.innerHTML = "";
-  for (let i = 0; i < localUserData["users"].length; i++) {
-    const element = localUserData["users"][i];
-    if (element.hasOwnProperty("tasks")) {
-      let closed = element["tasks"].filter((task) => task["status"] == "done");
-      for (let index = 0; index < closed.length; index++) {
-        const element = closed[index];
-        content.innerHTML += generateTaskCard(element, source);
-        renderInitialsProgressBarMaxThree(element);
-      }
-    }
-  }
-  checkIfEmpty("closed", "done");
+	content.innerHTML = '';
+	for (let i = 0; i < localUserData['users'].length; i++) {
+		const element = localUserData['users'][i];
+		if (element.hasOwnProperty('tasks')) {
+			let closed = element['tasks'].filter((task) => task['status'] == 'done');
+			for (let index = 0; index < closed.length; index++) {
+				const element = closed[index];
+				content.innerHTML += generateTaskCard(element, source);
+				renderInitialsProgressBarMaxThree(element);
+			}
+		}
+	}
+	checkIfEmpty('closed', 'done');
 }
 
 function renderInitialsProgressBarMaxThree(element) {
-  showInitials(element);
-  generateProgressBar(element);
-  showMaxThreeCircles(element);
+	showInitials(element);
+	generateProgressBar(element);
+	showMaxThreeCircles(element);
 }
 
 /**
@@ -152,15 +152,15 @@ function renderInitialsProgressBarMaxThree(element) {
  * users and shows a "+X" indicator with the number hidden.
  */
 function showMaxThreeCircles(element) {
-  let container = document.getElementById(`assignedCircle${element.id}`);
-  let childs = container.children;
-  let moreAssigned = childs.length - 3;
-  for (let i = 3; i < childs.length; i++) {
-    childs[i].style.display = "none";
-  }
-  if (childs.length > 3) {
-    container.innerHTML += showMaxThreeCirclesHTML(moreAssigned);
-  }
+	let container = document.getElementById(`assignedCircle${element.id}`);
+	let childs = container.children;
+	let moreAssigned = childs.length - 3;
+	for (let i = 3; i < childs.length; i++) {
+		childs[i].style.display = 'none';
+	}
+	if (childs.length > 3) {
+		container.innerHTML += showMaxThreeCirclesHTML(moreAssigned);
+	}
 }
 
 /**
@@ -172,16 +172,16 @@ function showMaxThreeCircles(element) {
  * to show category name.
  */
 function updateTaskColorAndCategory() {
-  let elements = document.getElementsByClassName("category-of-task");
-  Array.from(elements).forEach((element) => {
-    if (element.innerText.trim() == 1) {
-      element.classList.add("user-story-task-color");
-      element.innerHTML = "User Story";
-    } else {
-      element.classList.add("technical-task-color");
-      element.innerHTML = "Technical Task";
-    }
-  });
+	let elements = document.getElementsByClassName('category-of-task');
+	Array.from(elements).forEach((element) => {
+		if (element.innerText.trim() == 1) {
+			element.classList.add('user-story-task-color');
+			element.innerHTML = 'User Story';
+		} else {
+			element.classList.add('technical-task-color');
+			element.innerHTML = 'Technical Task';
+		}
+	});
 }
 
 /**
@@ -194,25 +194,25 @@ function updateTaskColorAndCategory() {
  * to show correct priority icon image.
  */
 function updatePriority() {
-  let prioBoxes = document.getElementsByClassName("priority-of-task");
-  Array.from(prioBoxes).forEach((prioBox) => {
-    if (
-      prioBox.innerText.trim() == 1 ||
-      prioBox.innerText.trim().toLowerCase() == "low"
-    ) {
-      prioBox.innerHTML = `<img src="${low}" alt="Low Priority">`;
-    } else if (
-      prioBox.innerText.trim() == "2" ||
-      prioBox.innerText.trim().toLowerCase() == "medium"
-    ) {
-      prioBox.innerHTML = `<img src="${medium}" alt="Low Priority">`;
-    } else if (
-      prioBox.innerText.trim() == "3" ||
-      prioBox.innerText.trim().toLowerCase() == "urgent"
-    ) {
-      prioBox.innerHTML = `<img src="${high}" alt="Low Priority">`;
-    }
-  });
+	let prioBoxes = document.getElementsByClassName('priority-of-task');
+	Array.from(prioBoxes).forEach((prioBox) => {
+		if (
+			prioBox.innerText.trim() == 1 ||
+			prioBox.innerText.trim().toLowerCase() == 'low'
+		) {
+			prioBox.innerHTML = `<img src="${low}" alt="Low Priority">`;
+		} else if (
+			prioBox.innerText.trim() == '2' ||
+			prioBox.innerText.trim().toLowerCase() == 'medium'
+		) {
+			prioBox.innerHTML = `<img src="${medium}" alt="Medium Priority">`;
+		} else if (
+			prioBox.innerText.trim() == '3' ||
+			prioBox.innerText.trim().toLowerCase() == 'urgent'
+		) {
+			prioBox.innerHTML = `<img src="${high}" alt="High Priority">`;
+		}
+	});
 }
 
 /**
@@ -225,20 +225,20 @@ function updatePriority() {
  * element.
  */
 function showInitials(element) {
-  let allInitials = element.assignedTo;
-  let container = document.getElementById(`assignedCircle${element["id"]}`);
-  container.innerHTML = "";
-  allInitials.forEach((name) => {
-    const initial = name
-      .split(" ")
-      .map((word) => word.charAt(0))
-      .join("");
-    let user = localUserData["contacts"].find(
-      (user) => user.userData.name === name
-    );
-    let color = user ? user.color : "#808080";
-    container.innerHTML += showInitialsHTML(color, initial);
-  });
+	let allInitials = element.assignedTo;
+	let container = document.getElementById(`assignedCircle${element['id']}`);
+	container.innerHTML = '';
+	allInitials.forEach((name) => {
+		const initial = name
+			.split(' ')
+			.map((word) => word.charAt(0))
+			.join('');
+		let user = localUserData['contacts'].find(
+			(user) => user.userData.name === name
+		);
+		let color = user ? user.color : '#808080';
+		container.innerHTML += showInitialsHTML(color, initial);
+	});
 }
 
 /**
@@ -249,21 +249,21 @@ function showInitials(element) {
  * with appropriate value, and text indicating number of subtasks completed vs total.
  */
 function generateProgressBar(element) {
-  let container = document.getElementById(`progress${element["id"]}`);
-  container.innerHTML = "";
-  let subtasks = element["subtasks"];
-  if (!element.hasOwnProperty("subtasks") || subtasks.length == 0) {
-    return;
-  } else {
-    let doneSubtasks = subtasks.filter((subtask) => subtask.done).length;
-    let progress = (doneSubtasks / subtasks.length) * 100;
+	let container = document.getElementById(`progress${element['id']}`);
+	container.innerHTML = '';
+	let subtasks = element['subtasks'];
+	if (!element.hasOwnProperty('subtasks') || subtasks.length == 0) {
+		return;
+	} else {
+		let doneSubtasks = subtasks.filter((subtask) => subtask.done).length;
+		let progress = (doneSubtasks / subtasks.length) * 100;
 
-    container.innerHTML = generateProgressBarHTML(
-      progress,
-      doneSubtasks,
-      subtasks
-    );
-  }
+		container.innerHTML = generateProgressBarHTML(
+			progress,
+			doneSubtasks,
+			subtasks
+		);
+	}
 }
 
 /**
@@ -271,16 +271,16 @@ function generateProgressBar(element) {
  * overlay task card to indicate the category type.
  */
 function taskColorAndCategoryForSingleCard() {
-  let element = document.getElementsByClassName("category-of-single-task");
-  Array.from(element).forEach((element) => {
-    if (element.innerText.trim() == 1) {
-      element.classList.add("user-story-task-color");
-      element.innerHTML = "User Story";
-    } else {
-      element.classList.add("technical-task-color");
-      element.innerHTML = "Technical Task";
-    }
-  });
+	let element = document.getElementsByClassName('category-of-single-task');
+	Array.from(element).forEach((element) => {
+		if (element.innerText.trim() == 1) {
+			element.classList.add('user-story-task-color');
+			element.innerHTML = 'User Story';
+		} else {
+			element.classList.add('technical-task-color');
+			element.innerHTML = 'Technical Task';
+		}
+	});
 }
 
 /**
@@ -290,25 +290,25 @@ function taskColorAndCategoryForSingleCard() {
  * @param {HTMLElement[]} prioBox - Array of priority elements
  */
 function updatePriorityForSingleTask() {
-  let prioBox = document.getElementsByClassName("priority-of-single-task");
-  Array.from(prioBox).forEach((prioBox) => {
-    if (
-      prioBox.innerText.trim() == "1" ||
-      prioBox.innerText.trim().toLowerCase() == "low"
-    ) {
-      prioBox.innerHTML = priorityLowHTML(low);
-    } else if (
-      prioBox.innerText.trim() == "2" ||
-      prioBox.innerText.trim().toLowerCase() == "medium"
-    ) {
-      prioBox.innerHTML = priorityMediumHTML(medium);
-    } else if (
-      prioBox.innerText.trim() == "3" ||
-      prioBox.innerText.trim().toLowerCase() == "urgent"
-    ) {
-      prioBox.innerHTML = priorityHighHTML(high);
-    }
-  });
+	let prioBox = document.getElementsByClassName('priority-of-single-task');
+	Array.from(prioBox).forEach((prioBox) => {
+		if (
+			prioBox.innerText.trim() == '1' ||
+			prioBox.innerText.trim().toLowerCase() == 'low'
+		) {
+			prioBox.innerHTML = priorityLowHTML(low);
+		} else if (
+			prioBox.innerText.trim() == '2' ||
+			prioBox.innerText.trim().toLowerCase() == 'medium'
+		) {
+			prioBox.innerHTML = priorityMediumHTML(medium);
+		} else if (
+			prioBox.innerText.trim() == '3' ||
+			prioBox.innerText.trim().toLowerCase() == 'urgent'
+		) {
+			prioBox.innerHTML = priorityHighHTML(high);
+		}
+	});
 }
 
 /**
@@ -321,22 +321,22 @@ function updatePriorityForSingleTask() {
  * the initials styled with the color and the full name.
  */
 function showInitialsForSingleCard() {
-  let allInitials = actualCard.assignedTo;
-  let container = document.getElementById(
-    `singleAssignedCircle${actualCard["id"]}`
-  );
-  container.innerHTML = "";
-  allInitials.forEach((name) => {
-    const initial = name
-      .split(" ")
-      .map((word) => word.charAt(0))
-      .join("");
-    let user = localUserData["contacts"].find(
-      (user) => user.userData.name === name
-    );
-    let color = user ? user.color : "#A8A8A8";
-    container.innerHTML += showInitialsForSingleCardHTML(color, initial, name);
-  });
+	let allInitials = actualCard.assignedTo;
+	let container = document.getElementById(
+		`singleAssignedCircle${actualCard['id']}`
+	);
+	container.innerHTML = '';
+	allInitials.forEach((name) => {
+		const initial = name
+			.split(' ')
+			.map((word) => word.charAt(0))
+			.join('');
+		let user = localUserData['contacts'].find(
+			(user) => user.userData.name === name
+		);
+		let color = user ? user.color : '#A8A8A8';
+		container.innerHTML += showInitialsForSingleCardHTML(color, initial, name);
+	});
 }
 
 /**
@@ -346,22 +346,22 @@ function showInitialsForSingleCard() {
  * Handles toggling the checkbox when clicked and updating styles.
  */
 function showSubtasks() {
-  let content = document.getElementById(`subtasks${actualCard.id}`);
-  content.innerHTML = "";
-  content.innerHTML = `<span>Subtasks</span>`;
-  for (let index = 0; index < actualCard.subtasks.length; index++) {
-    let element = actualCard.subtasks[index]["name"];
-    content.innerHTML += showSubtasksHTML(index, element);
-    let status = actualCard.subtasks[index]["done"];
-    let img = document.getElementsByClassName("img-checked-true-false")[index];
-    if (status === true) {
-      img.src = taskDone;
-      img.classList.add("is-done");
-    } else {
-      img.src = taskNotDone;
-      img.classList.add("not-done");
-    }
-  }
+	let content = document.getElementById(`subtasks${actualCard.id}`);
+	content.innerHTML = '';
+	content.innerHTML = `<span>Subtasks</span>`;
+	for (let index = 0; index < actualCard.subtasks.length; index++) {
+		let element = actualCard.subtasks[index]['name'];
+		content.innerHTML += showSubtasksHTML(index, element);
+		let status = actualCard.subtasks[index]['done'];
+		let img = document.getElementsByClassName('img-checked-true-false')[index];
+		if (status === true) {
+			img.src = taskDone;
+			img.classList.add('is-done');
+		} else {
+			img.src = taskNotDone;
+			img.classList.add('not-done');
+		}
+	}
 }
 
 /**
@@ -372,17 +372,17 @@ function showSubtasks() {
  * task card overlay, and updates the HTML to reflect the change.
  */
 function deleteTask(card) {
-  for (let i = 0; i < localUserData.users.length; i++) {
-    for (let j = 0; j < localUserData.users[i].tasks.length; j++) {
-      if (localUserData.users[i].tasks[j].id === card) {
-        localUserData.users[i].tasks.splice(j, 1);
-      }
-    }
-  }
-  saveUserData();
-  closeTaskCardOverlay();
-  updateHTML();
-  backDropOff();
+	for (let i = 0; i < localUserData.users.length; i++) {
+		for (let j = 0; j < localUserData.users[i].tasks.length; j++) {
+			if (localUserData.users[i].tasks[j].id === card) {
+				localUserData.users[i].tasks.splice(j, 1);
+			}
+		}
+	}
+	saveUserData();
+	closeOverlays();
+	updateHTML();
+	backDropOff();
 }
 
 /**
@@ -392,13 +392,13 @@ function deleteTask(card) {
  * re-renders the subtasks section of the task card.
  */
 function changeSubtaskToDoneOrNot(index) {
-  let subtask = actualCard.subtasks[index];
-  if (subtask.done === false) {
-    subtask.done = true;
-  } else {
-    subtask.done = false;
-  }
-  localUserData.users.indexOf(actualCard);
-  saveUserData();
-  showSubtasks();
+	let subtask = actualCard.subtasks[index];
+	if (subtask.done === false) {
+		subtask.done = true;
+	} else {
+		subtask.done = false;
+	}
+	localUserData.users.indexOf(actualCard);
+	saveUserData();
+	showSubtasks();
 }

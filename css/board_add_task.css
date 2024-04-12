@@ -693,7 +693,7 @@ input::-moz-calendar-picker-indicator {
 }
 
 .subtask-list-container:hover {
-	border-radius: 0.5rem;
+	/* border-radius: 0.5rem; */
 	background-color: #eaeaea;
 }
 
@@ -712,6 +712,10 @@ input::-moz-calendar-picker-indicator {
 	line-height: 120%;
 	cursor: default;
 	margin-left: -0.5rem;
+}
+
+.subtask-list-item input:focus {
+	border: unset;
 }
 
 .subtask-list-item.subtask-edit-mode + .edit-delete-container {

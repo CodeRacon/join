@@ -1,15 +1,2 @@
-- selected site wird nicht angezeigt durch dunkleren balken                              ---check
-- aufgabe wurde erstellt - weiterleitung zum board                                       ---check
-- urgent und low beim aufgabe erstellen werden nicht als symbol angezeigt                ---check
-- subtasks in der edit task karte wird beim anklicken nicht blau umrandet - fokus        ---check
-- subtasks blaue umrandung beim anklicken bei add task und bei board/add task            ---check
-- form validation  --- für add task                                                      ---check
-- category als dropdown umstellen                                                        ---check
-- suchfunktion für tasks                                                                 ---check
+ saved changed data von consolen nachricht weg
 
-
-- assigned to in der edit task karte wird beim anklicken oben nicht blau umrandet - fokus
-- assigned to (you) muss oben stehen
-
-________________________________________________________________________________________________________
- 

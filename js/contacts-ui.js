@@ -56,19 +56,22 @@ function showContactInfoBoxMobile() {
 }
 
 /**
- * Hides the contact info popup on mobile by adding the 'd-none' class back
- * to the contact details and info box elements, removing 'selected' from
- * all contact list items, and scrolling the new contact back to the top.
- * This is called when the user closes the popup by clicking the overlay.
+ * Hides the contact details and info box on mobile by adding the 'd-none'
+ * class when the screen width is less than or equal to 607px. Also removes
+ * the 'selected' class from all contact list items and scrolls the
+ * contacts list to the top.
  */
 function leaveMobileContactInfoBox() {
+	const screenWidth = window.innerWidth;
 	const contactDetails = document.getElementById('contact-details');
 	const contactInfoBox = document.getElementById('contact-info-box');
 	const allContactItems = document.querySelectorAll('.contact-list-item');
-	allContactItems.forEach((item) => item.classList.remove('selected'));
-	contactDetails.classList.add('d-none');
-	contactInfoBox.classList.add('d-none');
-	scrollNewContactToTop(1);
+	if (screenWidth <= 607) {
+		allContactItems.forEach((item) => item.classList.remove('selected'));
+		contactDetails.classList.add('d-none');
+		contactInfoBox.classList.add('d-none');
+		scrollNewContactToTop(1);
+	}
 }
 
 let menuOpen = false;
