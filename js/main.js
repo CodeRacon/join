@@ -1,17 +1,3 @@
-/**
- * Initializes the page by calling several async functions:
- *
- * - loadUserData() - Loads user data from local storage
- * - includeHTML() - Fetches and includes HTML snippets in page
- * - setUserInitials() - Sets the user's initials in the UI
- * - highlightNavLink() - Highlights current page nav link
- * - changeFrameOnNewTab() - Handles changing iframe src on new tabs
- * - highlightExternalLink() - Adds visual indicator for external links
- *
- * This is an async function since it awaits other async init logic.
- */
-loadUsers();
-
 let hexColors = [
 	'#b83c3c',
 	'#00BEE8',
@@ -45,8 +31,39 @@ let hexColors = [
 	'#00B8AB',
 ];
 
+/**
+ * Chooses a random color from the hexColors array.
+ * Used to generate a random color when creating a new contact.
+ */
+function chooseRandomColor() {
+	const randomIndex = Math.floor(Math.random() * hexColors.length);
+	return hexColors[randomIndex];
+}
+
+/**
+ * Gets the ID of the currently logged in user from local storage.
+ *
+ * Returns the ID of the logged in user stored in localStorage, or null if no user is logged in.
+ */
+function getLoggedInUserID() {
+	return localStorage.getItem('loggedInUser');
+}
+
+/**
+ * Initializes the page by calling several async functions:
+ *
+ * - loadUserData() - Loads user data from local storage
+ * - includeHTML() - Fetches and includes HTML snippets in page
+ * - setUserInitials() - Sets the user's initials in the UI
+ * - highlightNavLink() - Highlights current page nav link
+ * - changeFrameOnNewTab() - Handles changing iframe src on new tabs
+ * - highlightExternalLink() - Adds visual indicator for external links
+ *
+ * This is an async function since it awaits other async init logic.
+ */
 async function initPage() {
-	await loadUserData();
+	const userID = getLoggedInUserID();
+	await loadUserData(userID);
 	await includeHTML();
 	setUserInitials();
 	highlightNavLink();
@@ -353,18 +370,17 @@ function logoutUser(url) {
 	loadUserData();
 	localStorage.removeItem('changedData');
 	loadGuestBoolean();
-	isGuestUser = false();
+	isGuestUser = false;
 	saveGuestBoolean();
 	resetGuestData();
 	window.location.href = url;
 }
 
-
-async function setLoggedInFalse(){
+async function setLoggedInFalse() {
 	await loadUsers();
 	for (let i = 0; i < startData.length; i++) {
 		startData.users[i].isLoggedIn = false;
-		storeStartData();	
+		storeStartData();
 	}
 	await loadLoggedInData();
 	for (let i = 0; i < loggedInData.length; i++) {
@@ -373,12 +389,11 @@ async function setLoggedInFalse(){
 	}
 }
 
-function resetGuestData(){
+function resetGuestData() {
 	for (let i = 0; i < startData.length; i++) {
 		if (startData.users[i].userData.name == 'Guest') {
 			startData.users[i].setToOriginallyState = true;
 			storeStartData();
 		}
-		
 	}
 }

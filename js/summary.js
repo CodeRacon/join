@@ -17,8 +17,8 @@ const monthNames = [
  * Initializes the summary section by loading user data, setting the greeting flag in localStorage, and updating the summary UI.
  */
 async function initSummary() {
-	// storeStartData();
-	await loadUserData();
+	const userID = getLoggedInUserID();
+	await loadUserData(userID);
 	await setGreetingFlagLS();
 	updateSummary();
 }
@@ -271,12 +271,12 @@ function updateDayTime() {
  */
 function getGreeting(hour) {
 	if (isGuestUser) {
-		if (hour < 12) return 'Good Morning!';
+		if (hour < 10) return 'Good Morning!';
 		if (hour < 14) return 'Good Day!';
 		if (hour < 18) return 'Good Afternoon!';
 		return 'Good Evening!';
 	} else if (!isGuestUser) {
-		if (hour < 12) return 'Good Morning,';
+		if (hour < 10) return 'Good Morning,';
 		if (hour < 14) return 'Good Day,';
 		if (hour < 18) return 'Good Afternoon,';
 		return 'Good Evening,';

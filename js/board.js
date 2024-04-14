@@ -16,7 +16,8 @@ window.addEventListener('resize', updateHTML);
  * Calls various helper functions to update different sections.
  */
 async function updateHTML() {
-	await loadUserData();
+	const userID = getLoggedInUserID();
+	await loadUserData(userID);
 	updateToDos();
 	updateInProgress();
 	updateAwaitFeedback();

@@ -7,9 +7,9 @@ let currentContact;
  * populating the contacts array, and rendering the contact list.
  */
 async function initContacts() {
-	// storeStartData();
 	setMobileLayout();
-	await loadUserData();
+	const userID = getLoggedInUserID();
+	await loadUserData(userID);
 	contacts = localUserData.contacts;
 	renderContactList();
 }
