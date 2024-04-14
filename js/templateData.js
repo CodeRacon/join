@@ -61,7 +61,7 @@ const templateData = {
 						{ name: 'Test layout on different devices', done: false },
 						{ name: 'Adjust CSS for responsiveness', done: false },
 					],
-					dueDate: '2024-04-11',
+					dueDate: '2024-04-19',
 				},
 				{
 					id: 4,
@@ -76,7 +76,7 @@ const templateData = {
 						{ name: 'Research suitable frameworks', done: true },
 						{ name: 'Set up project with selected framework', done: true },
 					],
-					dueDate: '2024-04-02',
+					dueDate: '2024-05-02',
 				},
 				{
 					id: 5,
@@ -132,7 +132,7 @@ const templateData = {
 						{ name: 'Minify CSS and JavaScript files', done: true },
 						{ name: 'Image optimization', done: true },
 					],
-					dueDate: '2024-04-09',
+					dueDate: '2024-05-09',
 				},
 				{
 					id: 8,
@@ -148,7 +148,7 @@ const templateData = {
 						{ name: 'Test with screen readers', done: false },
 						{ name: 'Ensure keyboard navigation', done: false },
 					],
-					dueDate: '2024-04-06',
+					dueDate: '2024-05-06',
 				},
 			],
 		},
@@ -173,7 +173,7 @@ const templateData = {
 						{ name: 'Optimize images for mobile', done: true },
 						{ name: 'Test on various devices', done: false },
 					],
-					dueDate: '2024-04-12',
+					dueDate: '2024-04-18',
 				},
 				{
 					id: 10,
@@ -187,7 +187,7 @@ const templateData = {
 						{ name: 'Debug JavaScript errors', done: true },
 						{ name: 'Fix CSS layout issues', done: true },
 					],
-					dueDate: '2024-04-06',
+					dueDate: '2024-05-06',
 				},
 				{
 					id: 11,
@@ -228,7 +228,7 @@ const templateData = {
 						{ name: 'Write CSS animation rules', done: false },
 						{ name: 'Test animations across browsers', done: false },
 					],
-					dueDate: '2024-04-04',
+					dueDate: '2024-04-24',
 				},
 				{
 					id: 13,
@@ -243,7 +243,7 @@ const templateData = {
 						{ name: 'Set up performance monitoring tools', done: true },
 						{ name: 'Analyze page load times', done: true },
 					],
-					dueDate: '2024-04-08',
+					dueDate: '2024-05-08',
 				},
 				{
 					id: 14,
