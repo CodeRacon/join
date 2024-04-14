@@ -1,4 +1,4 @@
-let nextUserID = 1;
+// let nextUserID = 1;
 
 /**
  * Generates a unique user ID string by combining a timestamp, random string and prefix.
@@ -6,38 +6,51 @@ let nextUserID = 1;
  * @returns {string} - The generated unique user ID
  */
 function generateUserID() {
-	const timestamp = Date.now().toString(36); // Aktuelle Zeitstempel als Basis für die userID
-	const randomString = Math.random().toString(36).substring(2, 7); // Zufälliger String für Eindeutigkeit
+	const timestamp = Date.now().toString(36);
+	const randomString = Math.random().toString(36).substring(2, 7);
 	const userID = `user_${timestamp}_${randomString}`;
-
 	return userID;
 }
 
-// Beispiel-Format für remoteUserData:
+// example-format for remoteUserData(userID):
 // remoteUserData_user_1n6x0zx_3xf5;
 
 /**
- * Creates remote user data for a new user and saves it to local storage.
+ * Creates a remote user data object and stores it in the registry.
  *
- * Generates a unique user ID, copies template data, assigns user details like name,
- * email and randomly generated color. Saves user and contact objects to arrays
- * in remote user data. Stringifies and saves remote user data to local storage
- * with a key based on user ID. Also creates user credentials for login.
+ * Generates a remote user data object from a template, adds the new user
+ * and their contact details, stores it in local storage with a unique key,
+ * and creates the user's credentials.
  *
- * @param {string} userID - Unique ID for the new user
- * @param {string} email - Email address of the new user
- * @param {string} password - Password for the new user
- * @param {string} name - Name of the new user
- *
- * @returns {Object} remoteUserData - The remote user data object
+ * @param {string} userID - The unique ID for the new user
+ * @param {string} email - The user's email address
+ * @param {string} password - The user's password
+ * @param {string} name - The user's name
+ * @returns {Object} The generated remote user data object
  */
 async function createRemoteUserData(userID, email, password, name) {
 	const templateData = await getTemplateData();
 	const remoteUserData = JSON.parse(JSON.stringify(templateData));
 	const color = chooseRandomColor();
-	remoteUserData.userID = userID;
+	const remoteUserDataKey = 'remoteUserData_' + userID;
+	addNewUser(remoteUserData, name, color);
+	addNewContact(remoteUserData, name, email, color);
+	await setItem(remoteUserDataKey, JSON.stringify(remoteUserData));
+	await createUserCredentials(userID, email, password);
+	return remoteUserData;
+}
 
-	// Neuen Eintrag im users-Array erstellen
+/**
+ * Adds a new user object to the remoteUserData users array.
+ *
+ * Pushes a new user object with the given name, color and empty task list
+ * to the remoteUserData users array.
+ *
+ * @param {Object} remoteUserData - The remote user data object
+ * @param {string} name - The name of the new user
+ * @param {string} color - The color for the new user
+ */
+function addNewUser(remoteUserData, name, color) {
 	const newUser = {
 		isLoggedIn: true,
 		userData: {
@@ -46,25 +59,25 @@ async function createRemoteUserData(userID, email, password, name) {
 		color: color,
 		tasks: [],
 	};
+	remoteUserData.users.push(newUser);
+}
+
+/**
+ * Adds a new contact object to the remoteUserData contacts array.
+ *
+ * Pushes a new contact object with the given name, email, phone and color
+ * to the remoteUserData contacts array.
+ */
+function addNewContact(remoteUserData, name, email, color) {
 	const newContact = {
 		userData: {
-			name: name,
+			name: name + ' (You)',
 			email: email,
 			phone: '',
 		},
 		color: color,
 	};
-	remoteUserData.users.push(newUser);
 	remoteUserData.contacts.push(newContact);
-
-	const remoteUserDataKey = 'remoteUserData_' + userID;
-	await setItem(remoteUserDataKey, JSON.stringify(remoteUserData));
-
-	// Anmeldeinformationen des Benutzers speichern
-	await createUserCredentials(userID, email, password);
-
-	console.log(remoteUserDataKey);
-	return remoteUserData;
 }
 
 /**
@@ -79,21 +92,13 @@ async function createRemoteUserData(userID, email, password, name) {
  * @param {string} password - Password for the user
  */
 async function createUserCredentials(userID, email, password) {
-	try {
-		const allUserCredentials = await getItem('allUserCredentials');
-		const parsedUserCredentials = JSON.parse(allUserCredentials);
-
-		// Füge die neuen Anmeldeinformationen zum allUserCredentials-Objekt hinzu
-		parsedUserCredentials[userID] = {
-			email: email,
-			password: password,
-		};
-
-		// Speichere das aktualisierte allUserCredentials-Objekt im Remote-Speicher
-		await setItem('allUserCredentials', JSON.stringify(parsedUserCredentials));
-	} catch (error) {
-		console.log('Error creating user credentials:', error);
-	}
+	const allUserCredentials = await getItem('allUserCredentials');
+	const parsedUserCredentials = JSON.parse(allUserCredentials);
+	parsedUserCredentials[userID] = {
+		email: email,
+		password: password,
+	};
+	await setItem('allUserCredentials', JSON.stringify(parsedUserCredentials));
 }
 
 // FUNKTIONEN VON MICHA 04.04.2024
@@ -129,6 +134,18 @@ function blinkAnimation(identifier) {
 	}, 1000);
 }
 
+/**
+ * Provides feedback to the user when no user is found during login.
+ * Displays an error message for 4 seconds.
+ */
+function noUserFoundFeedback() {
+	const pwError = document.getElementById('pw-error-login');
+	pwError.textContent = '*No such user found. Allready signed up?';
+	setTimeout(() => {
+		pwError.textContent = '';
+	}, 4000);
+}
+
 // #############################################
 
 /**
@@ -139,18 +156,11 @@ function blinkAnimation(identifier) {
 async function validateLoginForm() {
 	const isValidEmail = validateLoginEmail();
 	const isValidPassword = validateLoginPW();
-
 	if (isValidEmail && isValidPassword) {
-		console.log('Form is valid');
-
-		// Benutzereingaben abrufen
 		const email = document.getElementById('login-email').value;
 		const password = document.getElementById('login-password').value;
-
-		// Anmeldefunktion aufrufen
 		await login(email, password);
 	} else {
-		console.log('Form is not valid');
 		return false;
 	}
 }
@@ -222,33 +232,31 @@ async function validateSignupForm() {
 		isPwMatch &&
 		isChecked
 	) {
-		console.log('Form is valid');
-
-		// Benutzereingaben abrufen
 		const name = document.getElementById('signup-name').value;
 		const email = document.getElementById('signup-email').value;
 		const password = document.getElementById('signup-pw').value;
-
-		// Neue userID generieren
-		const userID = generateUserID();
-
-		// Remote-Benutzerdaten erstellen
-		await createRemoteUserData(userID, email, password, name);
-
-		// Benutzer als angemeldet markieren
-		localStorage.setItem('loggedInUser', userID);
-
-		// Weitere Aktionen nach erfolgreicher Anmeldung durchführen (z.B. Weiterleitung zur Hauptseite)
-		console.log('Anmeldung erfolgreich');
-		showSuccessMessage();
+		await processSignup(name, email, password);
 	} else if (!isChecked) {
 		blinkAnimation();
-		console.log('Form is not valid');
 		return false;
 	} else {
-		console.log('Form is not valid');
 		return false;
 	}
+}
+
+/**
+ * Processes user signup by creating remote user data, storing user ID locally,
+ * and showing success message.
+ *
+ * @param {string} name - User's name
+ * @param {string} email - User's email
+ * @param {string} password - User's password
+ */
+async function processSignup(name, email, password) {
+	const userID = generateUserID();
+	await createRemoteUserData(userID, email, password, name);
+	localStorage.setItem('loggedInUser', userID);
+	showSuccessMessage();
 }
 
 /**
@@ -260,7 +268,8 @@ function validateSignupName() {
 	const nameCont = document.getElementById('signup-name-cont');
 	const inputName = document.getElementById('signup-name');
 	const nameError = document.getElementById('name-error-signup');
-	const validNamePattern = /^[a-zA-Z-]+ [a-zA-Z-]+ ?[a-zA-Z-]+?$/;
+	const validNamePattern =
+		/^[a-zA-ZäöüÄÖÜ-]+ [a-zA-ZäöüÄÖÜ-]+ ?[a-zA-ZäöüÄÖÜ-]+?$/;
 	if (
 		!validNamePattern.test(inputName.value) ||
 		inputName.value.trim() === ''
@@ -391,5 +400,5 @@ function showSuccessMessage() {
 		container.classList.add('d-none');
 		wrapper.classList.add('d-none');
 		toggleLoginSignup();
-	}, 1500);
+	}, 1750);
 }
