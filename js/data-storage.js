@@ -1,5 +1,5 @@
-const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
-const STORAGE_TOKEN = 'XQBTX32OP6AMU3264N0RRJTPMEBERH5Y728TDW5P';
+const STORAGE_URL = "https://remote-storage.developerakademie.org/item";
+const STORAGE_TOKEN = "XQBTX32OP6AMU3264N0RRJTPMEBERH5Y728TDW5P";
 
 /**
  * Sets an item in remote storage.
@@ -9,15 +9,15 @@ const STORAGE_TOKEN = 'XQBTX32OP6AMU3264N0RRJTPMEBERH5Y728TDW5P';
  * @returns {Promise} A promise resolving to the stored item
  */
 async function setItem(key, value) {
-	const payload = { key, value, token: STORAGE_TOKEN };
-	try {
-		return fetch(STORAGE_URL, {
-			method: 'POST',
-			body: JSON.stringify(payload),
-		}).then((res) => res.json());
-	} catch {
-		console.log('Could not set Item');
-	}
+  const payload = { key, value, token: STORAGE_TOKEN };
+  try {
+    return fetch(STORAGE_URL, {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }).then((res) => res.json());
+  } catch {
+    console.log("Could not set Item");
+  }
 }
 
 /**
@@ -27,15 +27,15 @@ async function setItem(key, value) {
  * @returns {Promise} A promise resolving to the stored item value or rejection if not found
  */
 async function getItem(key) {
-	const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
-	return fetch(url)
-		.then((res) => res.json())
-		.then((res) => {
-			if (res.data) {
-				return res.data.value;
-			}
-			throw `Could not find data with key "${key}".`;
-		});
+  const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
+  return fetch(url)
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data.value;
+      }
+      throw `Could not find data with key "${key}".`;
+    });
 }
 
 // async function storeTemplateData(templateData) {
@@ -58,13 +58,13 @@ async function getItem(key) {
  * Parses and returns the data if found. Throws an error if not found.
  */
 async function getTemplateData() {
-	try {
-		const templateDataString = await getItem('templateData');
-		return JSON.parse(templateDataString);
-	} catch (error) {
-		console.error('Error retrieving template data:', error);
-		return null;
-	}
+  try {
+    const templateDataString = await getItem("templateData");
+    return JSON.parse(templateDataString);
+  } catch (error) {
+    console.error("Error retrieving template data:", error);
+    return null;
+  }
 }
 
 let localUserData = [];
@@ -75,16 +75,16 @@ let isGuestUser = false;
  * Redirects to summary page on success, or logs error on failure.
  */
 async function guestLogin() {
-	const templateData = await getTemplateData();
-	if (templateData) {
-		localUserData = templateData;
-		isGuestUser = true;
-		console.log('Guest login successful.');
-		console.log(localUserData);
-		window.location.href = 'summary.html';
-	} else {
-		console.error('Failed to retrieve template data for guest login.');
-	}
+  const templateData = await getTemplateData();
+  if (templateData) {
+    localUserData = templateData;
+    isGuestUser = true;
+    console.log("Guest login successful.");
+    console.log(localUserData);
+    window.location.href = "summary.html";
+  } else {
+    console.error("Failed to retrieve template data for guest login.");
+  }
 }
 
 /**
@@ -94,17 +94,17 @@ async function guestLogin() {
  * Blinks the login element if authentication fails.
  */
 async function login(email, password) {
-	const userID = await authenticateUser(email, password);
-	if (userID) {
-		console.log('Anmeldung erfolgreich. Benutzer-ID:', userID);
-		await loadUserData(userID);
-		// Benutzer als angemeldet markieren
-		localStorage.setItem('loggedInUser', userID);
-		// Weiterleitung zu summary-page
-		window.location.href = 'summary.html';
-	} else {
-		blinkAnimation('login');
-	}
+  const userID = await authenticateUser(email, password);
+  if (userID) {
+    console.log("Anmeldung erfolgreich. Benutzer-ID:", userID);
+    await loadUserData(userID);
+    // Benutzer als angemeldet markieren
+    localStorage.setItem("loggedInUser", userID);
+    // Weiterleitung zu summary-page
+    window.location.href = "summary.html";
+  } else {
+    blinkAnimation("login");
+  }
 }
 
 /**
@@ -119,23 +119,23 @@ async function login(email, password) {
  * @returns {string|null} The user ID if credentials match, else null
  */
 async function getUserIDByCredentials(email, password) {
-	const allUserCredentials = await getItem('allUserCredentials');
+  const allUserCredentials = await getItem("allUserCredentials");
 
-	if (allUserCredentials) {
-		const parsedUserCredentials = JSON.parse(allUserCredentials);
+  if (allUserCredentials) {
+    const parsedUserCredentials = JSON.parse(allUserCredentials);
 
-		for (const userID in parsedUserCredentials) {
-			const userCredentials = parsedUserCredentials[userID];
-			if (
-				userCredentials.email === email &&
-				userCredentials.password === password
-			) {
-				return userID;
-			}
-		}
-	}
+    for (const userID in parsedUserCredentials) {
+      const userCredentials = parsedUserCredentials[userID];
+      if (
+        userCredentials.email === email &&
+        userCredentials.password === password
+      ) {
+        return userID;
+      }
+    }
+  }
 
-	return null;
+  return null;
 }
 
 /**
@@ -145,13 +145,13 @@ async function getUserIDByCredentials(email, password) {
  * authentication succeeds, otherwise returns null.
  */
 async function authenticateUser(email, password) {
-	const userID = await getUserIDByCredentials(email, password);
+  const userID = await getUserIDByCredentials(email, password);
 
-	if (userID) {
-		return userID.toString();
-	}
+  if (userID) {
+    return userID.toString();
+  }
 
-	return null;
+  return null;
 }
 
 /**
@@ -165,23 +165,56 @@ async function authenticateUser(email, password) {
  * @returns {Object} The loaded user data object
  */
 async function loadUserData(userID) {
-	const savedData = localStorage.getItem('changedData');
-	const remoteUserDataKey = 'remoteUserData_' + userID;
-	const remoteUserData = await getItem(remoteUserDataKey);
-	console.log(remoteUserDataKey, localUserData);
+  const savedData = localStorage.getItem("changedData");
+  const remoteUserDataKey = "remoteUserData_" + userID;
+  const remoteUserData = await getItem(remoteUserDataKey);
+  console.log(remoteUserDataKey, localUserData);
 
-	if (!savedData) {
-		localUserData = JSON.parse(remoteUserData);
-	} else {
-		localUserData = JSON.parse(savedData);
-	}
+  if (!savedData) {
+    localUserData = JSON.parse(remoteUserData);
+  } else {
+    localUserData = JSON.parse(savedData);
+  }
 }
 
 /**
  * Saves the edited local user data to local storage.
  */
 function saveUserData() {
-	localStorage.setItem('changedData', JSON.stringify(localUserData));
+  localStorage.setItem("changedData", JSON.stringify(localUserData));
 
-	console.log('Saved changed data');
+  console.log("Saved changed data");
+}
+
+/**
+ * Checks if the user has previously saved their email and password in the browser's local storage, and if so, populates the login form with those values and checks the "Remember Me" checkbox.
+ * This function is executed when the page loads, and is used to provide a convenient login experience for returning users.
+ */
+function checkForRememberedLogin() {
+  let storedEmail = localStorage.getItem("rememberMeEmail");
+  let storedPassword = localStorage.getItem("rememberMePassword");
+  let checkBox = document.getElementById("login-checkbox");
+  if (storedEmail && storedPassword) {
+    document.getElementById("login-email").value = storedEmail;
+    document.getElementById("login-password").value = storedPassword;
+    checkBox.checked = true;
+  }
+}
+
+/**
+ * Saves the user's email and password in the browser's local storage if the "Remember Me" checkbox is checked.
+ * If the checkbox is not checked, removes any previously saved email and password from local storage.
+ */
+function saveLoginDetails() {
+  let email = document.getElementById("login-email").value.trim();
+  let password = document.getElementById("login-password").value.trim();
+  let checkBox = document.getElementById("login-checkbox");
+  if (email !== "" && password !== "" && checkBox.checked) {
+    localStorage.setItem("rememberMeEmail", email);
+    localStorage.setItem("rememberMePassword", password);
+  } else {
+    checkBox.checked = false;
+    localStorage.removeItem("rememberMeEmail");
+    localStorage.removeItem("rememberMePassword");
+  }
 }
