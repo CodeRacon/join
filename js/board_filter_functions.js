@@ -8,22 +8,22 @@
  * If search input is empty, re-renders the full task list.
  */
 function filterMatchedTasks() {
-  let input = document.getElementById("find-task").value.toLowerCase().trim();
-  let matchedTasks = [];
-  localUserData.users.forEach((user) => {
-    user.tasks.forEach((task) => {
-      if (
-        task.title.toLowerCase().includes(input) ||
-        task.description.toLowerCase().includes(input)
-      ) {
-        matchedTasks.push(task);
-      }
-    });
-  });
-  renderMatchedTasks(matchedTasks);
-  if (input == "") {
-    updateHTML();
-  }
+	let input = document.getElementById('find-task').value.toLowerCase().trim();
+	let matchedTasks = [];
+	localUserData.users.forEach((user) => {
+		user.tasks.forEach((task) => {
+			if (
+				task.title.toLowerCase().includes(input) ||
+				task.description.toLowerCase().includes(input)
+			) {
+				matchedTasks.push(task);
+			}
+		});
+	});
+	renderMatchedTasks(matchedTasks);
+	if (input == '') {
+		updateHTML();
+	}
 }
 
 /**
@@ -33,27 +33,27 @@ function filterMatchedTasks() {
  * @param {Array} matchedTasks - Array of tasks matched by search filter
  */
 function renderMatchedTasks(matchedTasks) {
-  let toDoContainer = document.getElementById("toDo");
-  let inProgressContainer = document.getElementById("inProgress");
-  let awaitFeedbackContainer = document.getElementById("awaitFeedback");
-  let doneContainer = document.getElementById("closed");
-  toDoContainer.innerHTML = "";
-  inProgressContainer.innerHTML = "";
-  awaitFeedbackContainer.innerHTML = "";
-  doneContainer.innerHTML = "";
+	let toDoContainer = document.getElementById('toDo');
+	let inProgressContainer = document.getElementById('inProgress');
+	let awaitFeedbackContainer = document.getElementById('awaitFeedback');
+	let doneContainer = document.getElementById('closed');
+	toDoContainer.innerHTML = '';
+	inProgressContainer.innerHTML = '';
+	awaitFeedbackContainer.innerHTML = '';
+	doneContainer.innerHTML = '';
 
-  matchedTasks.forEach((task) => {
-    if (task.status == "toDo") {
-      renderMatch(task, toDoContainer);
-    } else if (task.status == "inProgress") {
-      renderMatch(task, inProgressContainer);
-    } else if (task.status == "awaitFeedback") {
-      renderMatch(task, awaitFeedbackContainer);
-    } else if (task.status == "done") {
-      renderMatch(task, doneContainer);
-    }
-  });
-  checkForEmptyContainers();
+	matchedTasks.forEach((task) => {
+		if (task.status == 'toDo') {
+			renderMatch(task, toDoContainer);
+		} else if (task.status == 'inProgress') {
+			renderMatch(task, inProgressContainer);
+		} else if (task.status == 'awaitFeedback') {
+			renderMatch(task, awaitFeedbackContainer);
+		} else if (task.status == 'done') {
+			renderMatch(task, doneContainer);
+		}
+	});
+	checkForEmptyContainers();
 }
 
 /**
@@ -64,9 +64,9 @@ function renderMatchedTasks(matchedTasks) {
  * @param {Element} container - DOM element to render task card into
  */
 function renderMatch(task, container) {
-  let names = task.assignedTo;
-  container.innerHTML += generateTaskCard(task);
-  renderFilteredCards(names, task);
+	let names = task.assignedTo;
+	container.innerHTML += generateTaskCard(task);
+	renderFilteredCards(names, task);
 }
 
 /**
@@ -78,11 +78,11 @@ function renderMatch(task, container) {
  * @param {Object} task - Task object
  */
 function renderFilteredCards(names, task) {
-  updateTaskColorAndCategory();
-  updatePriority();
-  showContactsToAssign();
-  createContactInitialsForFiltered(names, task);
-  showMaxThreeCircles(task);
+	updateTaskColorAndCategory();
+	updatePriority();
+	showContactsToAssign();
+	createContactInitialsForFiltered(names, task);
+	showMaxThreeCircles(task);
 }
 
 /**
@@ -94,19 +94,21 @@ function renderFilteredCards(names, task) {
  * @param {Object} task - Task object
  */
 function createContactInitialsForFiltered(names, task) {
-  let container = document.getElementById(`assignedCircle${task.id}`);
-  container.innerHTML = "";
-  names.forEach((name) => {
-    let user = localUserData.contacts.find(
-      (contact) => contact.userData.name === name
-    );
-    const initials = name
-      .split(" ")
-      .map((word) => word.charAt(0))
-      .join("");
+	let container = document.getElementById(`assignedCircle${task.id}`);
+	container.innerHTML = '';
 
-    container.innerHTML += createContactInitialsForFilteredHTML(user, initials);
-  });
+	names.forEach((name) => {
+		let user = localUserData.contacts.find(
+			(contact) => contact.userData.name === name
+		);
+
+		const initials = name
+			.split(' ')
+			.map((word) => word.charAt(0))
+			.join('');
+
+		container.innerHTML += createContactInitialsForFilteredHTML(user, initials);
+	});
 }
 
 /**
@@ -115,10 +117,10 @@ function createContactInitialsForFiltered(names, task) {
  * Also adds the hover-close class.
  */
 function exchangeImgInput() {
-  let img = document.getElementById("magnifying-glass");
-  img.src = "assets/img/icons/add-task/close.svg";
-  img.setAttribute("onclick", "clearInputAndResetImg()");
-  img.classList.add("hover-close");
+	let img = document.getElementById('magnifying-glass');
+	img.src = 'assets/img/icons/add-task/close.svg';
+	img.setAttribute('onclick', 'clearInputAndResetImg()');
+	img.classList.add('hover-close');
 }
 
 /**
@@ -126,10 +128,10 @@ function exchangeImgInput() {
  * glass image, and updates the HTML.
  */
 function clearInputAndResetImg() {
-  let input = document.getElementById("find-task");
-  input.value = "";
-  resetImg();
-  updateHTML();
+	let input = document.getElementById('find-task');
+	input.value = '';
+	resetImg();
+	updateHTML();
 }
 
 /**
@@ -138,8 +140,8 @@ function clearInputAndResetImg() {
  * were added when the user started searching.
  */
 function resetImg() {
-  let img = document.getElementById("magnifying-glass");
-  img.src = "assets/img/icons/board/search-icon.svg";
-  img.removeAttribute("onclick", "clearInput()");
-  img.classList.remove("hover-close");
+	let img = document.getElementById('magnifying-glass');
+	img.src = 'assets/img/icons/board/search-icon.svg';
+	img.removeAttribute('onclick', 'clearInput()');
+	img.classList.remove('hover-close');
 }
