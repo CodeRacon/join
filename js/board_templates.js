@@ -172,10 +172,11 @@ function renderMoveMenuHTML(taskID, dest) {
  * @returns {string} The HTML for the initials circle element.
  */
 function createContactInitialsForFilteredHTML(user, initials) {
+	const backgroundColor = user && user.color ? user.color : '#808080';
 	return /*html*/ `
     <div 
       class="initialsCircleOfTasks"
-      style="background-color: ${user.color}">
+      style="background-color: ${backgroundColor}">
         ${initials}
     </div>
   `;
