@@ -316,7 +316,8 @@ function validateName(identifier) {
 	const nameInputCont = document.getElementById('input--name-' + identifier);
 	const inputName = document.getElementById(identifier + '-contact-name');
 	const nameError = document.getElementById('name-error-' + identifier);
-	const validNamePattern = /^[a-zA-Z-]+ [a-zA-Z-]+ ?[a-zA-Z-]+?$/;
+	const validNamePattern =
+		/^[a-zA-ZäöüÄÖÜ-]+ [a-zA-ZäöüÄÖÜ-]+ ?[a-zA-ZäöüÄÖÜ-]+?$/;
 	if (
 		!validNamePattern.test(inputName.value) ||
 		inputName.value.trim() === ''

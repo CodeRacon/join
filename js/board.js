@@ -231,6 +231,7 @@ function showInitials(element) {
 	container.innerHTML = '';
 	allInitials.forEach((name) => {
 		const initial = name
+			.replace(/ \(You\)$/, '')
 			.split(' ')
 			.map((word) => word.charAt(0))
 			.join('');
@@ -329,6 +330,7 @@ function showInitialsForSingleCard() {
 	container.innerHTML = '';
 	allInitials.forEach((name) => {
 		const initial = name
+			.replace(/ \(You\)$/, '')
 			.split(' ')
 			.map((word) => word.charAt(0))
 			.join('');

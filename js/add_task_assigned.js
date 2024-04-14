@@ -3,20 +3,20 @@
  * by changing its display style and rotating the arrow image.
  */
 function openAndCloseDropDownToAssign() {
-  const dropdownContent = document.getElementById("dropdownContent");
-  const assignedTo = document.getElementById("assigned-to");
-  const img = document.getElementById("arrowImg");
-  if (dropdownContent.style.display !== "block") {
-    dropdownContent.style.display = "block";
-    dropdownContent.classList.add("onfocus");
-    assignedTo.classList.add("onfocus");
-    img.style.transform = "rotate(180deg)";
-  } else {
-    dropdownContent.style.display = "none";
-    dropdownContent.classList.remove("onfocus");
-    assignedTo.classList.remove("onfocus");
-    img.style.transform = "rotate(0deg)";
-  }
+	const dropdownContent = document.getElementById('dropdownContent');
+	const assignedTo = document.getElementById('assigned-to');
+	const img = document.getElementById('arrowImg');
+	if (dropdownContent.style.display !== 'block') {
+		dropdownContent.style.display = 'block';
+		dropdownContent.classList.add('onfocus');
+		assignedTo.classList.add('onfocus');
+		img.style.transform = 'rotate(180deg)';
+	} else {
+		dropdownContent.style.display = 'none';
+		dropdownContent.classList.remove('onfocus');
+		assignedTo.classList.remove('onfocus');
+		img.style.transform = 'rotate(0deg)';
+	}
 }
 
 /**
@@ -25,19 +25,19 @@ function openAndCloseDropDownToAssign() {
  * Only performs this action if dropdown is currently closed.
  */
 function onlyOpenDropDownToAssign() {
-  const dropdownContent = document.getElementById("dropdownContent");
-  const img = document.getElementById("arrowImg");
-  const assignedTo = document.getElementById("assigned-to");
+	const dropdownContent = document.getElementById('dropdownContent');
+	const img = document.getElementById('arrowImg');
+	const assignedTo = document.getElementById('assigned-to');
 
-  if (dropdownContent.style.display !== "block") {
-    dropdownContent.style.display = "block";
-    dropdownContent.classList.add("onfocus");
-    assignedTo.classList.add("onfocus");
+	if (dropdownContent.style.display !== 'block') {
+		dropdownContent.style.display = 'block';
+		dropdownContent.classList.add('onfocus');
+		assignedTo.classList.add('onfocus');
 
-    img.style.transform = "rotate(180deg)";
-  } else {
-    return;
-  }
+		img.style.transform = 'rotate(180deg)';
+	} else {
+		return;
+	}
 }
 
 /**
@@ -47,18 +47,18 @@ function onlyOpenDropDownToAssign() {
  * Only performs this action if dropdown is currently open.
  */
 function onlyCloseDropDownToAssign() {
-  const dropdownContent = document.getElementById("dropdownContent");
-  const img = document.getElementById("arrowImg");
-  const assignedTo = document.getElementById("assigned-to");
+	const dropdownContent = document.getElementById('dropdownContent');
+	const img = document.getElementById('arrowImg');
+	const assignedTo = document.getElementById('assigned-to');
 
-  if (dropdownContent.style.display !== "block") {
-    return;
-  } else {
-    dropdownContent.style.display = "none";
-    dropdownContent.classList.remove("onfocus");
-    assignedTo.classList.remove("onfocus");
-    img.style.transform = "rotate(0deg)";
-  }
+	if (dropdownContent.style.display !== 'block') {
+		return;
+	} else {
+		dropdownContent.style.display = 'none';
+		dropdownContent.classList.remove('onfocus');
+		assignedTo.classList.remove('onfocus');
+		img.style.transform = 'rotate(0deg)';
+	}
 }
 
 /**
@@ -68,12 +68,12 @@ function onlyCloseDropDownToAssign() {
  * Adds click handler to get assigned contacts when checkbox is clicked.
  */
 function showContactsToAssign() {
-  let content = document.getElementById("labels");
-  content.innerHTML = "";
-  for (let i = 0; i < localUserData["contacts"].length; i++) {
-    const element = localUserData["contacts"][i];
-    content.innerHTML += showContactsToAssignHTML(i, element);
-  }
+	let content = document.getElementById('labels');
+	content.innerHTML = '';
+	for (let i = 0; i < localUserData['contacts'].length; i++) {
+		const element = localUserData['contacts'][i];
+		content.innerHTML += showContactsToAssignHTML(i, element);
+	}
 }
 
 /**
@@ -84,26 +84,26 @@ function showContactsToAssign() {
  * If no matches, shows nothing.
  */
 function filterContactsToAssign() {
-  let input = document.getElementById("dropdownInput").value.toLowerCase();
-  let content = document.getElementById("dropdownContent");
-  content.innerHTML = "";
-  let contacts = localUserData.contacts;
-  let matchedContacts = contacts.filter((contact) => {
-    return contact.userData.name.toLowerCase().includes(input);
-  });
-  for (let i = 0; i < matchedContacts.length; i++) {
-    const element = matchedContacts[i];
-    content.innerHTML += filterContactsToAssignHTML(i, element);
-  }
-  if (input == "") {
-    content.innerHTML = /*html*/ `
+	let input = document.getElementById('dropdownInput').value.toLowerCase();
+	let content = document.getElementById('dropdownContent');
+	content.innerHTML = '';
+	let contacts = localUserData.contacts;
+	let matchedContacts = contacts.filter((contact) => {
+		return contact.userData.name.toLowerCase().includes(input);
+	});
+	for (let i = 0; i < matchedContacts.length; i++) {
+		const element = matchedContacts[i];
+		content.innerHTML += filterContactsToAssignHTML(i, element);
+	}
+	if (input == '') {
+		content.innerHTML = /*html*/ `
               <div id="labels"></div>
           `;
-    showContactsToAssign();
-  }
-  if (matchedContacts == 0) {
-    return;
-  }
+		showContactsToAssign();
+	}
+	if (matchedContacts == 0) {
+		return;
+	}
 }
 
 /**
@@ -112,14 +112,14 @@ function filterContactsToAssign() {
  * the contact visually when it is assigned to the task.
  */
 function changeCheckboxColor(i) {
-  let checkbox = document.getElementById(`option${i}`);
-  let container = document.getElementById(`single-contact${i}`);
+	let checkbox = document.getElementById(`option${i}`);
+	let container = document.getElementById(`single-contact${i}`);
 
-  if (checkbox.checked) {
-    container.classList.add("checked-assigned-to");
-  } else {
-    container.classList.remove("checked-assigned-to");
-  }
+	if (checkbox.checked) {
+		container.classList.add('checked-assigned-to');
+	} else {
+		container.classList.remove('checked-assigned-to');
+	}
 }
 
 /**
@@ -130,11 +130,12 @@ function changeCheckboxColor(i) {
  * @returns {string} The HTML markup for the initials circle
  */
 function createContactInitials(element) {
-  const initials = element.userData.name
-    .split(" ")
-    .map((word) => word.charAt(0))
-    .join("");
-  return `
+	const initials = element.userData.name
+		.replace(/ \(You\)$/, '')
+		.split(' ')
+		.map((word) => word.charAt(0))
+		.join('');
+	return `
         <div 
         class="initialsCyrcle"
             style="background-color: ${element.color}">
@@ -149,17 +150,17 @@ function createContactInitials(element) {
  * Calls showInitialsOfAssigned() to update display.
  */
 function getAssignedContacts() {
-  newAssignedContacts = [];
-  let options = document.getElementsByClassName("single-contact");
-  for (let i = 0; i < options.length; i++) {
-    const checkbox = options[i].querySelector('input[type="checkbox"]');
-    if (checkbox.checked) {
-      let option = options[i].querySelector("label");
-      let name = option.textContent.trim();
-      newAssignedContacts.push(name);
-    }
-  }
-  showInitialsOfAssigned();
+	newAssignedContacts = [];
+	let options = document.getElementsByClassName('single-contact');
+	for (let i = 0; i < options.length; i++) {
+		const checkbox = options[i].querySelector('input[type="checkbox"]');
+		if (checkbox.checked) {
+			let option = options[i].querySelector('label');
+			let name = option.textContent.trim();
+			newAssignedContacts.push(name);
+		}
+	}
+	showInitialsOfAssigned();
 }
 
 /**
@@ -169,22 +170,23 @@ function getAssignedContacts() {
  * from the local user data.
  */
 function showInitialsOfAssigned() {
-  let content = document.getElementById("initialsOfAssigned");
-  content.innerHTML = "";
-  for (let i = 0; i < newAssignedContacts.length; i++) {
-    const assignedContact = newAssignedContacts[i];
-    const initials = assignedContact
-      .split(" ")
-      .map((word) => word.charAt(0))
-      .join("");
-    let user = localUserData.contacts.find(
-      (user) => user.userData.name === assignedContact
-    );
-    if (user) {
-      let color = user.color;
-      content.innerHTML += showInitialsOfAssignedHTML(color, initials);
-    }
-  }
+	let content = document.getElementById('initialsOfAssigned');
+	content.innerHTML = '';
+	for (let i = 0; i < newAssignedContacts.length; i++) {
+		const assignedContact = newAssignedContacts[i];
+		const initials = assignedContact
+			.replace(/ \(You\)$/, '')
+			.split(' ')
+			.map((word) => word.charAt(0))
+			.join('');
+		let user = localUserData.contacts.find(
+			(user) => user.userData.name === assignedContact
+		);
+		if (user) {
+			let color = user.color;
+			content.innerHTML += showInitialsOfAssignedHTML(color, initials);
+		}
+	}
 }
 
 /**
@@ -193,14 +195,14 @@ function showInitialsOfAssigned() {
  * array.
  */
 function resetAssignedContacts() {
-  assignedContacts = [];
-  let options = document.getElementsByClassName("single-contact");
-  for (let i = 0; i < options.length; i++) {
-    const checkbox = options[i].querySelector('input[type="checkbox"]');
-    if (checkbox.checked) {
-      let option = options[i].querySelector("label");
-      option.checked = false;
-    }
-  }
-  showInitialsOfAssigned();
+	assignedContacts = [];
+	let options = document.getElementsByClassName('single-contact');
+	for (let i = 0; i < options.length; i++) {
+		const checkbox = options[i].querySelector('input[type="checkbox"]');
+		if (checkbox.checked) {
+			let option = options[i].querySelector('label');
+			option.checked = false;
+		}
+	}
+	showInitialsOfAssigned();
 }

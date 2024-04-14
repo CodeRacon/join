@@ -96,17 +96,15 @@ function renderFilteredCards(names, task) {
 function createContactInitialsForFiltered(names, task) {
 	let container = document.getElementById(`assignedCircle${task.id}`);
 	container.innerHTML = '';
-
 	names.forEach((name) => {
 		let user = localUserData.contacts.find(
 			(contact) => contact.userData.name === name
 		);
-
 		const initials = name
+			.replace(/ \(You\)$/, '')
 			.split(' ')
 			.map((word) => word.charAt(0))
 			.join('');
-
 		container.innerHTML += createContactInitialsForFilteredHTML(user, initials);
 	});
 }
