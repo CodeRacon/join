@@ -1,5 +1,3 @@
-// :::::::::::::::::::::: Search - Function  :::::::::::::::::::::://
-
 /**
  * Filters the tasks to find only those whose title or description
  * match the search input value (case insensitive).
@@ -27,33 +25,42 @@ function filterMatchedTasks() {
 }
 
 /**
- * Renders the matched tasks into their respective containers
- * based on task status.
- * Clears existing task elements from the containers first.
- * @param {Array} matchedTasks - Array of tasks matched by search filter
+ * Renders the matched tasks by clearing existing task containers and
+ * rendering each matched task. Also checks for empty containers after rendering.
+ *
+ * @param {Array} matchedTasks - The array of tasks that matched the search criteria
  */
 function renderMatchedTasks(matchedTasks) {
-	let toDoContainer = document.getElementById('toDo');
-	let inProgressContainer = document.getElementById('inProgress');
-	let awaitFeedbackContainer = document.getElementById('awaitFeedback');
-	let doneContainer = document.getElementById('closed');
-	toDoContainer.innerHTML = '';
-	inProgressContainer.innerHTML = '';
-	awaitFeedbackContainer.innerHTML = '';
-	doneContainer.innerHTML = '';
-
+	const containers = [
+		document.getElementById('toDo'),
+		document.getElementById('inProgress'),
+		document.getElementById('awaitFeedback'),
+		document.getElementById('closed'),
+	];
+	containers.forEach((container) => {
+		container.innerHTML = '';
+	});
 	matchedTasks.forEach((task) => {
-		if (task.status == 'toDo') {
-			renderMatch(task, toDoContainer);
-		} else if (task.status == 'inProgress') {
-			renderMatch(task, inProgressContainer);
-		} else if (task.status == 'awaitFeedback') {
-			renderMatch(task, awaitFeedbackContainer);
-		} else if (task.status == 'done') {
-			renderMatch(task, doneContainer);
-		}
+		renderTask(task);
 	});
 	checkForEmptyContainers();
+}
+
+/**
+ * Renders a matched task by finding the correct container based on
+ * the task status and calling renderMatch to insert the HTML.
+ *
+ * @param {Object} task - The task object
+ */
+function renderTask(task) {
+	const statusContainers = {
+		toDo: document.getElementById('toDo'),
+		inProgress: document.getElementById('inProgress'),
+		awaitFeedback: document.getElementById('awaitFeedback'),
+		done: document.getElementById('closed'),
+	};
+	const container = statusContainers[task.status];
+	renderMatch(task, container);
 }
 
 /**

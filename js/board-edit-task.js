@@ -1,22 +1,32 @@
 let lowBtnEdit;
 let mediumBtnEdit;
 let urgentBtnEdit;
-
 let imgLowEdit;
 let imgMediumEdit;
 let imgUrgentEdit;
-
 let indexOfTaskBeforeEdit;
 
 /**
- * Edits an existing task card with new details.
+ * Renders the edit view for a task by populating the edit overlay
+ * and calling functions to setup edit functionality.
  *
- * It finds the task card to edit based on the provided card ID.
- * Then it populates the edit overlay with the task details.
- * It also handles updating the priority buttons, assigned contacts,
- * and subtasks for the edit view.
+ * @param {Object} task - The task object
+ */
+function renderEditView(task) {
+	let newOverlay = document.getElementById('overlay-edit-card');
+	newOverlay.innerHTML = editTaskHTML(task);
+	newAssignedContacts = task.assignedTo;
+	renderEditTaskCardFunctions(task);
+}
+
+/**
+ * Renders the edit view for a task by populating the edit overlay
+ * and calling functions to setup edit functionality.
  *
- * @param {string} card - The ID of the task card to edit
+ * Finds the task object matching the given card ID from the localUserData
+ * and renders the edit view if a match is found.
+ *
+ * @param {Object} card - The card object
  */
 function editTask(card) {
 	let taskCard = document.getElementById('overlay-task-card');
@@ -24,17 +34,11 @@ function editTask(card) {
 	let newOverlay = document.getElementById('overlay-edit-card');
 	newOverlay.classList.remove('d-none');
 	newOverlay.innerHTML = '';
-	for (let i = 0; i < localUserData.users.length; i++) {
-		let actualTask = localUserData.users[i];
-		for (let j = 0; j < actualTask.tasks.length; j++) {
-			const taskId = actualTask.tasks[j].id;
-			const task = actualTask.tasks[j];
-			if (taskId == card) {
-				newOverlay.innerHTML = editTaskHTML(task);
-				newAssignedContacts = task.assignedTo;
-				renderEditTaskCardFunctions(task);
-			}
-		}
+	const task = localUserData.users
+		.flatMap((user) => user.tasks)
+		.find((task) => task.id === card);
+	if (task) {
+		renderEditView(task);
 	}
 	newAssignedContacts = [];
 }
@@ -144,7 +148,6 @@ function resetPrioButtonsEdit() {
 	lowBtnEdit.classList.value = 'prio-box prio-unset';
 	mediumBtnEdit.classList.value = 'prio-box prio-set';
 	urgentBtnEdit.classList.value = 'prio-box prio-unset';
-
 	imgLowEdit.src = './assets/img/icons/add-task/low.svg';
 	imgMediumEdit.src = './assets/img/icons/add-task/medium-white.svg';
 	imgUrgentEdit.src = './assets/img/icons/add-task/urgent.svg';
@@ -158,7 +161,6 @@ function prioLowEdit() {
 	lowBtnEdit.classList.value = 'prio-box prio-set font-white bg-low';
 	mediumBtnEdit.classList.value = 'prio-box prio-unset bg-white font-black';
 	urgentBtnEdit.classList.value = 'prio-box prio-unset bg-white font-black';
-
 	imgLowEdit.src = './assets/img/icons/add-task/low-white.svg';
 	imgMediumEdit.src = './assets/img/icons/add-task/medium-orange.svg';
 }
@@ -171,7 +173,6 @@ function prioMediumEdit() {
 	lowBtnEdit.classList.value = 'prio-box prio-unset bg-white font-black ';
 	mediumBtnEdit.classList.value = 'prio-box prio-set bg-medium font-white';
 	urgentBtnEdit.classList.value = 'prio-box prio-unset bg-white font-black';
-
 	imgMediumEdit.src = './assets/img/icons/add-task/medium-white.svg';
 }
 
@@ -183,7 +184,6 @@ function prioUrgentEdit() {
 	lowBtnEdit.classList.value = 'prio-box prio-unset bg-white font-black ';
 	mediumBtnEdit.classList.value = 'prio-box prio-unset bg-white font-black';
 	urgentBtnEdit.classList.value = 'prio-box prio-set bg-urgent font-white';
-
 	imgUrgentEdit.src = './assets/img/icons/add-task/urgent-white.svg';
 	imgMediumEdit.src = './assets/img/icons/add-task/medium-orange.svg';
 }
@@ -249,7 +249,6 @@ function updateSelectedContacts() {
 	for (let i = 0; i < singleContacts.length; i++) {
 		const checkbox = singleContacts[i].querySelector("input[type='checkbox']");
 		const contactName = checkbox.value;
-
 		if (newAssignedContacts.includes(contactName)) {
 			checkbox.checked = true;
 			changeCheckboxColorEdit(i);
@@ -266,7 +265,6 @@ function updateSelectedContacts() {
 function changeCheckboxColorEdit(i) {
 	let checkbox = document.getElementById(`edit-option${i}`);
 	let container = document.getElementById(`edit-single-contact${i}`);
-
 	if (checkbox.checked) {
 		container.classList.add('checked-assigned-to');
 	} else {

@@ -1,5 +1,3 @@
-// :::::::::::::::::::::: Add - Task - PopUp :::::::::::::::::::::://
-
 /**
  * Opens the add task overlay/modal by:
  * - Getting reference to overlay element by ID
@@ -17,11 +15,12 @@ function openAddTaskOverlay(id) {
 }
 
 /**
- * Closes any open overlays/modals by:
- * - Getting references to overlay elements by ID
- * - Calling closingAnimation() on each to animate closing
- * - Removing slide in classes
- * - Calling additional cleanup functions
+ * Closes any open overlays by:
+ * - Closing the add task overlay with a closing animation
+ * - Updating the HTML after closing add task overlay
+ * - Closing the task card overlay with a closing animation
+ * - Handling closing of the edit task overlay
+ * - Clearing any form data
  */
 function closeOverlays() {
 	const addTaskOverlay = document.getElementById('add-task-content-overlay');
@@ -29,19 +28,26 @@ function closeOverlays() {
 	const editTaskOverlay = document.getElementById('overlay-edit-card');
 	if (addTaskOverlay && addTaskOverlay.classList.contains('box-slide-in')) {
 		closingAnimation(addTaskOverlay);
-		updateHTML();
 	}
 	if (taskCardOverlay && taskCardOverlay.classList.contains('box-slide-in')) {
 		closingAnimation(taskCardOverlay);
 	}
 	if (editTaskOverlay) {
-		closingAnimation(editTaskOverlay);
-		closingAnimation(taskCardOverlay);
-		setTimeout(() => {
-			editTaskOverlay.classList.remove('box-slide-out');
-		}, 350);
+		editTaskCase(editTaskOverlay, taskCardOverlay);
 	}
-	clearForm();
+	updateHTML();
+}
+
+/**
+ * Handles closing the edit task overlay. Animates the overlay closing and removes
+ * the slide out class after a short delay.
+ */
+function editTaskCase(editTaskOverlay, taskCardOverlay) {
+	closingAnimation(editTaskOverlay);
+	closingAnimation(taskCardOverlay);
+	setTimeout(() => {
+		editTaskOverlay.classList.remove('box-slide-out');
+	}, 350);
 }
 
 /**
@@ -53,7 +59,6 @@ function closeOverlays() {
  * @param {Element} overlay - The overlay element to animate closing
  */
 function closingAnimation(overlay) {
-	console.log(overlay);
 	overlay.classList.remove('box-slide-in');
 	overlay.classList.add('box-slide-out');
 	setTimeout(() => {
@@ -82,22 +87,17 @@ function backDropOff() {
 	wrapper.classList.replace('wrapper-on', 'wrapper-off');
 }
 
-// :::::::::::::::::::::: Task - Card - PopUp :::::::::::::::::::::://
-
 /**
- * Opens an overlay with details for the task card with the given ID.
+ * Opens the task card overlay. Finds the task data for the given element ID,
+ * sets it as the active task, renders the overlay content, and runs the
+ * aftermath function to finish opening the overlay.
  *
- * Finds the task card object matching the ID from the user data.
- * Renders the task details in the overlay HTML.
- * Calls other functions to update styles and show additional info.
- *
- * @param {string} element - The ID of the task card to show details for
+ * @param {Element} element - The DOM element for the task being opened
  */
 function openTaskCardOverlay(element) {
 	let overlay = document.getElementById('overlay-task-card');
 	overlay.classList.remove('d-none');
 	overlay.classList.replace('box-slide-out', 'box-slide-in');
-
 	localUserData.users.forEach((user) => {
 		let cardIndex = user.tasks.findIndex((task) => task.id === element);
 		let card = user.tasks[cardIndex];
@@ -108,6 +108,14 @@ function openTaskCardOverlay(element) {
 			return;
 		}
 	});
+	openTaskCardAftermath();
+}
+
+/**
+ * This function handles updating various parts of the UI after
+ * opening a task card in the overlay
+ */
+function openTaskCardAftermath() {
 	taskColorAndCategoryForSingleCard();
 	updatePriorityForSingleTask();
 	showInitialsForSingleCard();

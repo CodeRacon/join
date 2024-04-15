@@ -1,6 +1,6 @@
 let taskColor = {
-	userStory: '#0038FF', // category 1
-	technicalTask: '#1FD7C1', //category 2
+	userStory: '#0038FF',
+	technicalTask: '#1FD7C1',
 };
 let low = 'assets/img/icons/add-task/low.svg';
 let medium = 'assets/img/icons/add-task/medium-orange.svg';
@@ -9,11 +9,23 @@ let taskDone = 'assets/img/icons/board/cf_checked.svg';
 let taskNotDone = 'assets/img/icons/board/cf_unchecked.svg';
 let currentDraggedElement;
 let actualCard;
+
 window.addEventListener('resize', updateHTML);
 
 /**
- * Updates the HTML DOM to reflect the latest state of tasks.
- * Calls various helper functions to update different sections.
+ * Updates the HTML elements on the board to reflect the latest data.
+ *
+ * This function is called on window resize to ensure the board layout is responsive.
+ * It loads the user data, then updates each section of the board:
+ * - To Dos
+ * - In Progress
+ * - Await Feedback
+ * - Done
+ * - Task colors and categories
+ * - Task priorities
+ * - Contacts to assign
+ *
+ * After updating data, it clears any values in the form.
  */
 async function updateHTML() {
 	const userID = getLoggedInUserID();
@@ -26,121 +38,92 @@ async function updateHTML() {
 	updatePriority();
 	showContactsToAssign();
 	clearForm();
+	console.log('is running');
 }
 
 /**
- * Updates the To Do section of the HTML DOM
- * to show the tasks with a "toDo" status for each user.
+ * Updates the HTML content of an element to display task cards for tasks
+ * with a given status.
  *
- * Loops through each user's tasks, filters for "toDo" status,
- * and generates a task card for each one using helper functions.
+ * Loops through localUserData to find tasks matching the given status.
+ * Generates a task card for each matching task and adds it to the element's HTML.
+ * Also calls a function to render initials and progress bars for each task.
  *
- * If no "toDo" tasks exist for a user, generates empty state HTML.
+ * Finally checks if the element is empty and displays a message if so.
+ *
+ * @param {string} status - The task status to filter by
+ * @param {string} elementId - The ID of the element to update
+ * @param {string} emptyMessage - The message to display if element is empty
+ */
+function updateTaskStatus(status, elementId, emptyMessage) {
+	let source = status;
+	let content = document.getElementById(elementId);
+	content.innerHTML = '';
+	for (let i = 0; i < localUserData['users'].length; i++) {
+		const element = localUserData['users'][i];
+		if (element.hasOwnProperty('tasks')) {
+			let filteredTasks = element['tasks'].filter(
+				(task) => task['status'] == status
+			);
+			for (let index = 0; index < filteredTasks.length; index++) {
+				const element = filteredTasks[index];
+				content.innerHTML += generateTaskCard(element, source);
+				renderInitialsProgressBarMaxThree(element);
+			}
+		}
+	}
+	checkIfEmpty(elementId, emptyMessage);
+}
+
+/**
+ * Updates the HTML content to display tasks with the status "toDo".
+ * Loops through localUserData to find tasks with status "toDo"
+ * and generates a task card for each, adding it to the element
+ * with ID "toDo". Also checks if the element is empty.
  */
 function updateToDos() {
-	let source = 'toDo';
-	let content = document.getElementById('toDo');
-	content.innerHTML = '';
-	for (let i = 0; i < localUserData['users'].length; i++) {
-		const element = localUserData['users'][i];
-		if (element.hasOwnProperty('tasks')) {
-			let toDo = element['tasks'].filter((todo) => todo['status'] == 'toDo');
-			for (let index = 0; index < toDo.length; index++) {
-				const element = toDo[index];
-				content.innerHTML += generateTaskCard(element, source);
-				renderInitialsProgressBarMaxThree(element);
-			}
-		}
-	}
-	checkIfEmpty('toDo', 'to do');
+	updateTaskStatus('toDo', 'toDo', 'to do');
 }
 
 /**
- * Updates the in progress section of the HTML DOM
- * to show the tasks with a "inProgress" status for each user.
- *
- * Loops through each user's tasks, filters for "inProgress" status,
- * and generates a task card for each one using helper functions.
- *
- * If no "inProgress" tasks exist for a user, generates empty state HTML.
+ * Updates the HTML content to display tasks with the status "inProgress".
+ * Loops through localUserData to find tasks with status "inProgress"
+ * and generates a task card for each, adding it to the element
+ * with ID "inProgress". Also checks if the element is empty.
  */
 function updateInProgress() {
-	let source = 'inProgress';
-	let content = document.getElementById('inProgress');
-	content.innerHTML = '';
-	for (let i = 0; i < localUserData['users'].length; i++) {
-		const element = localUserData['users'][i];
-		if (element.hasOwnProperty('tasks')) {
-			let inProgress = element['tasks'].filter(
-				(task) => task['status'] == 'inProgress'
-			);
-			for (let index = 0; index < inProgress.length; index++) {
-				const element = inProgress[index];
-				content.innerHTML += generateTaskCard(element, source);
-				renderInitialsProgressBarMaxThree(element);
-			}
-		}
-	}
-	checkIfEmpty('inProgress', 'in progress');
+	updateTaskStatus('inProgress', 'inProgress', 'in progress');
 }
 
 /**
- * Updates the await feedback section of the DOM
- * to show the tasks with a "awaitFeedback" status for each user.
- *
- * Loops through each user's tasks, filters for "awaitFeedback" status,
- * and generates a task card for each one using helper functions.
- *
- * If no "awaitFeedback" tasks exist for a user, generates empty state HTML.
+ * Updates the HTML content to display tasks with the status "awaitFeedback".
+ * Loops through localUserData to find tasks with status "awaitFeedback"
+ * and generates a task card for each, adding it to the element
+ * with ID "awaitFeedback". Also checks if the element is empty.
  */
 function updateAwaitFeedback() {
-	let source = 'awaitFeedback';
-	let content = document.getElementById('awaitFeedback');
-	content.innerHTML = '';
-	for (let i = 0; i < localUserData['users'].length; i++) {
-		const element = localUserData['users'][i];
-		if (element.hasOwnProperty('tasks')) {
-			let awaitFeedback = element['tasks'].filter(
-				(task) => task['status'] == 'awaitFeedback'
-			);
-			for (let index = 0; index < awaitFeedback.length; index++) {
-				const element = awaitFeedback[index];
-				content.innerHTML += generateTaskCard(element, source);
-				renderInitialsProgressBarMaxThree(element);
-			}
-		}
-	}
-	checkIfEmpty('awaitFeedback', 'await feedback');
+	updateTaskStatus('awaitFeedback', 'awaitFeedback', 'await feedback');
 }
 
 /**
- * Updates the "closed" section of the DOM
- * to show the tasks with a "done" status for each user.
- *
- * Loops through each user's tasks, filters for "done" status,
- * and generates a task card for each one using helper functions.
- *
- * If no "done" tasks exist for a user, generates empty state HTML.
+ * Updates the HTML content to display tasks with the status "done".
+ * Loops through localUserData to find tasks with status "done"
+ * and generates a task card for each, adding it to the element
+ * with ID "closed". Also checks if the element is empty.
  */
 function updateDone() {
-	let content = document.getElementById('closed');
-	let source = 'done';
-
-	content.innerHTML = '';
-	for (let i = 0; i < localUserData['users'].length; i++) {
-		const element = localUserData['users'][i];
-		if (element.hasOwnProperty('tasks')) {
-			let closed = element['tasks'].filter((task) => task['status'] == 'done');
-			for (let index = 0; index < closed.length; index++) {
-				const element = closed[index];
-				content.innerHTML += generateTaskCard(element, source);
-				renderInitialsProgressBarMaxThree(element);
-			}
-		}
-	}
-	checkIfEmpty('closed', 'done');
+	updateTaskStatus('done', 'closed', 'done');
 }
 
+/**
+ * Renders initials, progress bar and max three circles for a task element.
+ *
+ * Shows the initials of the user assigned to the task. Generates a
+ * progress bar to display the task completion percentage. Displays up to
+ * three small circles to represent subtasks of the task.
+ *
+ * @param {object} element - The task object.
+ */
 function renderInitialsProgressBarMaxThree(element) {
 	showInitials(element);
 	generateProgressBar(element);
@@ -259,7 +242,6 @@ function generateProgressBar(element) {
 	} else {
 		let doneSubtasks = subtasks.filter((subtask) => subtask.done).length;
 		let progress = (doneSubtasks / subtasks.length) * 100;
-
 		container.innerHTML = generateProgressBarHTML(
 			progress,
 			doneSubtasks,
