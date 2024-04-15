@@ -9,7 +9,6 @@ function renderContactList() {
 	contactList.innerHTML = renderAddContactBtn();
 	for (let i = 0; i < formattedContactList.length; i++) {
 		const listEntry = formattedContactList[i];
-
 		if (listEntry.type === 'divider') {
 			contactList.innerHTML += renderDivider(listEntry);
 		} else {
@@ -32,7 +31,6 @@ function renderContactInfoBox(i) {
 		.split(' ')
 		.map((word) => word.charAt(0))
 		.join('');
-
 	if (listEntry.type !== 'divider') {
 		contactInfoBox.innerHTML = contactInfoBoxHTML(listEntry, initials, i);
 	}
@@ -54,7 +52,6 @@ function renderAddContactBtn() {
         <img src="/assets/img/icons/contacts/add_contact-white.svg" />
       </div>
     </div>
-
     <div 
       onclick="openAddContactDB()"
       class="mobile-add-contct-btn">
@@ -167,7 +164,6 @@ function contactInfoBoxHTML(listEntry, initials, i) {
       onclick="toggleMobileEditMenu()">
         <img src="/assets/img/icons/contacts/more_vert.svg" />
     </div>
-
   `;
 }
 

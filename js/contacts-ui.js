@@ -1,3 +1,5 @@
+let menuOpen = false;
+
 /**
  * Sets the mobile layout by hiding the contact details section if the
  * screen width is less than or equal to 607px.
@@ -73,8 +75,6 @@ function leaveMobileContactInfoBox() {
 		scrollNewContactToTop(1);
 	}
 }
-
-let menuOpen = false;
 
 /**
  * Closes the mobile edit menu if the user clicks outside of it.
@@ -164,7 +164,6 @@ function closeMobileEditMenu() {
 function openAddContactDB() {
 	const overlay = document.getElementById('overlay');
 	const addContactBox = document.getElementById('add-contact-db');
-
 	addContactBox.classList.remove('d-none');
 	addContactBox.classList.replace('box-slide-out', 'box-slide-in');
 	overlay.classList.remove('d-none');
