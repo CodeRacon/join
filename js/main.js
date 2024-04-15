@@ -63,6 +63,8 @@ function getLoggedInUserID() {
  */
 async function initPage() {
 	const userID = getLoggedInUserID();
+	const loggedInUser = localStorage.getItem('loggedInUser');
+	isGuestUser = loggedInUser === 'guest';
 	await loadUserData(userID);
 	await includeHTML();
 	setUserInitials();
@@ -105,7 +107,7 @@ function setUserInitials() {
 		.split(' ')
 		.map((word) => word.charAt(0))
 		.join('');
-	if (isGuestUser) {
+	if (isGuestUser === true) {
 		userInitials.innerHTML = 'G';
 	} else {
 		userInitials.innerHTML = processedInitials;
@@ -136,12 +138,10 @@ function getLoggedInUser() {
  */
 async function includeHTML() {
 	let includeElements = document.querySelectorAll('[w3-include-html]');
-
 	for (let i = 0; i < includeElements.length; i++) {
 		const element = includeElements[i];
 		file = element.getAttribute('w3-include-html');
 		let resp = await fetch(file);
-
 		if (resp.ok) {
 			element.innerHTML = await resp.text();
 		} else {
@@ -365,35 +365,30 @@ function setForLargeScreens() {
   `;
 }
 
-function logoutUser(url) {
-	setLoggedInFalse();
-	loadUserData();
-	localStorage.removeItem('changedData');
-	loadGuestBoolean();
+async function logoutUser() {
+	if (isGuestUser === true) {
+		localStorage.clear();
+		localUserData = [];
+	} else {
+		const userID = getLoggedInUserID();
+		await syncLocalUserDataWithRemote(userID);
+		localStorage.clear();
+		localUserData = [];
+	}
 	isGuestUser = false;
-	saveGuestBoolean();
-	resetGuestData();
-	window.location.href = url;
+	window.location.href = './index.html';
 }
 
-async function setLoggedInFalse() {
-	await loadUsers();
-	for (let i = 0; i < startData.length; i++) {
-		startData.users[i].isLoggedIn = false;
-		storeStartData();
-	}
-	await loadLoggedInData();
-	for (let i = 0; i < loggedInData.length; i++) {
-		loggedInData[i].user.isLoggedIn = false;
-		storeLoggedInData();
-	}
+async function syncLocalUserDataWithRemote(userID) {
+	const remoteUserDataKey = 'remoteUserData_' + userID;
+	await setItem(remoteUserDataKey, JSON.stringify(localUserData));
 }
 
-function resetGuestData() {
-	for (let i = 0; i < startData.length; i++) {
-		if (startData.users[i].userData.name == 'Guest') {
-			startData.users[i].setToOriginallyState = true;
-			storeStartData();
-		}
+window.addEventListener('beforeunload', syncDataBeforeUnload);
+
+async function syncDataBeforeUnload(event) {
+	if (isGuestUser === false) {
+		const userID = getLoggedInUserID();
+		await syncLocalUserDataWithRemote(userID);
 	}
 }
