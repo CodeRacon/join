@@ -1,6 +1,9 @@
 const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
 const STORAGE_TOKEN = 'XQBTX32OP6AMU3264N0RRJTPMEBERH5Y728TDW5P';
 
+let localUserData = [];
+let isGuestUser = false;
+
 /**
  * Sets an item in remote storage.
  *
@@ -49,6 +52,56 @@ async function storeTemplateData(templateData) {
 }
 
 /**
+ * Stores guest user data in remote storage.
+ *
+ * Retrieves template data, adds guest and guest contact data,
+ * then stores the combined data in remote storage.
+ *
+ * @returns {Object} The stored remote user data
+ */
+async function storeGuestData() {
+	const templateData = await getTemplateData();
+	const remoteUserDataKey = 'remoteUserData_guest';
+	const remoteUserData = JSON.parse(JSON.stringify(templateData));
+	addGuest(remoteUserData);
+	addGuestContact(remoteUserData);
+	await setItem(remoteUserDataKey, JSON.stringify(remoteUserData));
+	return remoteUserData;
+}
+
+/**
+ * Adds guest user data to the remote user data object.
+ * Pushes a guest user object to the users array.
+ */
+function addGuest(remoteUserData) {
+	const guestData = {
+		isLoggedIn: true,
+		userData: {
+			name: 'Guest',
+		},
+		color: '#808080',
+		tasks: [],
+	};
+	remoteUserData.users.push(guestData);
+}
+
+/**
+ * Adds guest contact data to the remote user data object.
+ * Pushes a guest contact object to the contacts array.
+ */
+function addGuestContact(remoteUserData) {
+	const guestContact = {
+		userData: {
+			name: 'Guest (You)',
+			email: 'guest@example.com',
+			phone: '012 345 678',
+		},
+		color: '#808080',
+	};
+	remoteUserData.contacts.push(guestContact);
+}
+
+/**
  * Sets the allUserCredentials item initially in remote storage to an empty object.
  */
 async function setEmptyCredentials() {
@@ -66,17 +119,14 @@ async function getTemplateData() {
 	return JSON.parse(templateDataString);
 }
 
-let localUserData = [];
-let isGuestUser = false;
-
 /**
- * Logs in a guest user by retrieving template data from storage and setting localUserData and guest flag.
- * Redirects to summary page on success, or logs error on failure.
+ * Logs in a guest user by loading their default data and storing
+ * their ID in local storage. Redirects to the summary page.
  */
 async function guestLogin() {
-	const templateData = await getTemplateData();
-	localUserData = templateData;
-	isGuestUser = true;
+	const userID = 'guest';
+	await loadUserData(userID);
+	localStorage.setItem('loggedInUser', userID);
 	window.location.href = 'summary.html';
 }
 

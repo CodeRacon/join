@@ -38,7 +38,6 @@ async function updateHTML() {
   updatePriority();
   showContactsToAssign();
   clearForm();
-  console.log("is running");
 }
 
 /**
