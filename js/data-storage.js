@@ -34,18 +34,26 @@ async function getItem(key) {
 		});
 }
 
-// async function storeTemplateData(templateData) {
-// 	try {
-// 		await setItem('templateData', JSON.stringify(templateData));
-// 		console.log('Template data stored successfully.');
-// 	} catch (error) {
-// 		console.error('Error storing template data:', error);
-// 	}
-// }
+/**
+ * Stores templateData item in remote storage initially.
+ *
+ * @param {Object} templateData - The template data to store
+ */
+async function storeTemplateData(templateData) {
+	try {
+		await setItem('templateData', JSON.stringify(templateData));
+		console.log('Template data stored successfully.');
+	} catch (error) {
+		console.error('Error storing template data:', error);
+	}
+}
 
-// async function setEmptyCredentials() {
-// 	await setItem('allUserCredentials', JSON.stringify({}));
-// }
+/**
+ * Sets the allUserCredentials item initially in remote storage to an empty object.
+ */
+async function setEmptyCredentials() {
+	await setItem('allUserCredentials', JSON.stringify({}));
+}
 
 /**
  * Gets template data from remote storage.
@@ -62,7 +70,7 @@ let localUserData = [];
 let isGuestUser = false;
 
 /**
- * Logs in a guest user by retrieving template data from storage and setting local user data and guest flag.
+ * Logs in a guest user by retrieving template data from storage and setting localUserData and guest flag.
  * Redirects to summary page on success, or logs error on failure.
  */
 async function guestLogin() {
@@ -154,7 +162,7 @@ async function loadUserData(userID) {
 }
 
 /**
- * Saves the edited local user data to local storage.
+ * Saves the edited localUserData to local storage.
  */
 function saveUserData() {
 	localStorage.setItem('changedData', JSON.stringify(localUserData));

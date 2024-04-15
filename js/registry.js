@@ -2,7 +2,8 @@
 
 /**
  * Generates a unique user ID string by combining a timestamp, random string and prefix.
- *
+ * example-format for remoteUserData(userID):
+ * remoteUserData_user_1n6x0zx_3xf5
  * @returns {string} - The generated unique user ID
  */
 function generateUserID() {
@@ -11,9 +12,6 @@ function generateUserID() {
 	const userID = `user_${timestamp}_${randomString}`;
 	return userID;
 }
-
-// example-format for remoteUserData(userID):
-// remoteUserData_user_1n6x0zx_3xf5;
 
 /**
  * Creates a remote user data object and stores it in the registry.
@@ -101,8 +99,6 @@ async function createUserCredentials(userID, email, password) {
 	await setItem('allUserCredentials', JSON.stringify(parsedUserCredentials));
 }
 
-// FUNKTIONEN VON MICHA 04.04.2024
-
 /**
  * Toggles the visibility of the login and signup boxes.
  * Hides one box and shows the other. Also toggles the
@@ -145,8 +141,6 @@ function noUserFoundFeedback() {
 		pwError.textContent = '';
 	}, 4000);
 }
-
-// #############################################
 
 /**
  * Validates the login form by checking the email and password fields.
@@ -206,8 +200,6 @@ function validateLoginPW() {
 		return true;
 	}
 }
-
-// #############################################
 
 /**
  * Validates the signup form and handles submission.
@@ -383,8 +375,6 @@ function resetLoginSignupErrors() {
 		error.textContent = '';
 	});
 }
-
-// FUNKTION VON AMALIA 11.04.2024
 
 /**
  * Shows a success message container and wrapper for 1.5 seconds before redirecting to the index page.
