@@ -226,7 +226,7 @@ function updateUserGreeting() {
     ${firstName}
   `;
 		updateDayTime();
-	} else {
+	} else if (isGuestUser === true) {
 		userName.innerHTML = '';
 		updateDayTime();
 	}
@@ -270,15 +270,15 @@ function updateDayTime() {
  * If logged in user, returns a greeting with a comma to append the user's name.
  */
 function getGreeting(hour) {
-	if (isGuestUser) {
-		if (hour < 10) return 'Good Morning!';
-		if (hour < 14) return 'Good Day!';
-		if (hour < 18) return 'Good Afternoon!';
+	if (isGuestUser === true) {
+		if (hour >= 5 && hour < 10) return 'Good Morning!';
+		if (hour >= 10 && hour < 14) return 'Good Day!';
+		if (hour >= 14 && hour < 18) return 'Good Afternoon!';
 		return 'Good Evening!';
-	} else if (!isGuestUser) {
-		if (hour < 10) return 'Good Morning,';
-		if (hour < 14) return 'Good Day,';
-		if (hour < 18) return 'Good Afternoon,';
+	} else if (isGuestUser === false) {
+		if (hour >= 5 && hour < 10) return 'Good Morning,';
+		if (hour >= 10 && hour < 14) return 'Good Day,';
+		if (hour >= 14 && hour < 18) return 'Good Afternoon,';
 		return 'Good Evening,';
 	}
 }
