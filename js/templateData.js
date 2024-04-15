@@ -181,7 +181,13 @@ const templateData = {
 					category: 2,
 					title: 'Front-End Bug Fixing',
 					description: 'Identify and fix bugs in the front-end codebase.',
-					assignedTo: ['Kamilla Morgentau', 'Lindsay Orn'],
+					assignedTo: [
+						'Kamilla Morgentau',
+						'Lindsay Orn',
+						'Joey Kub',
+						'Henna Yilmaz',
+						'Lea Stamm',
+					],
 					priority: 3,
 					subtasks: [
 						{ name: 'Debug JavaScript errors', done: true },
