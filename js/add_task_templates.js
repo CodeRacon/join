@@ -6,17 +6,17 @@
  * @returns {string} The HTML string for the single contact element.
  */
 function showContactsToAssignHTML(i, element) {
-	return /*html*/ `
+  return /*html*/ `
     <div id="single-contact${i}" class="single-contact" onclick="getAssignedContacts()">
       <label for="option${i}" class="label-layout">
         <input
           type="checkbox"
           class="custom-checkbox"
           id="option${i}"
-          value="${element['userData']['name']}"
+          value="${element["userData"]["name"]}"
           onchange="changeCheckboxColor(${i})"
         />
-          ${element['userData']['name']}
+          ${element["userData"]["name"]}
       </label>
       <br />
       ${createContactInitials(element)}
@@ -32,17 +32,17 @@ function showContactsToAssignHTML(i, element) {
  * @returns {string} The HTML string for the single contact element.
  */
 function filterContactsToAssignHTML(i, element) {
-	return /*html*/ `
+  return /*html*/ `
     <div id="single-contact${i}" class="single-contact" onclick="getAssignedContacts()">
       <label for="option${i}" class="label-layout">
         <input
           type="checkbox"
           class="custom-checkbox"
           id="option${i}"
-          value="${element['userData']['name']}"
+          value="${element["userData"]["name"]}"
           onchange="changeCheckboxColor(${i})"
         />
-        ${element['userData']['name']}
+        ${element["userData"]["name"]}
       </label>
       <br />
       ${createContactInitials(element)}
@@ -51,7 +51,7 @@ function filterContactsToAssignHTML(i, element) {
 }
 
 function showCreatedSubtaskHTML(listItemId, element, i) {
-	return /*html*/ `		
+  return /*html*/ `		
     <div class="subtask-list-container">
       <li 
         class="subtask-list-item" 
@@ -80,7 +80,7 @@ function showCreatedSubtaskHTML(listItemId, element, i) {
 }
 
 function showInitialsOfAssignedHTML(color, initials) {
-	return /*html*/ `
+  return /*html*/ `
     <div 
       class="initialsCyrcle"
       style="background-color: ${color}">
