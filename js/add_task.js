@@ -1,26 +1,23 @@
+let newAssignedContacts = [];
+let newSubtasks = [];
+let newTask = [];
 let newTitle;
 let newDescription;
-let newAssignedContacts = [];
 let newDueDate;
-let currentPriority = 2;
 let newCategory;
-let newSubtasks = [];
 let newStatus;
+let currentPriority = 2;
 let maxId = 0;
-
-let newTask = [];
-
 let lowBtn = document.getElementById('low-btn');
 let mediumBtn = document.getElementById('medium-btn');
 let urgentBtn = document.getElementById('urgent-btn');
-
 let imgLow = document.getElementById('img-low');
 let imgMedium = document.getElementById('img-medium');
 let imgUrgent = document.getElementById('img-urgent');
 
 /**
- * Renders the page by initializing it, loading user data, and showing contacts to assign.
- * This is an async function that handles the overall page rendering flow.
+ * Renders the task creation page by initializing it, loading user data,
+ * and showing existing contacts to assign.
  */
 async function renderPage() {
 	initPage();
@@ -57,7 +54,6 @@ function resetPrioButtons() {
 	lowBtn.classList.value = 'prio-box prio-unset';
 	mediumBtn.classList.value = 'prio-box prio-set';
 	urgentBtn.classList.value = 'prio-box prio-unset';
-
 	imgLow.src = './assets/img/icons/add-task/low.svg';
 	imgMedium.src = './assets/img/icons/add-task/medium-white.svg';
 	imgUrgent.src = './assets/img/icons/add-task/urgent.svg';
@@ -73,7 +69,6 @@ function prioLow() {
 	lowBtn.classList.value = 'prio-box prio-set font-white bg-low';
 	mediumBtn.classList.value = 'prio-box prio-unset bg-white font-black';
 	urgentBtn.classList.value = 'prio-box prio-unset bg-white font-black';
-
 	imgLow.src = './assets/img/icons/add-task/low-white.svg';
 	imgMedium.src = './assets/img/icons/add-task/medium-orange.svg';
 }
@@ -88,7 +83,6 @@ function prioMedium() {
 	lowBtn.classList.value = 'prio-box prio-unset bg-white font-black ';
 	mediumBtn.classList.value = 'prio-box prio-set bg-medium font-white';
 	urgentBtn.classList.value = 'prio-box prio-unset bg-white font-black';
-
 	imgMedium.src = './assets/img/icons/add-task/medium-white.svg';
 }
 
@@ -102,14 +96,12 @@ function prioUrgent() {
 	lowBtn.classList.value = 'prio-box prio-unset bg-white font-black ';
 	mediumBtn.classList.value = 'prio-box prio-unset bg-white font-black';
 	urgentBtn.classList.value = 'prio-box prio-set bg-urgent font-white';
-
 	imgUrgent.src = './assets/img/icons/add-task/urgent-white.svg';
 	imgMedium.src = './assets/img/icons/add-task/medium-orange.svg';
 }
 
 function selectOrClearCategory() {
 	let input = document.getElementById('category');
-	const img = document.getElementById('arrowImgCategory');
 	if (input.value == '') {
 		openAndCloseDropDownCategory();
 	} else {
@@ -146,7 +138,6 @@ function selectCategory(category) {
 		input.value = 'Technical Task';
 		dropdown.style.display = 'none';
 	}
-
 	container.classList.remove('onfocus');
 	img.style.transform = 'rotate(0deg)';
 }

@@ -10,16 +10,13 @@ function validateAddTaskForm(event, origin) {
 	const isValidTitle = validateTitle();
 	const isValidDueDate = validateDueDate();
 	const isValidCategory = validateCategory();
-
 	if (isValidTitle && isValidDueDate && isValidCategory) {
-		console.log('Form is valid');
 		saveInputs();
 		saveNewTask(origin);
 		setTimeout(() => {
 			closeOverlays();
 		}, 0);
 	} else {
-		console.log('Form is not valid');
 		event.preventDefault();
 		animateHint();
 		return false;
@@ -39,9 +36,9 @@ function animateHint() {
 }
 
 /**
- * Validates the title input field for a new task.
- *
- * @returns {boolean} - True if the title is valid, false otherwise.
+ * Validates the title field value. Checks if the title is empty or longer than 40 characters.
+ * Adds/removes the 'invalid' class on the title input element accordingly.
+ * @returns {boolean} True if valid, false if invalid
  */
 function validateTitle() {
 	let titleInput = document.getElementById('title-value');
@@ -123,7 +120,6 @@ function resetAddTaskErrorFeedback() {
 	let dueDateInput = document.getElementById('due-date-value');
 	let categoryCont = document.getElementById('category-div');
 	let dropDownCont = document.getElementById('dropdownContentCategory');
-
 	titleInput.classList.remove('invalid');
 	dueDateInput.classList.remove('invalid');
 	categoryCont.classList.remove('invalid');

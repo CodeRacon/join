@@ -1,28 +1,40 @@
+/**
+ * Shows the subtask input by adding the active class to the subtasks container
+ * and focusing the input.
+ */
 function showSubtaskInput() {
 	const subtasksInput = document.getElementById('input-of-subtask');
 	const subtasksContainer = subtasksInput.closest('.subtasks');
-
 	subtasksContainer.classList.add('active');
 	subtasksInput.focus();
 }
 
+/**
+ * Hides the subtask input by removing the active class from the subtasks container
+ */
 function hideSubtaskInput() {
 	const subtasksInput = document.getElementById('input-of-subtask');
 	const subtasksContainer = subtasksInput.closest('.subtasks');
-
 	subtasksContainer.classList.remove('active');
 }
 
+/**
+ * Clears the value of the subtask input and hides the subtask input.
+ */
 function clearSubtaskInput() {
 	const subtasksInput = document.getElementById('input-of-subtask');
 	subtasksInput.value = '';
 	hideSubtaskInput();
 }
 
+/**
+ * Handles clicks outside the subtask input to clear and hide it.
+ * Checks if the click happened outside the subtasks container and it is currently active,
+ * and if so clears and hides the subtask input.
+ */
 document.addEventListener('click', function (event) {
 	const subtasksContainer = document.querySelector('.subtasks');
 	const targetElement = event.target;
-
 	if (
 		!subtasksContainer.contains(targetElement) &&
 		subtasksContainer.classList.contains('active')
@@ -80,7 +92,6 @@ function correctSubtask(index) {
 	editImg.alt = 'done';
 	editImg.setAttribute('onclick', `changeSubtaskInArray(${index})`);
 	inputField.removeAttribute('readonly');
-
 	const subtaskListItem = document.getElementById(`subtask-${index}`);
 	subtaskListItem.classList.add('subtask-edit-mode');
 }

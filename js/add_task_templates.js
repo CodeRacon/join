@@ -16,7 +16,7 @@ function showContactsToAssignHTML(i, element) {
           value="${element['userData']['name']}"
           onchange="changeCheckboxColor(${i})"
         />
-        ${element['userData']['name']}
+          ${element['userData']['name']}
       </label>
       <br />
       ${createContactInitials(element)}
@@ -53,12 +53,28 @@ function filterContactsToAssignHTML(i, element) {
 function showCreatedSubtaskHTML(listItemId, element, i) {
 	return /*html*/ `		
     <div class="subtask-list-container">
-        <li class="subtask-list-item" id="${listItemId}"><input readonly type="text" value="${element}"></li>
-          <div class="edit-delete-container">
-            <img id="edit-button${i}" onclick="correctSubtask(${i})" src="assets/img/icons/add-task/edit.svg" alt="edit">
-            <img src="assets/img/icons/add-task/edit-btn-spacer.svg" alt="spacer">
-      <img onclick="deleteSubtask(${i})" src="assets/img/icons/add-task/delete.svg" alt="delete">
-          </div>
+      <li 
+        class="subtask-list-item" 
+        id="${listItemId}">
+          <input 
+            readonly 
+            type="text"   
+            value="${element}">
+      </li>
+      <div class="edit-delete-container">
+        <img 
+          id="edit-button${i}" 
+          onclick="correctSubtask(${i})" 
+          src="assets/img/icons/add-task/edit.svg" 
+          alt="edit">
+        <img 
+          src="assets/img/icons/add-task/edit-btn-spacer.svg" 
+          alt="spacer">
+        <img 
+          onclick="deleteSubtask(${i})" 
+          src="assets/img/icons/add-task/delete.svg" 
+          alt="delete">
+      </div>
     </div>
   `;
 }
@@ -68,7 +84,7 @@ function showInitialsOfAssignedHTML(color, initials) {
     <div 
       class="initialsCyrcle"
       style="background-color: ${color}">
-      ${initials}
+        ${initials}
     </div>
   `;
 }

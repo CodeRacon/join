@@ -28,12 +28,10 @@ function onlyOpenDropDownToAssign() {
 	const dropdownContent = document.getElementById('dropdownContent');
 	const img = document.getElementById('arrowImg');
 	const assignedTo = document.getElementById('assigned-to');
-
 	if (dropdownContent.style.display !== 'block') {
 		dropdownContent.style.display = 'block';
 		dropdownContent.classList.add('onfocus');
 		assignedTo.classList.add('onfocus');
-
 		img.style.transform = 'rotate(180deg)';
 	} else {
 		return;
@@ -50,7 +48,6 @@ function onlyCloseDropDownToAssign() {
 	const dropdownContent = document.getElementById('dropdownContent');
 	const img = document.getElementById('arrowImg');
 	const assignedTo = document.getElementById('assigned-to');
-
 	if (dropdownContent.style.display !== 'block') {
 		return;
 	} else {
@@ -114,7 +111,6 @@ function filterContactsToAssign() {
 function changeCheckboxColor(i) {
 	let checkbox = document.getElementById(`option${i}`);
 	let container = document.getElementById(`single-contact${i}`);
-
 	if (checkbox.checked) {
 		container.classList.add('checked-assigned-to');
 	} else {
@@ -135,13 +131,13 @@ function createContactInitials(element) {
 		.split(' ')
 		.map((word) => word.charAt(0))
 		.join('');
-	return `
-        <div 
-        class="initialsCyrcle"
-            style="background-color: ${element.color}">
-            ${initials}
-      </div>
-      `;
+	return /*html*/ `
+		<div 
+			class="initialsCyrcle"
+			style="background-color: ${element.color}">
+				${initials}
+		</div>
+	`;
 }
 
 /**
