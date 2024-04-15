@@ -101,17 +101,21 @@ function initializeImgs() {
  */
 function setActualPriorityEdit(task) {
   let selectedPrio = task.priority;
-  if (selectedPrio === 1) {
+  if (selectedPrio === 1 || selectedPrio === "low") {
     currentPriority = "low";
     resetPrioButtonsEdit();
     prioLowEdit();
   }
-  if (selectedPrio === 2) {
+  if (selectedPrio === 2 || selectedPrio === "medium") {
     currentPriority = "medium";
     resetPrioButtonsEdit();
     prioMediumEdit();
   }
-  if (selectedPrio === 3) {
+  if (
+    selectedPrio === 3 ||
+    selectedPrio === "high" ||
+    selectedPrio === "urgent"
+  ) {
     currentPriority = "high";
     resetPrioButtonsEdit();
     prioUrgentEdit();
