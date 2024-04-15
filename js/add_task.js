@@ -28,6 +28,32 @@ async function renderPage() {
 }
 
 /**
+ * Adds event listeners to the document to handle clicks outside of the assigned-to and category dropdowns.
+ * When a click occurs outside of these dropdowns, the dropdowns are closed.
+ */
+document.addEventListener("DOMContentLoaded", function () {
+  const dropdownContainerAssignTo = document.getElementById("assigned-to");
+  const dropdownMenuAssignTo = document.getElementById("dropdownContent");
+  const dropdownContainerCategory = document.getElementById("category-div");
+  const dropdownMenuCategory = document.getElementById(
+    "dropdownContentCategory"
+  );
+  document.addEventListener("click", function (event) {
+    let target = event.target;
+    let isClickInsideDropdownAssignTo =
+      dropdownContainerAssignTo.contains(target) ||
+      dropdownMenuAssignTo.contains(target);
+    let isClickInsideDropdownCategory =
+      dropdownContainerCategory.contains(target) ||
+      dropdownMenuCategory.contains(target);
+    if (!isClickInsideDropdownAssignTo && !isClickInsideDropdownCategory) {
+      onlyCloseDropDownOfCategory();
+      onlyCloseDropDownToAssign();
+    }
+  });
+});
+
+/**
  * Sets the task priority level and updates the UI accordingly.
  *
  * @param {string} prio - The priority level - "low", "medium" or "urgent".
@@ -100,6 +126,10 @@ function prioUrgent() {
   imgMedium.src = "./assets/img/icons/add-task/medium-orange.svg";
 }
 
+/**
+ * Toggles the visibility of the category dropdown menu based on the current value of the category input field.
+ * If the input field is empty, the dropdown is opened. If the input field has a value, the dropdown is closed and the input field is cleared.
+ */
 function selectOrClearCategory() {
   let input = document.getElementById("category");
   if (input.value == "") {
@@ -110,6 +140,23 @@ function selectOrClearCategory() {
   }
 }
 
+/**
+ * Closes the category dropdown menu by hiding the dropdown content, removing the "onfocus" class from the dropdown container, and resetting the rotation of the arrow icon.
+ */
+function onlyCloseDropDownOfCategory() {
+  let dropdown = document.getElementById("dropdownContentCategory");
+  let container = document.getElementById("category-div");
+  const img = document.getElementById("arrowImgCategory");
+  dropdown.style.display = "none";
+  dropdown.classList.remove("onfocus");
+  container.classList.remove("onfocus");
+  img.style.transform = "rotate(0deg)";
+}
+
+/**
+ * Toggles the visibility of the category dropdown menu based on the current value of the category input field.
+ * If the input field is empty, the dropdown is opened. If the input field has a value, the dropdown is closed and the input field is cleared.
+ */
 function openAndCloseDropDownCategory() {
   let dropdown = document.getElementById("dropdownContentCategory");
   let container = document.getElementById("category-div");
@@ -126,6 +173,12 @@ function openAndCloseDropDownCategory() {
     img.style.transform = "rotate(0deg)";
   }
 }
+
+/**
+ * Selects a category for a task and updates the category input field and dropdown menu accordingly.
+ *
+ * @param {string} category - The category to select, either "user-story" or "technical-task".
+ */
 function selectCategory(category) {
   let dropdown = document.getElementById("dropdownContentCategory");
   let input = document.getElementById("category");
