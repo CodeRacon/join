@@ -101,12 +101,15 @@ function filterContactsToAssign() {
  */
 function changeCheckboxColor(i) {
   let checkbox = document.getElementById(`option${i}`);
+  let input = document.getElementById(`dropdownInput`);
   let container = document.getElementById(`single-contact${i}`);
   if (checkbox.checked) {
     container.classList.add("checked-assigned-to");
   } else {
     container.classList.remove("checked-assigned-to");
   }
+  input.value = "";
+  filterContactsToAssign();
 }
 
 /**
