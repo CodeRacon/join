@@ -129,15 +129,15 @@ select:focus,
 	width: 100%;
 }
 
-.board-heading a {
+.mobile-add-task-btn {
 	display: none;
 }
 
-.board-heading a:hover {
+.mobile-add-task-btn:hover {
 	content: url('/assets/img/icons/board/plus-hover.svg');
 }
 
-.board-heading a:active {
+.mobile-add-task-btn:active {
 	content: url('/assets/img/icons/board/plus-active.svg');
 }
 
@@ -844,7 +844,7 @@ progress::-webkit-progress-bar {
 		padding: 0.5rem 1rem;
 	}
 
-	.board-heading a {
+	.mobile-add-task-btn {
 		display: block;
 	}
 
