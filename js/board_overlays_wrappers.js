@@ -6,13 +6,18 @@
  * - Removing hidden class again
  * - Calling backDropOn() to show modal background
  */
-function openAddTaskOverlay(id) {
-	let overlay = document.getElementById(id);
-	overlay.classList.remove('d-none');
-	overlay.classList.replace('box-slide-out', 'box-slide-in');
-	overlay.classList.remove('d-none');
-	backDropOn();
-	addDropdownClickListener();
+async function openAddTaskOverlay(id) {
+	const screenWidth = window.innerWidth;
+	if (screenWidth <= 424 && id === 'add-task-content-overlay') {
+		window.location.href = 'add_task.html';
+	} else {
+		let overlay = document.getElementById(id);
+		overlay.classList.remove('d-none');
+		overlay.classList.replace('box-slide-out', 'box-slide-in');
+		overlay.classList.remove('d-none');
+		backDropOn();
+		addDropdownClickListener();
+	}
 }
 
 /**
