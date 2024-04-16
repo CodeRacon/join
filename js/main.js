@@ -50,16 +50,10 @@ function getLoggedInUserID() {
 }
 
 /**
- * Initializes the page by calling several async functions:
- *
- * - loadUserData() - Loads user data from local storage
- * - includeHTML() - Fetches and includes HTML snippets in page
- * - setUserInitials() - Sets the user's initials in the UI
- * - highlightNavLink() - Highlights current page nav link
- * - changeFrameOnNewTab() - Handles changing iframe src on new tabs
- * - highlightExternalLink() - Adds visual indicator for external links
- *
- * This is an async function since it awaits other async init logic.
+ * Initializes the page by loading user data and including HTML.
+ * Gets the ID of the logged in user from local storage, checks if they are a guest user,
+ * loads their data, includes additional HTML files, sets their initials on the page
+ * and highlights the correct nav link.
  */
 async function initPage() {
 	const userID = getLoggedInUserID();
@@ -69,18 +63,16 @@ async function initPage() {
 	await includeHTML();
 	setUserInitials();
 	highlightNavLink();
-	changeFrameOnNewTab();
-	highlightExternalLink();
 }
 
 /**
- * Initializes the info page by calling initPage(), setting styles for small screens,
- * and adding a resize listener to toggle the footer links on small screens.
- *
- * An async function that handles initializing the info page.
+ * Initializes the info page by loading additional HTML files, changing frames on new tabs,
+ * highlighting external links, and handling resize events.
  */
 async function initInfoPage() {
-	await initPage();
+	await includeHTML();
+	changeFrameOnNewTab();
+	highlightExternalLink();
 	const screenWidth = window.innerWidth;
 	if (screenWidth <= 767) {
 		setForSmallScreens();
@@ -228,13 +220,13 @@ function getNavLinks() {
  * standalone legal pages.
  */
 function changeFrameOnNewTab() {
+	console.log('changed frame on new tab');
 	const sideNav = document.getElementById('side-nav');
 	const headerIcons = document.getElementById('corner-icons');
 	const quickmenu = document.getElementById('quickmenu');
-	const privacyUrl = '/privacy_policy.html';
-	const legalNoticeUrl = '/legal_notice.html';
-	const currentUrl = window.location.pathname;
-	if (currentUrl === privacyUrl || currentUrl === legalNoticeUrl) {
+	const currentUrl = window.location.href;
+	console.log(currentUrl);
+	if (currentUrl.includes('legal') || currentUrl.includes('privacy')) {
 		sideNav.classList.toggle('hidden');
 		headerIcons.classList.toggle('hidden');
 		quickmenu.classList.toggle('hidden');
