@@ -1,10 +1,13 @@
 /**
- * Validates the form fields for adding a new task, and if valid, saves the new task and closes the add task overlay.
- * If any fields are invalid, it prevents the default form submission, animates the hint, and returns false.
+ * Validates the add task form and either saves the new task or shows validation errors.
  *
- * @param {Event} event - The form submission event.
- * @param {string} origin - The origin of the add task action, either "board" or something else.
- * @returns {boolean} - False if the form is invalid, true if the form is valid.
+ * Checks that the title, due date and category fields are valid by calling their
+ * validation functions. If all are valid, saves the inputs and new task. If any
+ * field is invalid, prevents form submission and shows a validation hint.
+ *
+ * @param {Event} event - The form submission event
+ * @param {string} origin - Where the form was triggered from
+ * @returns {boolean} True if all fields are valid, false if any field is invalid
  */
 function validateAddTaskForm(event, origin) {
 	const isValidTitle = validateTitle();
@@ -13,13 +16,21 @@ function validateAddTaskForm(event, origin) {
 	if (isValidTitle && isValidDueDate && isValidCategory) {
 		saveInputs();
 		saveNewTask(origin);
-		setTimeout(() => {
-			closeOverlays();
-		}, 0);
+		checkCurrentUrl();
 	} else {
 		event.preventDefault();
 		animateHint();
 		return false;
+	}
+}
+
+/**
+ * Checks the current URL and closes any open overlays if the URL does not include 'add_task'.
+ */
+function checkCurrentUrl() {
+	let url = window.location.href;
+	if (!url.includes('add_task')) {
+		closeOverlays();
 	}
 }
 
@@ -53,9 +64,9 @@ function validateTitle() {
 }
 
 /**
- * Validates the due date input field for a new task.
- *
- * @returns {boolean} - True if the due date is valid, false otherwise.
+ * Validates the due date field value. Checks if the due date is empty or before the current date.
+ * Adds/removes the 'invalid' class on the due date input element accordingly.
+ * @returns {boolean} True if valid, false if invalid
  */
 function validateDueDate() {
 	let dueDateInput = document.getElementById('due-date-value');
@@ -64,9 +75,25 @@ function validateDueDate() {
 		dueDateInput.classList.add('invalid');
 		return false;
 	} else {
-		dueDateInput.classList.remove('invalid');
-		return true;
+		let currentDate = new Date();
+		let selectedDate = new Date(dueDateValue);
+		if (selectedDate < currentDate) {
+			showDateError(dueDateInput);
+			return false;
+		} else {
+			dueDateInput.classList.remove('invalid');
+			return true;
+		}
 	}
+}
+
+function showDateError(dueDateInput) {
+	let dateError = document.getElementById('date-error');
+	dateError.classList.toggle('d-none');
+	setTimeout(() => {
+		dateError.classList.toggle('d-none');
+	}, 5000);
+	dueDateInput.classList.add('invalid');
 }
 
 /**

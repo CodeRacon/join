@@ -289,6 +289,7 @@ input::-moz-calendar-picker-indicator {
 	justify-content: space-between;
 	align-items: center;
 	width: 80%;
+	cursor: pointer;
 }
 
 .dropdown-icon:hover {
@@ -331,6 +332,13 @@ input::-moz-calendar-picker-indicator {
 	background-repeat: no-repeat;
 	background-position: right 1rem center;
 	padding-right: 2rem;
+}
+
+p.error-message {
+	padding: 0 0 0 1rem;
+	margin: 0;
+	color: var(--form-fail-txt-col);
+	font-size: 0.7125rem;
 }
 
 /* ################### Prio ################### */
@@ -639,7 +647,7 @@ input::-moz-calendar-picker-indicator {
 }
 
 #add-task-overlay-task-created {
-	position: absolute;
+	position: fixed;
 	z-index: 999;
 	top: 50%;
 	left: 50%;
@@ -814,7 +822,8 @@ input::-moz-calendar-picker-indicator {
 	.label-layout,
 	.prio-box,
 	.font-white,
-	.font-black {
+	.font-black,
+	.category-option {
 		font-size: 1rem !important;
 	}
 

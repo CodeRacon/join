@@ -37,10 +37,18 @@ function addDropdownClickListener() {
 	document.addEventListener('click', handleDropdownClick);
 }
 
+/**
+ * Removes the event listener that handles clicks outside of assigned-to and category dropdowns.
+ * This closes any open dropdowns when a click occurs outside of them.
+ */
 function removeDropdownClickListener() {
 	document.removeEventListener('click', handleDropdownClick);
 }
 
+/**
+ * Handles clicks outside of the assigned-to and category dropdown menus.
+ * Checks if the click occurred inside either dropdown. If not, closes both dropdowns.
+ */
 function handleDropdownClick(event) {
 	const dropdownContainerAssignTo = document.getElementById('assigned-to');
 	const dropdownMenuAssignTo = document.getElementById('dropdownContent');
@@ -59,16 +67,27 @@ function handleDropdownClick(event) {
 		dropdownContainerCategory,
 		dropdownMenuCategory
 	);
-
 	if (!isClickInsideDropdownAssignTo && !isClickInsideDropdownCategory) {
 		closeDropdowns();
 	}
 }
 
+/**
+ * Checks if a click event occurred inside a dropdown element or its menu.
+ *
+ * @param {Element} target - The element that received the click event
+ * @param {Element} dropdownContainer - The container element of the dropdown
+ * @param {Element} dropdownMenu - The menu element of the dropdown
+ * @returns {boolean} True if the click occurred inside the dropdown, false otherwise
+ */
 function isClickInsideDropdown(target, dropdownContainer, dropdownMenu) {
 	return dropdownContainer.contains(target) || dropdownMenu.contains(target);
 }
 
+/**
+ * Closes both the assigned-to and category dropdown menus.
+ * Calls functions to close each dropdown individually.
+ */
 function closeDropdowns() {
 	onlyCloseDropDownOfCategory();
 	onlyCloseDropDownToAssign();

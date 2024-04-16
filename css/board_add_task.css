@@ -464,6 +464,13 @@ input::-moz-calendar-picker-indicator {
 	padding-right: 2rem;
 }
 
+p.error-message {
+	padding: 0 0 0 1rem;
+	margin: 0;
+	color: var(--form-fail-txt-col);
+	font-size: 0.7125rem;
+}
+
 /* ################### Prio ################### */
 
 .priority {

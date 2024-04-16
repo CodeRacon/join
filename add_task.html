@@ -12,8 +12,8 @@
 		<script defer src="js/registry.js"></script>
 		<script defer src="js/main.js"></script>
 
-		<script defer src="js/board.js"></script>
-		<script defer src="js/board_overlays_wrappers.js"></script>
+		<!-- <script defer src="js/board.js"></script> -->
+		<!-- <script defer src="js/board_overlays_wrappers.js"></script> -->
 		<script defer src="js/add_task.js"></script>
 		<script defer src="js/add_task_templates.js"></script>
 		<script defer src="js/add_task_assigned.js"></script>
@@ -137,6 +137,9 @@
 										onfocus="(this.type='date')"
 										onblur="(this.type='text')" />
 								</div>
+								<p class="error-message d-none" id="date-error">
+									Chosen Date is in the past!
+								</p>
 							</div>
 
 							<!--Prio-->
