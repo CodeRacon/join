@@ -34,13 +34,11 @@ async function renderPage() {
  * When a click occurs outside of these dropdowns, the dropdowns are closed.
  */
 function addDropdownClickListener() {
-	console.log('Dropdown click listener added');
 	document.addEventListener('click', handleDropdownClick);
 }
 
 function removeDropdownClickListener() {
 	document.removeEventListener('click', handleDropdownClick);
-	console.log('Dropdown click listener removed');
 }
 
 function handleDropdownClick(event) {
