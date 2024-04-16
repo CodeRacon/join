@@ -153,6 +153,10 @@ async function validateLoginForm() {
 	if (isValidEmail && isValidPassword) {
 		const email = document.getElementById('login-email').value;
 		const password = document.getElementById('login-password').value;
+		const rememberMe = document.getElementById('login-checkbox').checked;
+		if (rememberMe) {
+			saveLoginDetails();
+		}
 		await login(email, password);
 	} else {
 		return false;
