@@ -249,6 +249,7 @@ function openExternalLink(url) {
 	} else if (currentUrl === legalNoticeUrl) {
 		window.location.href = url;
 	}
+	closeQuickMenu();
 }
 
 /**
@@ -269,28 +270,8 @@ function highlightExternalLink() {
 }
 
 /**
- * Toggles the display of the quick menu UI element.
- * If currently hidden, animates it sliding in.
- * If currently shown, animates it sliding away.
- */
-function toggleQuickMenu() {
-	const quickMenu = document.getElementById('quickmenu');
-	if (quickMenu.classList.contains('d-none')) {
-		quickMenu.classList.replace('qm-off', 'qm-on');
-		setTimeout(() => {
-			quickMenu.classList.toggle('d-none');
-		}, 125);
-	} else {
-		quickMenu.classList.replace('qm-on', 'qm-off');
-		setTimeout(() => {
-			quickMenu.classList.toggle('d-none');
-		}, 125);
-	}
-}
-
-/**
- * Toggles the footer navigation links between a stacked layout for small screens
- * and a horizontal layout for wider screens.
+ * Toggles footer links between small and large screen layouts.
+ * Checks window width on resize and calls appropriate function.
  */
 function toggleFooterLinks() {
 	const screenWidth = window.innerWidth;
@@ -299,6 +280,42 @@ function toggleFooterLinks() {
 	} else {
 		setForLargeScreens();
 	}
+}
+
+/**
+ * Toggles the visibility of the quick menu element. Checks if the element
+ * already has the "d-none" class applied and calls the appropriate function
+ * to open or close the menu.
+ */
+function toggleQuickMenu() {
+	const quickMenu = document.getElementById('quickmenu');
+	if (quickMenu.classList.contains('d-none')) {
+		openQuickMenu();
+	} else {
+		closeQuickMenu();
+	}
+}
+
+/**
+ * Opens the quick menu by replacing the menu class and toggling display after a short delay.
+ */
+function openQuickMenu() {
+	const quickMenu = document.getElementById('quickmenu');
+	quickMenu.classList.replace('qm-off', 'qm-on');
+	setTimeout(() => {
+		quickMenu.classList.toggle('d-none');
+	}, 125);
+}
+
+/**
+ * Closes the quick menu by replacing the menu class and toggling display after a short delay.
+ */
+function closeQuickMenu() {
+	const quickMenu = document.getElementById('quickmenu');
+	quickMenu.classList.replace('qm-on', 'qm-off');
+	setTimeout(() => {
+		quickMenu.classList.toggle('d-none');
+	}, 125);
 }
 
 /**
