@@ -1,34 +1,34 @@
 let hexColors = [
-	'#b83c3c',
-	'#00BEE8',
-	'#1FD7C1',
-	'#6E52FF',
-	'#9747FF',
-	'#A6C063',
-	'#FC71FF',
-	'#FF4646',
-	'#FF5EB3',
-	'#FF745E',
-	'#FF7A00',
-	'#FFA35E',
-	'#FFBB2B',
-	'#FFC701',
-	'#FFE62B',
-	'#00FF9D',
-	'#00B155',
-	'#85FF00',
-	'#FFD100',
-	'#FFC300',
-	'#FF00E1',
-	'#FF0091',
-	'#0077FF',
-	'#00A6FF',
-	'#FF6A00',
-	'#FF8A00',
-	'#FF0038',
-	'#FF005E',
-	'#006AFF',
-	'#00B8AB',
+  "#b83c3c",
+  "#00BEE8",
+  "#1FD7C1",
+  "#6E52FF",
+  "#9747FF",
+  "#A6C063",
+  "#FC71FF",
+  "#FF4646",
+  "#FF5EB3",
+  "#FF745E",
+  "#FF7A00",
+  "#FFA35E",
+  "#FFBB2B",
+  "#FFC701",
+  "#FFE62B",
+  "#00FF9D",
+  "#00B155",
+  "#85FF00",
+  "#FFD100",
+  "#FFC300",
+  "#FF00E1",
+  "#FF0091",
+  "#0077FF",
+  "#00A6FF",
+  "#FF6A00",
+  "#FF8A00",
+  "#FF0038",
+  "#FF005E",
+  "#006AFF",
+  "#00B8AB",
 ];
 
 /**
@@ -36,8 +36,8 @@ let hexColors = [
  * Used to generate a random color when creating a new contact.
  */
 function chooseRandomColor() {
-	const randomIndex = Math.floor(Math.random() * hexColors.length);
-	return hexColors[randomIndex];
+  const randomIndex = Math.floor(Math.random() * hexColors.length);
+  return hexColors[randomIndex];
 }
 
 /**
@@ -46,7 +46,7 @@ function chooseRandomColor() {
  * Returns the ID of the logged in user stored in localStorage, or null if no user is logged in.
  */
 function getLoggedInUserID() {
-	return localStorage.getItem('loggedInUser');
+  return localStorage.getItem("loggedInUser");
 }
 
 /**
@@ -56,13 +56,13 @@ function getLoggedInUserID() {
  * and highlights the correct nav link.
  */
 async function initPage() {
-	const userID = getLoggedInUserID();
-	const loggedInUser = localStorage.getItem('loggedInUser');
-	isGuestUser = loggedInUser === 'guest';
-	await loadUserData(userID);
-	await includeHTML();
-	setUserInitials();
-	highlightNavLink();
+  const userID = getLoggedInUserID();
+  const loggedInUser = localStorage.getItem("loggedInUser");
+  isGuestUser = loggedInUser === "guest";
+  await loadUserData(userID);
+  await includeHTML();
+  setUserInitials();
+  highlightNavLink();
 }
 
 /**
@@ -70,19 +70,19 @@ async function initPage() {
  * highlighting external links, and handling resize events.
  */
 async function initInfoPage() {
-	await includeHTML();
-	changeFrameOnNewTab();
-	highlightExternalLink();
-	const screenWidth = window.innerWidth;
-	if (screenWidth <= 767) {
-		setForSmallScreens();
-		highlightMobileExtLinks();
-	}
-	window.addEventListener('resize', () => {
-		if (window.innerWidth <= 767) {
-			toggleFooterLinks();
-		}
-	});
+  await includeHTML();
+  changeFrameOnNewTab();
+  highlightExternalLink();
+  const screenWidth = window.innerWidth;
+  if (screenWidth <= 767) {
+    setForSmallScreens();
+    highlightMobileExtLinks();
+  }
+  window.addEventListener("resize", () => {
+    if (window.innerWidth <= 767) {
+      toggleFooterLinks();
+    }
+  });
 }
 
 /**
@@ -93,17 +93,17 @@ async function initInfoPage() {
  * Handles setting a default 'G' initial for guest users.
  */
 function setUserInitials() {
-	const userInitials = document.getElementById('user-initials');
-	const loggedInUser = getLoggedInUser();
-	const processedInitials = loggedInUser.userData.name
-		.split(' ')
-		.map((word) => word.charAt(0))
-		.join('');
-	if (isGuestUser === true) {
-		userInitials.innerHTML = 'G';
-	} else {
-		userInitials.innerHTML = processedInitials;
-	}
+  const userInitials = document.getElementById("user-initials");
+  const loggedInUser = getLoggedInUser();
+  const processedInitials = loggedInUser.userData.name
+    .split(" ")
+    .map((word) => word.charAt(0))
+    .join("");
+  if (isGuestUser === true) {
+    userInitials.innerHTML = "G";
+  } else {
+    userInitials.innerHTML = processedInitials;
+  }
 }
 
 /**
@@ -113,10 +113,10 @@ function setUserInitials() {
  * and returns the first logged in user object.
  */
 function getLoggedInUser() {
-	const loggedInUsers = localUserData.users.filter(
-		(user) => user.isLoggedIn === true
-	);
-	return loggedInUsers[0];
+  const loggedInUsers = localUserData.users.filter(
+    (user) => user.isLoggedIn === true
+  );
+  return loggedInUsers[0];
 }
 
 /**
@@ -129,24 +129,24 @@ function getLoggedInUser() {
  * If the fetch fails, it sets the innerHTML to an error message instead.
  */
 async function includeHTML() {
-	let includeElements = document.querySelectorAll('[w3-include-html]');
-	for (let i = 0; i < includeElements.length; i++) {
-		const element = includeElements[i];
-		file = element.getAttribute('w3-include-html');
-		let resp = await fetch(file);
-		if (resp.ok) {
-			element.innerHTML = await resp.text();
-		} else {
-			element.innerHTML = 'Page not found';
-		}
-	}
+  let includeElements = document.querySelectorAll("[w3-include-html]");
+  for (let i = 0; i < includeElements.length; i++) {
+    const element = includeElements[i];
+    file = element.getAttribute("w3-include-html");
+    let resp = await fetch(file);
+    if (resp.ok) {
+      element.innerHTML = await resp.text();
+    } else {
+      element.innerHTML = "Page not found";
+    }
+  }
 }
 
 /**
  * Navigates to the previous page in the browser history.
  */
 function goBack() {
-	window.history.back();
+  window.history.back();
 }
 
 /**
@@ -158,16 +158,16 @@ function goBack() {
  * the 'visited' class to highlight the link.
  */
 function highlightNavLink() {
-	const currentUrl = window.location.pathname;
-	const navLinks = getNavLinks();
-	navLinks.forEach((navLink) => {
-		const href = navLink.getAttribute('href');
-		if (currentUrl === href) {
-			navLink.classList.add('visited');
-		} else {
-			navLink.classList.remove('visited');
-		}
-	});
+  const currentUrl = window.location.pathname;
+  const navLinks = getNavLinks();
+  navLinks.forEach((navLink) => {
+    const href = navLink.getAttribute("href");
+    if (currentUrl === href) {
+      navLink.classList.add("visited");
+    } else {
+      navLink.classList.remove("visited");
+    }
+  });
 }
 
 /**
@@ -180,17 +180,17 @@ function highlightNavLink() {
  * class.
  */
 function highlightMobileExtLinks() {
-	const currentUrl = window.location.pathname;
-	const extPrivacyLink = document.getElementById('mobile-privacy-link');
-	const extLegalLink = document.getElementById('mobile-legal-link');
-	if (currentUrl.includes('privacy_policy')) {
-		extPrivacyLink.classList.add('visited');
-		extLegalLink.classList.remove('visited');
-	}
-	if (currentUrl.includes('legal_notice')) {
-		extLegalLink.classList.add('visited');
-		extPrivacyLink.classList.remove('visited');
-	}
+  const currentUrl = window.location.pathname;
+  const extPrivacyLink = document.getElementById("mobile-privacy-link");
+  const extLegalLink = document.getElementById("mobile-legal-link");
+  if (currentUrl.includes("privacy_policy")) {
+    extPrivacyLink.classList.add("visited");
+    extLegalLink.classList.remove("visited");
+  }
+  if (currentUrl.includes("legal_notice")) {
+    extLegalLink.classList.add("visited");
+    extPrivacyLink.classList.remove("visited");
+  }
 }
 
 /**
@@ -201,16 +201,16 @@ function highlightMobileExtLinks() {
  * On desktop, returns the desktop side navigation links.
  */
 function getNavLinks() {
-	const desktopLinks = document.querySelectorAll('#side-nav a');
-	const mobileLinks = document.querySelectorAll('#mobile-nav a');
-	const asideDisplay = getComputedStyle(
-		document.querySelector('aside')
-	).display;
-	if (asideDisplay === 'none') {
-		return mobileLinks;
-	} else {
-		return desktopLinks;
-	}
+  const desktopLinks = document.querySelectorAll("#side-nav a");
+  const mobileLinks = document.querySelectorAll("#mobile-nav a");
+  const asideDisplay = getComputedStyle(
+    document.querySelector("aside")
+  ).display;
+  if (asideDisplay === "none") {
+    return mobileLinks;
+  } else {
+    return desktopLinks;
+  }
 }
 
 /**
@@ -220,17 +220,17 @@ function getNavLinks() {
  * standalone legal pages.
  */
 function changeFrameOnNewTab() {
-	console.log('changed frame on new tab');
-	const sideNav = document.getElementById('side-nav');
-	const headerIcons = document.getElementById('corner-icons');
-	const quickmenu = document.getElementById('quickmenu');
-	const currentUrl = window.location.href;
-	console.log(currentUrl);
-	if (currentUrl.includes('legal') || currentUrl.includes('privacy')) {
-		sideNav.classList.toggle('hidden');
-		headerIcons.classList.toggle('hidden');
-		quickmenu.classList.toggle('hidden');
-	}
+  console.log("changed frame on new tab");
+  const sideNav = document.getElementById("side-nav");
+  const headerIcons = document.getElementById("corner-icons");
+  const quickmenu = document.getElementById("quickmenu");
+  const currentUrl = window.location.href;
+  console.log(currentUrl);
+  if (currentUrl.includes("legal") || currentUrl.includes("privacy")) {
+    sideNav.classList.toggle("hidden");
+    headerIcons.classList.toggle("hidden");
+    quickmenu.classList.toggle("hidden");
+  }
 }
 
 /**
@@ -239,17 +239,17 @@ function changeFrameOnNewTab() {
  * current page instead  of opening a new tab.
  */
 function openExternalLink(url) {
-	const currentUrl = window.location.pathname;
-	const privacyUrl = '/privacy_policy.html';
-	const legalNoticeUrl = '/legal_notice.html';
-	if (currentUrl !== privacyUrl && currentUrl !== legalNoticeUrl) {
-		window.open(url);
-	} else if (currentUrl === privacyUrl) {
-		window.location.href = url;
-	} else if (currentUrl === legalNoticeUrl) {
-		window.location.href = url;
-	}
-	closeQuickMenu();
+  const currentUrl = window.location.pathname;
+  const privacyUrl = "/privacy_policy.html";
+  const legalNoticeUrl = "/legal_notice.html";
+  if (currentUrl !== privacyUrl && currentUrl !== legalNoticeUrl) {
+    window.open(url);
+  } else if (currentUrl === privacyUrl) {
+    window.location.href = url;
+  } else if (currentUrl === legalNoticeUrl) {
+    window.location.href = url;
+  }
+  closeQuickMenu();
 }
 
 /**
@@ -259,14 +259,14 @@ function openExternalLink(url) {
  * current page URL contains "privacy".
  */
 function highlightExternalLink() {
-	const url = window.location.href;
-	const privacyLink = document.getElementById('privacy-link');
-	const legalLink = document.getElementById('legal-link');
-	if (url.includes('privacy')) {
-		privacyLink.classList.add('visited');
-	} else if (url.includes('legal')) {
-		legalLink.classList.add('visited');
-	}
+  const url = window.location.href;
+  const privacyLink = document.getElementById("privacy-link");
+  const legalLink = document.getElementById("legal-link");
+  if (url.includes("privacy")) {
+    privacyLink.classList.add("visited");
+  } else if (url.includes("legal")) {
+    legalLink.classList.add("visited");
+  }
 }
 
 /**
@@ -274,12 +274,12 @@ function highlightExternalLink() {
  * Checks window width on resize and calls appropriate function.
  */
 function toggleFooterLinks() {
-	const screenWidth = window.innerWidth;
-	if (screenWidth <= 767) {
-		setForSmallScreens();
-	} else {
-		setForLargeScreens();
-	}
+  const screenWidth = window.innerWidth;
+  if (screenWidth <= 767) {
+    setForSmallScreens();
+  } else {
+    setForLargeScreens();
+  }
 }
 
 /**
@@ -288,34 +288,34 @@ function toggleFooterLinks() {
  * to open or close the menu.
  */
 function toggleQuickMenu() {
-	const quickMenu = document.getElementById('quickmenu');
-	if (quickMenu.classList.contains('d-none')) {
-		openQuickMenu();
-	} else {
-		closeQuickMenu();
-	}
+  const quickMenu = document.getElementById("quickmenu");
+  if (quickMenu.classList.contains("d-none")) {
+    openQuickMenu();
+  } else {
+    closeQuickMenu();
+  }
 }
 
 /**
  * Opens the quick menu by replacing the menu class and toggling display after a short delay.
  */
 function openQuickMenu() {
-	const quickMenu = document.getElementById('quickmenu');
-	quickMenu.classList.replace('qm-off', 'qm-on');
-	setTimeout(() => {
-		quickMenu.classList.toggle('d-none');
-	}, 125);
+  const quickMenu = document.getElementById("quickmenu");
+  quickMenu.classList.replace("qm-off", "qm-on");
+  setTimeout(() => {
+    quickMenu.classList.toggle("d-none");
+  }, 125);
 }
 
 /**
  * Closes the quick menu by replacing the menu class and toggling display after a short delay.
  */
 function closeQuickMenu() {
-	const quickMenu = document.getElementById('quickmenu');
-	quickMenu.classList.replace('qm-on', 'qm-off');
-	setTimeout(() => {
-		quickMenu.classList.toggle('d-none');
-	}, 125);
+  const quickMenu = document.getElementById("quickmenu");
+  quickMenu.classList.replace("qm-on", "qm-off");
+  setTimeout(() => {
+    quickMenu.classList.toggle("d-none");
+  }, 125);
 }
 
 /**
@@ -324,9 +324,9 @@ function closeQuickMenu() {
  * privacy policy and legal notice links.
  */
 function setForSmallScreens() {
-	const mobileNav = document.getElementById('mobile-nav');
-	mobileNav.innerHTML = '';
-	mobileNav.innerHTML = /*html*/ `
+  const mobileNav = document.getElementById("mobile-nav");
+  mobileNav.innerHTML = "";
+  mobileNav.innerHTML = /*html*/ `
   <div class="pp-ln">
     <a id="mobile-privacy-link" onclick="openExternalLink('/privacy_policy.html')"
       >Privacy Policy
@@ -344,9 +344,9 @@ function setForSmallScreens() {
  * summary, add task, board, and contacts links.
  */
 function setForLargeScreens() {
-	const mobileNav = document.getElementById('mobile-nav');
-	mobileNav.innerHTML = '';
-	mobileNav.innerHTML = /*html*/ `  
+  const mobileNav = document.getElementById("mobile-nav");
+  mobileNav.innerHTML = "";
+  mobileNav.innerHTML = /*html*/ `  
   <nav id="mobile-nav">
     <a href="/summary.html" class="mobile-nav-summary" id="mobile-nav-summary">
       <div class="mobile-summary-icon"></div>
@@ -374,30 +374,58 @@ function setForLargeScreens() {
   `;
 }
 
+/**
+ * Logs out the current user and redirects them to the index page.
+ * If the user is a guest user, their local data is cleared.
+ * If the user is a registered user, their local data is synced with the remote data
+ * before clearing the local storage and redirecting to the index page.
+ */
 async function logoutUser() {
-	if (isGuestUser === true) {
-		localStorage.clear();
-		localUserData = [];
-	} else {
-		const userID = getLoggedInUserID();
-		await syncLocalUserDataWithRemote(userID);
-		localStorage.clear();
-		localUserData = [];
-	}
-	isGuestUser = false;
-	window.location.href = './index.html';
+  if (isGuestUser === true) {
+    localStorage.clear();
+    localUserData = [];
+  } else {
+    const userID = getLoggedInUserID();
+    await syncLocalUserDataWithRemote(userID);
+    clearLocalStorage();
+    localUserData = [];
+  }
+  isGuestUser = false;
+  window.location.href = "./index.html";
 }
 
+/**
+ * Synchronizes the local user data with the remote user data for the specified user ID.
+ * This function saves the local user data to the remote storage using the provided user ID.
+ *
+ * @param {string} userID - The ID of the user whose data should be synchronized.
+ * @returns {Promise<void>} A Promise that resolves when the synchronization is complete.
+ */
 async function syncLocalUserDataWithRemote(userID) {
-	const remoteUserDataKey = 'remoteUserData_' + userID;
-	await setItem(remoteUserDataKey, JSON.stringify(localUserData));
+  const remoteUserDataKey = "remoteUserData_" + userID;
+  await setItem(remoteUserDataKey, JSON.stringify(localUserData));
 }
 
-window.addEventListener('beforeunload', syncDataBeforeUnload);
+window.addEventListener("beforeunload", syncDataBeforeUnload);
 
 async function syncDataBeforeUnload(event) {
-	if (isGuestUser === false) {
-		const userID = getLoggedInUserID();
-		await syncLocalUserDataWithRemote(userID);
-	}
+  if (isGuestUser === false) {
+    const userID = getLoggedInUserID();
+    await syncLocalUserDataWithRemote(userID);
+  }
+}
+
+/**
+ * Clears all items from the local storage, except for the "rememberMePassword" and "rememberMeEmail" keys.
+ */
+function clearLocalStorage() {
+  const keysToKeep = ["rememberMePassword", "rememberMeEmail"];
+
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+
+    if (!keysToKeep.includes(key)) {
+      localStorage.removeItem(key);
+    }
+  }
 }
