@@ -34,7 +34,6 @@ async function renderPage() {
 document.addEventListener("DOMContentLoaded", function () {
   const dropdownContainerAssignTo = document.getElementById("assigned-to");
   const dropdownMenuAssignTo = document.getElementById("dropdownContent");
-  const dropDownOfEditCard = document.getElementsById("dropdown-content");
   const dropdownContainerCategory = document.getElementById("category-div");
   const dropdownMenuCategory = document.getElementById(
     "dropdownContentCategory"
@@ -49,13 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
       dropdownContainerCategory.contains(target) ||
       dropdownMenuCategory.contains(target);
 
-    let isClickInsideEditCard = dropDownOfEditCard.contains(target);
-
-    if (
-      !isClickInsideDropdownAssignTo &&
-      !isClickInsideDropdownCategory &&
-      !isClickInsideEditCard
-    ) {
+    if (!isClickInsideDropdownAssignTo && !isClickInsideDropdownCategory) {
       onlyCloseDropDownOfCategory();
       onlyCloseDropDownToAssign();
     }
