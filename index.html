@@ -1,181 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="css/fonts.css" />
-		<link rel="stylesheet" href="css/root.css" />
-		<link rel="stylesheet" href="css/style.css" />
-		<link rel="stylesheet" href="css/start.css" />
-		<script defer src="js/data-storage.js"></script>
-		<script defer src="js/registry.js"></script>
-		<script defer src="js/main.js"></script>
-		<script defer src="js/templateData.js"></script>
-		<link rel="icon" type="image/png" href="assets/img/logo/favicon.png" />
-		<title>join - kanban project management tool</title>
-	</head>
-	<!--  
-      _____             
-   ,'  -. `.       
-  /   - _ - \       
- :    ' _)'  :      
-(_           ;)     
-  \     0   /     
-   `..___..'        
-      ;._:          
-     /    \         
--->
-	<body onload="checkForRememberedLogin(); storeGuestData()">
-		<img
-			class="start-logo"
-			src="/assets/img/logo/start-logo-dark.svg"
-			alt="join logo" />
-		<div id="success-container" class="success-text d-none">
-			You signed up successfully
-		</div>
-		<div id="wrapper" class="sign-up-wrapper d-none"></div>
-		<div class="start-overlay"></div>
-		<div id="call-to-signup" class="call-to-signup">
-			<p>Not a Join user?</p>
-			<button onclick="toggleLoginSignup()">Sign up</button>
-		</div>
-		<div id="login-box" class="login-box">
-			<form
-				class="login-form"
-				onsubmit="validateLoginForm(); return false;"
-				novalidate>
-				<div class="login-heading">
-					<h1>Log In</h1>
-					<div class="custom-underline"></div>
-				</div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/fonts.css" />
+    <link rel="stylesheet" href="css/root.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/start.css" />
+    <script defer src="js/data-storage.js"></script>
+    <script defer src="js/registry.js"></script>
+    <script defer src="js/main.js"></script>
+    <script defer src="js/templateData.js"></script>
+    <link rel="icon" type="image/png" href="assets/img/logo/favicon.png" />
+    <title>join - kanban project management tool</title>
+  </head>
 
-				<div class="login-inputs">
-					<div id="login-email-cont" class="input-container">
-						<input
-							id="login-email"
-							type="text"
-							autocomplete="email"
-							placeholder="Email"
-							required />
-						<img src="/assets/img/icons/login_signup/mail.svg" />
+  <body onload="checkForRememberedLogin(); storeGuestData()">
+    <img
+      class="start-logo"
+      src="/assets/img/logo/start-logo-dark.svg"
+      alt="join logo"
+    />
+    <div id="success-container" class="success-text d-none">
+      You signed up successfully
+    </div>
+    <div id="wrapper" class="sign-up-wrapper d-none"></div>
+    <div class="start-overlay"></div>
+    <div id="call-to-signup" class="call-to-signup">
+      <p>Not a Join user?</p>
+      <button onclick="toggleLoginSignup()">Sign up</button>
+    </div>
+    <div id="login-box" class="login-box">
+      <form
+        class="login-form"
+        onsubmit="validateLoginForm(); return false;"
+        novalidate
+      >
+        <div class="login-heading">
+          <h1>Log In</h1>
+          <div class="custom-underline"></div>
+        </div>
 
-						<p id="email-error-login" class="error-message"></p>
-					</div>
+        <div class="login-inputs">
+          <div id="login-email-cont" class="input-container">
+            <input
+              id="login-email"
+              type="text"
+              autocomplete="email"
+              placeholder="Email"
+              required
+            />
+            <img src="/assets/img/icons/login_signup/mail.svg" />
 
-					<!--1-->
-					<div id="login-password-cont" class="input-container">
-						<input
-							id="login-password"
-							type="password"
-							placeholder="Password"
-							autocomplete="current-password"
-							required />
-						<img src="/assets/img/icons/login_signup/lock.svg" />
-						<p id="pw-error-login" class="error-message"></p>
-					</div>
-				</div>
+            <p id="email-error-login" class="error-message"></p>
+          </div>
 
-				<div class="login-checkbox">
-					<input type="checkbox" class="custom-checkbox" id="login-checkbox" />
-					<p>Remember Me</p>
-				</div>
-				<div class="login-btn-bar">
-					<button type="submit">Log in</button>
-					<button onclick="guestLogin()" type="button">Guest Log in</button>
-				</div>
-			</form>
-		</div>
-		<!-- ############################### -->
-		<div id="signup-box" class="signup-box d-none">
-			<div class="back-arrow" onclick="toggleLoginSignup()"></div>
-			<form
-				class="signup-form"
-				onsubmit="validateSignupForm(); return false;"
-				novalidate>
-				<div class="signup-heading">
-					<h1>Sign up</h1>
-					<div class="custom-underline"></div>
-				</div>
+          <!--1-->
+          <div id="login-password-cont" class="input-container">
+            <input
+              id="login-password"
+              type="password"
+              placeholder="Password"
+              autocomplete="current-password"
+              required
+            />
+            <img src="/assets/img/icons/login_signup/lock.svg" />
+            <p id="pw-error-login" class="error-message"></p>
+          </div>
+        </div>
 
-				<div class="signup-inputs">
-					<div id="signup-name-cont" class="input-container">
-						<input
-							id="signup-name"
-							type="text"
-							autocomplete="email"
-							placeholder="Name"
-							required />
-						<img src="/assets/img/icons/contacts/person.svg" />
-						<!--2-->
-						<p id="name-error-signup" class="error-message"></p>
-					</div>
+        <div class="login-checkbox">
+          <input type="checkbox" class="custom-checkbox" id="login-checkbox" />
+          <p>Remember Me</p>
+        </div>
+        <div class="login-btn-bar">
+          <button type="submit">Log in</button>
+          <button onclick="guestLogin()" type="button">Guest Log in</button>
+        </div>
+      </form>
+    </div>
+    <!-- ############################### -->
+    <div id="signup-box" class="signup-box d-none">
+      <div class="back-arrow" onclick="toggleLoginSignup()"></div>
+      <form
+        class="signup-form"
+        onsubmit="validateSignupForm(); return false;"
+        novalidate
+      >
+        <div class="signup-heading">
+          <h1>Sign up</h1>
+          <div class="custom-underline"></div>
+        </div>
 
-					<div id="signup-email-cont" class="input-container">
-						<input
-							id="signup-email"
-							type="text"
-							autocomplete="email"
-							placeholder="Email"
-							required />
-						<img src="/assets/img/icons/login_signup/mail.svg" />
+        <div class="signup-inputs">
+          <div id="signup-name-cont" class="input-container">
+            <input
+              id="signup-name"
+              type="text"
+              autocomplete="email"
+              placeholder="Name"
+              required
+            />
+            <img src="/assets/img/icons/contacts/person.svg" />
+            <!--2-->
+            <p id="name-error-signup" class="error-message"></p>
+          </div>
 
-						<p id="email-error-signup" class="error-message"></p>
-					</div>
+          <div id="signup-email-cont" class="input-container">
+            <input
+              id="signup-email"
+              type="text"
+              autocomplete="email"
+              placeholder="Email"
+              required
+            />
+            <img src="/assets/img/icons/login_signup/mail.svg" />
 
-					<!--3-->
-					<div id="signup-pw-cont" class="input-container">
-						<input
-							id="signup-pw"
-							type="password"
-							placeholder="Password"
-							autocomplete="new-password"
-							required />
-						<img src="/assets/img/icons/login_signup/lock.svg" />
-						<p id="pw-error-signup" class="error-message"></p>
-					</div>
-					<!--4-->
-					<div id="signup-pwrep-cont" class="input-container">
-						<input
-							id="signup-pw-repeat"
-							type="password"
-							placeholder="Repeat password"
-							autocomplete="new-password"
-							required />
-						<img src="/assets/img/icons/login_signup/lock.svg" />
+            <p id="email-error-signup" class="error-message"></p>
+          </div>
 
-						<p id="pwrep-error-signup" class="error-message"></p>
-					</div>
-				</div>
-				<div class="bottom-cont">
-					<div id="signup-checkbox-cont" class="signup-checkbox">
-						<input
-							type="checkbox"
-							class="custom-checkbox"
-							id="signup-checkbox"
-							required
-							onchange="" />
-						<p>I accept the&nbsp;</p>
-						<a
-							id="privacy-link"
-							onclick="openExternalLink('/privacy_policy.html')"
-							>Privacy Policy</a
-						>
-					</div>
-					<div class="signup-btn-bar">
-						<button type="submit">Sign up</button>
-					</div>
-				</div>
-			</form>
-		</div>
-		<div class="bottom-links">
-			<div class="pp-ln">
-				<a id="privacy-link" onclick="openExternalLink('/privacy_policy.html')"
-					>Privacy Policy</a
-				>
-				<a id="legal-link" onclick="openExternalLink('/legal_notice.html')"
-					>Legal Notice</a
-				>
-			</div>
-		</div>
-	</body>
+          <!--3-->
+          <div id="signup-pw-cont" class="input-container">
+            <input
+              id="signup-pw"
+              type="password"
+              placeholder="Password"
+              autocomplete="new-password"
+              required
+            />
+            <img src="/assets/img/icons/login_signup/lock.svg" />
+            <p id="pw-error-signup" class="error-message"></p>
+          </div>
+          <!--4-->
+          <div id="signup-pwrep-cont" class="input-container">
+            <input
+              id="signup-pw-repeat"
+              type="password"
+              placeholder="Repeat password"
+              autocomplete="new-password"
+              required
+            />
+            <img src="/assets/img/icons/login_signup/lock.svg" />
+
+            <p id="pwrep-error-signup" class="error-message"></p>
+          </div>
+        </div>
+        <div class="bottom-cont">
+          <div id="signup-checkbox-cont" class="signup-checkbox">
+            <input
+              type="checkbox"
+              class="custom-checkbox"
+              id="signup-checkbox"
+              required
+              onchange=""
+            />
+            <p>I accept the&nbsp;</p>
+            <a
+              id="privacy-link"
+              onclick="openExternalLink('/privacy_policy.html')"
+              >Privacy Policy</a
+            >
+          </div>
+          <div class="signup-btn-bar">
+            <button type="submit">Sign up</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="bottom-links">
+      <div class="pp-ln">
+        <a id="privacy-link" onclick="openExternalLink('/privacy_policy.html')"
+          >Privacy Policy</a
+        >
+        <a id="legal-link" onclick="openExternalLink('/legal_notice.html')"
+          >Legal Notice</a
+        >
+      </div>
+    </div>
+  </body>
 </html>
