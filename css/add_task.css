@@ -710,7 +710,7 @@ p.error-message {
 	section.add_task-section {
 		width: calc(100% - 14.5rem);
 		min-height: calc(100vh - 6rem);
-		margin: 6rem 0 4rem 14.5rem;
+		margin: 6rem 0 0rem 14.5rem;
 		padding: 6.85rem clamp(2rem, 20.779vw + -12.701rem, 6rem) 4rem
 			clamp(2rem, 20.779vw + -12.701rem, 6rem);
 	}
