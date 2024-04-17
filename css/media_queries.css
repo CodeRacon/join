@@ -1,83 +1,93 @@
 @media ((width <= 920px)) {
-  /* until 768px */
-  aside {
-    width: clamp(10rem, 47.368vw + -12.737rem, 14.5rem);
-  }
+	/* until 768px */
+	aside {
+		width: clamp(10rem, 47.368vw + -12.737rem, 14.5rem);
+	}
 
-  nav#side-nav > a {
-    padding: 0.5rem clamp(1.25rem, 23.684vw + -10.118rem, 3.5rem);
-  }
-  header {
-    padding: 1.25rem 2.5rem 1.25rem
-      clamp(2.5rem, 98.718vw + -35.013rem, 21.75rem);
-  }
+	nav#side-nav > a {
+		padding: 0.5rem clamp(1.25rem, 23.684vw + -10.118rem, 3.5rem);
+	}
+	header {
+		padding: 1.25rem 2.5rem 1.25rem
+			clamp(2.5rem, 98.718vw + -35.013rem, 21.75rem);
+	}
+}
+
+@media (width <= 768px) {
+	body {
+		background-color: var(--site-bg);
+	}
 }
 
 @media (width <= 607px) {
-  header {
-    padding: 1.25rem 1rem;
-    height: 5rem;
-  }
+	section {
+		margin-top: 5rem !important;
+	}
 
-  .quickmenu {
-    top: 5rem;
-  }
+	header {
+		padding: 1.25rem 1rem;
+		height: 5rem;
+	}
+
+	.quickmenu {
+		top: 5rem;
+	}
 }
 
 @media (width <= 472px) {
-  .top-bar p {
-    display: none;
-  }
+	.top-bar p {
+		display: none;
+	}
 
-  .mobile-header-logo {
-    display: block;
-  }
+	.mobile-header-logo {
+		display: block;
+	}
 
-  .hide-on-mobile {
-    display: none;
-  }
+	.hide-on-mobile {
+		display: none;
+	}
 
-  .quickmenu {
-    top: 5rem;
-  }
+	.quickmenu {
+		top: 5rem;
+	}
 
-  #mobile-nav > a {
-    font-size: clamp(0.75rem, 1.316vw + 0.487rem, 0.875rem);
-  }
+	#mobile-nav > a {
+		font-size: clamp(0.75rem, 1.316vw + 0.487rem, 0.875rem);
+	}
 
-  #mobile-nav > a {
-    width: clamp(4.5rem, 5.263vw + 3.447rem, 5rem);
-  }
+	#mobile-nav > a {
+		width: clamp(4.5rem, 5.263vw + 3.447rem, 5rem);
+	}
 
-  @keyframes qmOn {
-    from {
-      opacity: 0;
-      transform: translateX(+115%);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
+	@keyframes qmOn {
+		from {
+			opacity: 0;
+			transform: translateX(+115%);
+		}
+		to {
+			opacity: 1;
+			transform: translateX(0);
+		}
+	}
 
-  @keyframes qmOff {
-    from {
-      opacity: 1;
-      transform: translateX(0);
-    }
-    to {
-      opacity: 0;
-      transform: translateX(+115%);
-    }
-  }
+	@keyframes qmOff {
+		from {
+			opacity: 1;
+			transform: translateX(0);
+		}
+		to {
+			opacity: 0;
+			transform: translateX(+115%);
+		}
+	}
 }
 
 @media (width <= 472px) {
-  .user-profile {
-    border: solid 2px var(--primary);
-  }
+	.user-profile {
+		border: solid 2px var(--primary);
+	}
 
-  .quickmenu a:first-of-type {
-    display: flex;
-  }
+	.quickmenu a:first-of-type {
+		display: flex;
+	}
 }

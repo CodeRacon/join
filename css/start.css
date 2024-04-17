@@ -1,6 +1,5 @@
 body {
-	height: fit-content;
-	overflow-y: auto;
+	background-color: var(--site-bg);
 }
 
 .start-overlay {

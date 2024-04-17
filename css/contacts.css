@@ -9,7 +9,7 @@ section.contacts-section {
   gap: 3.4375rem;
   width: calc(100% - 14.5rem);
   min-height: calc(100vh - 6rem);
-  margin: 6rem 0 auto 14.5rem;
+  margin: 6rem 0 0 14.5rem;
   padding: 0 2rem 4rem 0rem;
 }
 
