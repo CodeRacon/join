@@ -147,8 +147,13 @@ function getAssignedContacts() {
     const checkbox = options[i].querySelector('input[type="checkbox"]');
     if (checkbox.checked) {
       let option = options[i].querySelector("label");
-      let name = option.textContent.trim();
-      newAssignedContacts.push(name);
+      let name = option.innerText.trim();
+      let paragraphs = name.split("\n");
+      let firstParagraph = paragraphs[0];
+      let words = firstParagraph.split(" ");
+      let firstTwoWords = words.slice(0, 2);
+      let result = firstTwoWords.join(" ");
+      newAssignedContacts.push(result);
     }
   }
   showInitialsOfAssigned();

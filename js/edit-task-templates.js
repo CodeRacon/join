@@ -4,7 +4,7 @@
  * assignee, and subtasks. Saves edits via exchangeEditedTask().
  */
 function editTaskHTML(task) {
-	return /*html*/ `
+  return /*html*/ `
   <div class="overlay-wrapper">
 	<div class="single-task-card">
 		<div class="close-edit-task-btn">
@@ -169,20 +169,19 @@ function editTaskHTML(task) {
  * a checkbox input to select each contact for editing.
  */
 function showContactsToEditHTML(i, element) {
-	return /*html*/ `
+  return /*html*/ `
     <div id="edit-single-contact${i}" class="edit-single-contact" onclick="getAssignedContactsEdit()">
       <label for="edit-option${i}" class="label-layout">
         <input
           type="checkbox"
           class="custom-checkbox"
           id="edit-option${i}"
-          value="${element['userData']['name']}"
+          value="${element["userData"]["name"]}"
           onchange="changeCheckboxColorEdit(${i})"
         />
-        ${element['userData']['name']}
-      </label>
-      <br />
-      ${createContactInitials(element)}
+        ${element["userData"]["name"]}
+		${createContactInitials(element)}
+      </label>   
     </div>`;
 }
 
@@ -195,7 +194,7 @@ function showContactsToEditHTML(i, element) {
  * @returns {string} The HTML markup for the subtask list item.
  */
 function showSubtasksToEditHTML(listItemId, subtask, index) {
-	return /*html*/ `
+  return /*html*/ `
     <div class="subtask-list-container">
       <li 
         id="${listItemId}" 

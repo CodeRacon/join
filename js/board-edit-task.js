@@ -13,10 +13,24 @@ let indexOfTaskBeforeEdit;
  * @param {Object} task - The task object
  */
 function renderEditView(task) {
-	let newOverlay = document.getElementById('overlay-edit-card');
-	newOverlay.innerHTML = editTaskHTML(task);
-	newAssignedContacts = task.assignedTo;
-	renderEditTaskCardFunctions(task);
+  let newOverlay = document.getElementById("overlay-edit-card");
+  newOverlay.innerHTML = editTaskHTML(task);
+  newAssignedContacts = showNewAssignedContacts(task);
+  renderEditTaskCardFunctions(task);
+}
+
+function showNewAssignedContacts(task) {
+  let results = [];
+  for (let i = 0; i < task.assignedTo.length; i++) {
+    const element = task.assignedTo[i];
+    let paragraphs = element.split("\n");
+    let firstParagraph = paragraphs[0];
+    let words = firstParagraph.split(" ");
+    let firstTwoWords = words.slice(0, 2);
+    let result = firstTwoWords.join(" ");
+    results.push(result);
+  }
+  return results;
 }
 
 /**
@@ -29,19 +43,19 @@ function renderEditView(task) {
  * @param {Object} card - The card object
  */
 function editTask(card) {
-	let taskCard = document.getElementById('overlay-task-card');
-	taskCard.classList.add('d-none');
-	let newOverlay = document.getElementById('overlay-edit-card');
-	newOverlay.classList.remove('d-none');
-	newOverlay.innerHTML = '';
-	const task = localUserData.users
-		.flatMap((user) => user.tasks)
-		.find((task) => task.id === card);
-	if (task) {
-		renderEditView(task);
-	}
-	newAssignedContacts = [];
-	addDropdownClickListener();
+  let taskCard = document.getElementById("overlay-task-card");
+  taskCard.classList.add("d-none");
+  let newOverlay = document.getElementById("overlay-edit-card");
+  newOverlay.classList.remove("d-none");
+  newOverlay.innerHTML = "";
+  const task = localUserData.users
+    .flatMap((user) => user.tasks)
+    .find((task) => task.id === card);
+  if (task) {
+    renderEditView(task);
+  }
+  newAssignedContacts = [];
+  addDropdownClickListener();
 }
 
 /**
@@ -56,14 +70,14 @@ function editTask(card) {
  * - Save category
  */
 function renderEditTaskCardFunctions(task) {
-	showSubtasksToEdit(task);
-	showContactsToAssignEdit();
-	showInitialsOfAssigned();
-	updateSelectedContacts();
-	initializeButtons();
-	initializeImgs();
-	setActualPriorityEdit(task);
-	saveCategory(task);
+  showSubtasksToEdit(task);
+  showContactsToAssignEdit();
+  showInitialsOfAssigned();
+  updateSelectedContacts();
+  initializeButtons();
+  initializeImgs();
+  setActualPriorityEdit(task);
+  saveCategory(task);
 }
 
 /**
@@ -72,17 +86,17 @@ function renderEditTaskCardFunctions(task) {
  * @param {Object} task - The task object being edited.
  */
 function saveCategory(task) {
-	let categoryOfEdited = task.category;
-	newCategory = categoryOfEdited;
+  let categoryOfEdited = task.category;
+  newCategory = categoryOfEdited;
 }
 
 /**
  * Initializes the low, medium, and urgent priority buttons on the edit task modal.
  */
 function initializeButtons() {
-	lowBtnEdit = document.getElementById('low-btn-edit');
-	mediumBtnEdit = document.getElementById('medium-btn-edit');
-	urgentBtnEdit = document.getElementById('urgent-btn-edit');
+  lowBtnEdit = document.getElementById("low-btn-edit");
+  mediumBtnEdit = document.getElementById("medium-btn-edit");
+  urgentBtnEdit = document.getElementById("urgent-btn-edit");
 }
 
 /**
@@ -90,9 +104,9 @@ function initializeButtons() {
  * Gets references to the image elements with IDs img-low-edit, img-medium-edit, and img-urgent-edit.
  */
 function initializeImgs() {
-	imgLowEdit = document.getElementById('img-low-edit');
-	imgMediumEdit = document.getElementById('img-medium-edit');
-	imgUrgentEdit = document.getElementById('img-urgent-edit');
+  imgLowEdit = document.getElementById("img-low-edit");
+  imgMediumEdit = document.getElementById("img-medium-edit");
+  imgUrgentEdit = document.getElementById("img-urgent-edit");
 }
 
 /**
@@ -101,26 +115,26 @@ function initializeImgs() {
  * functions to set the correct priority button states.
  */
 function setActualPriorityEdit(task) {
-	let selectedPrio = task.priority;
-	if (selectedPrio === 1 || selectedPrio === 'low') {
-		currentPriority = 'low';
-		resetPrioButtonsEdit();
-		prioLowEdit();
-	}
-	if (selectedPrio === 2 || selectedPrio === 'medium') {
-		currentPriority = 'medium';
-		resetPrioButtonsEdit();
-		prioMediumEdit();
-	}
-	if (
-		selectedPrio === 3 ||
-		selectedPrio === 'high' ||
-		selectedPrio === 'urgent'
-	) {
-		currentPriority = 'high';
-		resetPrioButtonsEdit();
-		prioUrgentEdit();
-	}
+  let selectedPrio = task.priority;
+  if (selectedPrio === 1 || selectedPrio === "low") {
+    currentPriority = "low";
+    resetPrioButtonsEdit();
+    prioLowEdit();
+  }
+  if (selectedPrio === 2 || selectedPrio === "medium") {
+    currentPriority = "medium";
+    resetPrioButtonsEdit();
+    prioMediumEdit();
+  }
+  if (
+    selectedPrio === 3 ||
+    selectedPrio === "high" ||
+    selectedPrio === "urgent"
+  ) {
+    currentPriority = "high";
+    resetPrioButtonsEdit();
+    prioUrgentEdit();
+  }
 }
 
 /**
@@ -132,17 +146,17 @@ function setActualPriorityEdit(task) {
  * Checks prio parameter and calls correct priority button functions.
  */
 function changePriorityEdit(prio) {
-	currentPriority = prio;
-	resetPrioButtonsEdit();
-	if (currentPriority == 'low') {
-		prioLowEdit();
-	}
-	if (currentPriority == 'medium') {
-		prioMediumEdit();
-	}
-	if (currentPriority == 'urgent') {
-		prioUrgentEdit();
-	}
+  currentPriority = prio;
+  resetPrioButtonsEdit();
+  if (currentPriority == "low") {
+    prioLowEdit();
+  }
+  if (currentPriority == "medium") {
+    prioMediumEdit();
+  }
+  if (currentPriority == "urgent") {
+    prioUrgentEdit();
+  }
 }
 
 /**
@@ -150,12 +164,12 @@ function changePriorityEdit(prio) {
  * in the edit task modal to their default state.
  */
 function resetPrioButtonsEdit() {
-	lowBtnEdit.classList.value = 'prio-box prio-unset';
-	mediumBtnEdit.classList.value = 'prio-box prio-set';
-	urgentBtnEdit.classList.value = 'prio-box prio-unset';
-	imgLowEdit.src = './assets/img/icons/add-task/low.svg';
-	imgMediumEdit.src = './assets/img/icons/add-task/medium-white.svg';
-	imgUrgentEdit.src = './assets/img/icons/add-task/urgent.svg';
+  lowBtnEdit.classList.value = "prio-box prio-unset";
+  mediumBtnEdit.classList.value = "prio-box prio-set";
+  urgentBtnEdit.classList.value = "prio-box prio-unset";
+  imgLowEdit.src = "./assets/img/icons/add-task/low.svg";
+  imgMediumEdit.src = "./assets/img/icons/add-task/medium-white.svg";
+  imgUrgentEdit.src = "./assets/img/icons/add-task/urgent.svg";
 }
 
 /**
@@ -163,11 +177,11 @@ function resetPrioButtonsEdit() {
  * Updates styling of priority buttons and icons.
  */
 function prioLowEdit() {
-	lowBtnEdit.classList.value = 'prio-box prio-set font-white bg-low';
-	mediumBtnEdit.classList.value = 'prio-box prio-unset bg-white font-black';
-	urgentBtnEdit.classList.value = 'prio-box prio-unset bg-white font-black';
-	imgLowEdit.src = './assets/img/icons/add-task/low-white.svg';
-	imgMediumEdit.src = './assets/img/icons/add-task/medium-orange.svg';
+  lowBtnEdit.classList.value = "prio-box prio-set font-white bg-low";
+  mediumBtnEdit.classList.value = "prio-box prio-unset bg-white font-black";
+  urgentBtnEdit.classList.value = "prio-box prio-unset bg-white font-black";
+  imgLowEdit.src = "./assets/img/icons/add-task/low-white.svg";
+  imgMediumEdit.src = "./assets/img/icons/add-task/medium-orange.svg";
 }
 
 /**
@@ -175,10 +189,10 @@ function prioLowEdit() {
  * Updates styling of priority buttons and icon.
  */
 function prioMediumEdit() {
-	lowBtnEdit.classList.value = 'prio-box prio-unset bg-white font-black ';
-	mediumBtnEdit.classList.value = 'prio-box prio-set bg-medium font-white';
-	urgentBtnEdit.classList.value = 'prio-box prio-unset bg-white font-black';
-	imgMediumEdit.src = './assets/img/icons/add-task/medium-white.svg';
+  lowBtnEdit.classList.value = "prio-box prio-unset bg-white font-black ";
+  mediumBtnEdit.classList.value = "prio-box prio-set bg-medium font-white";
+  urgentBtnEdit.classList.value = "prio-box prio-unset bg-white font-black";
+  imgMediumEdit.src = "./assets/img/icons/add-task/medium-white.svg";
 }
 
 /**
@@ -186,11 +200,11 @@ function prioMediumEdit() {
  * Updates styling of priority buttons and icon.
  */
 function prioUrgentEdit() {
-	lowBtnEdit.classList.value = 'prio-box prio-unset bg-white font-black ';
-	mediumBtnEdit.classList.value = 'prio-box prio-unset bg-white font-black';
-	urgentBtnEdit.classList.value = 'prio-box prio-set bg-urgent font-white';
-	imgUrgentEdit.src = './assets/img/icons/add-task/urgent-white.svg';
-	imgMediumEdit.src = './assets/img/icons/add-task/medium-orange.svg';
+  lowBtnEdit.classList.value = "prio-box prio-unset bg-white font-black ";
+  mediumBtnEdit.classList.value = "prio-box prio-unset bg-white font-black";
+  urgentBtnEdit.classList.value = "prio-box prio-set bg-urgent font-white";
+  imgUrgentEdit.src = "./assets/img/icons/add-task/urgent-white.svg";
+  imgMediumEdit.src = "./assets/img/icons/add-task/medium-orange.svg";
 }
 
 /**
@@ -199,18 +213,18 @@ function prioUrgentEdit() {
  * text entered in the dropdown input.
  */
 function filterContactsToAssignEdit() {
-	let input = document.getElementById('dropdownInput').value.toLowerCase();
-	let contacts = localUserData.contacts;
-	for (let i = 0; i < contacts.length; i++) {
-		const contact = contacts[i];
-		const contactName = contact.userData.name.toLowerCase();
-		const option = document.getElementById(`edit-single-contact${i}`);
-		if (contactName.includes(input)) {
-			option.classList.remove('d-none');
-		} else {
-			option.classList.add('d-none');
-		}
-	}
+  let input = document.getElementById("dropdownInput").value.toLowerCase();
+  let contacts = localUserData.contacts;
+  for (let i = 0; i < contacts.length; i++) {
+    const contact = contacts[i];
+    const contactName = contact.userData.name.toLowerCase();
+    const option = document.getElementById(`edit-single-contact${i}`);
+    if (contactName.includes(input)) {
+      option.classList.remove("d-none");
+    } else {
+      option.classList.add("d-none");
+    }
+  }
 }
 
 /**
@@ -218,12 +232,12 @@ function filterContactsToAssignEdit() {
  * Populates the dropdown with the names of all contacts in the localUserData.
  */
 function showContactsToAssignEdit() {
-	let content = document.getElementById('labels');
-	content.innerHTML = '';
-	for (let i = 0; i < localUserData['contacts'].length; i++) {
-		const element = localUserData['contacts'][i];
-		content.innerHTML += showContactsToEditHTML(i, element);
-	}
+  let content = document.getElementById("labels");
+  content.innerHTML = "";
+  for (let i = 0; i < localUserData["contacts"].length; i++) {
+    const element = localUserData["contacts"][i];
+    content.innerHTML += showContactsToEditHTML(i, element);
+  }
 }
 
 /**
@@ -232,17 +246,22 @@ function showContactsToAssignEdit() {
  * Calls showInitialsOfAssigned().
  */
 function getAssignedContactsEdit() {
-	newAssignedContacts = [];
-	let options = document.getElementsByClassName('edit-single-contact');
-	for (let i = 0; i < options.length; i++) {
-		const checkbox = options[i].querySelector('input[type="checkbox"]');
-		if (checkbox.checked) {
-			let option = options[i].querySelector('label');
-			let name = option.textContent.trim();
-			newAssignedContacts.push(name);
-		}
-	}
-	showInitialsOfAssigned();
+  newAssignedContacts = [];
+  let options = document.getElementsByClassName("edit-single-contact");
+  for (let i = 0; i < options.length; i++) {
+    const checkbox = options[i].querySelector('input[type="checkbox"]');
+    if (checkbox.checked) {
+      let option = options[i].querySelector("label");
+      let name = option.innerText.trim();
+      let paragraphs = name.split("\n");
+      let firstParagraph = paragraphs[0];
+      let words = firstParagraph.split(" ");
+      let firstTwoWords = words.slice(0, 2);
+      let result = firstTwoWords.join(" ");
+      newAssignedContacts.push(result);
+    }
+  }
+  showInitialsOfAssigned();
 }
 
 /**
@@ -250,15 +269,15 @@ function getAssignedContactsEdit() {
  * to match the contacts assigned to the task.
  */
 function updateSelectedContacts() {
-	const singleContacts = document.getElementsByClassName('edit-single-contact');
-	for (let i = 0; i < singleContacts.length; i++) {
-		const checkbox = singleContacts[i].querySelector("input[type='checkbox']");
-		const contactName = checkbox.value;
-		if (newAssignedContacts.includes(contactName)) {
-			checkbox.checked = true;
-			changeCheckboxColorEdit(i);
-		}
-	}
+  const singleContacts = document.getElementsByClassName("edit-single-contact");
+  for (let i = 0; i < singleContacts.length; i++) {
+    const checkbox = singleContacts[i].querySelector("input[type='checkbox']");
+    const contactName = checkbox.value;
+    if (newAssignedContacts.includes(contactName)) {
+      checkbox.checked = true;
+      changeCheckboxColorEdit(i);
+    }
+  }
 }
 
 /**
@@ -268,27 +287,27 @@ function updateSelectedContacts() {
  * @param {number} i - The index of the contact in the contacts array
  */
 function changeCheckboxColorEdit(i) {
-	let checkbox = document.getElementById(`edit-option${i}`);
-	let input = document.getElementById(`dropdownInput`);
-	let container = document.getElementById(`edit-single-contact${i}`);
-	if (checkbox.checked) {
-		container.classList.add('checked-assigned-to');
-	} else {
-		container.classList.remove('checked-assigned-to');
-	}
-	input.value = '';
-	filterContactsToAssignEdit();
+  let checkbox = document.getElementById(`edit-option${i}`);
+  let input = document.getElementById(`dropdownInput`);
+  let container = document.getElementById(`edit-single-contact${i}`);
+  if (checkbox.checked) {
+    container.classList.add("checked-assigned-to");
+  } else {
+    container.classList.remove("checked-assigned-to");
+  }
+  input.value = "";
+  filterContactsToAssignEdit();
 }
 
 function createSubtaskInEdit() {
-	let input = document.getElementById('input-of-subtask-in-edit');
-	if (input.value.trim() == '') {
-		return;
-	} else {
-		newSubtasks.unshift({ name: input.value, done: false });
-		showCreatedSubtask();
-		input.value = '';
-	}
+  let input = document.getElementById("input-of-subtask-in-edit");
+  if (input.value.trim() == "") {
+    return;
+  } else {
+    newSubtasks.unshift({ name: input.value, done: false });
+    showCreatedSubtask();
+    input.value = "";
+  }
 }
 
 /**
@@ -297,17 +316,17 @@ function createSubtaskInEdit() {
  * Also pushes each subtask name to the newSubtasks array.
  */
 function showSubtasksToEdit(task) {
-	let subtasksContainer = document.getElementById('show-subtasks-container');
-	for (let index = 0; index < task.subtasks.length; index++) {
-		const subtask = task.subtasks[index];
-		let listItemId = `subtask-${index}`;
-		subtasksContainer.innerHTML += showSubtasksToEditHTML(
-			listItemId,
-			subtask,
-			index
-		);
-		newSubtasks.push(subtask);
-	}
+  let subtasksContainer = document.getElementById("show-subtasks-container");
+  for (let index = 0; index < task.subtasks.length; index++) {
+    const subtask = task.subtasks[index];
+    let listItemId = `subtask-${index}`;
+    subtasksContainer.innerHTML += showSubtasksToEditHTML(
+      listItemId,
+      subtask,
+      index
+    );
+    newSubtasks.push(subtask);
+  }
 }
 
 /**
@@ -317,16 +336,21 @@ function showSubtasksToEdit(task) {
  * newAssignedContacts array.
  */
 function getEditedAssignedContacts() {
-	newAssignedContacts = [];
-	let options = document.getElementsByClassName('edit-single-contact');
-	for (let i = 0; i < options.length; i++) {
-		const checkbox = options[i].querySelector('input[type="checkbox"]');
-		if (checkbox.checked) {
-			let option = options[i].querySelector('label');
-			let name = option.textContent.trim();
-			newAssignedContacts.push(name);
-		}
-	}
+  newAssignedContacts = [];
+  let options = document.getElementsByClassName("edit-single-contact");
+  for (let i = 0; i < options.length; i++) {
+    const checkbox = options[i].querySelector('input[type="checkbox"]');
+    if (checkbox.checked) {
+      let option = options[i].querySelector("label");
+      let name = option.innerText.trim();
+      let paragraphs = name.split("\n");
+      let firstParagraph = paragraphs[0];
+      let words = firstParagraph.split(" ");
+      let firstTwoWords = words.slice(0, 2);
+      let result = firstTwoWords.join(" ");
+      newAssignedContacts.push(result);
+    }
+  }
 }
 
 /**
@@ -334,10 +358,10 @@ function getEditedAssignedContacts() {
  * Gets the updated values from the DOM and saves them to the appropriate variables.
  */
 function saveEditedInputs() {
-	getTitle();
-	getDescription();
-	getDueDate();
-	getEditedAssignedContacts();
+  getTitle();
+  getDescription();
+  getDueDate();
+  getEditedAssignedContacts();
 }
 
 /**
@@ -345,32 +369,32 @@ function saveEditedInputs() {
  * message, adds the new task to the tasks array, resets the task ID counter.
  */
 function saveEditedTask() {
-	let subtasksArray = [];
-	newSubtasks.forEach((subtask) => {
-		subtasksArray.push(subtask);
-	});
-	actualCard.title = newTitle;
-	actualCard.description = newDescription;
-	actualCard.dueDate = newDueDate;
-	actualCard.priority = currentPriority;
-	actualCard.assignedTo = newAssignedContacts;
-	actualCard.subtasks = subtasksArray;
+  let subtasksArray = [];
+  newSubtasks.forEach((subtask) => {
+    subtasksArray.push(subtask);
+  });
+  actualCard.title = newTitle;
+  actualCard.description = newDescription;
+  actualCard.dueDate = newDueDate;
+  actualCard.priority = currentPriority;
+  actualCard.assignedTo = newAssignedContacts;
+  actualCard.subtasks = subtasksArray;
 }
 
 function exchangeTaskInArray() {
-	for (let i = 0; i < localUserData.users.length; i++) {
-		const user = localUserData.users[i];
-		for (let j = 0; j < user.tasks.length; j++) {
-			let element = user.tasks[j];
-			if (element.id == actualCard.id) {
-				user.tasks.splice(j, 1, actualCard);
-				break;
-			}
-		}
-	}
-	actualCard;
-	saveUserData();
-	updateHTML();
+  for (let i = 0; i < localUserData.users.length; i++) {
+    const user = localUserData.users[i];
+    for (let j = 0; j < user.tasks.length; j++) {
+      let element = user.tasks[j];
+      if (element.id == actualCard.id) {
+        user.tasks.splice(j, 1, actualCard);
+        break;
+      }
+    }
+  }
+  actualCard;
+  saveUserData();
+  updateHTML();
 }
 
 /**
@@ -378,12 +402,12 @@ function exchangeTaskInArray() {
  * Called when user clicks ok button after editing a task.
  */
 function exchangeEditedTask() {
-	saveEditedInputs();
-	saveEditedTask();
-	exchangeTaskInArray();
-	clearForm();
-	resetGlobal();
-	closeOverlays();
-	updateHTML();
-	backDropOff();
+  saveEditedInputs();
+  saveEditedTask();
+  exchangeTaskInArray();
+  clearForm();
+  resetGlobal();
+  closeOverlays();
+  updateHTML();
+  backDropOff();
 }

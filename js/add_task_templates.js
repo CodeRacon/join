@@ -17,9 +17,10 @@ function showContactsToAssignHTML(i, element) {
           onchange="changeCheckboxColor(${i})"
         />
           ${element["userData"]["name"]}
+          ${createContactInitials(element)}
       </label>
       <br />
-      ${createContactInitials(element)}
+   
     </div>
 	`;
 }
