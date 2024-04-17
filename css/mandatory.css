@@ -6,6 +6,10 @@ body {
 /* -----HELP----- */
 /* ############## */
 
+.mandatory-container {
+	width: 85%;
+}
+
 .section-heading {
 	display: flex;
 	justify-content: space-between;
@@ -88,6 +92,9 @@ ul.privacy-list li::marker {
 		padding: clamp(2.85rem, 24.151vw + -8.727rem, 6.85rem)
 			clamp(4rem, 28.571vw + -12.429rem, 6rem) 4rem
 			clamp(4rem, 28.571vw + -12.429rem, 6rem);
+	}
+	.mandatory-container {
+		width: 100%;
 	}
 }
 
