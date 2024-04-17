@@ -42,6 +42,7 @@ function closeOverlays() {
 	if (editTaskOverlay) {
 		editTaskCase(editTaskOverlay, taskCardOverlay);
 	}
+	document.body.classList.remove('no-outside-scroll');
 	removeDropdownClickListener();
 	updateHTML();
 }
@@ -106,6 +107,8 @@ function openTaskCardOverlay(element) {
 	let overlay = document.getElementById('overlay-task-card');
 	overlay.classList.remove('d-none');
 	overlay.classList.replace('box-slide-out', 'box-slide-in');
+	overlay.classList.replace('box-slide-out', 'box-slide-in');
+	document.body.classList.add('no-outside-scroll');
 	localUserData.users.forEach((user) => {
 		let cardIndex = user.tasks.findIndex((task) => task.id === element);
 		let card = user.tasks[cardIndex];

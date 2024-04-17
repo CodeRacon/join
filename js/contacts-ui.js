@@ -168,6 +168,7 @@ function openAddContactDB() {
 	addContactBox.classList.replace('box-slide-out', 'box-slide-in');
 	overlay.classList.remove('d-none');
 	overlay.classList.replace('overlay-off', 'overlay-on');
+	document.body.classList.add('no-outside-scroll');
 	resetErrorFeedback('add');
 	resetErrorMessage('add');
 }
@@ -188,6 +189,7 @@ function closeAddContactDB() {
 	contactPhone.value = '';
 	addContactBox.classList.replace('box-slide-in', 'box-slide-out');
 	overlay.classList.replace('overlay-on', 'overlay-off');
+	document.body.classList.remove('no-outside-scroll');
 	setTimeout(() => {
 		addContactBox.classList.add('d-none');
 		overlay.classList.add('d-none');
@@ -231,6 +233,7 @@ function openEditContactDB(i) {
 	editContactBox.classList.replace('box-slide-out', 'box-slide-in');
 	overlay.classList.remove('d-none');
 	overlay.classList.replace('overlay-off', 'overlay-on');
+	document.body.classList.add('no-outside-scroll');
 	updateUserIconInDB(i);
 	resetEditUI();
 }
@@ -263,6 +266,7 @@ function closeEditContactDB() {
 	contactPhone.value = '';
 	editContactBox.classList.replace('box-slide-in', 'box-slide-out');
 	overlay.classList.replace('overlay-on', 'overlay-off');
+	document.body.classList.remove('no-outside-scroll');
 	setTimeout(() => {
 		editContactBox.classList.add('d-none');
 		overlay.classList.add('d-none');
