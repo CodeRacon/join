@@ -151,8 +151,8 @@ async function validateLoginForm() {
 	const isValidEmail = validateLoginEmail();
 	const isValidPassword = validateLoginPW();
 	if (isValidEmail && isValidPassword) {
-		const email = document.getElementById('login-email').value;
-		const password = document.getElementById('login-password').value;
+		const email = document.getElementById('login-email').value.trim();
+		const password = document.getElementById('login-password').value.trim();
 		const rememberMe = document.getElementById('login-checkbox').checked;
 		if (rememberMe) {
 			saveLoginDetails();
@@ -173,7 +173,10 @@ function validateLoginEmail() {
 	const emailCont = document.getElementById('login-email-cont');
 	const inputEmail = document.getElementById('login-email');
 	const emailError = document.getElementById('email-error-login');
-	if (!inputEmail.value.includes('@') || inputEmail.value.trim() === '') {
+	if (
+		!inputEmail.value.trim().includes('@') ||
+		inputEmail.value.trim() === ''
+	) {
 		emailCont.classList.add('invalid');
 		emailError.textContent = '*Please enter a valid email address.';
 		return false;
@@ -194,7 +197,7 @@ function validateLoginPW() {
 	const pwCont = document.getElementById('login-password-cont');
 	const inputPW = document.getElementById('login-password');
 	const pwError = document.getElementById('pw-error-login');
-	if (inputPW.value.length < 6 || inputPW.value.trim() === '') {
+	if (inputPW.value.trim().length < 6 || inputPW.value.trim() === '') {
 		pwCont.classList.add('invalid');
 		pwError.textContent = '*Type in at least 6 characters.';
 		return false;
@@ -228,9 +231,9 @@ async function validateSignupForm() {
 		isPwMatch &&
 		isChecked
 	) {
-		const name = document.getElementById('signup-name').value;
-		const email = document.getElementById('signup-email').value;
-		const password = document.getElementById('signup-pw').value;
+		const name = document.getElementById('signup-name').value.trim();
+		const email = document.getElementById('signup-email').value.trim();
+		const password = document.getElementById('signup-pw').value.trim();
 		await processSignup(name, email, password);
 	} else if (!isChecked) {
 		blinkAnimation();
@@ -267,7 +270,7 @@ function validateSignupName() {
 	const validNamePattern =
 		/^[a-zA-ZäöüÄÖÜ-]+ [a-zA-ZäöüÄÖÜ-]+ ?[a-zA-ZäöüÄÖÜ-]+?$/;
 	if (
-		!validNamePattern.test(inputName.value) ||
+		!validNamePattern.test(inputName.value.trim()) ||
 		inputName.value.trim() === ''
 	) {
 		nameCont.classList.add('invalid');
@@ -289,7 +292,10 @@ function validateSignupEmail() {
 	const emailCont = document.getElementById('signup-email-cont');
 	const inputEmail = document.getElementById('signup-email');
 	const emailError = document.getElementById('email-error-signup');
-	if (!inputEmail.value.includes('@') || inputEmail.value.trim() === '') {
+	if (
+		!inputEmail.value.trim().includes('@') ||
+		inputEmail.value.trim() === ''
+	) {
 		emailCont.classList.add('invalid');
 		emailError.textContent = '*Please enter a valid email address.';
 		return false;
@@ -309,7 +315,7 @@ function validateSignupPW() {
 	const pwCont = document.getElementById('signup-pw-cont');
 	const inputPW = document.getElementById('signup-pw');
 	const pwError = document.getElementById('pw-error-signup');
-	if (inputPW.value.length < 6 || inputPW.value.trim() === '') {
+	if (inputPW.value.trim().length < 6 || inputPW.value.trim() === '') {
 		pwCont.classList.add('invalid');
 		pwError.textContent = '*Type in at least 6 characters.';
 		return false;
@@ -329,7 +335,7 @@ function validateSignupRepPW() {
 	const pwRepCont = document.getElementById('signup-pwrep-cont');
 	const inputRepPW = document.getElementById('signup-pw-repeat');
 	const pwRepError = document.getElementById('pwrep-error-signup');
-	if (inputRepPW.length < 6 || inputRepPW.value.trim() === '') {
+	if (inputRepPW.value.trim().length < 6 || inputRepPW.value.trim() === '') {
 		pwRepCont.classList.add('invalid');
 		pwRepError.textContent = '*Passwords do not match.';
 		return false;
@@ -346,8 +352,8 @@ function validateSignupRepPW() {
  * Returns true if passwords match, false if they do not match.
  */
 function comparePWs() {
-	const pw = document.getElementById('signup-pw').value;
-	const pwRep = document.getElementById('signup-pw-repeat').value;
+	const pw = document.getElementById('signup-pw').value.trim();
+	const pwRep = document.getElementById('signup-pw-repeat').value.trim();
 	const pwRepCont = document.getElementById('signup-pwrep-cont');
 	const pwRepError = document.getElementById('pwrep-error-signup');
 	if (validateSignupPW() && validateSignupRepPW()) {

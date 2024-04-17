@@ -341,7 +341,10 @@ function validateEmail(identifier) {
 	const emailInputCont = document.getElementById('input--email-' + identifier);
 	const inputEmail = document.getElementById(identifier + '-contact-email');
 	const emailError = document.getElementById('mail-error-' + identifier);
-	if (!inputEmail.value.includes('@') || inputEmail.value.trim() === '') {
+	if (
+		!inputEmail.value.trim().includes('@') ||
+		inputEmail.value.trim() === ''
+	) {
 		emailInputCont.classList.add('invalid');
 		emailError.textContent = '*Please enter a valid email address.';
 		return false;
@@ -362,7 +365,8 @@ function validatePhone(identifier) {
 	const phoneInputCont = document.getElementById('input--phone-' + identifier);
 	const inputPhone = document.getElementById(identifier + '-contact-phone');
 	const phoneError = document.getElementById('phone-error-' + identifier);
-	const validPhonePattern = /^[+()-9\s]+$/;
+	const validPhonePattern = /^[+()0-9\s-]+$/;
+
 	if (
 		!validPhonePattern.test(inputPhone.value) ||
 		inputPhone.value.trim() === ''
