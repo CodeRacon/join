@@ -98,7 +98,8 @@ function setUserInitials() {
   const processedInitials = loggedInUser.userData.name
     .split(" ")
     .map((word) => word.charAt(0))
-    .join("");
+    .join("")
+    .toUpperCase();
   if (isGuestUser === true) {
     userInitials.innerHTML = "G";
   } else {

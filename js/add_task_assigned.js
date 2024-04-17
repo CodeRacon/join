@@ -124,7 +124,8 @@ function createContactInitials(element) {
     .replace(/ \(You\)$/, "")
     .split(" ")
     .map((word) => word.charAt(0))
-    .join("");
+    .join("")
+    .toUpperCase();
   return /*html*/ `
 		<div 
 			class="initialsCyrcle"
@@ -168,7 +169,8 @@ function showInitialsOfAssigned() {
       .replace(/ \(You\)$/, "")
       .split(" ")
       .map((word) => word.charAt(0))
-      .join("");
+      .join("")
+      .toUpperCase();
     let user = localUserData.contacts.find(
       (user) => user.userData.name === assignedContact
     );

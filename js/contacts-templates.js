@@ -3,18 +3,18 @@
  * then inserting dividers and list items into the DOM.
  */
 function renderContactList() {
-	formattedContactList = formatContactList(contacts);
-	const contactList = document.getElementById('contact-list');
-	contactList.innerHTML = '';
-	contactList.innerHTML = renderAddContactBtn();
-	for (let i = 0; i < formattedContactList.length; i++) {
-		const listEntry = formattedContactList[i];
-		if (listEntry.type === 'divider') {
-			contactList.innerHTML += renderDivider(listEntry);
-		} else {
-			contactList.innerHTML += renderListItem(listEntry, i);
-		}
-	}
+  formattedContactList = formatContactList(contacts);
+  const contactList = document.getElementById("contact-list");
+  contactList.innerHTML = "";
+  contactList.innerHTML = renderAddContactBtn();
+  for (let i = 0; i < formattedContactList.length; i++) {
+    const listEntry = formattedContactList[i];
+    if (listEntry.type === "divider") {
+      contactList.innerHTML += renderDivider(listEntry);
+    } else {
+      contactList.innerHTML += renderListItem(listEntry, i);
+    }
+  }
 }
 
 /**
@@ -24,16 +24,17 @@ function renderContactList() {
  * @param {number} i - The index of the contact in the formatted contact list.
  */
 function renderContactInfoBox(i) {
-	const contactInfoBox = document.getElementById('contact-info-box');
-	const listEntry = formattedContactList[i];
-	const initials = listEntry.userData.name
-		.replace(/ \(You\)$/, '')
-		.split(' ')
-		.map((word) => word.charAt(0))
-		.join('');
-	if (listEntry.type !== 'divider') {
-		contactInfoBox.innerHTML = contactInfoBoxHTML(listEntry, initials, i);
-	}
+  const contactInfoBox = document.getElementById("contact-info-box");
+  const listEntry = formattedContactList[i];
+  const initials = listEntry.userData.name
+    .replace(/ \(You\)$/, "")
+    .split(" ")
+    .map((word) => word.charAt(0))
+    .join("")
+    .toUpperCase();
+  if (listEntry.type !== "divider") {
+    contactInfoBox.innerHTML = contactInfoBoxHTML(listEntry, initials, i);
+  }
 }
 
 /**
@@ -42,7 +43,7 @@ function renderContactInfoBox(i) {
  * @returns {string} The HTML markup for the add contact button.
  */
 function renderAddContactBtn() {
-	return /*html*/ `
+  return /*html*/ `
     <div class="spacer">
       <div
         onclick="openAddContactDB()"
@@ -67,7 +68,7 @@ function renderAddContactBtn() {
  * @returns {string} The HTML markup for the divider.
  */
 function renderDivider(listEntry) {
-	return /*html*/ `
+  return /*html*/ `
     <div class="divider">
       <p>${listEntry.letter}</p>        
     </div>
@@ -81,12 +82,13 @@ function renderDivider(listEntry) {
  * @returns {string} The HTML markup for the list item.
  */
 function renderListItem(listEntry, i) {
-	const initials = listEntry.userData.name
-		.replace(/ \(You\)$/, '')
-		.split(' ')
-		.map((word) => word.charAt(0))
-		.join('');
-	return /*html*/ `
+  const initials = listEntry.userData.name
+    .replace(/ \(You\)$/, "")
+    .split(" ")
+    .map((word) => word.charAt(0))
+    .join("")
+    .toUpperCase();
+  return /*html*/ `
     <div 
       id="contact-list-item-${i}" 
       class="contact-list-item" 
@@ -114,7 +116,7 @@ function renderListItem(listEntry, i) {
  * @returns {string} The HTML string for the info box
  */
 function contactInfoBoxHTML(listEntry, initials, i) {
-	return /*html*/ `
+  return /*html*/ `
     <div class="user-label">
       <div class="user-icon" style="background-color: ${listEntry.color}">
         ${initials}
@@ -173,14 +175,14 @@ function contactInfoBoxHTML(listEntry, initials, i) {
  * and the background color to the user's color.
  */
 function updateUserIconInDB(i) {
-	const userIcon = document.getElementById('edit-contact-user-icon');
-	const initials = formattedContactList[i].userData.name
-		.replace(/ \(You\)$/, '')
-		.split(' ')
-		.map((word) => word.charAt(0))
-		.join('');
-	userIcon.innerHTML = /*html*/ `
+  const userIcon = document.getElementById("edit-contact-user-icon");
+  const initials = formattedContactList[i].userData.name
+    .replace(/ \(You\)$/, "")
+    .split(" ")
+    .map((word) => word.charAt(0))
+    .join("");
+  userIcon.innerHTML = /*html*/ `
     <span>${initials}</span>
   `;
-	userIcon.style.backgroundColor = formattedContactList[i].color;
+  userIcon.style.backgroundColor = formattedContactList[i].color;
 }
