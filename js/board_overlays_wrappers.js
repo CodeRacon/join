@@ -7,18 +7,18 @@
  * - Calling backDropOn() to show modal background
  */
 async function openAddTaskOverlay(id) {
-  const screenWidth = window.innerWidth;
-  if (screenWidth <= 424 && id === "add-task-content-overlay") {
-    window.location.href = "add_task.html";
-  } else {
-    let overlay = document.getElementById(id);
-    overlay.classList.remove("d-none");
-    overlay.classList.replace("box-slide-out", "box-slide-in");
-    overlay.classList.remove("d-none");
-    document.body.classList.add("no-outside-scroll");
-    backDropOn();
-    addDropdownClickListener();
-  }
+	const screenWidth = window.innerWidth;
+	if (screenWidth <= 424 && id === 'add-task-content-overlay') {
+		window.location.href = 'add_task.html';
+	} else {
+		let overlay = document.getElementById(id);
+		overlay.classList.remove('d-none');
+		overlay.classList.replace('box-slide-out', 'box-slide-in');
+		overlay.classList.remove('d-none');
+		document.body.classList.add('no-outside-scroll');
+		backDropOn();
+		addDropdownClickListener();
+	}
 }
 
 /**
@@ -30,22 +30,22 @@ async function openAddTaskOverlay(id) {
  * - Clearing any form data
  */
 function closeOverlays() {
-  clearForm();
-  const addTaskOverlay = document.getElementById("add-task-content-overlay");
-  const taskCardOverlay = document.getElementById("overlay-task-card");
-  const editTaskOverlay = document.getElementById("overlay-edit-card");
-  if (addTaskOverlay && addTaskOverlay.classList.contains("box-slide-in")) {
-    closingAnimation(addTaskOverlay);
-  }
-  if (taskCardOverlay && taskCardOverlay.classList.contains("box-slide-in")) {
-    closingAnimation(taskCardOverlay);
-  }
-  if (editTaskOverlay) {
-    editTaskCase(editTaskOverlay, taskCardOverlay);
-  }
-  document.body.classList.remove("no-outside-scroll");
-  removeDropdownClickListener();
-  updateHTML();
+	const addTaskOverlay = document.getElementById('add-task-content-overlay');
+	const taskCardOverlay = document.getElementById('overlay-task-card');
+	const editTaskOverlay = document.getElementById('overlay-edit-card');
+	if (addTaskOverlay && addTaskOverlay.classList.contains('box-slide-in')) {
+		closingAnimation(addTaskOverlay);
+	}
+	if (taskCardOverlay && taskCardOverlay.classList.contains('box-slide-in')) {
+		closingAnimation(taskCardOverlay);
+	}
+	if (editTaskOverlay) {
+		editTaskCase(editTaskOverlay, taskCardOverlay);
+	}
+	document.body.classList.remove('no-outside-scroll');
+	removeDropdownClickListener();
+	clearForm();
+	updateHTML();
 }
 
 /**
@@ -53,11 +53,11 @@ function closeOverlays() {
  * the slide out class after a short delay.
  */
 function editTaskCase(editTaskOverlay, taskCardOverlay) {
-  closingAnimation(editTaskOverlay);
-  closingAnimation(taskCardOverlay);
-  setTimeout(() => {
-    editTaskOverlay.classList.remove("box-slide-out");
-  }, 350);
+	closingAnimation(editTaskOverlay);
+	closingAnimation(taskCardOverlay);
+	setTimeout(() => {
+		editTaskOverlay.classList.remove('box-slide-out');
+	}, 350);
 }
 
 /**
@@ -69,12 +69,12 @@ function editTaskCase(editTaskOverlay, taskCardOverlay) {
  * @param {Element} overlay - The overlay element to animate closing
  */
 function closingAnimation(overlay) {
-  overlay.classList.remove("box-slide-in");
-  overlay.classList.add("box-slide-out");
-  setTimeout(() => {
-    overlay.classList.add("d-none");
-    backDropOff();
-  }, 350);
+	overlay.classList.remove('box-slide-in');
+	overlay.classList.add('box-slide-out');
+	setTimeout(() => {
+		overlay.classList.add('d-none');
+		backDropOff();
+	}, 350);
 }
 
 /**
@@ -82,9 +82,9 @@ function closingAnimation(overlay) {
  * 'wrapper-off' with 'wrapper-on'.
  */
 function backDropOn() {
-  let wrapper = document.getElementById("wrapper");
-  wrapper.classList.remove("d-none");
-  wrapper.classList.replace("wrapper-off", "wrapper-on");
+	let wrapper = document.getElementById('wrapper');
+	wrapper.classList.remove('d-none');
+	wrapper.classList.replace('wrapper-off', 'wrapper-on');
 }
 
 /**
@@ -92,9 +92,9 @@ function backDropOn() {
  * 'wrapper-on' with 'wrapper-off'.
  */
 function backDropOff() {
-  let wrapper = document.getElementById("wrapper");
-  wrapper.classList.add("d-none");
-  wrapper.classList.replace("wrapper-on", "wrapper-off");
+	let wrapper = document.getElementById('wrapper');
+	wrapper.classList.add('d-none');
+	wrapper.classList.replace('wrapper-on', 'wrapper-off');
 }
 
 /**
@@ -105,22 +105,22 @@ function backDropOff() {
  * @param {Element} element - The DOM element for the task being opened
  */
 function openTaskCardOverlay(element) {
-  let overlay = document.getElementById("overlay-task-card");
-  overlay.classList.remove("d-none");
-  overlay.classList.replace("box-slide-out", "box-slide-in");
-  overlay.classList.replace("box-slide-out", "box-slide-in");
-  document.body.classList.add("no-outside-scroll");
-  localUserData.users.forEach((user) => {
-    let cardIndex = user.tasks.findIndex((task) => task.id === element);
-    let card = user.tasks[cardIndex];
-    if (cardIndex !== -1) {
-      actualCard = card;
-      overlay.innerHTML = openTaskCardOverlayHTML(card);
-    } else {
-      return;
-    }
-  });
-  openTaskCardAftermath();
+	let overlay = document.getElementById('overlay-task-card');
+	overlay.classList.remove('d-none');
+	overlay.classList.replace('box-slide-out', 'box-slide-in');
+	overlay.classList.replace('box-slide-out', 'box-slide-in');
+	document.body.classList.add('no-outside-scroll');
+	localUserData.users.forEach((user) => {
+		let cardIndex = user.tasks.findIndex((task) => task.id === element);
+		let card = user.tasks[cardIndex];
+		if (cardIndex !== -1) {
+			actualCard = card;
+			overlay.innerHTML = openTaskCardOverlayHTML(card);
+		} else {
+			return;
+		}
+	});
+	openTaskCardAftermath();
 }
 
 /**
@@ -128,10 +128,10 @@ function openTaskCardOverlay(element) {
  * opening a task card in the overlay
  */
 function openTaskCardAftermath() {
-  taskColorAndCategoryForSingleCard();
-  updatePriorityForSingleTask();
-  showInitialsForSingleCard();
-  showSubtasks();
+	taskColorAndCategoryForSingleCard();
+	updatePriorityForSingleTask();
+	showInitialsForSingleCard();
+	showSubtasks();
 }
 
 /**
@@ -142,11 +142,11 @@ function openTaskCardAftermath() {
  * open card. Calls other functions to update the UI.
  */
 function closeTaskCardOverlay() {
-  let overlay = document.getElementById("overlay-task-card");
-  closeOverlays();
-  setTimeout(() => {
-    overlay.innerHTML = "";
-  }, 350);
-  actualCard = [];
-  updateHTML();
+	let overlay = document.getElementById('overlay-task-card');
+	closeOverlays();
+	setTimeout(() => {
+		overlay.innerHTML = '';
+	}, 350);
+	actualCard = [];
+	updateHTML();
 }
