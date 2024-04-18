@@ -2,6 +2,10 @@ body {
 	overflow-x: hidden;
 }
 
+section.board-section {
+	max-width: calc(90rem - 14.5rem);
+}
+
 .board-wrapper {
 	position: fixed;
 	z-index: 200;
@@ -456,6 +460,7 @@ div[draggable='true'] {
 
 .field-width-height-small {
 	width: var(--f-width);
+	height: var(--f-height);
 }
 
 .prio-box-small {

@@ -21,13 +21,13 @@ html {
 body {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
+	align-items: flex-start;
 	justify-content: flex-start;
 	min-height: 100vh;
-	max-width: 90rem;
-	margin: 0 auto;
+	width: 100vw;
+	margin: 0 auto 0 0;
 	padding: 0;
-	/* background: var(--site-bg); */
+	background: var(--site-bg);
 	font-family: 'Inter', sans-serif;
 }
 
@@ -82,9 +82,10 @@ textarea {
 
 section {
 	width: calc(100% - 14.5rem);
+	/* max-width: calc(90rem - 14.5rem); */
 	min-height: calc(100vh - 6rem);
 	/* max-height: fit-content; */
-	margin: 6rem 0 0rem 14.5rem;
+	margin: 6rem 0 0 14.5rem;
 	padding: 6.85rem 6rem 4rem 6rem;
 	background: var(--site-bg);
 }
@@ -99,8 +100,8 @@ section {
 
 #frame {
 	width: 100%;
-	max-width: 90rem;
-	margin: 0 auto;
+	/* max-width: 90rem; */
+	margin: 0 auto 0 0;
 }
 
 header {
@@ -108,8 +109,8 @@ header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	width: 100%;
-	max-width: 90rem;
+	width: 100vw;
+	/* max-width: 90rem; */
 	height: 6rem;
 	min-width: 20rem;
 	margin: 0 auto;
@@ -397,7 +398,8 @@ nav#side-nav > a:active {
 
 footer {
 	position: fixed;
-	top: calc(100% - 5rem);
+	/* top: calc(100% - 5rem); */
+	bottom: 0;
 	display: none;
 	justify-content: center;
 	align-items: center;

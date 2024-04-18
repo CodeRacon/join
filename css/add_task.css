@@ -2,6 +2,10 @@
 /* -----GENERAL----- */
 /* ################# */
 
+section.add_task-section {
+	max-width: calc(90rem - 14.5rem);
+}
+
 input,
 textarea,
 select,
@@ -140,7 +144,7 @@ input::-moz-calendar-picker-indicator {
 .due-date,
 .subtasks {
 	display: flex;
-	padding: 0.675rem 1.3125rem;
+	padding: 0.75rem 1.3125rem;
 	justify-content: space-between;
 	align-items: center;
 }
@@ -758,7 +762,7 @@ p.error-message {
 @media ((width <= 767px)) {
 	/* untill 767 */
 	section.add_task-section {
-		margin: 6rem 2rem 2rem 2rem;
+		margin: 6rem auto 2rem auto;
 		padding: 2.85rem clamp(1rem, 3.579vw + 0.284rem, 2rem) 4rem
 			clamp(1rem, 3.579vw + 0.284rem, 2rem);
 		width: 100%;
@@ -776,7 +780,7 @@ p.error-message {
 
 @media ((width <= 607px)) {
 	section.add_task-section {
-		margin: 5rem 2rem 2rem 2rem;
+		margin: 5rem auto 2rem auto;
 	}
 }
 

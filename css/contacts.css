@@ -8,6 +8,7 @@ section.contacts-section {
 	grid-template-rows: 1fr;
 	gap: 3.4375rem;
 	width: calc(100% - 14.5rem);
+	max-width: calc(90rem - 14.5rem);
 	min-height: calc(100vh - 6rem);
 	margin: 6rem 0 0 14.5rem;
 	padding: 0 2rem 4rem 0rem;

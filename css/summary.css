@@ -1,3 +1,7 @@
+section.summary-section {
+	max-width: calc(90rem - 14.5rem);
+}
+
 .summary-section--heading {
 	display: flex;
 	align-items: center;
@@ -103,7 +107,6 @@ h2 {
 	width: 35rem;
 	padding: 1.75rem 3rem;
 	justify-content: space-between;
-	/* gap: 3.8125rem; */
 	background-color: #fff;
 	box-shadow: var(--btn-shdw-td);
 	border-radius: var(--big-br);
