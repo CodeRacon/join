@@ -345,10 +345,9 @@ function validateEmail(identifier) {
 	const emailInputCont = document.getElementById('input--email-' + identifier);
 	const inputEmail = document.getElementById(identifier + '-contact-email');
 	const emailError = document.getElementById('mail-error-' + identifier);
-	if (
-		!inputEmail.value.trim().includes('@') ||
-		inputEmail.value.trim() === ''
-	) {
+	const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+	if (!emailRegex.test(inputEmail.value.trim())) {
 		emailInputCont.classList.add('invalid');
 		emailError.textContent = '*Please enter a valid email address.';
 		return false;
