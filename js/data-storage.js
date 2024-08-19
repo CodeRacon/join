@@ -1,5 +1,5 @@
-const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
-const STORAGE_TOKEN = 'Z3VBMC32O8R9OAW5OFLXSYRBGHRG3MG8U52O9L8O';
+const STORAGE_URL =
+	'https://joinremotestorage-11e65-default-rtdb.europe-west1.firebasedatabase.app/';
 
 let localUserData = [];
 let isGuestUser = false;
@@ -12,11 +12,15 @@ let isGuestUser = false;
  * @returns {Promise} A promise resolving to the stored item
  */
 async function setItem(key, value) {
-	const payload = { key, value, token: STORAGE_TOKEN };
-	return fetch(STORAGE_URL, {
-		method: 'POST',
-		body: JSON.stringify(payload),
-	}).then((res) => res.json());
+	const url = `${STORAGE_URL}${key}.json`;
+	const response = await fetch(url, {
+		method: 'PUT',
+		body: JSON.stringify(value),
+	});
+	if (!response.ok) {
+		throw new Error('Fehler beim Speichern der Daten');
+	}
+	return await response.json();
 }
 
 /**
@@ -26,15 +30,16 @@ async function setItem(key, value) {
  * @returns {Promise} A promise resolving to the stored item value or rejection if not found
  */
 async function getItem(key) {
-	const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
-	return fetch(url)
-		.then((res) => res.json())
-		.then((res) => {
-			if (res.data) {
-				return res.data.value;
-			}
-			throw `Could not find data with key "${key}".`;
-		});
+	const url = `${STORAGE_URL}${key}.json`;
+	const response = await fetch(url);
+	if (!response.ok) {
+		throw `Konnte keine Daten mit dem Schlüssel "${key}" finden.`;
+	}
+	const data = await response.json();
+	if (data === null) {
+		throw `Konnte keine Daten mit dem Schlüssel "${key}" finden.`;
+	}
+	return data;
 }
 
 /**
