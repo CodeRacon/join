@@ -31,6 +31,8 @@ let hexColors = [
 	'#00B8AB',
 ];
 
+let isLoggingOut = false;
+
 /**
  * Chooses a random color from the hexColors array.
  * Used to generate a random color when creating a new contact.
@@ -383,6 +385,8 @@ function setForLargeScreens() {
  * before clearing the local storage and redirecting to the index page.
  */
 async function logoutUser() {
+	isLoggingOut = true;
+	
 	if (isGuestUser === true) {
 		localStorage.clear();
 		localUserData = [];
@@ -411,7 +415,7 @@ async function syncLocalUserDataWithRemote(userID) {
 window.addEventListener('beforeunload', syncDataBeforeUnload);
 
 async function syncDataBeforeUnload(event) {
-	if (isGuestUser === false) {
+	if (isGuestUser === false && !isLoggingOut) {
 		const userID = getLoggedInUserID();
 		await syncLocalUserDataWithRemote(userID);
 	}
